@@ -8,7 +8,9 @@ namespace Ivyyy
 	class TextureShaderClass : public Shader
 	{
 	public:
-		TextureShaderClass();
+		TextureShaderClass ();
+
+		void SetTexture(Texture::Ptr texture);
 
 	protected:
 		bool InitializeShader(const D3DShaderRenderData& shaderData, ID3D10Blob* vertexShaderBuffer, ID3D10Blob* pixelShaderBuffer) override;
@@ -18,13 +20,9 @@ namespace Ivyyy
 		void ShutdownShader() override;
 
 	private:
-		Texture* m_texture { nullptr };
 		ID3D11ShaderResourceView* m_srv { 0 };
 		ID3D11SamplerState* m_sampleState { 0 };
 		ID3D11Buffer* m_lightBuffer { 0 };
-
-		bool LoadTexture(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* filename);
-		void ReleaseTexture();
 
 		struct VertexType
 		{
