@@ -1,8 +1,8 @@
 #pragma once
 
 #include "core/Simple2DScene.h"
-#include "objects/Particle.h"
-
+#include "objects/Circle.h"
+#include "objects/Wall.h"
 
 class AssignmentScene1 : public Simple2DScene {
 public:
@@ -17,14 +17,5 @@ public:
     virtual const char* GetName() override { return "Assignment1"; };
 
 private:
-    int circleCount = 2;
-    Particle circles[2] = {
-		 Particle(glm::vec2(-1, 2), 1),
-       Particle(glm::vec2(1, 2), 1)
-	 };
-    
-    glm::vec2 topLeft;
-    glm::vec2 bottomRight;
-
-	 void DrawWalls();
+	GameObject::Vec gameObjects;
 };

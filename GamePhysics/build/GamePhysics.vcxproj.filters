@@ -10,7 +10,19 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
-    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Particle.cpp">
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Circle.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\GameObject.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\PhysicObject.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Physics.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Wall.cpp">
       <Filter>objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -21,7 +33,19 @@
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.h">
       <Filter>scenes</Filter>
     </ClInclude>
-    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Particle.h">
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Circle.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\GameObject.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PhysicObject.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Physics.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Wall.h">
       <Filter>objects</Filter>
     </ClInclude>
   </ItemGroup>

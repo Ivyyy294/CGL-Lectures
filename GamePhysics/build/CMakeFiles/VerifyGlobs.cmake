@@ -39,7 +39,11 @@ endif()
 # OBJECTS_SOURCES at CMakeLists.txt:10 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysics/src/objects/**.cpp")
 set(OLD_GLOB
-  "D:/00_Git/Semester3/GamePhysics/src/objects/Particle.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/Circle.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/GameObject.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/PhysicObject.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
@@ -49,7 +53,11 @@ endif()
 # OBJECTS_SOURCES at CMakeLists.txt:10 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysics/src/objects/**.h")
 set(OLD_GLOB
-  "D:/00_Git/Semester3/GamePhysics/src/objects/Particle.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/Circle.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/GameObject.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/PhysicObject.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.h"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
