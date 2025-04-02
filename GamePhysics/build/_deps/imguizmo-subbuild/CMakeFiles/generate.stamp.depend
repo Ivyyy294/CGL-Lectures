@@ -1,0 +1,20 @@
+# CMake generation dependency list for this directory.
+D:/00_Git/Semester3/GamePhysics/build/_deps/imguizmo-subbuild/CMakeFiles/4.0.0/CMakeSystem.cmake
+D:/00_Git/Semester3/GamePhysics/build/_deps/imguizmo-subbuild/CMakeLists.txt
+D:/00_Git/Semester3/GamePhysics/build/_deps/imguizmo-subbuild/imguizmo-populate-prefix/tmp/imguizmo-populate-mkdirs.cmake
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/CMakeGenericSystem.cmake
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/CMakeInitializeConfigs.cmake
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/CMakeSystemSpecificInformation.cmake
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/CMakeSystemSpecificInitialize.cmake
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/ExternalProject.cmake
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/ExternalProject/PatchInfo.txt.in
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/ExternalProject/RepositoryInfo.txt.in
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/ExternalProject/UpdateInfo.txt.in
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/ExternalProject/cfgcmd.txt.in
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/ExternalProject/gitclone.cmake.in
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/ExternalProject/gitupdate.cmake.in
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/ExternalProject/mkdirs.cmake.in
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/ExternalProject/shared_internal_commands.cmake
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/Platform/Windows-Initialize.cmake
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/Platform/Windows.cmake
+D:/Dev/cmake-4.0.0-windows-x86_64/share/cmake-4.0/Modules/Platform/WindowsPaths.cmake

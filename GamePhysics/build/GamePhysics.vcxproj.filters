@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Particle.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene1.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{076AFFD1-F839-34C9-9348-B3E08302A4D5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects">
+      <UniqueIdentifier>{C7857F1A-D71B-38B8-8292-C2A33D7BE5EB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scenes">
+      <UniqueIdentifier>{0BF503F0-8B53-30AE-9AFA-1229FC8E6E58}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
