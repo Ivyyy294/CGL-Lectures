@@ -16,9 +16,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene1.h">
-      <Filter>objects</Filter>
+      <Filter>scenes</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.h">
+      <Filter>scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Particle.h">
       <Filter>objects</Filter>
     </ClInclude>
   </ItemGroup>

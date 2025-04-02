@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 # Include all files inside the scenes folder in the build.
 file(GLOB_RECURSE SCENE_SOURCES CONFIGURE_DEPENDS "src/scenes/**.cpp" "src/scenes/**.h")
-file(GLOB_RECURSE OBJECTS_SOURCES  CONFIGURE_DEPENDS "src/objects/**.cpp" "src/scenes/**.h")
+file(GLOB_RECURSE OBJECTS_SOURCES  CONFIGURE_DEPENDS "src/objects/**.cpp" "src/objects/**.h")
 # Create a filter in Visual Studio for all files in the scenes folder.
 source_group("scenes" FILES ${SCENE_SOURCES})
 source_group("objects" FILES ${OBJECTS_SOURCES})

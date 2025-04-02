@@ -46,6 +46,16 @@ if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   file(TOUCH_NOCREATE "D:/00_Git/Semester3/GamePhysics/build/CMakeFiles/cmake.verify_globs")
 endif()
 
+# OBJECTS_SOURCES at CMakeLists.txt:10 (file)
+file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysics/src/objects/**.h")
+set(OLD_GLOB
+  "D:/00_Git/Semester3/GamePhysics/src/objects/Particle.h"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "D:/00_Git/Semester3/GamePhysics/build/CMakeFiles/cmake.verify_globs")
+endif()
+
 # SCENE_SOURCES at CMakeLists.txt:9 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysics/src/scenes/**.cpp")
 set(OLD_GLOB
@@ -58,7 +68,6 @@ if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
 endif()
 
 # SCENE_SOURCES at CMakeLists.txt:9 (file)
-# OBJECTS_SOURCES at CMakeLists.txt:10 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysics/src/scenes/**.h")
 set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene1.h"

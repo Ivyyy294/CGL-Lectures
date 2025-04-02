@@ -334,6 +334,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Particle.cpp" />
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Particle.h" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
