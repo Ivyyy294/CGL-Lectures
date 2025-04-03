@@ -18,6 +18,11 @@ RomanNumeral RomanNumeral::operator+(const std::string& value) const
 	return RomanNumeral(m_value + toArabic(value));
 }
 
+RomanNumeral RomanNumeral::operator+(const RomanNumeral& value) const
+{
+	return RomanNumeral(m_value + value.m_value);
+}
+
 RomanNumeral RomanNumeral::operator-(const int value) const
 {
 	return RomanNumeral(m_value - value);
@@ -26,6 +31,11 @@ RomanNumeral RomanNumeral::operator-(const int value) const
 RomanNumeral RomanNumeral::operator-(const std::string& value) const
 {
 	return RomanNumeral(m_value - toArabic(value));
+}
+
+RomanNumeral RomanNumeral::operator-(const RomanNumeral& value) const
+{
+	return RomanNumeral(m_value - value.m_value);
 }
 
 RomanNumeral& RomanNumeral::operator=(const int value)
@@ -37,6 +47,12 @@ RomanNumeral& RomanNumeral::operator=(const int value)
 RomanNumeral& RomanNumeral::operator=(const std::string& value)
 {
 	m_value = toArabic(value);
+	return *this;
+}
+
+RomanNumeral& RomanNumeral::operator=(const RomanNumeral& value)
+{
+	m_value = value.m_value;
 	return *this;
 }
 
@@ -164,7 +180,6 @@ int& operator>>(int& source, RomanNumeral& target)
 {
 	target.setValue(source);
 	return source;
-	// TODO: insert return statement here
 }
 
 std::string& operator>>(std::string& source, RomanNumeral& target)
@@ -175,7 +190,6 @@ std::string& operator>>(std::string& source, RomanNumeral& target)
 
 std::istream& operator>>(std::istream& in, RomanNumeral& target)
 {
-	// TODO: insert return statement here
 	int intVal;
 
 	in >> intVal;

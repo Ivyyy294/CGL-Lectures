@@ -17,12 +17,15 @@ public:
 
 	RomanNumeral operator+ (const int value) const;
 	RomanNumeral operator+ (const std::string& value) const;
+	RomanNumeral operator+ (const RomanNumeral& value) const;
 
 	RomanNumeral operator- (const int value) const;
 	RomanNumeral operator- (const std::string& value) const;
+	RomanNumeral operator- (const RomanNumeral& value) const;
 
 	RomanNumeral& operator= (const int value);
 	RomanNumeral& operator= (const std::string& value);
+	RomanNumeral& operator= (const RomanNumeral& value);
 
 	friend int& operator<< (int& target, RomanNumeral& source);
 	friend std::string& operator<< (std::string& target, RomanNumeral& source);

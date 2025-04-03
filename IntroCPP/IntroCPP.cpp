@@ -2,24 +2,20 @@
 //
 
 #include <iostream>
-#include "CurrencyManager.h"
-#include "RomanNumeral.h"
-
+#include "romanNumeral.h"
 int main()
 {
-   while (true)
-   {
-      RomanNumeral romanNumeral1, romanNumeral2, romanNumeralResult;
-      std::cout << "Give me two roman numerals:" << std::endl;
-      std::cin >> romanNumeral1 >> romanNumeral2;
+	std::string romanNotation1;
+	std::string romanNotation2;
+	std::cout << "Give me two roman numerals:" << std::endl;
+	std::cin >> romanNotation1 >> romanNotation2;
+	RomanNumeral romanNumeral1, romanNumeral2, romanNumeralResult;
+	romanNumeral1.setValue(romanNotation1);
+	romanNumeral2.setValue(romanNotation2);
+	romanNumeralResult = romanNumeral1 + "V";
 
-      int result = romanNumeral1.getValue() + romanNumeral2.getValue();
-      result >> romanNumeralResult;
-      std::cout << romanNumeral1 << " + " << romanNumeral2
-         << " = " << romanNumeralResult << std::endl;
-   }
-   
-   return 0;
+	std::cout << romanNumeral1.getNotation() << " + " << romanNumeral2.getNotation()
+		<< " = " << romanNumeralResult.getNotation();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
