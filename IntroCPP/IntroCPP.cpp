@@ -5,17 +5,14 @@
 #include "romanNumeral.h"
 int main()
 {
-	std::string romanNotation1;
-	std::string romanNotation2;
-	std::cout << "Give me two roman numerals:" << std::endl;
-	std::cin >> romanNotation1 >> romanNotation2;
-	RomanNumeral romanNumeral1, romanNumeral2, romanNumeralResult;
-	romanNumeral1.setValue(romanNotation1);
-	romanNumeral2.setValue(romanNotation2);
-	romanNumeralResult = romanNumeral1 + "V";
 
-	std::cout << romanNumeral1.getNotation() << " + " << romanNumeral2.getNotation()
-		<< " = " << romanNumeralResult.getNotation();
+	RomanNumeral romanNumeral1, romanNumeral2, romanNumeralResult;
+	std::cout << "Give me two roman numerals:" << std::endl;
+	std::cin >> romanNumeral1 >> romanNumeral2;
+	romanNumeralResult = romanNumeral1 + romanNumeral2;
+
+	std::cout << romanNumeral1 << " + " << romanNumeral2
+		<< " = " << romanNumeralResult;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
