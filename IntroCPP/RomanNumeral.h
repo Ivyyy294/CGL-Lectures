@@ -28,19 +28,19 @@ public:
 	friend std::string& operator<< (std::string& target, RomanNumeral& source);
 	friend std::ostream& operator<< (std::ostream& target, RomanNumeral& source);
 
-	friend RomanNumeral& operator>> (const int source, RomanNumeral& target);
-	friend RomanNumeral& operator>> (std::string& source, RomanNumeral& target);
-	friend RomanNumeral& operator>> (std::istream& in, RomanNumeral& target);
+	friend int& operator>> (int& source, RomanNumeral& target);
+	friend std::string& operator>> (std::string& source, RomanNumeral& target);
+	friend std::istream& operator>> (std::istream& in, RomanNumeral& target);
 
 private:
-	struct RomanNumber
+	struct RomanLetter
 	{
 		const int m_value = 0;
 		const char m_letter = 0;
 		const int m_allowedSubstractionIndex = -1;
 	};
 
-	RomanNumber m_romanNumbers[7] = { 
+	RomanLetter m_romanNumbers[7] = { 
 		{1000, 'M', 2}
 		, {500, 'D', 2}
 		, {100, 'C', 4}
@@ -54,4 +54,3 @@ private:
 	int toArabic (const std::string& value) const;
 	std::string toRoman (const int value) const;
 };
-

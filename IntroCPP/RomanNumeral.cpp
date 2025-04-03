@@ -63,22 +63,19 @@ std::string RomanNumeral::getNotation() const
 int RomanNumeral::toArabic(const std::string& value) const
 {
 	size_t strIndex = 0;
-	size_t letterIndex = 0;
 	int arabicValue = 0;
 
-	while (strIndex < value.length())
+	for (size_t strIndex = 0; strIndex < value.length(); ++strIndex)
 	{
-		for (size_t i = letterIndex; i < 7; ++i)
+		for (size_t i = 0; i < 7; ++i)
 		{
-			const char currentChar = value[strIndex];
+			const char currentChar = std::toupper (value[strIndex]);
 			const char currentLetter = m_romanNumbers[i].m_letter;
 			const int currentLetterValue = m_romanNumbers[i].m_value;
 
 			if (currentChar == currentLetter)
 			{
 				arabicValue += currentLetterValue;
-				++strIndex;
-				letterIndex = i;
 				break;
 			}
 			else if (strIndex + 1 < value.length())
@@ -93,7 +90,9 @@ int RomanNumeral::toArabic(const std::string& value) const
 					const int substractionLetterValue = m_romanNumbers[substractionIndex].m_value;
 					
 					arabicValue += currentLetterValue - substractionLetterValue;
-					strIndex += 2;
+
+					//Additional index increase
+					strIndex++;
 					break;
 				}
 			}
@@ -138,7 +137,7 @@ std::string RomanNumeral::toRoman(const int value) const
 	}
 
 	if (romanVal.length() == 0)
-		return "-";
+		return "NULL";
 	else
 		return romanVal;
 }
@@ -157,31 +156,24 @@ std::string& operator<<(std::string& target, RomanNumeral& source)
 
 std::ostream& operator<< (std::ostream& os, RomanNumeral& source)
 {
-	os << source.getValue();
-
-	if (os.fail())
-	{
-		os.clear();
-		os << source.getNotation();
-	}
-
+	os << source.getNotation();
 	return os;
 }
 
-RomanNumeral& operator>>(const int source, RomanNumeral& target)
+int& operator>>(int& source, RomanNumeral& target)
 {
 	target.setValue(source);
-	return target;
+	return source;
 	// TODO: insert return statement here
 }
 
-RomanNumeral& operator>>(std::string& source, RomanNumeral& target)
+std::string& operator>>(std::string& source, RomanNumeral& target)
 {
 	target.setValue(source);
-	return target;
+	return source;
 }
 
-RomanNumeral& operator>>(std::istream& in, RomanNumeral& target)
+std::istream& operator>>(std::istream& in, RomanNumeral& target)
 {
 	// TODO: insert return statement here
 	int intVal;
@@ -198,5 +190,5 @@ RomanNumeral& operator>>(std::istream& in, RomanNumeral& target)
 		target = strVal;
 	}
 
-	return target;
+	return in;
 }
