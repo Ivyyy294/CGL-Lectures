@@ -127,10 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CoinType.cpp" />
     <ClCompile Include="CurrencyManager.cpp" />
     <ClCompile Include="IntroCPP.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CoinType.h" />
     <ClInclude Include="CurrencyManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

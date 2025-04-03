@@ -21,9 +21,15 @@
     <ClCompile Include="CurrencyManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CoinType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CurrencyManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

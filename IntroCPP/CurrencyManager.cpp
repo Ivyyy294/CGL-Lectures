@@ -33,7 +33,7 @@ void CurrencyManager::AddCurrency()
 
 	for (int i = 0; i < 5; ++i)
 	{
-		if (coinType == m_coinSymbol[i])
+		if (coinType == m_coinTypes[i].m_coinSymbol)
 		{
 			index = i;
 			break;
@@ -42,7 +42,7 @@ void CurrencyManager::AddCurrency()
 
 	if (index != -1)
 	{
-		int delta = quantity * m_coinConversion[index];
+		int delta = quantity * m_coinTypes[index].m_coinConversion;
 
 		if (sign == '-')
 			delta = -delta;
@@ -64,27 +64,27 @@ void CurrencyManager::AddCurrency(int platinum, int gold, int electrum, int silv
 
 void CurrencyManager::AddCopper(int copper)
 {
-	m_copper += copper * m_coinConversion[4];
+	m_copper += copper * m_coinTypes[4].m_coinConversion;
 }
 
 void CurrencyManager::AddSilver(int silver)
 {
-	m_copper += silver * m_coinConversion[3];
+	m_copper += silver * m_coinTypes[3].m_coinConversion;
 }
 
 void CurrencyManager::AddElectrum(int electrum)
 {
-	m_copper += electrum * m_coinConversion[2];
+	m_copper += electrum * m_coinTypes[2].m_coinConversion;
 }
 
 void CurrencyManager::AddGold(int gold)
 {
-	m_copper += gold * m_coinConversion[1];
+	m_copper += gold * m_coinTypes[1].m_coinConversion;
 }
 
 void CurrencyManager::AddPlatinum(int platinum)
 {
-	m_copper += platinum * m_coinConversion[0];
+	m_copper += platinum * m_coinTypes[0].m_coinConversion;
 }
 
 std::string CurrencyManager::GetCurrentCurrencyAsString()
@@ -99,10 +99,10 @@ std::string CurrencyManager::GetCurrentCurrencyAsString()
 	{
 		if (currency[i] > 0)
 		{
-			currencyStr += std::to_string(currency[i]) + m_coinSymbol[i];
-
-			if (i < 4)
+			if (currencyStr.length() > 0)
 				currencyStr += ", ";
+
+			currencyStr += std::to_string(currency[i]) + m_coinTypes[i].m_coinSymbol;
 		}
 	}
 	return currencyStr;
@@ -118,20 +118,20 @@ void CurrencyManager::GetCurrentCurrency(int& platinum, int& gold, int& electrum
 	silver = 0;
 	copper = 0;
 
-	platinum = coinsLeft / m_coinConversion[0];
-	coinsLeft = coinsLeft % m_coinConversion[0];
+	platinum = coinsLeft / m_coinTypes[0].m_coinConversion;
+	coinsLeft = coinsLeft % m_coinTypes[0].m_coinConversion;
 
-	gold = coinsLeft / m_coinConversion[1];
-	coinsLeft = coinsLeft % m_coinConversion[1];
+	gold = coinsLeft / m_coinTypes[1].m_coinConversion;
+	coinsLeft = coinsLeft % m_coinTypes[1].m_coinConversion;
 
-	electrum = coinsLeft / m_coinConversion[2];
-	coinsLeft = coinsLeft % m_coinConversion[2];
+	electrum = coinsLeft / m_coinTypes[2].m_coinConversion;
+	coinsLeft = coinsLeft % m_coinTypes[2].m_coinConversion;
 
-	silver = coinsLeft / m_coinConversion[3];
-	coinsLeft = coinsLeft % m_coinConversion[3];
+	silver = coinsLeft / m_coinTypes[3].m_coinConversion;
+	coinsLeft = coinsLeft % m_coinTypes[3].m_coinConversion;
 
-	copper = coinsLeft / m_coinConversion[4];
-	coinsLeft = coinsLeft % m_coinConversion[4];
+	copper = coinsLeft / m_coinTypes[4].m_coinConversion;
+	coinsLeft = coinsLeft % m_coinTypes[4].m_coinConversion;
 }
 
 void CurrencyManager::PrintInvalidInput()

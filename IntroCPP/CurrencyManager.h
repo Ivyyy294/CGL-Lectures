@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "CoinType.h"
 
 class CurrencyManager
 {
@@ -26,8 +27,7 @@ public:
 
 private:
 	//Symbols for currencys
-	const std::string m_coinSymbol[5] = {"PP", "GP", "EP", "SP", "CP"};
-	const int m_coinConversion[5] = {1000, 100, 50, 10, 1};
+	const CoinType m_coinTypes[5] = { {1000, "PP"}, {100, "GP"}, {50, "EP"}, {10, "SP"}, {1, "CP"} };
 
 	int m_copper = 0;
 
