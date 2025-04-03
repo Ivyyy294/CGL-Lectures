@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32901.82
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkServer", "NetworkServer\NetworkServer.csproj", "{C2CF19B0-61D5-48BB-9F7C-C68EDE740A1D}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestIvyyyEngine", "TestIvyy
 	ProjectSection(ProjectDependencies) = postProject
 		{9994816D-6B9D-4C52-86FE-9F9F8471998E} = {9994816D-6B9D-4C52-86FE-9F9F8471998E}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IntroCPP", "IntroCPP\IntroCPP.vcxproj", "{118C2147-E6EA-4603-BDD5-AB521C0D21FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +130,18 @@ Global
 		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Release|x64.Build.0 = Release|x64
 		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Release|x86.ActiveCfg = Release|Win32
 		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Release|x86.Build.0 = Release|Win32
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Debug|Any CPU.Build.0 = Debug|x64
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Debug|x64.ActiveCfg = Debug|x64
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Debug|x64.Build.0 = Debug|x64
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Debug|x86.ActiveCfg = Debug|Win32
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Debug|x86.Build.0 = Debug|Win32
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Release|Any CPU.ActiveCfg = Release|x64
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Release|Any CPU.Build.0 = Release|x64
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Release|x64.ActiveCfg = Release|x64
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Release|x64.Build.0 = Release|x64
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Release|x86.ActiveCfg = Release|Win32
+		{118C2147-E6EA-4603-BDD5-AB521C0D21FD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
