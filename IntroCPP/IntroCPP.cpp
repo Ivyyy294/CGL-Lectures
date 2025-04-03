@@ -3,16 +3,21 @@
 
 #include <iostream>
 #include "CurrencyManager.h"
+#include "RomanNumeral.h"
 
 int main()
 {
-   CurrencyManager cm;
-
-   while (true)
-   {
-      std::cout << cm.GetCurrentCurrencyAsString() << std::endl;
-      cm.AddCurrency();
-   }
+   std::string romanNotation1;
+   std::string romanNotation2;
+   std::cout << "Give me two roman numerals:" << std::endl;
+   std::cin >> romanNotation1 >> romanNotation2;
+   RomanNumeral romanNumeral1, romanNumeral2, romanNumeralResult;
+   romanNumeral1.setValue(romanNotation1);
+   romanNumeral2.setValue(romanNotation2);
+   int result = romanNumeral1.getValue() + romanNumeral2.getValue();
+   romanNumeralResult.setValue(result);
+   std::cout << romanNumeral1.getNotation() << " + " << romanNumeral2.getNotation()
+      << " = " << romanNumeralResult.getNotation();
    
    return 0;
 }
