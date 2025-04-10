@@ -45,5 +45,5 @@ private:
     GLuint mVBO;
     GLuint mEBO;
 
-    bool useFullWindowQuad = false;
+    bool useFullWindowQuad = true;
 };
