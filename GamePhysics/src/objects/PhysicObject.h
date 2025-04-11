@@ -27,8 +27,4 @@ protected:
 	//bool m_trigger = false;
 
 	virtual void ResolveCollision (PhysicObject* obj) = 0;
-
-private:
-	static std::vector <PhysicObject*> m_physicObjects;
-
 };

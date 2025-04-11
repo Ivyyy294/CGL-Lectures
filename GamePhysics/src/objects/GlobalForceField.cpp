@@ -2,6 +2,7 @@
 
 GlobalForceField::GlobalForceField()
 {
+	SetStatic (true);
 }
 
 GlobalForceField::GlobalForceField(float force)
@@ -11,7 +12,6 @@ GlobalForceField::GlobalForceField(float force)
 
 void GlobalForceField::Update(float deltaTime)
 {
-	m_deltaTime = deltaTime;
 	m_forceThisFrame.y = (0.981f * std::pow(deltaTime, 2)) * -1.0;
 }
 

@@ -75,6 +75,7 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysi
 set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene1.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene2.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/BaseScene.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -87,6 +88,7 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysi
 set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene1.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene2.h"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/BaseScene.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.h"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")

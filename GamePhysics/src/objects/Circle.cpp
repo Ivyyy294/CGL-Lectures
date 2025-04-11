@@ -2,12 +2,12 @@
 #include <core/Draw.h>
 
 Circle::Circle(glm::vec2 pos, float radius) {
-    circlePosition = pos;
-    circleRadius = radius;
+    m_circlePosition = pos;
+    m_circleRadius = radius;
 }
 
 void Circle::Draw() {
-   Draw::Circle(circlePosition, circleRadius);
-    Draw::Line(circlePosition, glm::vec2(0, 0));
+	Draw::SetColor (m_color);
+   Draw::Circle(m_circlePosition, m_circleRadius);
 }
 

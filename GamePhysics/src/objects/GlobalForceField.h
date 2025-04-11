@@ -20,7 +20,6 @@ public:
 protected:
 	float m_force = 0.981f;
 	glm::vec3 m_forceThisFrame = glm::vec3 (0.0, 0.0, 0.0);
-	float m_deltaTime = 0.0;
 
 	// Inherited via PhysicObject
 	void ResolveCollision(PhysicObject* obj) override;

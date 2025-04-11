@@ -333,6 +333,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene1.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene2.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene2.h" />
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\BaseScene.cpp" />
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\BaseScene.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\BouncingBall.cpp" />

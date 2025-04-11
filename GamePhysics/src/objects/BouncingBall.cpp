@@ -3,8 +3,8 @@
 BouncingBall::BouncingBall(glm::vec2 pos, float radius, bool IsStatic)
 : Circle (pos, radius)
 {
-	float vX = rand() % 5 * 0.01f;
-	float vY = rand() % 5 * 0.01f;
+	float vX = rand() % 10 * 0.001f;
+	float vY = rand() % 10 * 0.001f;
 
 	m_velocity = glm::vec2(vX, vY);
 
@@ -16,7 +16,7 @@ void BouncingBall::Update(float deltaTime)
 	if (m_static)
 		return;
 
-	circlePosition += m_velocity;
+	m_circlePosition += m_velocity;
 }
 
 void BouncingBall::ResolveCollision(PhysicObject* obj)

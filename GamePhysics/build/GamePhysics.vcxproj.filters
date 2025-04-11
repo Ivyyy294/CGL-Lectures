@@ -10,6 +10,9 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene2.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\BaseScene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
@@ -43,6 +46,9 @@
       <Filter>scenes</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene2.h">
+      <Filter>scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\BaseScene.h">
       <Filter>scenes</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.h">

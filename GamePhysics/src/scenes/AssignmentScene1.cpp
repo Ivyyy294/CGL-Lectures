@@ -24,26 +24,6 @@ AssignmentScene1::AssignmentScene1()
 	gameObjects.push_back(new BouncingBall(glm::vec2(0, 0), 0.75f, true));
 }
 
-void AssignmentScene1::OnEnable() {}
-
-void AssignmentScene1::OnDisable() {}
-
-void AssignmentScene1::Update(float deltaTime)
-{
-	for (size_t i = 0; i < gameObjects.size(); ++i) {
-        gameObjects[i]->Update(deltaTime);
-    }
-
-	Physics::Run();
-}
-
-void AssignmentScene1::Draw()
-{   
-	for (size_t i = 0; i < gameObjects.size(); ++i) {
-        gameObjects[i]->Draw();
-    }
-}
-
 void AssignmentScene1::DrawGUI() {
     ImGui::Begin("Inspector");
     //ImGui::DragFloat2("Circle Position", &circlePosition[0], 0.1f);
