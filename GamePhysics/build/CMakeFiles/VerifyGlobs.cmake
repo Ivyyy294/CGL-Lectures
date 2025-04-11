@@ -39,8 +39,11 @@ endif()
 # OBJECTS_SOURCES at CMakeLists.txt:10 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysics/src/objects/**.cpp")
 set(OLD_GLOB
+  "D:/00_Git/Semester3/GamePhysics/src/objects/BouncingBall.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Circle.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/CircleForceField.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/GameObject.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/GlobalForceField.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/PhysicObject.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.cpp"
@@ -53,8 +56,11 @@ endif()
 # OBJECTS_SOURCES at CMakeLists.txt:10 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysics/src/objects/**.h")
 set(OLD_GLOB
+  "D:/00_Git/Semester3/GamePhysics/src/objects/BouncingBall.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Circle.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/CircleForceField.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/GameObject.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/GlobalForceField.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/PhysicObject.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.h"
@@ -68,6 +74,7 @@ endif()
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysics/src/scenes/**.cpp")
 set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene1.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene2.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -79,6 +86,7 @@ endif()
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysics/src/scenes/**.h")
 set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene1.h"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene2.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.h"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")

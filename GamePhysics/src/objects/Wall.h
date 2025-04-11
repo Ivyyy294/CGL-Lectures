@@ -23,4 +23,6 @@ public:
 private:
     glm::vec2 m_start;
     glm::vec2 m_end;
+
+	 void ResolveCollision(PhysicObject* obj) override;
 };

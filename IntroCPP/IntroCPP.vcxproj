@@ -130,12 +130,18 @@
     <ClCompile Include="CoinType.cpp" />
     <ClCompile Include="CurrencyManager.cpp" />
     <ClCompile Include="IntroCPP.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="InventoryItem.cpp" />
     <ClCompile Include="RomanNumeral.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoinType.h" />
     <ClInclude Include="CurrencyManager.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="InventoryItem.h" />
     <ClInclude Include="RomanNumeral.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

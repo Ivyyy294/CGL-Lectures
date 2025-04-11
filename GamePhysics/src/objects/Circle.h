@@ -4,18 +4,18 @@
 #include "objects//GameObject.h"
 #include "objects/PhysicObject.h"
 
-class Circle : public GameObject, public PhysicObject
+class Circle : public GameObject
 {
 public:
 	Circle(glm::vec2 pos, float radius);
 
 	void Draw() override;
-	void Update(float deltaTime) override;
+	virtual void Update(float deltaTime) override {};
 
 	inline const glm::vec2& Position() const {return circlePosition;}
    inline const float& Radius() const { return circleRadius; }
 
-private:
+protected:
 	glm::vec2 circlePosition;
 	float circleRadius;
 };

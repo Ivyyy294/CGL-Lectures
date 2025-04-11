@@ -3,16 +3,19 @@
 
 #include <iostream>
 #include "romanNumeral.h"
+#include "Inventory.h"
 int main()
 {
+	Inventory inventory;
+	inventory.Populate();
+	inventory.OpenInventory();
+	//RomanNumeral romanNumeral1, romanNumeral2, romanNumeralResult;
+	//std::cout << "Give me two roman numerals:" << std::endl;
+	//std::cin >> romanNumeral1 >> romanNumeral2;
+	//romanNumeralResult = romanNumeral1 + romanNumeral2;
 
-	RomanNumeral romanNumeral1, romanNumeral2, romanNumeralResult;
-	std::cout << "Give me two roman numerals:" << std::endl;
-	std::cin >> romanNumeral1 >> romanNumeral2;
-	romanNumeralResult = romanNumeral1 + romanNumeral2;
-
-	std::cout << romanNumeral1 << " + " << romanNumeral2
-		<< " = " << romanNumeralResult;
+	//std::cout << romanNumeral1 << " + " << romanNumeral2
+	//	<< " = " << romanNumeralResult;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

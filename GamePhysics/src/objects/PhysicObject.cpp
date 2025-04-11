@@ -1,19 +1,32 @@
 #include "PhysicObject.h"
 
+std::vector <PhysicObject*> PhysicObject::m_physicObjects;
+
+PhysicObject::PhysicObject()
+{
+	m_physicObjects.push_back (this);
+}
+
+PhysicObject::~PhysicObject()
+{
+	for (auto i = m_physicObjects.begin(); i != m_physicObjects.end(); i++)
+	{
+		if (*i == this)
+		{
+			m_physicObjects.erase (i);
+			return;
+		}
+	}
+}
+
 void PhysicObject::ApplyForce(glm::vec2 force)
 {
-    // V3
-     float length = glm::length(m_velocity);
-     m_velocity += force;
-     m_velocity = glm::normalize(m_velocity) * length;
+	m_velocity += force;
+}
 
-   //V2
-    //float length = glm::length(m_velocity);
-    //m_velocity = glm::normalize(force) * length;
-
-   //V1
-    //if (std::abs (force.x) >= std::abs (force.y))
-    //    m_velocity.x *= -1.f;
-    //else if (std::abs(force.y) >= std::abs(force.x))
-    //    m_velocity.y *= -1.f;
+void PhysicObject::ApplyImpulse(glm::vec2 force)
+{
+	float length = glm::length(m_velocity);
+	m_velocity += force;
+	m_velocity = glm::normalize(m_velocity) * length;
 }

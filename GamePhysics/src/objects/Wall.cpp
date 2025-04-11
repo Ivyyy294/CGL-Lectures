@@ -28,3 +28,7 @@ glm::vec2 Wall::GetPointAtTime(float t) {
     }
 }
 
+void Wall::ResolveCollision(PhysicObject* obj)
+{
+}
+

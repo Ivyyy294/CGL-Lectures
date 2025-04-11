@@ -27,6 +27,15 @@ vec4 Pattern3 (vec3 pos)
 	return vec4 (1 - distance, 0.0, 0.0, 1.0);
 }
 
+vec4 Pattern4 (vec3 pos)
+{
+	float distance = length(pos);
+	float r = distance * (sin (pos.x * 20) + 1 ) * 0.5;
+	float g = distance * (sin (pos.y * 20) + 1 ) * 0.5;
+
+	return vec4 (r, g, 0.0, 1.0);
+}
+
 void main()
 {
 //-1 + 1
@@ -40,7 +49,7 @@ vec3 virtualPos = outPosition;
 float normalizedPosX = (outPosition.x + 1) * 0.5;
 float normalizedPosY = (outPosition.y + 1) * 0.5;
 
-float pattern = normalizedPosX / patternFractionX;
+float pattern = normalizedPosX / patternFractionX;// + ((1 - normalizedPosY) / patternFractionY) * patternAnzX;
 
 //Normalize to virtual rect
 normalizedPosX = mod (normalizedPosX, patternFractionX) / patternFractionX;
@@ -55,5 +64,7 @@ else if (pattern <= 2.0)
 	outColor = Pattern2(virtualPos);
 else if (pattern <= 3.0)
 	outColor = Pattern3(virtualPos);
+else if (pattern <= 4.0)
+	outColor = Pattern4(virtualPos);
 }
 

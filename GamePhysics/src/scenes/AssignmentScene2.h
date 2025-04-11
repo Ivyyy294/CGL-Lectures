@@ -1,13 +1,13 @@
 #pragma once
 
 #include "core/Simple2DScene.h"
-#include "objects/BouncingBall.h"
+#include "objects/Circle.h"
 #include "objects/Wall.h"
 
-class AssignmentScene1 : public Simple2DScene {
+class AssignmentScene2 : public Simple2DScene {
 public:
 
-	AssignmentScene1();
+	AssignmentScene2();
     virtual void OnEnable() override;
     virtual void OnDisable() override;
     virtual void Update(float deltaTime) override;

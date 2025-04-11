@@ -7,13 +7,25 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene1.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.cpp">
       <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\BouncingBall.cpp">
+      <Filter>objects</Filter>
     </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Circle.cpp">
       <Filter>objects</Filter>
     </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\CircleForceField.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\GameObject.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\GlobalForceField.cpp">
       <Filter>objects</Filter>
     </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\PhysicObject.cpp">
@@ -30,13 +42,25 @@
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene1.h">
       <Filter>scenes</Filter>
     </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene2.h">
+      <Filter>scenes</Filter>
+    </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.h">
       <Filter>scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\BouncingBall.h">
+      <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Circle.h">
       <Filter>objects</Filter>
     </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\CircleForceField.h">
+      <Filter>objects</Filter>
+    </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\GameObject.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\GlobalForceField.h">
       <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PhysicObject.h">
