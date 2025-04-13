@@ -11,6 +11,7 @@ public:
 	virtual void OnDisable() override;
 	virtual void Update(float deltaTime) override;
 	virtual void Draw() override;
+	virtual void DrawGUI() override{};
 
 protected:
 	GameObject::Vec gameObjects;
