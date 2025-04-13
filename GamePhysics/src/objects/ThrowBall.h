@@ -27,5 +27,5 @@ private:
 
 	glm::vec2 GetImpulse();
 
-	float test = 0.0f;
+	float m_stepSize = 0.0f;
 };

@@ -9,7 +9,7 @@ AssignmentScene3::AssignmentScene3()
 {
 	gameObjects.push_back (new GlobalForceField());
 
-	m_bb = new BouncingBall(glm::vec2(0, 0), 0.5);
+	m_bb = new BouncingBall(glm::vec2(0, 0), 0.5, 1.0f, 0.5f);
 	m_bb->SetMass(1.0f);
 
 	gameObjects.push_back(m_bb);
@@ -24,7 +24,7 @@ AssignmentScene3::AssignmentScene3()
 	gameObjects.push_back(new Wall(glm::vec2(xMax, -yMax), glm::vec2(-xMax, -yMax)));
 	gameObjects.push_back(new Wall(glm::vec2(-xMax, -yMax), glm::vec2(-xMax, yMax)));
 
-	gameObjects.push_back (new CircleForceField (glm::vec2(xMax * 0.5, yMax * 0.5f), 2.0f, 20.0f));
+	gameObjects.push_back (new CircleForceField (glm::vec2(xMax * 0.5, yMax * 0.5f), 3.0f, 20.0f));
 }
 
 void AssignmentScene3::DrawGUI() {

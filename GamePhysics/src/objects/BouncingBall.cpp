@@ -6,6 +6,14 @@ BouncingBall::BouncingBall(glm::vec2 pos, float radius, bool IsStatic)
 	SetStatic (IsStatic);
 }
 
+BouncingBall::BouncingBall(glm::vec2 pos, float radius, float mass, float bounce, bool IsStatic)
+	: Circle(pos, radius)
+	, m_bounce (bounce)
+{
+	SetMass (mass);
+	SetStatic(IsStatic);
+}
+
 void BouncingBall::Update(float deltaTime)
 {
 	if (m_static)
@@ -45,7 +53,7 @@ void BouncingBall::ResolveWall(Wall* wall)
 
 	glm::vec2 force = glm::normalize(m_position - closestPoint) * (glm::length(m_velocity));
 
-	ApplyImpulse(force);
+	ApplyBounce(force);
 }
 
 void BouncingBall::ResolveCollision(BouncingBall* circle)
@@ -61,12 +69,24 @@ void BouncingBall::ResolveCollision(BouncingBall* circle)
 		direction.y = rand();
 	}
 
-	if (distance <= min_distance)
+	if (distance < min_distance)
 	{
 		m_position += glm::normalize(direction) * (min_distance - distance);
 
 		float speed = glm::length(circle->m_velocity);
+
+		if (speed <= 0.0f)
+			speed = glm::length(m_velocity);
+
 		glm::vec2 impulse = glm::normalize (direction) * speed;
-		ApplyImpulse(impulse);
+
+		ApplyBounce(impulse);
 	}
+}
+
+void BouncingBall::ApplyBounce(glm::vec2 impulse)
+{
+	m_velocity = m_velocity * (1.0f - glm::clamp (m_bounce, 0.0f, 1.0f));
+	//m_velocity = m_velocity * 0.1f;
+	ApplyImpulse(impulse);
 }

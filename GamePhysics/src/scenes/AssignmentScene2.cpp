@@ -11,9 +11,10 @@ AssignmentScene2::AssignmentScene2()
 	const float planetRadius = 0.25;
 	const float gravity = 9.81f;
 
-	const float particleRadius = 0.1;
-	const int particleCount = 10;
-	const float particleMass = 1.0f;
+	const float particleRadius = 0.05;
+	const int particleCount = 250;
+	const float particleMass = 5.0f;
+	const float particleBonuce = 0.0f;
 
 	gameObjects.push_back (new Wall (glm::vec2(-xMax, yMax), glm::vec2(xMax, yMax)));
 	gameObjects.push_back (new Wall (glm::vec2(xMax, yMax), glm::vec2(xMax, -yMax)));
@@ -22,26 +23,30 @@ AssignmentScene2::AssignmentScene2()
 
 	for (int i = 0; i < particleCount; ++i)
 	{
-		BouncingBall* ball = new BouncingBall(glm::vec2(0, 0), particleRadius);
-		ball->SetMass (particleMass);
+		BouncingBall* ball = new BouncingBall(glm::vec2(0, 0), particleRadius, particleMass, particleBonuce);
 		gameObjects.push_back(ball);
 	}
 
 	//Planet 1
-	gameObjects.push_back (new CircleForceField (glm::vec2(-xMax * 0.5, -yMax * 0.5), gravityRadius, gravity));
-	gameObjects.push_back(new BouncingBall(glm::vec2(-xMax * 0.5, -yMax * 0.5), planetRadius, true));
+	SpawnPlanet (-xMax * 0.5f, -yMax * 0.5f, gravityRadius, planetRadius, gravity);
 
 	//Planet 2
-	gameObjects.push_back(new CircleForceField(glm::vec2(xMax * 0.5, -yMax * 0.5), gravityRadius, gravity));
-	gameObjects.push_back(new BouncingBall(glm::vec2(xMax * 0.5, -yMax * 0.5), planetRadius, true));
+	SpawnPlanet(xMax * 0.5f, -yMax * 0.5f, gravityRadius, planetRadius, gravity);
 
 	//Planet 3
-	gameObjects.push_back(new CircleForceField(glm::vec2(0.0, yMax * 0.5), gravityRadius, gravity));
-	gameObjects.push_back(new BouncingBall(glm::vec2(0.0, yMax * 0.5), planetRadius, true));
+	SpawnPlanet(0.0f, yMax * 0.5f, gravityRadius, planetRadius, gravity);
 }
 
 void AssignmentScene2::DrawGUI() {
     ImGui::Begin("Inspector");
     //ImGui::DragFloat2("Circle Position", &circlePosition[0], 0.1f);
     ImGui::End();
+}
+
+void AssignmentScene2::SpawnPlanet(float xpos, float ypos, float gravRadius, float planetRadius, float gravity)
+{
+	glm::vec2 pos (xpos, ypos);
+	gameObjects.push_back(new CircleForceField (pos, gravRadius, gravity));
+	//gameObjects.push_back(new CircleForceField (pos, planetRadius * 1.75f, -gravity));
+	gameObjects.push_back(new BouncingBall (pos, planetRadius, true));
 }

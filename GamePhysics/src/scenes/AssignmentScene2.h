@@ -11,4 +11,7 @@ public:
 	virtual void DrawGUI() override;
 
 	virtual const char* GetName() override { return "Assignment2"; };
+
+private:
+	void SpawnPlanet (float xpos, float ypos, float gravRadius, float planetRadius, float gravity);
 };

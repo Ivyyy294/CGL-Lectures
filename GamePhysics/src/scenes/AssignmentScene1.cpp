@@ -6,10 +6,6 @@
 AssignmentScene1::AssignmentScene1()
 {
 	gameObjects.push_back (new GlobalForceField ());
-	//gameObjects.push_back (new Wall (glm::vec2(-maxX, maxY), glm::vec2(maxX, maxY)));
-	//gameObjects.push_back (new Wall (glm::vec2(-maxX, -maxY), glm::vec2(maxX, -maxY)));
-	//gameObjects.push_back (new Wall (glm::vec2(-maxX, maxY), glm::vec2(-maxX, -maxY)));
-	//gameObjects.push_back (new Wall (glm::vec2(maxX, maxY), glm::vec2(maxX, -maxY)));
 
 	gameObjects.push_back (new Wall (glm::vec2(-5, 0), glm::vec2(0, 5)));
 	gameObjects.push_back (new Wall (glm::vec2(0, 5), glm::vec2(5, 0)));

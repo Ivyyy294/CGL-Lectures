@@ -6,7 +6,10 @@ CircleForceField::CircleForceField(glm::vec2 pos, float radius, float gravity)
 	: Circle (pos, radius)
 	, ForceField (gravity)
 {
-	m_color = ImColor(255, 255, 0, 255);
+	if (gravity >= 0.0f)
+		m_color = ImColor(255, 255, 0, 255);
+	else
+		m_color = ImColor(0, 0, 255, 255);
 }
 
 void CircleForceField::Update(float deltaTime)

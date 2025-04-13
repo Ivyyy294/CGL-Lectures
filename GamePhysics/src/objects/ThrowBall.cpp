@@ -22,20 +22,19 @@ void ThrowBall::Draw()
 
 void ThrowBall::DrawTryjectory()
 {
-	float stepSize = test;
 	float maxPreviweTime = 2.0f;
 
 	glm::vec2 impulse = GetImpulse();
 
-	BouncingBall dummy (m_spawnPos, m_ball->Radius());
+	BouncingBall dummy (m_spawnPos, m_ball->Radius(), m_ball->GetMass(), m_ball->GetBounce());
 	dummy.SetMass (m_ball->GetMass());
 
 	dummy.ApplyImpulse (impulse);
 
-	for ( float i = 0; i < maxPreviweTime; i += stepSize)
+	for ( float i = 0; i < maxPreviweTime; i += m_stepSize)
 	{
-		dummy.Update(stepSize);
-		Physics::RunForPhysicObject (&dummy, stepSize);
+		dummy.Update(m_stepSize);
+		Physics::RunForPhysicObject (&dummy, m_stepSize);
 		//m_ball->ApplyForce (Physics::GetForceForPhysicObject(m_ball, stepSize));
 		dummy.Draw();
 	}
@@ -43,7 +42,8 @@ void ThrowBall::DrawTryjectory()
 
 void ThrowBall::Update(float deltaTime)
 {
-test = deltaTime;
+	m_stepSize = deltaTime;
+
 	if (Input::IsMouseClicked(ImGuiMouseButton_Left))
 	{
 		m_spawnPos = Input::GetMousePos();
