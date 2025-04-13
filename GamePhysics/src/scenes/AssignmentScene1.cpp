@@ -20,8 +20,3 @@ AssignmentScene1::AssignmentScene1()
 	gameObjects.push_back(new BouncingBall(glm::vec2(0, 0), 0.75f, true));
 }
 
-void AssignmentScene1::DrawGUI() {
-    ImGui::Begin("Inspector");
-    //ImGui::DragFloat2("Circle Position", &circlePosition[0], 0.1f);
-    ImGui::End();
-}

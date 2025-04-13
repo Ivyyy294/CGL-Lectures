@@ -37,12 +37,6 @@ AssignmentScene2::AssignmentScene2()
 	SpawnPlanet(0.0f, yMax * 0.5f, gravityRadius, planetRadius, gravity);
 }
 
-void AssignmentScene2::DrawGUI() {
-    ImGui::Begin("Inspector");
-    //ImGui::DragFloat2("Circle Position", &circlePosition[0], 0.1f);
-    ImGui::End();
-}
-
 void AssignmentScene2::SpawnPlanet(float xpos, float ypos, float gravRadius, float planetRadius, float gravity)
 {
 	glm::vec2 pos (xpos, ypos);

@@ -8,7 +8,6 @@ class AssignmentScene1 : public BaseScene {
 public:
 
 	AssignmentScene1();
-	virtual void DrawGUI() override;
 
 	virtual const char* GetName() override { return "Assignment1"; };
 };

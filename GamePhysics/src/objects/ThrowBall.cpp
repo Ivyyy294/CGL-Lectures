@@ -35,7 +35,6 @@ void ThrowBall::DrawTryjectory()
 	{
 		dummy.Update(m_stepSize);
 		Physics::RunForPhysicObject (&dummy, m_stepSize);
-		//m_ball->ApplyForce (Physics::GetForceForPhysicObject(m_ball, stepSize));
 		dummy.Draw();
 	}
 }

@@ -62,6 +62,7 @@ void BouncingBall::ResolveCollision(BouncingBall* circle)
 	float distance = glm::length(direction);
 	float min_distance = Radius() + circle->Radius();
 
+	//resolve perfectly overlapping balls
 	if (distance <= 0.001f)
 	{
 		distance = min_distance * 0.99f;
@@ -87,6 +88,5 @@ void BouncingBall::ResolveCollision(BouncingBall* circle)
 void BouncingBall::ApplyBounce(glm::vec2 impulse)
 {
 	m_velocity = m_velocity * (1.0f - glm::clamp (m_bounce, 0.0f, 1.0f));
-	//m_velocity = m_velocity * 0.1f;
 	ApplyImpulse(impulse);
 }
