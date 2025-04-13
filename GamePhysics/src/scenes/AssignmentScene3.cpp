@@ -3,6 +3,7 @@
 #include "objects/GlobalForceField.h"
 #include "objects/Wall.h"
 #include "objects/ThrowBall.h"
+#include "objects/CircleForceField.h"
 
 AssignmentScene3::AssignmentScene3()
 {
@@ -22,6 +23,8 @@ AssignmentScene3::AssignmentScene3()
 	gameObjects.push_back(new Wall(glm::vec2(xMax, yMax), glm::vec2(xMax, -yMax)));
 	gameObjects.push_back(new Wall(glm::vec2(xMax, -yMax), glm::vec2(-xMax, -yMax)));
 	gameObjects.push_back(new Wall(glm::vec2(-xMax, -yMax), glm::vec2(-xMax, yMax)));
+
+	gameObjects.push_back (new CircleForceField (glm::vec2(xMax * 0.5, yMax * 0.5f), 2.0f, 20.0f));
 }
 
 void AssignmentScene3::DrawGUI() {

@@ -22,7 +22,7 @@ glm::vec2 CircleForceField::GetForceForObject(PhysicObject* obj)
 		glm::vec2 direction = m_position - bb->GetPosition();
 		float distance = glm::length(direction);
 
-		if (distance <= m_circleRadius)
+		if (distance <= m_circleRadius + bb->Radius())
 			force = glm::normalize (direction) * m_force;
 	}
 
