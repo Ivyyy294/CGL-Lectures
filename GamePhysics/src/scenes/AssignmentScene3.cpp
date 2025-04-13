@@ -9,7 +9,7 @@ AssignmentScene3::AssignmentScene3()
 	gameObjects.push_back (new GlobalForceField());
 
 	m_bb = new BouncingBall(glm::vec2(0, 0), 0.5);
-	m_bb->SetMass(1.5f);
+	m_bb->SetMass(1.0f);
 
 	gameObjects.push_back(m_bb);
 	

@@ -3,11 +3,6 @@
 BouncingBall::BouncingBall(glm::vec2 pos, float radius, bool IsStatic)
 : Circle (pos, radius)
 {
-	float vX = rand() % 10 * 0.1f;
-	float vY = rand() % 10 * 0.1f;
-
-	m_velocity = glm::vec2(vX, vY);
-
 	SetStatic (IsStatic);
 }
 
@@ -15,77 +10,63 @@ void BouncingBall::Update(float deltaTime)
 {
 	if (m_static)
 		return;
-
-	m_circlePosition += m_velocity * deltaTime;
 }
 
 void BouncingBall::ResolveCollision(PhysicObject* obj)
 {
 	if (Wall* wall = dynamic_cast<Wall*>(obj))
-		ResolveCollision (wall);
+		ResolveWall(wall);
 	else if (BouncingBall* bb = dynamic_cast<BouncingBall*>(obj))
 		ResolveCollision (bb);
 }
 
-void BouncingBall::ResolveCollision(Wall* wall)
+void BouncingBall::ResolveWall(Wall* wall)
 {
-	glm::vec2 start = wall->Start();
-	glm::vec2 end = wall->End();
-	glm::vec2 center = Position();
-	float radius = Radius();
+	glm::vec2 d = wall->End() - wall->Start();
+	glm::vec2 f = m_position - wall->Start();
 
-	float dx = end.x - start.x;
-	float dy = end.y - start.y;
+	// 2D Kreuzprodukt: d.x * f.y - d.y * f.x
+	float cross = d.x * f.y - d.y * f.x;
+	float distance = std::abs(cross) / glm::length(d);
 
-	float A = dx * dx + dy * dy;
-	float B = 2 * ((start.x - center.x) * dx + (start.y - center.y) * dy);
-	float C = (start.x - center.x) * (start.x - center.x) +
-		(start.y - center.y) * (start.y - center.y) - radius * radius;
-
-	float D = B * B - 4 * A * C; // Diskriminante
-
-	if (D < 0) {
-		return; // Keine Schnittpunkte
-	}
-
-	// Berechne die beiden möglichen Werte für t
-	float t1 = (-B + sqrt(D)) / (2 * A);
-	float t2 = (-B - sqrt(D)) / (2 * A);
-	float t = 0.f;
-
-	// Prüfe, ob mindestens ein t-Wert im Bereich [0,1] liegt
-	if (t1 >= 0 && t1 <= 1)
-		t = t1;
-	else if (t2 >= 0 && t2 <= 1)
-		t = t2;
-	else
+	if (distance > m_circleRadius)
 		return;
 
-	glm::vec2 cp = wall->GetPointAtTime(t);
-	glm::vec2 direction = center - cp;
+	glm::vec2 v = wall->Start() - m_position;
+	float t = -glm::dot(v, d) / glm::dot(d, d); // Orthogonaler Lotfußpunkt auf der Geraden
+	glm::vec2 closestPoint = wall->Start() + t * d;
 
-	float length = glm::length(m_velocity);
-	glm::vec2 force = m_velocity += direction;
-	force = glm::normalize(force) * length;
-	
+	glm::vec2 fromCenter = closestPoint - m_position;
+
+	// Punkt auf Kreis im gleichen Lot-Vektor, aber auf Radiuslänge skaliert
+	glm::vec2 pointOnCircle = m_position + glm::normalize(fromCenter) * m_circleRadius;
+
+	m_position += closestPoint - pointOnCircle;
+
+	glm::vec2 force = glm::normalize(m_position - closestPoint) * (glm::length(m_velocity));
+
 	ApplyImpulse(force);
 }
 
 void BouncingBall::ResolveCollision(BouncingBall* circle)
 {
-	glm::vec2 direction = Position() - circle->Position();
+	glm::vec2 direction = m_position - circle->m_position;
 	float distance = glm::length(direction);
+	float min_distance = Radius() + circle->Radius();
 
 	if (distance <= 0.001f)
 	{
-		direction.x = ((float)rand() / (RAND_MAX)) + 1;
-		direction.y = ((float)rand() / (RAND_MAX)) + 1;
+		distance = min_distance * 0.99f;
+		direction.x = rand();
+		direction.y = rand();
 	}
 
-	if (distance <= Radius() + circle->Radius())
+	if (distance <= min_distance)
 	{
-		float speed = glm::length(m_velocity);
-		glm::vec2 impulse = glm::normalize (m_velocity + direction) * speed;
+		m_position += glm::normalize(direction) * (min_distance - distance);
+
+		float speed = glm::length(circle->m_velocity);
+		glm::vec2 impulse = glm::normalize (direction) * speed;
 		ApplyImpulse(impulse);
 	}
 }

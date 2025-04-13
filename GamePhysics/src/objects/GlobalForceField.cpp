@@ -2,21 +2,17 @@
 #include "Physics.h"
 
 GlobalForceField::GlobalForceField()
+	: ForceField (9.81)
 {
-	SetStatic (true);
 }
 
 GlobalForceField::GlobalForceField(float force)
-: m_force (force)
+: ForceField (force)
 {
 }
 
-void GlobalForceField::Update(float deltaTime)
+glm::vec2 GlobalForceField::GetForceForObject(PhysicObject* obj)
 {
-}
-
-void GlobalForceField::ResolveCollision(PhysicObject* obj)
-{
-	obj->ApplyForce (glm::vec2 (0.0f, (m_force * std::pow(Physics::m_deltaTime, 2)) * -1.0f));
+	return glm::vec2 (0.0f, m_force * -1.0f);
 }
 

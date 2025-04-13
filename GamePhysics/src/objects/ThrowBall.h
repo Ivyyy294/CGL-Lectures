@@ -26,4 +26,6 @@ private:
 	void ShootBall ();
 
 	glm::vec2 GetImpulse();
+
+	float test = 0.0f;
 };

@@ -22,30 +22,28 @@ void ThrowBall::Draw()
 
 void ThrowBall::DrawTryjectory()
 {
-	const float deltaTime = Physics::m_deltaTime;
-	float stepSize = 1.0f / 30.0f;
-	float maxPreviweTime = 1.0f;
+	float stepSize = test;
+	float maxPreviweTime = 2.0f;
 
-	Physics::m_deltaTime = stepSize;
 	glm::vec2 impulse = GetImpulse();
+
 	BouncingBall dummy (m_spawnPos, m_ball->Radius());
+	dummy.SetMass (m_ball->GetMass());
 
 	dummy.ApplyImpulse (impulse);
-	float force = glm::length (impulse);
 
 	for ( float i = 0; i < maxPreviweTime; i += stepSize)
 	{
 		dummy.Update(stepSize);
-		Physics::RunForPhysicObject (&dummy);
+		Physics::RunForPhysicObject (&dummy, stepSize);
 		//m_ball->ApplyForce (Physics::GetForceForPhysicObject(m_ball, stepSize));
 		dummy.Draw();
 	}
-
-	Physics::m_deltaTime = deltaTime;
 }
 
 void ThrowBall::Update(float deltaTime)
 {
+test = deltaTime;
 	if (Input::IsMouseClicked(ImGuiMouseButton_Left))
 	{
 		m_spawnPos = Input::GetMousePos();
@@ -55,6 +53,7 @@ void ThrowBall::Update(float deltaTime)
 			m_targetPos = m_spawnPos;
 			m_isAiming = true;
 			m_ball->SetStatic (true);
+			m_ball->SetTrigger (true);
 			m_ball->SetPosition (m_spawnPos);
 		}
 	}
@@ -70,10 +69,12 @@ void ThrowBall::Update(float deltaTime)
 void ThrowBall::ShootBall()
 {
 	m_ball->SetStatic(false);
+	m_ball->SetTrigger(false);
+	m_ball->SetVelocity (glm::vec2(0.0, 0.0));
 	m_ball->ApplyImpulse (GetImpulse());
 }
 
 glm::vec2 ThrowBall::GetImpulse()
 {
-	return (m_targetPos - m_spawnPos) * 0.1f;
+	return (m_targetPos - m_spawnPos);
 }

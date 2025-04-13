@@ -1,16 +1,40 @@
 #include "Physics.h"
-#include "GlobalForceField.h"
 
-float Physics::m_deltaTime = 0.0f;
 std::vector <PhysicObject*> Physics::m_physicObjects;
+std::vector <ForceField*> Physics::m_forceFields;
 
-void Physics::Run()
+void Physics::Run(float deltaTime)
 {
    for (int i = 0; i < m_physicObjects.size(); ++i)
-		RunForPhysicObject(m_physicObjects[i], i + 1);
+		RunPhysicForObject(deltaTime, m_physicObjects[i]);
+
+	for (int i = 0; i < m_physicObjects.size(); ++i)
+		RunCollisionsForObject(deltaTime, m_physicObjects[i], i + 1);
 }
 
-void Physics::RunForPhysicObject(PhysicObject* obj, int startIndex)
+void Physics::RunForPhysicObject(PhysicObject* obj, float deltaTime)
+{
+	RunPhysicForObject (deltaTime, obj);
+	RunCollisionsForObject(deltaTime, obj);
+}
+
+void Physics::RunPhysicForObject(float deltaTime, PhysicObject* obj)
+{
+	if (obj->IsStatic())
+		return;
+	
+	glm::vec2 force = glm::vec2 (0.0f, 0.0f);
+
+	for (size_t j = 0; j < m_forceFields.size(); ++j)
+		force += m_forceFields[j]->GetForceForObject (obj);
+
+	obj->m_velocity += force * deltaTime;
+
+	if (GameObject* gameObj = dynamic_cast<GameObject*>(obj))
+		gameObj->m_position += obj->m_velocity * deltaTime;
+}
+
+void Physics::RunCollisionsForObject(float deltaTime, PhysicObject* obj, int startIndex)
 {
 	for (int i = startIndex; i < m_physicObjects.size(); ++i)
 	{
@@ -20,6 +44,9 @@ void Physics::RunForPhysicObject(PhysicObject* obj, int startIndex)
 			continue;
 		else
 		{
+			if (obj->IsTrigger() || obj2->IsTrigger())
+				continue;
+
 			ResolveCollision(obj, obj2);
 			ResolveCollision(obj2, obj);
 		}
@@ -43,6 +70,23 @@ void Physics::RemovePhysicObject(PhysicObject* obj)
 		if (*i == obj)
 		{
 			m_physicObjects.erase(i);
+			return;
+		}
+	}
+}
+
+void Physics::AddForceField(ForceField* obj)
+{
+	m_forceFields.push_back (obj);
+}
+
+void Physics::RemoveForceField(ForceField* obj)
+{
+	for (auto i = m_forceFields.begin(); i != m_forceFields.end(); i++)
+	{
+		if (*i == obj)
+		{
+			m_forceFields.erase(i);
 			return;
 		}
 	}

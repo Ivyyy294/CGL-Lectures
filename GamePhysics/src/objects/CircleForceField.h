@@ -1,10 +1,10 @@
 #pragma once
 #include "Circle.h"
-#include "objects/PhysicObject.h"
+#include "objects/ForceField.h"
 
 class CircleForceField
 	: public Circle
-	, public PhysicObject
+	, public ForceField
 {
 public:
 	CircleForceField (glm::vec2 pos, float radius, float gravity);
@@ -13,8 +13,7 @@ public:
 	virtual void Update(float deltaTime) override;
 
 private:
-	void ResolveCollision (PhysicObject* obj) override;
 
-	float m_gravity = 1.0;
-
+	// Inherited via ForceField
+	glm::vec2 GetForceForObject(PhysicObject* obj) override;
 };

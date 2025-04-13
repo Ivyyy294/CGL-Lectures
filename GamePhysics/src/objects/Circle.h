@@ -13,11 +13,9 @@ public:
 	void Draw() override;
 	virtual void Update(float deltaTime) override {};
 
-	inline const glm::vec2& Position() const {return m_circlePosition;}
    inline const float& Radius() const { return m_circleRadius; }
 
 protected:
-	glm::vec2 m_circlePosition;
 	float m_circleRadius;
 	ImColor m_color = ImColor (255, 255, 255, 255);
 };

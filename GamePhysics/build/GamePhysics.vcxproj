@@ -336,8 +336,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\objects\ForceField.cpp" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\main.cpp" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene1.cpp" />
+    <ClInclude Include="..\src\objects\ForceField.h" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene1.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene2.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene2.h" />

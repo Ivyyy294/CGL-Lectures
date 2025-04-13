@@ -46,6 +46,9 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Wall.cpp">
       <Filter>objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\objects\ForceField.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene1.h">
@@ -88,6 +91,9 @@
       <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Wall.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\objects\ForceField.h">
       <Filter>objects</Filter>
     </ClInclude>
   </ItemGroup>

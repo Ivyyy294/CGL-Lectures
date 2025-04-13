@@ -7,6 +7,8 @@ void BaseScene::OnEnable()
 	{
 		if (PhysicObject* obj = dynamic_cast<PhysicObject*> (gameObjects[i]))
 			Physics::AddPhysicObject (obj);
+		if (ForceField* obj = dynamic_cast<ForceField*> (gameObjects[i]))
+			Physics::AddForceField(obj);
 	}
 }
 
@@ -16,23 +18,21 @@ void BaseScene::OnDisable()
 	{
 		if (PhysicObject* obj = dynamic_cast<PhysicObject*> (gameObjects[i]))
 			Physics::RemovePhysicObject(obj);
+		if (ForceField* obj = dynamic_cast<ForceField*> (gameObjects[i]))
+			Physics::RemoveForceField(obj);
 	}
 }
 
 void BaseScene::Update(float deltaTime)
 {
-	Physics::m_deltaTime = deltaTime;
-
-	for (size_t i = 0; i < gameObjects.size(); ++i) {
+	for (size_t i = 0; i < gameObjects.size(); ++i)
 		gameObjects[i]->Update(deltaTime);
-	}
 
-	Physics::Run();
+	Physics::Run(deltaTime);
 }
 
 void BaseScene::Draw()
 {
-	for (size_t i = 0; i < gameObjects.size(); ++i) {
+	for (size_t i = 0; i < gameObjects.size(); ++i)
 		gameObjects[i]->Draw();
-	}
 }
