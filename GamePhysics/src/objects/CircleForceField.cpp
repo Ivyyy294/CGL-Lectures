@@ -1,5 +1,6 @@
 #include "CircleForceField.h"
 #include "BouncingBall.h"
+#include "Physics.h"
 
 CircleForceField::CircleForceField(glm::vec2 pos, float radius, float gravity)
 	: Circle (pos, radius)
@@ -11,7 +12,6 @@ CircleForceField::CircleForceField(glm::vec2 pos, float radius, float gravity)
 
 void CircleForceField::Update(float deltaTime)
 {
-	m_gravityThisFrame = m_gravity * std::pow(deltaTime, 2);
 }
 
 void CircleForceField::ResolveCollision(PhysicObject* obj)
@@ -23,7 +23,8 @@ void CircleForceField::ResolveCollision(PhysicObject* obj)
 
 		if (distance <= m_circleRadius)
 		{
-			glm::vec2 force = glm::normalize (direction) * m_gravityThisFrame;
+			float factor = m_gravity * std::pow(Physics::m_deltaTime, 2);
+			glm::vec2 force = glm::normalize (direction) * factor;
 			obj->ApplyForce (force);
 		}
 	}

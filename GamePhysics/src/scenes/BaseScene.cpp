@@ -21,6 +21,8 @@ void BaseScene::OnDisable()
 
 void BaseScene::Update(float deltaTime)
 {
+	Physics::m_deltaTime = deltaTime;
+
 	for (size_t i = 0; i < gameObjects.size(); ++i) {
 		gameObjects[i]->Update(deltaTime);
 	}

@@ -21,7 +21,5 @@ void PhysicObject::ApplyImpulse(glm::vec2 force)
 	if (m_static)
 		return;
 
-	float length = glm::length(m_velocity);
-	m_velocity += force;
-	m_velocity = glm::normalize(m_velocity) * length;
+	m_velocity = force / std::max (1.0f, m_mass);
 }

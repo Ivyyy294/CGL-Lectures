@@ -3,8 +3,8 @@
 BouncingBall::BouncingBall(glm::vec2 pos, float radius, bool IsStatic)
 : Circle (pos, radius)
 {
-	float vX = rand() % 10 * 0.001f;
-	float vY = rand() % 10 * 0.001f;
+	float vX = rand() % 10 * 0.1f;
+	float vY = rand() % 10 * 0.1f;
 
 	m_velocity = glm::vec2(vX, vY);
 
@@ -16,7 +16,7 @@ void BouncingBall::Update(float deltaTime)
 	if (m_static)
 		return;
 
-	m_circlePosition += m_velocity;
+	m_circlePosition += m_velocity * deltaTime;
 }
 
 void BouncingBall::ResolveCollision(PhysicObject* obj)
@@ -64,8 +64,11 @@ void BouncingBall::ResolveCollision(Wall* wall)
 	glm::vec2 cp = wall->GetPointAtTime(t);
 	glm::vec2 direction = center - cp;
 
-	if (!IsStatic())
-		ApplyImpulse(direction);
+	float length = glm::length(m_velocity);
+	glm::vec2 force = m_velocity += direction;
+	force = glm::normalize(force) * length;
+	
+	ApplyImpulse(force);
 }
 
 void BouncingBall::ResolveCollision(BouncingBall* circle)
@@ -73,11 +76,16 @@ void BouncingBall::ResolveCollision(BouncingBall* circle)
 	glm::vec2 direction = Position() - circle->Position();
 	float distance = glm::length(direction);
 
+	if (distance <= 0.001f)
+	{
+		direction.x = ((float)rand() / (RAND_MAX)) + 1;
+		direction.y = ((float)rand() / (RAND_MAX)) + 1;
+	}
+
 	if (distance <= Radius() + circle->Radius())
 	{
-		float vel1 = glm::length(Velocity());
-		float vel2 = glm::length(circle->Velocity());
-
-		ApplyImpulse(direction);
+		float speed = glm::length(m_velocity);
+		glm::vec2 impulse = glm::normalize (m_velocity + direction) * speed;
+		ApplyImpulse(impulse);
 	}
 }

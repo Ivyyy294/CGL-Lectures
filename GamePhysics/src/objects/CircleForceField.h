@@ -1,6 +1,6 @@
 #pragma once
 #include "Circle.h"
-#include "PhysicObject.h"
+#include "objects/PhysicObject.h"
 
 class CircleForceField
 	: public Circle
@@ -16,5 +16,5 @@ private:
 	void ResolveCollision (PhysicObject* obj) override;
 
 	float m_gravity = 1.0;
-	float m_gravityThisFrame = 0.0;
+
 };

@@ -1,24 +1,29 @@
 #include "Physics.h"
 #include "GlobalForceField.h"
 
+float Physics::m_deltaTime = 0.0f;
 std::vector <PhysicObject*> Physics::m_physicObjects;
 
 void Physics::Run()
 {
    for (int i = 0; i < m_physicObjects.size(); ++i)
-   {
-		PhysicObject* obj1 = m_physicObjects[i];
+		RunForPhysicObject(m_physicObjects[i], i + 1);
+}
 
-      for (int j = 0; j < m_physicObjects.size(); ++j)
-      {
-			PhysicObject* obj2 = m_physicObjects[j];
+void Physics::RunForPhysicObject(PhysicObject* obj, int startIndex)
+{
+	for (int i = startIndex; i < m_physicObjects.size(); ++i)
+	{
+		PhysicObject* obj2 = m_physicObjects[i];
 
-          if (obj1 == obj2)
-              continue;
-          else
-              ResolveCollision(obj1, obj2);
-      }
-   }
+		if (obj == obj2)
+			continue;
+		else
+		{
+			ResolveCollision(obj, obj2);
+			ResolveCollision(obj2, obj);
+		}
+	}
 }
 
 void Physics::ResolveCollision(PhysicObject* obj1, PhysicObject* obj2)
@@ -42,4 +47,5 @@ void Physics::RemovePhysicObject(PhysicObject* obj)
 		}
 	}
 }
+
 

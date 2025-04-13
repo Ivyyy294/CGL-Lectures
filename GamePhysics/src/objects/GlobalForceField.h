@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-#include "PhysicObject.h"
+#include "objects/PhysicObject.h"
 
 class GlobalForceField
 	: public GameObject
@@ -18,8 +18,7 @@ public:
 	float GetForce() const {return m_force;}
 
 protected:
-	float m_force = 0.981f;
-	glm::vec3 m_forceThisFrame = glm::vec3 (0.0, 0.0, 0.0);
+	float m_force = 9.81f;
 
 	// Inherited via PhysicObject
 	void ResolveCollision(PhysicObject* obj) override;

@@ -11,8 +11,8 @@ AssignmentScene2::AssignmentScene2()
 	const float planetRadius = 0.25;
 	const float gravity = 0.981f;
 
-	const float particleRadius = 0.02;
-	const int particleCount = 100;
+	const float particleRadius = 0.1;
+	const int particleCount = 10;
 
 	gameObjects.push_back (new Wall (glm::vec2(-xMax, yMax), glm::vec2(xMax, yMax)));
 	gameObjects.push_back (new Wall (glm::vec2(xMax, yMax), glm::vec2(xMax, -yMax)));

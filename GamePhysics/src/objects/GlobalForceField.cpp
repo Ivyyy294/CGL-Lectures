@@ -1,4 +1,5 @@
 #include "GlobalForceField.h"
+#include "Physics.h"
 
 GlobalForceField::GlobalForceField()
 {
@@ -12,10 +13,10 @@ GlobalForceField::GlobalForceField(float force)
 
 void GlobalForceField::Update(float deltaTime)
 {
-	m_forceThisFrame.y = (0.981f * std::pow(deltaTime, 2)) * -1.0;
 }
 
 void GlobalForceField::ResolveCollision(PhysicObject* obj)
 {
-	obj->ApplyForce (m_forceThisFrame);
+	obj->ApplyForce (glm::vec2 (0.0f, (m_force * std::pow(Physics::m_deltaTime, 2)) * -1.0f));
 }
+

@@ -16,12 +16,16 @@ public:
     inline bool IsStatic() const { return m_static; }
     inline void SetStatic (bool val) { m_static = val; }
 
+	 inline float GetMass() const {return m_mass;}
+	 inline void SetMass(float mass) {m_mass = mass;}
+
 	 //inline bool IsTrigger() const { return m_static; }
 	 //inline void SetTrigger(bool val) { m_trigger = val; }
 
 	 virtual void OnTriggerEnter (PhysicObject*){};
 
 protected:
+	float m_mass = 1.0f;
    glm::vec2 m_velocity = glm::vec2 (0,0);
 	bool m_static = false;
 	//bool m_trigger = false;

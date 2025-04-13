@@ -42,10 +42,12 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/objects/BouncingBall.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Circle.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/CircleForceField.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/ForceField.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/GameObject.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/GlobalForceField.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/PhysicObject.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/ThrowBall.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -59,10 +61,12 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/objects/BouncingBall.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Circle.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/CircleForceField.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/ForceField.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/GameObject.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/GlobalForceField.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/PhysicObject.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/ThrowBall.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.h"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -75,6 +79,7 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysi
 set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene1.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene2.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene3.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/BaseScene.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.cpp"
   )
@@ -88,6 +93,7 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysi
 set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene1.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene2.h"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene3.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/BaseScene.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.h"
   )

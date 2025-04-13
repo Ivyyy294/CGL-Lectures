@@ -12,6 +12,8 @@ public:
 
 	virtual void Update(float deltaTime) override;
 
+	inline void SetPosition (glm::vec2 pos) {m_circlePosition = pos;}
+
 private:
 	void ResolveCollision(PhysicObject* obj) override;
 	void ResolveCollision(Wall* wall);
