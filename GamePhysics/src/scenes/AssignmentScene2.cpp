@@ -9,12 +9,11 @@ AssignmentScene2::AssignmentScene2()
 	const int yMax = 5;
 	const int gravityRadius = 5;
 	const float planetRadius = 0.25;
-	const float gravity = 9.81f;
+	const float gravity = 9.81f*0.5f;
 
 	const float particleRadius = 0.05;
 	const int particleCount = 250;
-	const float particleMass = 5.0f;
-	const float particleBonuce = 0.0f;
+	const float particleMass = 1.1f;
 
 	gameObjects.push_back (new Wall (glm::vec2(-xMax, yMax), glm::vec2(xMax, yMax)));
 	gameObjects.push_back (new Wall (glm::vec2(xMax, yMax), glm::vec2(xMax, -yMax)));
@@ -23,7 +22,7 @@ AssignmentScene2::AssignmentScene2()
 
 	for (int i = 0; i < particleCount; ++i)
 	{
-		BouncingBall* ball = new BouncingBall(glm::vec2(0, 0), particleRadius, particleMass, particleBonuce);
+		BouncingBall* ball = new BouncingBall(glm::vec2(0, 0), particleRadius, particleMass);
 		gameObjects.push_back(ball);
 	}
 

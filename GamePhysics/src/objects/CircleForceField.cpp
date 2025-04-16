@@ -29,5 +29,5 @@ glm::vec2 CircleForceField::GetForceForObject(PhysicObject* obj)
 			force = glm::normalize (direction) * m_force;
 	}
 
-	return force;
+	return force * obj->GetMass();
 }

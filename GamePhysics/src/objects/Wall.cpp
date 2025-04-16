@@ -28,6 +28,22 @@ glm::vec2 Wall::GetPointAtTime(float t) {
     }
 }
 
+glm::vec2 Wall::GetDirection()
+{
+    return glm::normalize ( m_end - m_start);
+}
+
+glm::vec2 Wall::GetNormal()
+{
+	glm::vec2 direction = GetDirection();
+	return glm::vec2(-direction.y, direction.x);
+}
+
+float Wall::Length()
+{
+	return glm::length (m_end - m_start);
+}
+
 void Wall::ResolveCollision(PhysicObject* obj)
 {
 }

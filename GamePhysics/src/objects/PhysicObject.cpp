@@ -16,3 +16,9 @@ void PhysicObject::ApplyImpulse(glm::vec2 force)
 	m_velocity += force / m_mass;
 }
 
+glm::vec2 PhysicObject::Reflection(glm::vec2 direction, glm::vec2 normal)
+{
+	normal = glm::normalize (normal);
+   return direction - 2.0f * glm::dot (direction, normal) * normal;
+}
+

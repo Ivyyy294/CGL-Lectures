@@ -25,6 +25,7 @@ public:
 
 	 virtual void OnTriggerEnter (PhysicObject*){};
 
+	 glm::vec2 Reflection (glm::vec2 direction, glm::vec2 normal);
 protected:
 	float m_mass = 1.0f;
    glm::vec2 m_velocity = glm::vec2 (0,0);

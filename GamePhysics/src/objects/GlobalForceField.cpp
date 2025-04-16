@@ -13,6 +13,6 @@ GlobalForceField::GlobalForceField(float force)
 
 glm::vec2 GlobalForceField::GetForceForObject(PhysicObject* obj)
 {
-	return glm::vec2 (0.0f, m_force * -1.0f);
+	return glm::vec2 (0.0f, m_force * -1.0f * obj->GetMass());
 }
 

@@ -15,7 +15,7 @@ void ThrowBall::Draw()
 	if (m_isAiming)
 	{
 		Draw::SetColor (ImColor (255, 0, 0, 255));
-		Draw::Line (m_spawnPos, m_targetPos);
+		Draw::Arrow (m_spawnPos, m_targetPos);
 		DrawTryjectory();
 	}
 }
@@ -26,7 +26,7 @@ void ThrowBall::DrawTryjectory()
 
 	glm::vec2 impulse = GetImpulse();
 
-	BouncingBall dummy (m_spawnPos, m_ball->Radius(), m_ball->GetMass(), m_ball->GetBounce());
+	BouncingBall dummy (m_spawnPos, m_ball->Radius(), m_ball->GetMass());
 	dummy.SetMass (m_ball->GetMass());
 
 	dummy.ApplyImpulse (impulse);

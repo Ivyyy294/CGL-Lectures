@@ -26,7 +26,7 @@ void Physics::RunPhysicForObject(float deltaTime, PhysicObject* obj)
 	glm::vec2 force = glm::vec2 (0.0f, 0.0f);
 
 	for (size_t j = 0; j < m_forceFields.size(); ++j)
-		force += m_forceFields[j]->GetForceForObject (obj);
+		force += m_forceFields[j]->GetForceForObject (obj) / obj->GetMass();
 
 	obj->m_velocity += force * deltaTime;
 
