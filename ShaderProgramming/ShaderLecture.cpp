@@ -131,9 +131,20 @@ void ShaderLecture::InitQuad()
         3,
         GL_FLOAT,
         GL_FALSE,
-        3 * sizeof(float),
+        5 * sizeof(float),
         (void*)0
     );
+
+	 // Tell OpenGL how to interpret the vertex data (3 floats = position)
+	 glEnableVertexAttribArray(1);
+	 glVertexAttribPointer(
+		 1,
+		 2,
+		 GL_FLOAT,
+		 GL_FALSE,
+		 5 * sizeof(float),
+		 (void*)(3 * sizeof (float))
+	 );
 
     // Unbind the VAO. 
     glBindVertexArray(0);

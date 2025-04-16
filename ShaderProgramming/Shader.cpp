@@ -138,3 +138,13 @@ bool Shader::IsValidProgram()
 
 	return true;
 }
+
+GLuint Shader::GetUniformLocationByString(const std::string& uniformName)
+{
+	GLuint loc = glGetUniformLocation(mShaderProgram, uniformName.c_str());
+	if (loc == -1)
+	{
+		std::cerr << "[Warning] Did not find uniform '" << uniformName << "' in the shader." << std::endl;
+	}
+	return loc;
+}

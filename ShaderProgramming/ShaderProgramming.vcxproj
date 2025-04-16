@@ -135,15 +135,19 @@
   <ItemGroup>
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderLecture.cpp" />
+    <ClCompile Include="ShaderLecture2.cpp" />
     <ClCompile Include="ShaderProgramming.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderLecture.h" />
+    <ClInclude Include="ShaderLecture2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="basic.frag" />
     <None Include="basic.vert" />
+    <None Include="texture.frag" />
+    <None Include="texture.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

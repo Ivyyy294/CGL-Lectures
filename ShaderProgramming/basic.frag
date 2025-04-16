@@ -36,35 +36,40 @@ vec4 Pattern4 (vec3 pos)
 	return vec4 (r, g, 0.0, 1.0);
 }
 
+void VirtualPattern ()
+{
+	//-1 + 1
+	int patternAnzX = 3;
+	int patternAnzY = 2;
+	float patternFractionX = 1.0 / patternAnzX;
+	float patternFractionY = 1.0 / patternAnzY;
+
+	vec3 virtualPos = outPosition;
+
+	float normalizedPosX = (outPosition.x + 1) * 0.5;
+	float normalizedPosY = (outPosition.y + 1) * 0.5;
+
+	float pattern = normalizedPosX / patternFractionX;// + ((1 - normalizedPosY) / patternFractionY) * patternAnzX;
+
+	//Normalize to virtual rect
+	normalizedPosX = mod (normalizedPosX, patternFractionX) / patternFractionX;
+	normalizedPosY = mod (normalizedPosY, patternFractionY) / patternFractionY;
+
+	virtualPos.x = (normalizedPosX * 2.0) -1.0;
+	virtualPos.y = (normalizedPosY * 2.0) -1.0;
+
+	if (pattern <= 1.0)
+		outColor = Pattern1(virtualPos);
+	else if (pattern <= 2.0)
+		outColor = Pattern2(virtualPos);
+	else if (pattern <= 3.0)
+		outColor = Pattern3(virtualPos);
+	else if (pattern <= 4.0)
+		outColor = Pattern4(virtualPos);
+}
+
 void main()
 {
-//-1 + 1
-int patternAnzX = 3;
-int patternAnzY = 2;
-float patternFractionX = 1.0 / patternAnzX;
-float patternFractionY = 1.0 / patternAnzY;
-
-vec3 virtualPos = outPosition;
-
-float normalizedPosX = (outPosition.x + 1) * 0.5;
-float normalizedPosY = (outPosition.y + 1) * 0.5;
-
-float pattern = normalizedPosX / patternFractionX;// + ((1 - normalizedPosY) / patternFractionY) * patternAnzX;
-
-//Normalize to virtual rect
-normalizedPosX = mod (normalizedPosX, patternFractionX) / patternFractionX;
-normalizedPosY = mod (normalizedPosY, patternFractionY) / patternFractionY;
-
-virtualPos.x = (normalizedPosX * 2.0) -1.0;
-virtualPos.y = (normalizedPosY * 2.0) -1.0;
-
-if (pattern <= 1.0)
-	outColor = Pattern1(virtualPos);
-else if (pattern <= 2.0)
-	outColor = Pattern2(virtualPos);
-else if (pattern <= 3.0)
-	outColor = Pattern3(virtualPos);
-else if (pattern <= 4.0)
-	outColor = Pattern4(virtualPos);
+	VirtualPattern();
 }
 

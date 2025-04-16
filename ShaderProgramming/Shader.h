@@ -27,6 +27,9 @@ public:
 	//Sets this as the active shader program
 	void SetActive();
 
+	GLuint GetUniformLocationByString(const std::string& uniformName);
+
+
 private:
 	//Tries to compile the specified shader
 	bool CompileShader(const std::string& filename,
@@ -35,6 +38,7 @@ private:
 	bool IsCompiled(GLuint shader);
 	//Tests whether vertex/fragment program link
 	bool IsValidProgram();
+
 	//Store the shader object IDs
 	GLuint mVertexShader;
 	GLuint mFragShader;

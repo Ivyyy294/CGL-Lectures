@@ -3,13 +3,13 @@
 
 #include <iostream>
 #include "glm.hpp"
-#include "ShaderLecture.h"
+#include "ShaderLecture2.h"
 
 int main()
 {
-    ShaderLecture lectureApp (900, 600, "Shader Programming Session 0");
+    ShaderLecture2 lectureApp (800, 800, "Shader Programming Session 1");
 
-	 if (!lectureApp.Initialize ("basic.vert", "basic.frag"))
+	 if (!lectureApp.Initialize ("texture.vert", "texture.frag", 200, 200, "PrideTexture.jpg"))
 		return 1;
 
 	lectureApp.Run();
