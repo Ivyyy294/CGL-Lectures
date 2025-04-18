@@ -9,7 +9,7 @@ int main()
 {
     ShaderLecture2 lectureApp (800, 800, "Shader Programming Session 1");
 
-	 if (!lectureApp.Initialize ("texture.vert", "texture.frag", 200, 200, "PrideTexture.jpg"))
+	 if (!lectureApp.Initialize ("texture.vert", "texture.frag", 20, 20, "PrideTexture.jpg"))
 		return 1;
 
 	lectureApp.Run();

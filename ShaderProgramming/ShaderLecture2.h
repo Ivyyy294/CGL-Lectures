@@ -36,6 +36,8 @@ private:
 
     int mWidth;
     int mHeight;
+	 float mAnchorXPos;
+	 float mFlagWidth;
     std::string mWindowTitle;
     GLFWwindow* mWindow;
 
@@ -50,6 +52,8 @@ private:
 
     GLint mTimeUniformLoc;
     GLint mTextureLoc;
+	 GLint mAnchorXPosLoc;
+	 GLint mFlagWidthLoc;
 
     unsigned int texture;
 };

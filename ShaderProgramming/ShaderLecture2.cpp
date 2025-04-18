@@ -56,6 +56,8 @@ bool ShaderLecture2::Initialize(const std::string& vertexShaderToLoad, const std
     mShader.SetActive();
     mTimeUniformLoc = mShader.GetUniformLocationByString("uTime");
     mTextureLoc = mShader.GetUniformLocationByString("uTexture");
+	 mAnchorXPosLoc = mShader.GetUniformLocationByString("uAnchorXPos");
+	 mFlagWidthLoc = mShader.GetUniformLocationByString("mFlagWidth");
 
     std::cout << "Identified Uniforms." << std::endl;
 
@@ -138,8 +140,10 @@ void ShaderLecture2::InitQuad(int meshWidth, int meshHeight)
     std::vector<float> vertices;
     vertices.reserve(meshWidth * meshHeight * 5);
 
-    glm::vec3 upperLeft(-0.6f,  0.4f, 0.0f);
-    glm::vec3 lowerRight(0.6f, -0.4f, 0.0f);
+	 mAnchorXPos = 0.6f;
+	 mFlagWidth = 0.8f;
+    glm::vec3 upperLeft(-mAnchorXPos, mFlagWidth * 0.5f, 0.0f);
+    glm::vec3 lowerRight(mAnchorXPos, -mFlagWidth * 0.5f, 0.0f);
 
     for (int row = 0; row < meshHeight; ++row)
     {
@@ -259,6 +263,8 @@ void ShaderLecture2::RenderLoop()
         glUniform1i(mTextureLoc, 0);
 
         glUniform1f(mTimeUniformLoc, static_cast<float>(glfwGetTime()));
+        glUniform1f(mAnchorXPosLoc, mAnchorXPos);
+        glUniform1f(mFlagWidthLoc, mFlagWidth);
 
         glBindVertexArray(mVAO);
         // 6 indices total, of type GL_UNSIGNED_INT
