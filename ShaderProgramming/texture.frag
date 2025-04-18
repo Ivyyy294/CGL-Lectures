@@ -2,7 +2,6 @@
 //Request GLSL 3.3
 #version 330
 
-in vec2 windOffset;
 in vec2 vTexCoord;
 out vec4 outColor;
 

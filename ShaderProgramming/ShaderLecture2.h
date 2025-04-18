@@ -36,8 +36,7 @@ private:
 
     int mWidth;
     int mHeight;
-	 float mAnchorXPos;
-	 float mFlagWidth;
+
     std::string mWindowTitle;
     GLFWwindow* mWindow;
 
@@ -52,8 +51,24 @@ private:
 
     GLint mTimeUniformLoc;
     GLint mTextureLoc;
-	 GLint mAnchorXPosLoc;
-	 GLint mFlagWidthLoc;
+
+	 GLint mFlagParameterWidthLoc;
+	 GLint mFlagParameterLengthLoc;
+
+	 GLint mWindParameterSpeedLoc;
+	 GLint mWindParameterStrengthLoc;
 
     unsigned int texture;
+
+	 struct FlagParameter
+	 {
+		float width = 0.0f;
+		float length = 0.0f;
+	 } mFlagParameter;
+
+	 struct WindParameter
+	 {
+		 float speed = 5.0f;
+		 float strength = 1.0f;
+	 } mWindParameter;
 };

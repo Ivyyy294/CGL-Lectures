@@ -56,8 +56,14 @@ bool ShaderLecture2::Initialize(const std::string& vertexShaderToLoad, const std
     mShader.SetActive();
     mTimeUniformLoc = mShader.GetUniformLocationByString("uTime");
     mTextureLoc = mShader.GetUniformLocationByString("uTexture");
-	 mAnchorXPosLoc = mShader.GetUniformLocationByString("uAnchorXPos");
-	 mFlagWidthLoc = mShader.GetUniformLocationByString("mFlagWidth");
+	 
+	 //Flag Parameter
+	 mFlagParameterWidthLoc = mShader.GetUniformLocationByString("mFlagParameter.width");
+	 mFlagParameterLengthLoc = mShader.GetUniformLocationByString("mFlagParameter.length");
+
+	 //Wind Parameter
+	 mWindParameterSpeedLoc = mShader.GetUniformLocationByString ("mWindParameter.speed");
+	 mWindParameterStrengthLoc = mShader.GetUniformLocationByString ("mWindParameter.strength");
 
     std::cout << "Identified Uniforms." << std::endl;
 
@@ -140,10 +146,14 @@ void ShaderLecture2::InitQuad(int meshWidth, int meshHeight)
     std::vector<float> vertices;
     vertices.reserve(meshWidth * meshHeight * 5);
 
-	 mAnchorXPos = 0.6f;
-	 mFlagWidth = 0.8f;
-    glm::vec3 upperLeft(-mAnchorXPos, mFlagWidth * 0.5f, 0.0f);
-    glm::vec3 lowerRight(mAnchorXPos, -mFlagWidth * 0.5f, 0.0f);
+	 mFlagParameter.width = 1.0f;
+	 mFlagParameter.length = 1.2f;
+
+	 float xPos = mFlagParameter.length * 0.5f;
+	 float yPos = mFlagParameter.width * 0.5f;
+
+    glm::vec3 upperLeft(-xPos, yPos, 0.0f);
+    glm::vec3 lowerRight(xPos, -yPos, 0.0f);
 
     for (int row = 0; row < meshHeight; ++row)
     {
@@ -263,8 +273,14 @@ void ShaderLecture2::RenderLoop()
         glUniform1i(mTextureLoc, 0);
 
         glUniform1f(mTimeUniformLoc, static_cast<float>(glfwGetTime()));
-        glUniform1f(mAnchorXPosLoc, mAnchorXPos);
-        glUniform1f(mFlagWidthLoc, mFlagWidth);
+		  
+		  //Flag Parameter
+        glUniform1f(mFlagParameterWidthLoc, mFlagParameter.width);
+        glUniform1f(mFlagParameterLengthLoc, mFlagParameter.length);
+
+		  //Wind Parameter
+		  glUniform1f(mWindParameterSpeedLoc, mWindParameter.speed);
+		  glUniform1f(mWindParameterStrengthLoc, mWindParameter.strength);
 
         glBindVertexArray(mVAO);
         // 6 indices total, of type GL_UNSIGNED_INT
