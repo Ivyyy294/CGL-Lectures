@@ -4,6 +4,7 @@
 GlobalForceField::GlobalForceField()
 	: ForceField (9.81)
 {
+	SetStatic (true);
 }
 
 GlobalForceField::GlobalForceField(float force)
@@ -11,8 +12,8 @@ GlobalForceField::GlobalForceField(float force)
 {
 }
 
-glm::vec2 GlobalForceField::GetForceForObject(PhysicObject* obj)
+void GlobalForceField::ResolveCollision (PhysicObject* obj)
 {
-	return glm::vec2 (0.0f, m_force * -1.0f * obj->GetMass());
+	obj->ApplyForce (glm::vec2(0.0f, m_force * -1.0f * obj->GetMass()));
 }
 

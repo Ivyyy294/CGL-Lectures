@@ -34,15 +34,13 @@ void ThrowBall::DrawTryjectory()
 	for ( float i = 0; i < maxPreviweTime; i += m_stepSize)
 	{
 		dummy.Update(m_stepSize);
-		Physics::RunForPhysicObject (&dummy, m_stepSize);
+		Physics::RunPhysicForSingleObject(&dummy, m_stepSize);
 		dummy.Draw();
 	}
 }
 
 void ThrowBall::Update(float deltaTime)
 {
-	m_stepSize = deltaTime;
-
 	if (Input::IsMouseClicked(ImGuiMouseButton_Left))
 	{
 		m_spawnPos = Input::GetMousePos();

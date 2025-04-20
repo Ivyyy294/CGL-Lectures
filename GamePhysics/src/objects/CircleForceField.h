@@ -15,5 +15,5 @@ public:
 private:
 
 	// Inherited via ForceField
-	glm::vec2 GetForceForObject(PhysicObject* obj) override;
+	void ResolveCollision (PhysicObject* obj) override;
 };
