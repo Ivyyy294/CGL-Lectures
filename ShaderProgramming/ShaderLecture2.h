@@ -68,7 +68,7 @@ private:
 
 	 struct WindParameter
 	 {
-		 float speed = 5.0f;
+		 float speed = 6.0f;
 		 float strength = 1.0f;
 	 } mWindParameter;
 };

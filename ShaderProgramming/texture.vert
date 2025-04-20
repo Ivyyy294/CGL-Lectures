@@ -20,6 +20,7 @@ uniform struct WindParameter
 } mWindParameter;
 
 //Input attribute
+out vec2 displacement;
 out vec3 outPosition;
 out vec2 vTexCoord;
 
@@ -45,17 +46,34 @@ vec2 GetWindOffset ()
 
 	vec2 offset;
 	offset.x = 0.0f;
+	offset.y = 0.0f;
 
 	//Y axis
 	float frequencyY = normPos.x * frequency + uTime * speed;
 	float amplitudeY = 0.1f * amplitude * normPos.x;
-	offset.y = sin (frequencyY) * amplitudeY;
+
+	float offsetFrequency = 1.0f + (1.0f / speed);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		offset.y += sin (frequencyY) * amplitudeY;
+		//frequencyY *= 1.3f;
+		frequencyY *= offsetFrequency;
+		amplitudeY *= 0.5f;
+	}
 	
 	//X axis
 	float frequencyX = normPos.y * frequency + uTime * speed;
 	float amplitudeX = 0.05f * amplitude * normPos.x;
-	offset.x = cos (frequencyX) * amplitudeX;
 
+	for (int i = 0; i < 3; ++i)
+	{
+		offset.x += cos (frequencyX) * amplitudeX;
+		//frequencyX *= 1.3f;
+		frequencyX *= offsetFrequency;
+		amplitudeX *= 0.5f;
+	}
+	
 	//Incline
 	offset.x += incline * cos (inPosition.y) - incline + (incline * -0.1f * normPos.y);
 
@@ -66,11 +84,11 @@ void main()
 {
 	CalculateNormPos();
 
-	vec2 windOffset = GetWindOffset();
+	displacement = GetWindOffset();
 
 	gl_Position = vec4 (inPosition, 1.0);
-	gl_Position.x += windOffset.x;
-	gl_Position.y += windOffset.y;
+	gl_Position.x += displacement.x;
+	gl_Position.y += displacement.y;
 
 	outPosition = inPosition;
 	vTexCoord = inTexCoord;
