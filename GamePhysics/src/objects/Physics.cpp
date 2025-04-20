@@ -40,7 +40,8 @@ void Physics::RunCollisionsForObject(float deltaTime, PhysicObject* obj, int sta
 	{
 		PhysicObject* obj2 = m_physicObjects[i];
 
-		if (obj == obj2)
+		//Prevent collision with self in case startIndex was not passed
+		if (startIndex == 0 && obj == obj2)
 			continue;
 		else
 		{
