@@ -41,6 +41,7 @@ glm::vec2 Wall::GetNormal()
 
 float Wall::Length()
 {
+	float length = glm::length(m_end - m_start);
 	return glm::length (m_end - m_start);
 }
 

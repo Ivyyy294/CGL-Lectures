@@ -15,6 +15,11 @@ public:
 
 private:
 	void ResolveCollision(PhysicObject* obj) override;
+	
 	void ResolveWall(Wall* wall);
-	void ResolveCollision(BouncingBall* circle);
+	void ResolveWall(const glm::vec2 diff, const float distance);
+	
+	void ResolveBall(BouncingBall* circle);
+
+	void Reflect (glm::vec2 direction);
 };

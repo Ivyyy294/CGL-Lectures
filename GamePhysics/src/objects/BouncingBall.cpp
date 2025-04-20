@@ -24,34 +24,65 @@ void BouncingBall::ResolveCollision(PhysicObject* obj)
 	if (Wall* wall = dynamic_cast<Wall*>(obj))
 		ResolveWall(wall);
 	else if (BouncingBall* bb = dynamic_cast<BouncingBall*>(obj))
-		ResolveCollision (bb);
+		ResolveBall (bb);
 }
 
 void BouncingBall::ResolveWall(Wall* wall)
 {
+	glm::vec2 wallStart = wall->Start();
 	glm::vec2 directionWall = wall->GetDirection();
-	glm::vec2 wallStartToCircle = m_position - wall->Start();
-	float dot = glm::dot (wall->GetDirection(), wallStartToCircle);
+	glm::vec2 wallStartToCircle = m_position - wallStart;
+	float wallLength = wall->Length();
+	float dot = glm::dot(directionWall, wallStartToCircle);
 
-	glm::vec2 posOnLine = wall->Start() + directionWall * dot;
-
-	float distance = glm::length (m_position - posOnLine);
-
-	if (distance >= Radius()
-	|| dot < 0.0f
-	|| dot > wall->Length())
+	//early exit if dot is out of bounds
+	if (dot < -m_circleRadius || dot > (wallLength + m_circleRadius))
 		return;
 
-	glm::vec2 normal = glm::normalize (m_position - posOnLine);
+	//Check start point
+	glm::vec2 diff = m_position - wallStart;
+	float distance = glm::length (diff);
+
+	if (dot < 0.0f && distance < m_circleRadius)
+	{
+		ResolveWall(diff, distance);
+		return;
+	}
+
+	//Check end point
+	glm::vec2 wallEnd = wall->End();
+
+	diff = m_position - wallEnd;
+	distance = glm::length(diff);
+
+	if (dot > wallLength && distance < m_circleRadius)
+	{
+		ResolveWall(diff, distance);
+		return;
+	}
+
+	//Check point between start and end
+	glm::vec2 posOnLine = wallStart + directionWall * dot;
+	diff = m_position - posOnLine;
+	distance = glm::length (diff);
+
+	if (dot >= 0.0f && dot <= wallLength && distance < m_circleRadius)
+	{
+		ResolveWall(diff, distance);
+		return;
+	}
+}
+
+void BouncingBall::ResolveWall(const glm::vec2 diff, const float distance)
+{
+	glm::vec2 normal = glm::normalize(diff);
 
 	m_position += normal * (m_circleRadius - distance);
 
-	glm::vec2 impulse = Reflection(m_velocity, normal);
-	m_velocity = glm::vec2(0.0, 0.0);
-	ApplyImpulse (impulse);
+	Reflect(normal);
 }
 
-void BouncingBall::ResolveCollision(BouncingBall* circle)
+void BouncingBall::ResolveBall(BouncingBall* circle)
 {
 	glm::vec2 direction = m_position - circle->m_position;
 	float distance = glm::length(direction);
@@ -69,10 +100,13 @@ void BouncingBall::ResolveCollision(BouncingBall* circle)
 	{
 		direction = glm::normalize (direction);
 		m_position += direction * (min_distance - distance);
-
-		glm::vec2 impulse = Reflection(m_velocity, direction);
-		m_velocity = glm::vec2(0.0, 0.0);
-		ApplyImpulse(impulse);
+		Reflect (direction);
 	}
 }
 
+void BouncingBall::Reflect(glm::vec2 direction)
+{
+	glm::vec2 impulse = Reflection(m_velocity, direction);
+	m_velocity = glm::vec2(0.0, 0.0);
+	ApplyImpulse(impulse);
+}

@@ -19,11 +19,13 @@ AssignmentScene3::AssignmentScene3()
 	const int xMax = 8;
 	const int yMax = 5;
 
+	//cage
 	gameObjects.push_back(new Wall(glm::vec2(-xMax, yMax), glm::vec2(xMax, yMax)));
 	gameObjects.push_back(new Wall(glm::vec2(xMax, yMax), glm::vec2(xMax, -yMax)));
 	gameObjects.push_back(new Wall(glm::vec2(xMax, -yMax), glm::vec2(-xMax, -yMax)));
 	gameObjects.push_back(new Wall(glm::vec2(-xMax, -yMax), glm::vec2(-xMax, yMax)));
 
+	//ball
 	gameObjects.push_back (new CircleForceField (glm::vec2(xMax * 0.5, yMax * 0.5f), 3.0f, 20.0f));
 }
 
