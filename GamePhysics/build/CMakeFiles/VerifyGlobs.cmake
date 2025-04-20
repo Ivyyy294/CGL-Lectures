@@ -80,6 +80,7 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene1.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene2.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene3.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene4.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/BaseScene.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.cpp"
   )
@@ -94,6 +95,7 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene1.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene2.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene3.h"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene4.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/BaseScene.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.h"
   )
