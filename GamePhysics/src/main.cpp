@@ -4,6 +4,7 @@
 #include "scenes/AssignmentScene2.h"
 #include "scenes/AssignmentScene3.h"
 #include "scenes/AssignmentScene4.h"
+#include "scenes/PlanetScene.h"
 #include <random>
 
 int main(int argc, char** argv)
@@ -15,7 +16,8 @@ int main(int argc, char** argv)
 		new AssignmentScene1(),
 		new AssignmentScene2(),
 		new AssignmentScene3(),
-		new AssignmentScene4()
+		new AssignmentScene4(),
+		new PlanetScene()
 	};
 
 	//init time

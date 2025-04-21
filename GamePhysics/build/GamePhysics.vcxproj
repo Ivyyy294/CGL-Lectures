@@ -339,6 +339,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\AssignmentScene4.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\BaseScene.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\BaseScene.h" />
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PlanetScene.cpp" />
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PlanetScene.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\BouncingBall.cpp" />
@@ -357,6 +359,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PhysicObject.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Physics.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Physics.h" />
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Planet.cpp" />
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Planet.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ThrowBall.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ThrowBall.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Wall.cpp" />

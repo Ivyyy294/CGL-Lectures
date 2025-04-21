@@ -15,4 +15,6 @@ public:
 
 protected:
 	GameObject::Vec gameObjects;
+
+	void ClearScene();
 };

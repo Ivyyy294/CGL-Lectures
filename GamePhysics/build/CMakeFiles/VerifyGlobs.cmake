@@ -47,6 +47,7 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/objects/GlobalForceField.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/PhysicObject.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/Planet.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/ThrowBall.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.cpp"
   )
@@ -66,6 +67,7 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/objects/GlobalForceField.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/PhysicObject.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/Planet.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/ThrowBall.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.h"
   )
@@ -82,6 +84,7 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene3.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene4.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/BaseScene.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/PlanetScene.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -97,6 +100,7 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene3.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene4.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/BaseScene.h"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/PlanetScene.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.h"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")

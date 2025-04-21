@@ -39,3 +39,13 @@ void BaseScene::Draw()
 		gameObjects[i]->Draw();
 	}
 }
+
+void BaseScene::ClearScene()
+{
+	OnDisable();
+
+	for (size_t i = 0; i < gameObjects.size(); i++)
+		delete (gameObjects[i]);
+
+	gameObjects.clear();
+}
