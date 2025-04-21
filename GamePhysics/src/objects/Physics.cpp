@@ -12,26 +12,26 @@ void Physics::Run(float deltaTime)
 		RunCollisionsForObject(deltaTime, m_physicObjects[i], i + 1);
 }
 
-void Physics::RunForPhysicObject(PhysicObject* obj, float deltaTime)
-{
-	RunPhysicForObject (deltaTime, obj);
-	RunCollisionsForObject(deltaTime, obj);
-}
-
 void Physics::RunPhysicForObject(float deltaTime, PhysicObject* obj)
 {
 	if (obj->IsStatic())
 		return;
 	
-	glm::vec2 force = glm::vec2 (0.0f, 0.0f);
+	glm::vec2 zero = glm::vec2(0.0f, 0.0f);
 
-	for (size_t j = 0; j < m_forceFields.size(); ++j)
-		force += m_forceFields[j]->GetForceForObject (obj);
+	obj->m_velocity += obj->m_impulse + obj->m_force * deltaTime;
 
-	obj->m_velocity += force * deltaTime;
+	obj->m_impulse = zero;
+	obj->m_force = zero;
 
 	if (GameObject* gameObj = dynamic_cast<GameObject*>(obj))
 		gameObj->m_position += obj->m_velocity * deltaTime;
+}
+
+void Physics::RunPhysicForSingleObject(PhysicObject* obj, float deltaTime)
+{
+	RunPhysicForObject(deltaTime, obj);
+	RunCollisionsForObject(deltaTime, obj);
 }
 
 void Physics::RunCollisionsForObject(float deltaTime, PhysicObject* obj, int startIndex)
@@ -40,7 +40,8 @@ void Physics::RunCollisionsForObject(float deltaTime, PhysicObject* obj, int sta
 	{
 		PhysicObject* obj2 = m_physicObjects[i];
 
-		if (obj == obj2)
+		//Prevent collision with self in case startIndex was not passed
+		if (startIndex == 0 && obj == obj2)
 			continue;
 		else
 		{

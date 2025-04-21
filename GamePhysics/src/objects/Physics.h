@@ -10,7 +10,7 @@
 class Physics {
 public:
     static void Run (float deltaTime);
-    static void RunForPhysicObject(PhysicObject* obj, float deltaTime);
+    static void RunPhysicForSingleObject(PhysicObject* obj, float deltaTime);
 
 	 static void AddPhysicObject (PhysicObject* obj);
 	 static void RemovePhysicObject (PhysicObject* obj);

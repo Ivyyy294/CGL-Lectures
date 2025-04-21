@@ -19,6 +19,9 @@ public:
     inline const glm::vec2& End() const { return m_end; }
 
 	 glm::vec2 GetPointAtTime(float t);
+	 glm::vec2 GetDirection();
+	 glm::vec2 GetNormal();
+	 float Length();
 
 private:
     glm::vec2 m_start;

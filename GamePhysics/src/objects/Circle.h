@@ -3,7 +3,6 @@
 #include <imgui.h>
 
 #include "objects//GameObject.h"
-#include "objects/PhysicObject.h"
 
 class Circle : public GameObject
 {

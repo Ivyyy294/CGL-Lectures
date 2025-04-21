@@ -15,7 +15,7 @@ void ThrowBall::Draw()
 	if (m_isAiming)
 	{
 		Draw::SetColor (ImColor (255, 0, 0, 255));
-		Draw::Line (m_spawnPos, m_targetPos);
+		Draw::Arrow (m_spawnPos, m_targetPos);
 		DrawTryjectory();
 	}
 }
@@ -26,7 +26,7 @@ void ThrowBall::DrawTryjectory()
 
 	glm::vec2 impulse = GetImpulse();
 
-	BouncingBall dummy (m_spawnPos, m_ball->Radius(), m_ball->GetMass(), m_ball->GetBounce());
+	BouncingBall dummy (m_spawnPos, m_ball->Radius(), m_ball->GetMass());
 	dummy.SetMass (m_ball->GetMass());
 
 	dummy.ApplyImpulse (impulse);
@@ -34,15 +34,13 @@ void ThrowBall::DrawTryjectory()
 	for ( float i = 0; i < maxPreviweTime; i += m_stepSize)
 	{
 		dummy.Update(m_stepSize);
-		Physics::RunForPhysicObject (&dummy, m_stepSize);
+		Physics::RunPhysicForSingleObject(&dummy, m_stepSize);
 		dummy.Draw();
 	}
 }
 
 void ThrowBall::Update(float deltaTime)
 {
-	m_stepSize = deltaTime;
-
 	if (Input::IsMouseClicked(ImGuiMouseButton_Left))
 	{
 		m_spawnPos = Input::GetMousePos();

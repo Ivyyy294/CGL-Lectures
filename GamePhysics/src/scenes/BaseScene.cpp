@@ -34,5 +34,18 @@ void BaseScene::Update(float deltaTime)
 void BaseScene::Draw()
 {
 	for (size_t i = 0; i < gameObjects.size(); ++i)
+	{
+		Draw::SetColor (ImColor(1.0f, 1.0f, 1.0f, 1.0f));
 		gameObjects[i]->Draw();
+	}
+}
+
+void BaseScene::ClearScene()
+{
+	OnDisable();
+
+	for (size_t i = 0; i < gameObjects.size(); i++)
+		delete (gameObjects[i]);
+
+	gameObjects.clear();
 }
