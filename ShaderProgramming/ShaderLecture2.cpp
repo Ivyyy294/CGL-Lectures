@@ -58,12 +58,12 @@ bool ShaderLecture2::Initialize(const std::string& vertexShaderToLoad, const std
     mTextureLoc = mShader.GetUniformLocationByString("uTexture");
 	 
 	 //Flag Parameter
-	 mFlagParameterWidthLoc = mShader.GetUniformLocationByString("mFlagParameter.width");
-	 mFlagParameterLengthLoc = mShader.GetUniformLocationByString("mFlagParameter.length");
+	 mFlagParameterWidthLoc = mShader.GetUniformLocationByString("mFlagParameter.m_width");
+	 mFlagParameterLengthLoc = mShader.GetUniformLocationByString("mFlagParameter.m_length");
 
 	 //Wind Parameter
-	 mWindParameterSpeedLoc = mShader.GetUniformLocationByString ("mWindParameter.speed");
-	 mWindParameterStrengthLoc = mShader.GetUniformLocationByString ("mWindParameter.strength");
+	 mWindParameterSpeedLoc = mShader.GetUniformLocationByString ("mWindParameter.m_speed");
+	 mWindParameterStrengthLoc = mShader.GetUniformLocationByString ("mWindParameter.m_strength");
 
     std::cout << "Identified Uniforms." << std::endl;
 
@@ -146,11 +146,11 @@ void ShaderLecture2::InitQuad(int meshWidth, int meshHeight)
     std::vector<float> vertices;
     vertices.reserve(meshWidth * meshHeight * 5);
 
-	 mFlagParameter.width = 1.0f;
-	 mFlagParameter.length = 1.2f;
+	 mFlagParameter.m_width = 1.0f;
+	 mFlagParameter.m_length = 1.2f;
 
-	 float xPos = mFlagParameter.length * 0.5f;
-	 float yPos = mFlagParameter.width * 0.5f;
+	 float xPos = mFlagParameter.m_length * 0.5f;
+	 float yPos = mFlagParameter.m_width * 0.5f;
 
     glm::vec3 upperLeft(-xPos, yPos, 0.0f);
     glm::vec3 lowerRight(xPos, -yPos, 0.0f);
@@ -275,12 +275,12 @@ void ShaderLecture2::RenderLoop()
         glUniform1f(mTimeUniformLoc, static_cast<float>(glfwGetTime()));
 		  
 		  //Flag Parameter
-        glUniform1f(mFlagParameterWidthLoc, mFlagParameter.width);
-        glUniform1f(mFlagParameterLengthLoc, mFlagParameter.length);
+        glUniform1f(mFlagParameterWidthLoc, mFlagParameter.m_width);
+        glUniform1f(mFlagParameterLengthLoc, mFlagParameter.m_length);
 
 		  //Wind Parameter
-		  glUniform1f(mWindParameterSpeedLoc, mWindParameter.speed);
-		  glUniform1f(mWindParameterStrengthLoc, mWindParameter.strength);
+		  glUniform1f(mWindParameterSpeedLoc, mWindParameter.m_speed);
+		  glUniform1f(mWindParameterStrengthLoc, mWindParameter.m_strength);
 
         glBindVertexArray(mVAO);
         // 6 indices total, of type GL_UNSIGNED_INT

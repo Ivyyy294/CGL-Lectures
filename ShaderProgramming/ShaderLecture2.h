@@ -62,13 +62,13 @@ private:
 
 	 struct FlagParameter
 	 {
-		float width = 0.0f;
-		float length = 0.0f;
+		float m_width = 0.0f;
+		float m_length = 0.0f;
 	 } mFlagParameter;
 
 	 struct WindParameter
 	 {
-		 float speed = 6.0f;
-		 float strength = 1.0f;
+		 float m_speed = 6.0f;
+		 float m_strength = 1.0f;
 	 } mWindParameter;
 };

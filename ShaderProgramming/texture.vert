@@ -9,14 +9,14 @@ uniform float uTime;
 
 uniform struct FlagParameter
 {
-	float width;
-	float length;
+	float m_width;
+	float m_length;
 } mFlagParameter;
 
 uniform struct WindParameter
 {
-	float speed;
-	float strength;
+	float m_speed;
+	float m_strength;
 } mWindParameter;
 
 //Input attribute
@@ -27,11 +27,11 @@ out vec2 vTexCoord;
 vec2 CalculateNormPos ()
 {
 	vec2 normPos;
-	float xOffset = mFlagParameter.length * 0.5f;
-	float yOffset = mFlagParameter.width * 0.5f;
+	float xOffset = mFlagParameter.m_length * 0.5f;
+	float yOffset = mFlagParameter.m_width * 0.5f;
 
 	normPos.x = (inPosition.x + xOffset) / (xOffset * 2.0f);
-	normPos.y = (inPosition.y + yOffset) / mFlagParameter.width;
+	normPos.y = (inPosition.y + yOffset) / mFlagParameter.m_width;
 	return normPos;
 }
 
@@ -39,9 +39,9 @@ vec2 GetWindOffset ()
 {
 	vec2 normPos = CalculateNormPos();
 
-	float amplitude = mWindParameter.strength * 0.5f;
-	float speed = mWindParameter.speed;
-	float frequency = speed * 2f;
+	float amplitude = mWindParameter.m_strength * 0.5f;
+	float speed = mWindParameter.m_speed;
+	float frequency = speed * 2.0f;
 	float incline = speed * 0.1f;
 
 	vec2 offset;
@@ -57,7 +57,6 @@ vec2 GetWindOffset ()
 	for (int i = 0; i < 3; ++i)
 	{
 		offset.y += sin (frequencyY) * amplitudeY;
-		//frequencyY *= 1.3f;
 		frequencyY *= offsetFrequency;
 		amplitudeY *= 0.5f;
 	}
@@ -69,7 +68,6 @@ vec2 GetWindOffset ()
 	for (int i = 0; i < 3; ++i)
 	{
 		offset.x += cos (frequencyX) * amplitudeX;
-		//frequencyX *= 1.3f;
 		frequencyX *= offsetFrequency;
 		amplitudeX *= 0.5f;
 	}
@@ -84,11 +82,11 @@ void main()
 {
 	CalculateNormPos();
 
-	displacement = GetWindOffset();
+	vec2 windOffset = GetWindOffset();
 
 	gl_Position = vec4 (inPosition, 1.0);
-	gl_Position.x += displacement.x;
-	gl_Position.y += displacement.y;
+	gl_Position.x += windOffset.x;
+	gl_Position.y += windOffset.y;
 
 	outPosition = inPosition;
 	vTexCoord = inTexCoord;
