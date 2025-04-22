@@ -17,6 +17,7 @@ uniform struct WindParameter
 {
 	float m_speed;
 	float m_strength;
+	int m_windSimLayer;
 } mWindParameter;
 
 //Input attribute
@@ -42,38 +43,35 @@ vec2 GetWindOffset ()
 	float amplitude = mWindParameter.m_strength * 0.5f;
 	float speed = mWindParameter.m_speed;
 	float frequency = speed * 2.0f;
-	float incline = speed * 0.1f;
+	float incline = speed * 0.05f;
 
 	vec2 offset;
 	offset.x = 0.0f;
 	offset.y = 0.0f;
 
-	//Y axis
 	float frequencyY = normPos.x * frequency + uTime * speed;
 	float amplitudeY = 0.1f * amplitude * normPos.x;
 
-	float offsetFrequency = 1.0f + (1.0f / speed);
-
-	for (int i = 0; i < 3; ++i)
-	{
-		offset.y += sin (frequencyY) * amplitudeY;
-		frequencyY *= offsetFrequency;
-		amplitudeY *= 0.5f;
-	}
-	
-	//X axis
 	float frequencyX = normPos.y * frequency + uTime * speed;
 	float amplitudeX = 0.05f * amplitude * normPos.x;
 
-	for (int i = 0; i < 3; ++i)
+	float offsetFrequency = 1.0f + (1.0f / speed);
+
+	for (int i = 0; i < mWindParameter.m_windSimLayer; ++i)
 	{
+		//Y axis
+		offset.y += sin (frequencyY) * amplitudeY;
+		frequencyY *= offsetFrequency;
+		amplitudeY *= 0.5f;
+		
+		//X axis
 		offset.x += cos (frequencyX) * amplitudeX;
 		frequencyX *= offsetFrequency;
 		amplitudeX *= 0.5f;
 	}
 	
 	//Incline
-	offset.x += incline * cos (inPosition.y) - incline + (incline * -0.1f * normPos.y);
+	offset.x += incline * sin (1.0f - normPos.y);
 
 	return offset;
 }

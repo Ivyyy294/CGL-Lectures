@@ -64,6 +64,7 @@ bool ShaderLecture2::Initialize(const std::string& vertexShaderToLoad, const std
 	 //Wind Parameter
 	 mWindParameterSpeedLoc = mShader.GetUniformLocationByString ("mWindParameter.m_speed");
 	 mWindParameterStrengthLoc = mShader.GetUniformLocationByString ("mWindParameter.m_strength");
+	 mWindParameterSimLayerLoc = mShader.GetUniformLocationByString ("mWindParameter.m_windSimLayer");
 
     std::cout << "Identified Uniforms." << std::endl;
 
@@ -281,6 +282,7 @@ void ShaderLecture2::RenderLoop()
 		  //Wind Parameter
 		  glUniform1f(mWindParameterSpeedLoc, mWindParameter.m_speed);
 		  glUniform1f(mWindParameterStrengthLoc, mWindParameter.m_strength);
+        glUniform1i(mWindParameterSimLayerLoc, mWindParameter.m_windSimLayer);
 
         glBindVertexArray(mVAO);
         // 6 indices total, of type GL_UNSIGNED_INT

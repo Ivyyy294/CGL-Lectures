@@ -57,6 +57,7 @@ private:
 
 	 GLint mWindParameterSpeedLoc;
 	 GLint mWindParameterStrengthLoc;
+	 GLint mWindParameterSimLayerLoc;
 
     unsigned int texture;
 
@@ -70,5 +71,6 @@ private:
 	 {
 		 float m_speed = 6.0f;
 		 float m_strength = 1.0f;
+		 int m_windSimLayer = 5.0f;
 	 } mWindParameter;
 };
