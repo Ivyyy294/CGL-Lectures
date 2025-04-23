@@ -349,6 +349,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Circle.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\CircleForceField.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\CircleForceField.h" />
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Collision.cpp" />
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Collision.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ForceField.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ForceField.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\GameObject.cpp" />

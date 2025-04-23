@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Collision.h"
 #include "BouncingBall.h"
 #include "Wall.h"
 #include <glm/glm.hpp>
@@ -22,6 +22,7 @@ private:
 	static std::vector <PhysicObject*> m_physicObjects;
 	static std::vector <ForceField*> m_forceFields;
    
+	static void ResolveCollision(PhysicObject* obj1, PhysicObject* obj2, const Collision& collison);
 	static void ResolveCollision(PhysicObject* obj1, PhysicObject* obj2);
 	static void RunPhysicForObject(float deltaTime, PhysicObject* obj);
 	static void RunCollisionsForObject(float deltaTime, PhysicObject* obj, int startIndex = 0);

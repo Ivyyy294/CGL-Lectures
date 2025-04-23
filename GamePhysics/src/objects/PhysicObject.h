@@ -1,4 +1,5 @@
 #pragma once
+#include "Collision.h"
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -24,6 +25,9 @@ public:
 	 inline bool IsTrigger() const { return m_trigger; }
 	 inline void SetTrigger(bool val) { m_trigger = val; }
 
+	 void SetLinearDamping (const float val);
+	 inline float GetLinearDamping() {return m_linearDamping;};
+
 	 virtual void OnTriggerEnter (PhysicObject*){};
 
 	 glm::vec2 Reflection (glm::vec2 direction, glm::vec2 normal);
@@ -33,8 +37,11 @@ protected:
    glm::vec2 m_impulse = glm::vec2 (0,0);
    glm::vec2 m_force = glm::vec2 (0,0);
 
+	float m_linearDamping = 0.0f; // v *= 1 - damping * deltatime (Linear damping)
+
 	bool m_static = false;
 	bool m_trigger = false;
 
+	virtual Collision TestCollision (PhysicObject* obj);
 	virtual void ResolveCollision (PhysicObject* obj) = 0;
 };

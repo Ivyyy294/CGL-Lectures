@@ -28,6 +28,7 @@ void ThrowBall::DrawTryjectory()
 
 	BouncingBall dummy (m_spawnPos, m_ball->Radius(), m_ball->GetMass());
 	dummy.SetMass (m_ball->GetMass());
+	dummy.SetLinearDamping(m_ball->GetLinearDamping());
 
 	dummy.ApplyImpulse (impulse);
 

@@ -34,6 +34,9 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\CircleForceField.cpp">
       <Filter>objects</Filter>
     </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Collision.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ForceField.cpp">
       <Filter>objects</Filter>
     </ClCompile>
@@ -88,6 +91,9 @@
       <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\CircleForceField.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Collision.h">
       <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ForceField.h">

@@ -17,6 +17,9 @@ void Physics::RunPhysicForObject(float deltaTime, PhysicObject* obj)
 	if (obj->IsStatic())
 		return;
 	
+	//apply damping
+	obj->m_velocity *= 1 - obj->m_linearDamping * deltaTime;
+
 	glm::vec2 zero = glm::vec2(0.0f, 0.0f);
 
 	obj->m_velocity += obj->m_impulse + obj->m_force * deltaTime;
@@ -43,6 +46,11 @@ void Physics::RunCollisionsForObject(float deltaTime, PhysicObject* obj, int sta
 		//Prevent collision with self in case startIndex was not passed
 		if (startIndex == 0 && obj == obj2)
 			continue;
+
+		Collision collision = obj->TestCollision (obj2);
+
+		if (collision.m_collision)
+			ResolveCollision (obj, obj2, collision);
 		else
 		{
 			if (obj->IsTrigger() || obj2->IsTrigger())
@@ -52,6 +60,13 @@ void Physics::RunCollisionsForObject(float deltaTime, PhysicObject* obj, int sta
 			ResolveCollision(obj2, obj);
 		}
 	}
+}
+
+void Physics::ResolveCollision(PhysicObject* obj1, PhysicObject* obj2, const Collision& collison)
+{
+	float distance = collison.m_interrsectionDepth * 0.5f;
+	((GameObject*)obj1)->m_position += collison.m_normal * distance;
+	((GameObject*)obj2)->m_position += collison.m_normal * -distance;
 }
 
 void Physics::ResolveCollision(PhysicObject* obj1, PhysicObject* obj2)

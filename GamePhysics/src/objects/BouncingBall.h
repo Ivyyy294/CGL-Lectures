@@ -14,6 +14,10 @@ public:
 	virtual void Update(float deltaTime) override;
 
 private:
+	Collision TestCollision (PhysicObject* obj) override;
+	Collision TestCollision (BouncingBall* obj);
+	Collision TestCollision (Wall* obj);
+
 	void ResolveCollision(PhysicObject* obj) override;
 	
 	void ResolveWall(Wall* wall);
