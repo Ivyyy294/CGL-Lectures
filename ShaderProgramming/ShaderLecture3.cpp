@@ -1,11 +1,13 @@
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "ShaderLecture2.h"
+
+#include "ShaderLecture3.h"
 #include <vector>
-#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 // Store initial window data
-ShaderLecture2::ShaderLecture2(int width, int height, const std::string& title)
+ShaderLecture3::ShaderLecture3(int width, int height, const std::string& title)
     : mWidth(width)
     , mHeight(height)
     , mWindowTitle(title)
@@ -20,7 +22,7 @@ ShaderLecture2::ShaderLecture2(int width, int height, const std::string& title)
 {
 }
 
-bool ShaderLecture2::Initialize(const std::string& vertexShaderToLoad, const std::string& fragmentShaderToLoad, int meshWidth, int meshHeight, const std::string& textureToLoad)
+bool ShaderLecture3::Initialize(const std::string& vertexShaderToLoad, const std::string& fragmentShaderToLoad, int meshWidth, int meshHeight, const std::string& textureToLoad)
 {
     // 1) Create a GLFW window
     if (!InitWindow())
@@ -51,19 +53,11 @@ bool ShaderLecture2::Initialize(const std::string& vertexShaderToLoad, const std
 
     std::cout << "Loaded Shaders." << std::endl;
 
-    // 4) Get the reference to the uTime uniform in the shader
+    // 4) Get the reference to the uniforms in the shader
     mShader.SetActive();
     mTimeUniformLoc = mShader.GetUniformLocationByString("uTime");
     mTextureLoc = mShader.GetUniformLocationByString("uTexture");
-	 
-	 //Flag Parameter
-	 mFlagParameterWidthLoc = mShader.GetUniformLocationByString("mFlagParameter.m_width");
-	 mFlagParameterLengthLoc = mShader.GetUniformLocationByString("mFlagParameter.m_length");
-
-	 //Wind Parameter
-	 mWindParameterSpeedLoc = mShader.GetUniformLocationByString ("mWindParameter.m_speed");
-	 mWindParameterStrengthLoc = mShader.GetUniformLocationByString ("mWindParameter.m_strength");
-	 mWindParameterSimLayerLoc = mShader.GetUniformLocationByString ("mWindParameter.m_windSimLayer");
+    mMvpLoc = mShader.GetUniformLocationByString("uMVP");
 
     std::cout << "Identified Uniforms." << std::endl;
 
@@ -103,19 +97,37 @@ bool ShaderLecture2::Initialize(const std::string& vertexShaderToLoad, const std
     return true;
 }
 
-void ShaderLecture2::Run()
+void ShaderLecture3::InitializeScene(const glm::vec3& objectPosition, const glm::vec3& cameraPosition)
+{
+    mObjectPosition = objectPosition;
+    mCameraPosition = cameraPosition;    
+
+    //Model Matrix
+    mModel = glm::translate (glm::mat4(1.0f), mObjectPosition);
+    //View Matrix
+    mView = glm::lookAt(mCameraPosition, mObjectPosition, glm::vec3(0.0f, 1.0f, 0.0f));
+    //Projection Matrix
+    mProjection = glm::perspective (glm::radians (45.0f), (float) mWidth / (float) mHeight, 0.1f, 100.f);
+}
+
+void ShaderLecture3::ObjectPositionUpdated()
+{
+    //TODO
+}
+
+void ShaderLecture3::Run()
 {
     // Enter the main loop
     RenderLoop();
 }
 
-ShaderLecture2::~ShaderLecture2()
+ShaderLecture3::~ShaderLecture3()
 {
     // Clean up on destruction
     CleanUp();
 }
 
-bool ShaderLecture2::InitWindow()
+bool ShaderLecture3::InitWindow()
 {
     if (!glfwInit())
     {
@@ -141,19 +153,13 @@ bool ShaderLecture2::InitWindow()
     return true;
 }
 
-void ShaderLecture2::InitQuad(int meshWidth, int meshHeight)
+void ShaderLecture3::InitQuad(int meshWidth, int meshHeight)
 {
     std::vector<float> vertices;
     vertices.reserve(meshWidth * meshHeight * 5);
 
-	 mFlagParameter.m_width = 1.0f;
-	 mFlagParameter.m_length = 1.2f;
-
-	 float xPos = mFlagParameter.m_length * 0.5f;
-	 float yPos = mFlagParameter.m_width * 0.5f;
-
-    glm::vec3 upperLeft(-xPos, yPos, 0.0f);
-    glm::vec3 lowerRight(xPos, -yPos, 0.0f);
+    glm::vec3 upperLeft(-0.6f,  0.4f, 0.0f);
+    glm::vec3 lowerRight(0.6f, -0.4f, 0.0f);
 
     for (int row = 0; row < meshHeight; ++row)
     {
@@ -257,7 +263,7 @@ void ShaderLecture2::InitQuad(int meshWidth, int meshHeight)
 }
 
 
-void ShaderLecture2::RenderLoop()
+void ShaderLecture3::RenderLoop()
 {
     // Keep drawing until the window closes
     while (!glfwWindowShouldClose(mWindow))
@@ -273,36 +279,11 @@ void ShaderLecture2::RenderLoop()
         glUniform1i(mTextureLoc, 0);
 
         glUniform1f(mTimeUniformLoc, static_cast<float>(glfwGetTime()));
-		  
-		  //Flag Parameter
-        glUniform1f(mFlagParameterWidthLoc, mFlagParameter.m_width);
-        glUniform1f(mFlagParameterLengthLoc, mFlagParameter.m_length);
 
-		  //Wind Parameter
-		  glUniform1f(mWindParameterSpeedLoc, mWindParameter.m_speed);
-		  glUniform1f(mWindParameterStrengthLoc, mWindParameter.m_strength);
-        glUniform1i(mWindParameterSimLayerLoc, mWindParameter.m_windSimLayer);
-
-		  glm::mat4 stretch = glm::mat2(glm::f32(3.0f), glm::f32(0.0f)
-			  , glm::f32(0.0f), glm::f32(1.0f));
-
-		  glm::mat4 rot45 = glm::mat2(glm::f32(1.0f), glm::f32(-1.0f)
-			  , glm::f32(1.0f), glm::f32(1.0f));
-
-		  glm::mat4 shear = glm::mat2(glm::f32(1.0f), glm::f32(1.0f)
-			  , glm::f32(0.0f), glm::f32(1.0f));
-
-		  glm::mat4 rot90 = glm::mat2 (glm::f32 (0.0f), glm::f32(1.0f)
-											, glm::f32(-1.0f), glm::f32(0.0f));
-
-			glm::mat4 model = glm::translate (rot45, glm::vec3 (0.0f));
-
-			glUniformMatrix4fv (mShader.GetUniformLocationByString("uModelMatrix")
-			, 1, GL_FALSE, glm::value_ptr (model));
+        glm::mat4 mvp = mProjection * mView * mModel;
+        glUniformMatrix4fv(mMvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 
         glBindVertexArray(mVAO);
-
-        // 6 indices total, of type GL_UNSIGNED_INT
         glDrawElements(GL_TRIANGLES, mIndexCount, GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
 
@@ -311,7 +292,7 @@ void ShaderLecture2::RenderLoop()
     }
 }
 
-void ShaderLecture2::CleanUp()
+void ShaderLecture3::CleanUp()
 {
     // Free GPU buffers
     if (mVAO)
@@ -328,6 +309,11 @@ void ShaderLecture2::CleanUp()
     {
         glDeleteBuffers(1, &mEBO);
         mEBO = 0;
+    }
+    if (texture)
+    {
+        glDeleteTextures(1, &texture);
+        texture = 0;
     }
 
     // Unload shaders

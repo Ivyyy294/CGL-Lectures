@@ -27,7 +27,7 @@
     <ClCompile Include="ShaderLecture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderLecture2.cpp">
+    <ClCompile Include="ShaderLecture3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +38,7 @@
     <ClInclude Include="ShaderLecture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderLecture2.h">
+    <ClInclude Include="ShaderLecture3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,6 +53,12 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="texture.vert">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="matrix.frag">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="matrix.vert">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

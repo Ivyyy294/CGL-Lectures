@@ -6,6 +6,7 @@ layout (location = 0) in vec3 inPosition;
 layout (location = 1) in vec2 inTexCoord;
 
 uniform float uTime;
+uniform mat4 uModelMatrix;
 
 uniform struct FlagParameter
 {
@@ -43,7 +44,7 @@ vec2 GetWindOffset ()
 	float amplitude = mWindParameter.m_strength * 0.5f;
 	float speed = mWindParameter.m_speed;
 	float frequency = speed * 2.0f;
-	float incline = speed * 0.05f;
+	float incline = speed * 0.025f;
 
 	vec2 offset;
 	offset.x = 0.0f;
@@ -71,7 +72,7 @@ vec2 GetWindOffset ()
 	}
 	
 	//Incline
-	offset.x += incline * sin (1.0f - normPos.y);
+	//offset.x += incline * sin (1.0f - normPos.y);
 
 	return offset;
 }
@@ -85,6 +86,8 @@ void main()
 	gl_Position = vec4 (inPosition, 1.0);
 	gl_Position.x += windOffset.x;
 	gl_Position.y += windOffset.y;
+
+	gl_Position = uModelMatrix * gl_Position;
 
 	outPosition = inPosition;
 	vTexCoord = inTexCoord;

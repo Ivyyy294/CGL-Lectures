@@ -5,23 +5,23 @@
 #include <GLFW/glfw3.h>// For creating a window and handling input
 #include <stb_image.h>
 #include "Shader.h"    // Manages compiling and using GLSL shaders
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <glm/glm.hpp>
 
-class ShaderLecture2
+class ShaderLecture3
 {
 public:
     // Stores window dimensions and title
-    ShaderLecture2(int width, int height, const std::string& title);
+    ShaderLecture3(int width, int height, const std::string& title);
 
     // Sets up the window, OpenGL, and loads the shader
     bool Initialize(const std::string& vertexShaderToLoad, const std::string& fragmentShaderToLoad, int meshWidth, int meshHeight, const std::string& textureToLoad);
+    void InitializeScene(const glm::vec3& objectPosition, const glm::vec3& cameraPosition);
 
     // Renders repeatedly until the window is closed
     void Run();
 
     // Cleans up on destruction
-    ~ShaderLecture2();
+    ~ShaderLecture3();
 
 private:
     // Creates the GLFW window and context
@@ -36,9 +36,11 @@ private:
     // Frees resources and destroys the window
     void CleanUp();
 
+    void ObjectPositionUpdated();
+
+
     int mWidth;
     int mHeight;
-
     std::string mWindowTitle;
     GLFWwindow* mWindow;
 
@@ -49,30 +51,16 @@ private:
     GLuint mVBO;
     GLuint mEBO;
 
-    bool useFullWindowQuad = false;
-
     GLint mTimeUniformLoc;
     GLint mTextureLoc;
 
-	 GLint mFlagParameterWidthLoc;
-	 GLint mFlagParameterLengthLoc;
+    glm::vec3 mObjectPosition;
+    glm::vec3 mCameraPosition;
+    glm::mat4 mModel;
+    glm::mat4 mView;
+    glm::mat4 mProjection;
 
-	 GLint mWindParameterSpeedLoc;
-	 GLint mWindParameterStrengthLoc;
-	 GLint mWindParameterSimLayerLoc;
+    GLint mMvpLoc;
 
     unsigned int texture;
-
-	 struct FlagParameter
-	 {
-		float m_width = 0.0f;
-		float m_length = 0.0f;
-	 } mFlagParameter;
-
-	 struct WindParameter
-	 {
-		 float m_speed = 6.0f;
-		 float m_strength = 1.0f;
-		 int m_windSimLayer = 5.0f;
-	 } mWindParameter;
 };

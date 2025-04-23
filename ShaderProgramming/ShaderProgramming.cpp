@@ -3,14 +3,17 @@
 
 #include <iostream>
 #include "glm.hpp"
-#include "ShaderLecture2.h"
+#include "ShaderLecture3.h"
+//#include "ShaderLecture2.h"
 
 int main()
 {
-    ShaderLecture2 lectureApp (800, 800, "Shader Programming Session 1");
+    ShaderLecture3 lectureApp (800, 800, "Shader Programming Session 3");
 
-	 if (!lectureApp.Initialize ("texture.vert", "texture.frag", 200, 200, "PrideTexture.jpg"))
+	 if (!lectureApp.Initialize ("matrix.vert", "matrix.frag", 20, 20, "PrideTexture.jpg"))
 		return 1;
+
+	lectureApp.InitializeScene (glm::vec3(0.0f, 5.0f, 4.0f), glm::vec3 (0.0f, 0.0f, -2.0f));
 
 	lectureApp.Run();
 

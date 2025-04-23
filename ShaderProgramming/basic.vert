@@ -2,6 +2,8 @@
 //Request GLSL 3.3
 #version 330
 
+
+
 //Input attribute
 in vec3 inPosition;
 out vec3 outPosition;
