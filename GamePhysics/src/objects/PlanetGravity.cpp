@@ -25,16 +25,13 @@ Collision PlanetGravity::TestCollision(PhysicObject* collider)
 {
 	Collision collision;
 
-	if (Planet* planet = dynamic_cast<Planet*> (collider))
-	{
-		glm::vec2 diff = m_position - collider->GetPosition();
-		glm::vec2 normal = glm::normalize(diff);
-		float length = glm::dot(normal, diff);
+	glm::vec2 diff = m_position - collider->GetPosition();
+	glm::vec2 normal = glm::normalize(diff);
+	float length = glm::dot(normal, diff);
 
-		collision.m_collision = true;
-		collision.m_normal = normal;
-		collision.m_interrsectionDepth = length;
-	}
+	collision.m_collision = true;
+	collision.m_normal = normal;
+	collision.m_interrsectionDepth = length;
 
 	return collision;
 }

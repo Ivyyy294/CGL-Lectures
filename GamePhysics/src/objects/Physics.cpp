@@ -46,6 +46,9 @@ void Physics::RunCollisionsForObject(float deltaTime, PhysicObject* obj, int sta
 		if (startIndex == 0 && obj == obj2)
 			continue;
 
+		if (obj->IsTrigger() && obj2->IsTrigger())
+			continue;
+
 		Collision collision = obj->TestCollision (obj2);
 
 		if (collision.m_collision)
