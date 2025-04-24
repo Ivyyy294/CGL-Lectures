@@ -22,6 +22,9 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PlanetScene.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\Pool.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
@@ -85,6 +88,9 @@
       <Filter>scenes</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PlanetScene.h">
+      <Filter>scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\Pool.h">
       <Filter>scenes</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.h">
