@@ -28,7 +28,7 @@ Collision GlobalForceField::TestCollision(PhysicObject* collider)
 	return collision;
 }
 
-void GlobalForceField::OnTriggerEnter(PhysicObject* obj)
+void GlobalForceField::OnTriggerEnter(PhysicObject* obj, const Collision& collision)
 {
 	obj->ApplyForce (glm::vec2(0.0f, m_appliedForce * -1.0f * obj->GetMass()));
 }

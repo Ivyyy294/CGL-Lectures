@@ -13,5 +13,5 @@ public:
 private:
 
 	// Inherited via ForceField
-	void OnTriggerEnter(PhysicObject* obj);
+	void OnTriggerEnter(PhysicObject* obj, const Collision& collision);
 };

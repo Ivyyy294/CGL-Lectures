@@ -50,6 +50,7 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/objects/PhysicObject.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Planet.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/PlanetGravity.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/ThrowBall.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.cpp"
   )
@@ -72,6 +73,7 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/objects/PhysicObject.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Planet.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/PlanetGravity.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/ThrowBall.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.h"
   )

@@ -1,20 +1,21 @@
 #pragma once
-
+#include "Planet.h"
 #include "PhysicObject.h"
-#include "ForceField.h"
 
-class GlobalForceField
+class PlanetGravity
 	: public PhysicObject
-	, public ForceField
 {
 public:
-	GlobalForceField();
-	GlobalForceField(float force);
+	PlanetGravity(Planet* planet);
+	~PlanetGravity(){};
 
-	virtual void Update(float deltaTime) override {};
-	virtual void Draw() override {};
+	static float m_universalGravitationalConstant;
 
 private:
+	Planet* m_planet;
+
+	void Update(float deltaTime) override;
+
 	Collision TestCollision(PhysicObject* collider) final;
 	void OnTriggerEnter(PhysicObject* obj, const Collision& collision) final;
 };

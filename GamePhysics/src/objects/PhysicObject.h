@@ -46,6 +46,6 @@ protected:
 	bool m_trigger = false;
 
 
-	virtual void OnTriggerEnter (PhysicObject* obj) {};
+	virtual void OnTriggerEnter (PhysicObject* obj, const Collision& collision) {};
 	virtual void OnCollisionEnter (PhysicObject* obj, const Collision& collision) {};
 };

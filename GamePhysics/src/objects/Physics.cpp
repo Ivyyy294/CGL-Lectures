@@ -62,8 +62,8 @@ void Physics::ResolveCollision(PhysicObject* obj1, PhysicObject* obj2, const Col
 {
 	if (obj1->IsTrigger() || obj2->IsTrigger())
 	{
-		obj1->OnTriggerEnter(obj2);
-		obj2->OnTriggerEnter(obj1);
+		obj1->OnTriggerEnter(obj2, collison);
+		obj2->OnTriggerEnter(obj1, collison);
 	}
 	else
 	{

@@ -15,7 +15,7 @@ CircleForceField::CircleForceField(glm::vec2 pos, float radius, float gravity)
 	SetTrigger (true);
 }
 
-void CircleForceField::OnTriggerEnter(PhysicObject* obj)
+void CircleForceField::OnTriggerEnter(PhysicObject* obj, const Collision& collision)
 {
 	glm::vec2 force(0.0, 0.0);
 

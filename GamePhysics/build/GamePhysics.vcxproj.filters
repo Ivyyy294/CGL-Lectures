@@ -58,6 +58,9 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Planet.cpp">
       <Filter>objects</Filter>
     </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\PlanetGravity.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ThrowBall.cpp">
       <Filter>objects</Filter>
     </ClCompile>
@@ -118,6 +121,9 @@
       <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Planet.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PlanetGravity.h">
       <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ThrowBall.h">
