@@ -3,9 +3,10 @@
 #include "core/Draw.h"
 #include "Physics.h"
 
-WhiteBall::WhiteBall (float radius)
+WhiteBall::WhiteBall (glm::vec2 pos, float radius)
 	: BouncingBall (radius)
 {
+	m_position = pos;
 	m_color = ImColor (1.0f, 1.0f, 1.0f, 1.0f);
 	m_linearDamping = 1.25f;
 }

@@ -5,7 +5,7 @@ class WhiteBall
 	: public BouncingBall
 {
 public:
-	WhiteBall (float radius);
+	WhiteBall (glm::vec2 pos, float radius);
 	~WhiteBall(){};
 
 	void Update(float deltaTime) override;

@@ -14,12 +14,12 @@ int main(int argc, char** argv)
 	std::vector<Scene*> scenes = 
 	{
 		new TestScene(),
+		new AssignmentScene1(),
 		new AssignmentScene2(),
 		new AssignmentScene3(),
 		new AssignmentScene4(),
 		new PlanetScene(),
-		new PoolScene(),
-		new AssignmentScene1()
+		new PoolScene()
 	};
 
 	//init time

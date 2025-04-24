@@ -1,9 +1,10 @@
 #include "PoolBall.h"
 #include "core/Draw.h"
 
-PoolBall::PoolBall(float radius, ImColor color)
+PoolBall::PoolBall(glm::vec2 pos, float radius, ImColor color)
 	 : BouncingBall (radius)
 {
+	m_position = pos;
 	m_color = color;
 	m_linearDamping = 1.25f;
 }

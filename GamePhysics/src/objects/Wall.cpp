@@ -10,6 +10,14 @@ Wall::Wall(glm::vec2 start, glm::vec2 end)
     m_static = true;
 }
 
+Wall::Wall(glm::vec2 start, glm::vec2 end, ImColor color)
+	: m_start(start)
+	, m_end(end)
+	, m_color (color)
+{
+	m_static = true;
+}
+
 void Wall::Draw()
 {
     Draw::Line(m_start, m_end);
