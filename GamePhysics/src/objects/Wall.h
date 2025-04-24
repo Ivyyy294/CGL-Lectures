@@ -23,6 +23,7 @@ public:
 	 glm::vec2 GetNormal();
 	 float Length();
 
+	 Collision TestCollision(PhysicObject* collider) final;
 private:
     glm::vec2 m_start;
     glm::vec2 m_end;

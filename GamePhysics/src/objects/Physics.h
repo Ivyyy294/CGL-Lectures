@@ -22,7 +22,10 @@ private:
 	static std::vector <PhysicObject*> m_physicObjects;
 	static std::vector <ForceField*> m_forceFields;
    
-	static void ResolveCollision(PhysicObject* obj1, PhysicObject* obj2, const Collision& collison);
 	static void RunPhysicForObject(float deltaTime, PhysicObject* obj);
 	static void RunCollisionsForObject(float deltaTime, PhysicObject* obj, int startIndex = 0);
+	static void ResolveCollision(PhysicObject* obj1, PhysicObject* obj2, const Collision& collison);
+	static void PushObjects (PhysicObject* obj1, PhysicObject* obj2, const Collision& collison);
+	static void DeflectObjects (PhysicObject* obj1, PhysicObject* obj2, const Collision& collison);
+	static void DeflectObjectStatic (PhysicObject* obj, glm::vec2 normal);
 };
