@@ -2,13 +2,22 @@
 //
 
 #include <iostream>
-#include "romanNumeral.h"
-#include "Inventory.h"
+#include "Monster.h"
+//#include "romanNumeral.h"
+//#include "Inventory.h"
 int main()
 {
-	Inventory inventory;
-	inventory.Populate();
-	inventory.OpenInventory();
+	Monster* first = new Monster ("Goblin", 3);
+	Monster* second = new Monster ("Ork", 6);
+	Monster* third = new Monster ("owl", 666);
+	first->AddMonster (second);
+	first->AddMonster (third);
+
+	first->Print();
+
+	//Inventory inventory;
+	//inventory.Populate();
+	//inventory.OpenInventory();
 	//RomanNumeral romanNumeral1, romanNumeral2, romanNumeralResult;
 	//std::cout << "Give me two roman numerals:" << std::endl;
 	//std::cin >> romanNumeral1 >> romanNumeral2;

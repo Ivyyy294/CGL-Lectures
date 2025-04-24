@@ -1,6 +1,11 @@
 #include "Circle.h"
 #include <core/Draw.h>
 
+Circle::Circle(float radius)
+	: CircleCollider(radius)
+{
+}
+
 Circle::Circle(glm::vec2 pos, float radius)
 	: CircleCollider (radius)
 {
