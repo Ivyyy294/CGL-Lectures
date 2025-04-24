@@ -13,12 +13,12 @@ int main(int argc, char** argv)
 	// Add newly created scenes here so that they show up in the menu.
 	std::vector<Scene*> scenes = 
 	{
-		new TestScene(),
-		new AssignmentScene1(),
-		new AssignmentScene2(),
-		new AssignmentScene3(),
-		new AssignmentScene4(),
-		new PlanetScene(),
+		//new TestScene(),
+		//new AssignmentScene1(),
+		//new AssignmentScene2(),
+		//new AssignmentScene3(),
+		//new AssignmentScene4(),
+		//new PlanetScene(),
 		new PoolScene()
 	};
 

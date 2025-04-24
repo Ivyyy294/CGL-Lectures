@@ -99,9 +99,6 @@ void Physics::DeflectObjects(PhysicObject* obj1, PhysicObject* obj2, const Colli
 	glm::vec2 normal1 = collison.m_normal;
 	glm::vec2 normal2 = -collison.m_normal;
 
-	glm::vec2 force1 = obj1->GetForce();
-	glm::vec2 force2 = obj2->GetForce();
-
 	//glm::vec2 vDiff1 = collison.m_normal;
 	//glm::vec2 vDiff2 = -collison.m_normal;
 
@@ -129,6 +126,12 @@ void Physics::DeflectObjects(PhysicObject* obj1, PhysicObject* obj2, const Colli
 	//	obj2->ApplyImpulse(force1On2);
 	//}
 
+	//New
+
+	glm::vec2 force1 = dot(normal1, obj1->GetForce()) * normal1;
+	glm::vec2 force2 = dot(normal2, obj2->GetForce()) * normal2;
+
+	//Old
 	glm::vec2 deflect1 {0.0f, 0.0f}; //Impulse from obj2 on obj1
 	glm::vec2 deflect2 {0.0f, 0.0f}; //Impulse from obj1 on obj2
 
@@ -136,14 +139,17 @@ void Physics::DeflectObjects(PhysicObject* obj1, PhysicObject* obj2, const Colli
 	deflect1 = obj1->m_velocity - 2.0f * glm::dot(obj1->m_velocity, normal1) * normal1;
 	deflect2 = obj2->m_velocity - 2.0f * glm::dot(obj2->m_velocity, normal2) * normal2;
 
-	//deflect2 = - 2.0f * glm::dot(obj2->m_velocity, normal2) * normal2;
-	//deflect2 = - 2.0f * glm::dot(obj2->m_velocity, normal2) * normal2;
-
 	if (!obj2->IsSimulation())
-		obj1->SetVelocity (deflect1);
+	{
+		obj1->SetVelocity (deflect1 / obj1->m_mass);
+		obj1->ApplyImpulse (force2);
+	}
 
 	if (!obj1->IsSimulation())
-		obj2->SetVelocity (deflect2);
+	{
+		obj2->SetVelocity (deflect2 / obj2->m_mass);
+		obj2->ApplyImpulse (force1);
+	}
 }
 
 void Physics::DeflectObjectStatic(PhysicObject* obj, glm::vec2 normal)
