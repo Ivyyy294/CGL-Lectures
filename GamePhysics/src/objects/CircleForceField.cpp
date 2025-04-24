@@ -12,24 +12,21 @@ CircleForceField::CircleForceField(glm::vec2 pos, float radius, float gravity)
 		m_color = ImColor(0, 0, 255, 255);
 
 	SetStatic(true);
+	SetTrigger (true);
 }
 
-void CircleForceField::Update(float deltaTime)
+void CircleForceField::OnTriggerEnter(PhysicObject* obj)
 {
-}
-
-void CircleForceField::ResolveCollision(PhysicObject* obj)
-{
-	glm::vec2 force (0.0, 0.0);
+	glm::vec2 force(0.0, 0.0);
 
 	if (BouncingBall* bb = dynamic_cast<BouncingBall*>(obj))
 	{
 		glm::vec2 direction = m_position - bb->GetPosition();
 		float distance = glm::length(direction);
 
-		if (distance <= m_circleRadius + bb->Radius())
-			force = glm::normalize (direction) * m_force;
+		if (distance <= m_radius + bb->Radius())
+			force = glm::normalize(direction) * m_appliedForce;
 	}
 
-	obj->ApplyForce (force * obj->GetMass());
+	obj->ApplyForce(force * obj->GetMass());
 }

@@ -41,6 +41,7 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysi
 set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/objects/BouncingBall.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Circle.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/CircleCollider.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/CircleForceField.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Collision.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/ForceField.cpp"
@@ -62,6 +63,7 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/00_Git/Semester3/GamePhysi
 set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/objects/BouncingBall.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Circle.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/CircleCollider.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/CircleForceField.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Collision.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/ForceField.h"

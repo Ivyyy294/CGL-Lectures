@@ -2,8 +2,11 @@
 #include "Collision.h"
 #include <glm/glm.hpp>
 #include <vector>
+#include "GameObject.h"
 
-class PhysicObject {
+class PhysicObject 
+	: public GameObject
+{
     friend class Physics;
 public:
     PhysicObject();
@@ -28,9 +31,9 @@ public:
 	 void SetLinearDamping (const float val);
 	 inline float GetLinearDamping() {return m_linearDamping;};
 
-	 virtual void OnTriggerEnter (PhysicObject*){};
-
 	 glm::vec2 Reflection (glm::vec2 direction, glm::vec2 normal);
+	
+	virtual Collision TestCollision (PhysicObject* collider);
 protected:
 	float m_mass = 1.0f;
    glm::vec2 m_velocity = glm::vec2 (0,0);
@@ -42,6 +45,7 @@ protected:
 	bool m_static = false;
 	bool m_trigger = false;
 
-	virtual Collision TestCollision (PhysicObject* obj);
-	virtual void ResolveCollision (PhysicObject* obj) = 0;
+
+	virtual void OnTriggerEnter (PhysicObject* obj) {};
+	virtual void OnCollisionEnter (PhysicObject* obj, const Collision& collision) {};
 };

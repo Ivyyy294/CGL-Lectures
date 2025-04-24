@@ -3,8 +3,10 @@
 #include <imgui.h>
 
 #include "objects//GameObject.h"
+#include "CircleCollider.h"
 
-class Circle : public GameObject
+class Circle
+	: public CircleCollider
 {
 public:
 	Circle(glm::vec2 pos, float radius);
@@ -12,9 +14,6 @@ public:
 	void Draw() override;
 	virtual void Update(float deltaTime) override {};
 
-   inline const float& Radius() const { return m_circleRadius; }
-
 protected:
-	float m_circleRadius;
 	ImColor m_color = ImColor (255, 255, 255, 255);
 };

@@ -27,8 +27,7 @@ void Physics::RunPhysicForObject(float deltaTime, PhysicObject* obj)
 	obj->m_impulse = zero;
 	obj->m_force = zero;
 
-	if (GameObject* gameObj = dynamic_cast<GameObject*>(obj))
-		gameObj->m_position += obj->m_velocity * deltaTime;
+	obj->m_position += obj->m_velocity * deltaTime;
 }
 
 void Physics::RunPhysicForSingleObject(PhysicObject* obj, float deltaTime)
@@ -51,27 +50,52 @@ void Physics::RunCollisionsForObject(float deltaTime, PhysicObject* obj, int sta
 
 		if (collision.m_collision)
 			ResolveCollision (obj, obj2, collision);
-		else
-		{
-			if (obj->IsTrigger() || obj2->IsTrigger())
-				continue;
 
-			ResolveCollision(obj, obj2);
-			ResolveCollision(obj2, obj);
-		}
+		collision = obj2->TestCollision(obj);
+
+		if (collision.m_collision)
+			ResolveCollision(obj2, obj, collision);
 	}
 }
 
 void Physics::ResolveCollision(PhysicObject* obj1, PhysicObject* obj2, const Collision& collison)
 {
-	float distance = collison.m_interrsectionDepth * 0.5f;
-	((GameObject*)obj1)->m_position += collison.m_normal * distance;
-	((GameObject*)obj2)->m_position += collison.m_normal * -distance;
-}
+	if (obj1->IsTrigger() || obj2->IsTrigger())
+	{
+		obj1->OnTriggerEnter(obj2);
+		obj2->OnTriggerEnter(obj1);
+	}
+	else
+	{
+		obj1->OnCollisionEnter(obj2, collison);
+		obj2->OnCollisionEnter(obj1, collison);
+		
+		if (obj2->IsStatic() && obj1->IsStatic())
+			return;
 
-void Physics::ResolveCollision(PhysicObject* obj1, PhysicObject* obj2)
-{
-	obj1->ResolveCollision (obj2);
+		glm::vec2 normal1 = collison.m_normal;
+		glm::vec2 normal2 = -collison.m_normal;
+
+		//Reflect
+		if (!obj1->IsStatic())
+		{
+			glm::vec2 newVelocity = obj1->m_velocity - 2.0f * glm::dot(obj1->m_velocity, normal1) * normal1;
+			obj1->m_velocity = glm::vec2(0.0f, 0.0f);
+			obj1->ApplyImpulse (newVelocity);
+		}
+		else
+		{
+			glm::vec2 newVelocity = obj2->m_velocity - 2.0f * glm::dot(obj2->m_velocity, normal2) * normal2;
+			obj2->m_velocity = glm::vec2(0.0f, 0.0f);
+			obj2->ApplyImpulse(newVelocity);
+		}
+
+		//distance
+		float distance1 = obj1->IsStatic() ? 0.0f : collison.m_interrsectionDepth * (obj2->IsStatic() ? 1.0f : 0.5f);
+		float distance2 = obj2->IsStatic() ? 0.0f : collison.m_interrsectionDepth * (obj1->IsStatic() ? 1.0f : 0.5f);
+		obj1->m_position += normal1 * distance1;
+		obj2->m_position += normal2 * distance2;
+	}
 }
 
 void Physics::AddPhysicObject(PhysicObject* obj)

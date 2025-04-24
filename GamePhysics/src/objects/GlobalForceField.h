@@ -1,10 +1,10 @@
 #pragma once
 
-#include "GameObject.h"
+#include "PhysicObject.h"
 #include "ForceField.h"
 
 class GlobalForceField
-	: public GameObject
+	: public PhysicObject
 	, public ForceField
 {
 public:
@@ -14,8 +14,7 @@ public:
 	virtual void Update(float deltaTime) override {};
 	virtual void Draw() override {};
 
-protected:
-
-	// Inherited via ForceField
-	void ResolveCollision (PhysicObject* obj) override;
+private:
+	Collision TestCollision(PhysicObject* collider) final;
+	void OnTriggerEnter(PhysicObject* obj) final;
 };

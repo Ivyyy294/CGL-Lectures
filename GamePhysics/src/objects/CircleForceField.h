@@ -10,10 +10,8 @@ public:
 	CircleForceField (glm::vec2 pos, float radius, float gravity);
 	~CircleForceField(){};
 
-	virtual void Update(float deltaTime) override;
-
 private:
 
 	// Inherited via ForceField
-	void ResolveCollision (PhysicObject* obj) override;
+	void OnTriggerEnter(PhysicObject* obj);
 };

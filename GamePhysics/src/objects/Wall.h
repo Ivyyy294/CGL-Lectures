@@ -5,7 +5,7 @@
 #include "GameObject.h"
 #include "objects/PhysicObject.h"
 
-class Wall : public GameObject, public PhysicObject
+class Wall : public PhysicObject
 {
 public:
     typedef std::vector<Wall> Vec;
@@ -26,7 +26,4 @@ public:
 private:
     glm::vec2 m_start;
     glm::vec2 m_end;
-
-	 Collision TestCollision(PhysicObject* obj) override;
-	 void ResolveCollision(PhysicObject* obj) override;
 };

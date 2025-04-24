@@ -38,9 +38,10 @@ glm::vec2 PhysicObject::Reflection(glm::vec2 direction, glm::vec2 normal)
    return direction - 2.0f * glm::dot (direction, normal) * normal;
 }
 
-Collision PhysicObject::TestCollision(PhysicObject* obj)
+Collision PhysicObject::TestCollision (PhysicObject* collider)
 {
-	return Collision {false, glm::vec2(0.0f, 0.0f), 0.0f};
+    return Collision();
 }
+
 
 

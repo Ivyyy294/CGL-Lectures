@@ -5,6 +5,7 @@ GlobalForceField::GlobalForceField()
 	: ForceField (9.81)
 {
 	SetStatic (true);
+	SetTrigger(true);
 }
 
 GlobalForceField::GlobalForceField(float force)
@@ -12,8 +13,22 @@ GlobalForceField::GlobalForceField(float force)
 {
 }
 
-void GlobalForceField::ResolveCollision (PhysicObject* obj)
+Collision GlobalForceField::TestCollision(PhysicObject* collider)
 {
-	obj->ApplyForce (glm::vec2(0.0f, m_force * -1.0f * obj->GetMass()));
+	Collision collision;
+
+	glm::vec2 diff = m_position - collider->GetPosition();
+	glm::vec2 normal = glm::normalize (diff);
+	float length = glm::dot (normal, diff);
+
+	collision.m_collision = true;
+	collision.m_normal = normal;
+	collision.m_interrsectionDepth = length;
+
+	return collision;
 }
 
+void GlobalForceField::OnTriggerEnter(PhysicObject* obj)
+{
+	obj->ApplyForce (glm::vec2(0.0f, m_appliedForce * -1.0f * obj->GetMass()));
+}

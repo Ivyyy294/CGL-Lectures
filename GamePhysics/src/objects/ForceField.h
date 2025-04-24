@@ -1,16 +1,16 @@
 #pragma once
 #include "PhysicObject.h"
 
-class ForceField : public PhysicObject
+class ForceField
 {
 public:
 	ForceField(){};
 	ForceField(float force);
 	~ForceField() {};
 
-	inline void SetForce(float force) { m_force = force; }
-	inline float GetForce() const { return m_force; }
+	inline void SetAppliedForce(float force) { m_appliedForce = force; }
+	inline float GetAppliedForce() const { return m_appliedForce; }
 
 protected:
-	float m_force = 9.81f;
+	float m_appliedForce = 9.81f;
 };

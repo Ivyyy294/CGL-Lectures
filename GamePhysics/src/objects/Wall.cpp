@@ -1,5 +1,6 @@
 #include "core//Draw.h"
 #include "Wall.h"
+#include"CircleCollider.h"
 
 Wall::Wall(glm::vec2 start, glm::vec2 end) 
 : m_start (start)
@@ -45,11 +46,4 @@ float Wall::Length()
 	return glm::length (m_end - m_start);
 }
 
-Collision Wall::TestCollision(PhysicObject* obj)
-{
-}
-
-void Wall::ResolveCollision(PhysicObject* obj)
-{
-}
 

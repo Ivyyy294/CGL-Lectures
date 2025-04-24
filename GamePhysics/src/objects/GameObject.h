@@ -10,8 +10,8 @@ public:
     GameObject(){};
     ~GameObject(){};
 
-	 virtual void Draw() = 0;
-    virtual void Update(float deltaTime) = 0;
+	 virtual void Draw(){};
+    virtual void Update(float deltaTime){};
 
 	 inline void SetPosition (const glm::vec2& pos) { m_position = pos;}
 	 inline const glm::vec2& GetPosition () const { return m_position;}
