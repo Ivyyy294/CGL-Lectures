@@ -5,7 +5,7 @@
 #include "scenes/AssignmentScene3.h"
 #include "scenes/AssignmentScene4.h"
 #include "scenes/PlanetScene.h"
-#include "scenes/Pool.h"
+#include "scenes/PoolScene.h"
 #include <random>
 
 int main(int argc, char** argv)

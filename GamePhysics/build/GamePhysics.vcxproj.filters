@@ -22,7 +22,7 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PlanetScene.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
-    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\Pool.cpp">
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PoolScene.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.cpp">
@@ -64,10 +64,16 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\PlanetGravity.cpp">
       <Filter>objects</Filter>
     </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolBall.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ThrowBall.cpp">
       <Filter>objects</Filter>
     </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Wall.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\WhiteBall.cpp">
       <Filter>objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,7 +96,7 @@
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PlanetScene.h">
       <Filter>scenes</Filter>
     </ClInclude>
-    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\Pool.h">
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PoolScene.h">
       <Filter>scenes</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.h">
@@ -132,10 +138,16 @@
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PlanetGravity.h">
       <Filter>objects</Filter>
     </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolBall.h">
+      <Filter>objects</Filter>
+    </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ThrowBall.h">
       <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Wall.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\WhiteBall.h">
       <Filter>objects</Filter>
     </ClInclude>
   </ItemGroup>

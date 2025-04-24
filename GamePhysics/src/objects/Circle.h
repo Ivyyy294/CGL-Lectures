@@ -9,6 +9,7 @@ class Circle
 	: public CircleCollider
 {
 public:
+	Circle(float radius);
 	Circle(glm::vec2 pos, float radius);
 
 	void Draw() override;

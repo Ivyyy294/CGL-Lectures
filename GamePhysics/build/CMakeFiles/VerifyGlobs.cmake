@@ -51,8 +51,10 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Planet.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/PlanetGravity.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/PoolBall.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/ThrowBall.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/WhiteBall.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
@@ -74,8 +76,10 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/objects/Physics.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Planet.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/PlanetGravity.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/PoolBall.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/ThrowBall.h"
   "D:/00_Git/Semester3/GamePhysics/src/objects/Wall.h"
+  "D:/00_Git/Semester3/GamePhysics/src/objects/WhiteBall.h"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
@@ -91,7 +95,7 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene4.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/BaseScene.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/PlanetScene.cpp"
-  "D:/00_Git/Semester3/GamePhysics/src/scenes/Pool.cpp"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/PoolScene.cpp"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -108,7 +112,7 @@ set(OLD_GLOB
   "D:/00_Git/Semester3/GamePhysics/src/scenes/AssignmentScene4.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/BaseScene.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/PlanetScene.h"
-  "D:/00_Git/Semester3/GamePhysics/src/scenes/Pool.h"
+  "D:/00_Git/Semester3/GamePhysics/src/scenes/PoolScene.h"
   "D:/00_Git/Semester3/GamePhysics/src/scenes/TestScene.h"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")

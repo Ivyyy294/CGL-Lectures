@@ -1,5 +1,10 @@
 #include "BouncingBall.h"
 
+BouncingBall::BouncingBall(float radius)
+	: Circle(radius)
+{
+}
+
 BouncingBall::BouncingBall(glm::vec2 pos, float radius, bool IsStatic)
 : Circle (pos, radius)
 {

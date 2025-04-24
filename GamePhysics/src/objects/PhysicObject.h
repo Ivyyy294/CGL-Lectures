@@ -28,10 +28,14 @@ public:
 	 inline bool IsTrigger() const { return m_trigger; }
 	 inline void SetTrigger(bool val) { m_trigger = val; }
 
+	 inline bool IsSimulation() const { return m_simulation; }
+	 inline void SetSimulation(bool val) { m_simulation = val; }
+
 	 void SetLinearDamping (const float val);
 	 inline float GetLinearDamping() {return m_linearDamping;};
 
 	 glm::vec2 Reflection (glm::vec2 direction, glm::vec2 normal);
+	 glm::vec2 GetForce();
 	
 	virtual Collision TestCollision (PhysicObject* collider);
 protected:
@@ -44,7 +48,7 @@ protected:
 
 	bool m_static = false;
 	bool m_trigger = false;
-
+	bool m_simulation = false;
 
 	virtual void OnTriggerEnter (PhysicObject* obj, const Collision& collision) {};
 	virtual void OnCollisionEnter (PhysicObject* obj, const Collision& collision) {};

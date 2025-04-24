@@ -67,38 +67,40 @@ void Physics::ResolveCollision(PhysicObject* obj1, PhysicObject* obj2, const Col
 	{
 		obj1->OnTriggerEnter(obj2, collison);
 		obj2->OnTriggerEnter(obj1, collison);
+		return;
 	}
-	else
+	else if (obj2->IsStatic() && obj1->IsStatic())
+		return;
+
+	obj1->OnCollisionEnter(obj2, collison);
+	obj2->OnCollisionEnter(obj1, collison);
+
+	glm::vec2 normal1 = collison.m_normal;
+	glm::vec2 normal2 = -collison.m_normal;
+
+	//Reflect
+	if (!obj1->IsStatic() && !obj2->IsSimulation())
 	{
-		obj1->OnCollisionEnter(obj2, collison);
-		obj2->OnCollisionEnter(obj1, collison);
-		
-		if (obj2->IsStatic() && obj1->IsStatic())
-			return;
-
-		glm::vec2 normal1 = collison.m_normal;
-		glm::vec2 normal2 = -collison.m_normal;
-
-		//Reflect
-		if (!obj1->IsStatic())
-		{
-			glm::vec2 newVelocity = obj1->m_velocity - 2.0f * glm::dot(obj1->m_velocity, normal1) * normal1;
-			obj1->m_velocity = glm::vec2(0.0f, 0.0f);
-			obj1->ApplyImpulse (newVelocity);
-		}
-		else
-		{
-			glm::vec2 newVelocity = obj2->m_velocity - 2.0f * glm::dot(obj2->m_velocity, normal2) * normal2;
-			obj2->m_velocity = glm::vec2(0.0f, 0.0f);
-			obj2->ApplyImpulse(newVelocity);
-		}
-
-		//distance
-		float distance1 = obj1->IsStatic() ? 0.0f : collison.m_interrsectionDepth * (obj2->IsStatic() ? 1.0f : 0.5f);
-		float distance2 = obj2->IsStatic() ? 0.0f : collison.m_interrsectionDepth * (obj1->IsStatic() ? 1.0f : 0.5f);
-		obj1->m_position += normal1 * distance1;
-		obj2->m_position += normal2 * distance2;
+		glm::vec2 newVelocity = obj1->m_velocity - 2.0f * glm::dot(obj1->m_velocity, normal1) * normal1;
+		//obj1->m_velocity = glm::vec2(0.0f, 0.0f);
+		obj1->ApplyImpulse (newVelocity);
 	}
+	else if (!obj2->IsStatic() && !obj1->IsSimulation())
+	{
+		glm::vec2 newVelocity = obj2->m_velocity - 2.0f * glm::dot(obj2->m_velocity, normal2) * normal2;
+		//obj2->m_velocity = glm::vec2(0.0f, 0.0f);
+		obj2->ApplyImpulse(newVelocity);
+	}
+
+	//distance
+	float distance1 = obj1->IsStatic() ? 0.0f : collison.m_interrsectionDepth * (obj2->IsStatic() ? 1.0f : 0.5f);
+	float distance2 = obj2->IsStatic() ? 0.0f : collison.m_interrsectionDepth * (obj1->IsStatic() ? 1.0f : 0.5f);
+
+	if (!obj2->IsSimulation())
+		obj1->m_position += normal1 * distance1;
+
+	if (!obj1->IsSimulation())
+		obj2->m_position += normal2 * distance2;
 }
 
 void Physics::AddPhysicObject(PhysicObject* obj)
