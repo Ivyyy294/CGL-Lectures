@@ -40,7 +40,7 @@ void PoolScene::SpawnTable (float width, float height)
 	float casingLengthVertical = height + ((borderWidth + casingWidth)) * 2.0f;
 	float casingLengthorizontal = borderLengthorizontal;
 
-	float pocketDrawRadius = 0.4f;
+	float pocketDrawRadius = 0.45f;
 	float pocketColliderRadius = 0.3f;
 
 	//Spawn borders
