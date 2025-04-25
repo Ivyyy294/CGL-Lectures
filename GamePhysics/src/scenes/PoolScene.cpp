@@ -34,6 +34,13 @@ void PoolScene::Update(float deltaTime)
 void PoolScene::SpawnTable (float width, float height)
 {
 	float borderWidth = 0.75f;
+	float borderLengthVertical = height + borderWidth * 2.0f;
+	float borderLengthorizontal = width + borderWidth * 2.0f;
+
+	float casingWidth = 0.5f;
+	float casingLengthVertical = height + ((borderWidth + casingWidth)) * 2.0f;
+	float casingLengthorizontal = borderLengthorizontal;
+
 	float pocketDrawRadius = 0.4f;
 	float pocketColliderRadius = 0.3f;
 
@@ -46,13 +53,20 @@ void PoolScene::SpawnTable (float width, float height)
 	gameObjects.push_back(new ColorRect ({0.0f, 0.0f}, width, height, ImColor (21, 88, 67, 255)));
 
 	//Deco border
-	gameObjects.push_back(new ColorRect ({0.0f, (height + borderWidth) * 0.5f }, width + borderWidth * 2.0f, borderWidth, ImColor (37, 140, 75, 255)));
-	gameObjects.push_back(new ColorRect ({0.0f, (height + borderWidth) * -0.5f }, width + borderWidth * 2.0f, borderWidth, ImColor (37, 140, 75, 255)));
+	gameObjects.push_back(new ColorRect ({0.0f, (height + borderWidth) * 0.5f }, borderLengthorizontal, borderWidth, ImColor (37, 140, 75, 255)));
+	gameObjects.push_back(new ColorRect ({0.0f, (height + borderWidth) * -0.5f }, borderLengthorizontal, borderWidth, ImColor (37, 140, 75, 255)));
 	
-	gameObjects.push_back(new ColorRect ({(width + borderWidth) * -0.5f, 0.0f}, borderWidth, height + borderWidth * 2.0f, ImColor (37, 140, 75, 255)));
-	gameObjects.push_back(new ColorRect ({(width + borderWidth) * 0.5f, 0.0f}, borderWidth, height + borderWidth * 2.0f, ImColor (37, 140, 75, 255)));
+	gameObjects.push_back(new ColorRect ({(width + borderWidth) * -0.5f, 0.0f}, borderWidth, borderLengthVertical, ImColor (37, 140, 75, 255)));
+	gameObjects.push_back(new ColorRect ({(width + borderWidth) * 0.5f, 0.0f}, borderWidth, borderLengthVertical, ImColor (37, 140, 75, 255)));
 
-	//Deco Pockets
+	//Wood casing
+	gameObjects.push_back(new ColorRect({ 0.0f, height * 0.5f + borderWidth + casingWidth * 0.5f }, casingLengthorizontal, casingWidth, ImColor(139, 69, 19, 255)));
+	gameObjects.push_back(new ColorRect({ 0.0f, height * -0.5f - borderWidth - casingWidth * 0.5f }, casingLengthorizontal, casingWidth, ImColor(139, 69, 19, 255)));
+
+	gameObjects.push_back(new ColorRect({ width * -0.5f - borderWidth - casingWidth * 0.25f, 0.0f }, casingWidth, casingLengthVertical, ImColor(139, 69, 19, 255)));
+	gameObjects.push_back(new ColorRect({ width * 0.5f + borderWidth + casingWidth * 0.25f, 0.0f }, casingWidth, casingLengthVertical, ImColor(139, 69, 19, 255)));
+
+	//Pockets
 	gameObjects.push_back (new PoolPocket({0.0f, (height + pocketDrawRadius) * 0.5f}, pocketColliderRadius, pocketDrawRadius, {0.0f, 0.0f, 0.0f, 1.0f}));
 	gameObjects.push_back(new PoolPocket({ (width) * -0.5, (height) * 0.5f }, pocketColliderRadius, pocketDrawRadius, { 0.0f, 0.0f, 0.0f, 1.0f }));
 	gameObjects.push_back(new PoolPocket({ (width) * 0.5, (height) * 0.5f }, pocketColliderRadius, pocketDrawRadius, { 0.0f, 0.0f, 0.0f, 1.0f }));
