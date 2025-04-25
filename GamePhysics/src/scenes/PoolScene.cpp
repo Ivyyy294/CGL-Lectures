@@ -3,6 +3,7 @@
 #include "objects/PoolBall.h"
 #include "objects/ColorRect.h"
 #include "objects/Circle.h"
+#include <queue>
 
 PoolScene::PoolScene()
 {
@@ -10,6 +11,11 @@ PoolScene::PoolScene()
 	float height = 8.0f;
 	SpawnTable(width, height);
 	SpawnBall(width, height);
+}
+
+void PoolScene::Draw()
+{
+	BaseScene::Draw();
 }
 
 void PoolScene::SpawnTable (float width, float height)
@@ -51,14 +57,37 @@ void PoolScene::SpawnBall(float width, float height)
 	float ballRadius = 0.3f;
 	gameObjects.push_back(new WhiteBall({ width * 0.25f, 0.0f }, ballRadius));
 
+	std::queue <PoolBall*> ballQueue;
+
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {1.0f, 1.0f, 0.0f, 1.0f}, "1", false}); //Yellow 1
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {1.0f, 0.0f, 0.0f, 1.0f}, "11", true}); //Red 11
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {1.0f, 0.275f, 0.0f, 1.0f}, "5", false}); //Orange 5
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {0.0f, 0.0f, 1.0f, 1.0f}, "2", false}); //Blue 2
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {0.0f, 0.0f, 0.0f, 1.0f}, "8", false}); //Black 8
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {0.0f, 0.0f, 1.0f, 1.0f}, "10", true}); //Blue 10
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {1.0f, 1.0f, 0.0f, 1.0f}, "9", true}); //Yellow 9
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {0.5f, 0.0f, 0.0f, 1.0f}, "7", false}); //Dark Red 7
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {0.0f, 1.0f, 0.0f, 1.0f}, "14", true}); //green 14
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {1.0f, 0.0f, 1.0f, 1.0f}, "4", false}); //pruple 4
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {0.0f, 1.0f, 0.0f, 1.0f}, "6", false}); //green 6
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {0.5f, 0.0f, 0.0f, 1.0f}, "15", true}); //Dark Red 15
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {1.0f, 0.275f, 0.0f, 1.0f}, "13", true}); //Orange 13
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {1.0f, 0.0f, 0.0f, 1.0f}, "3", false}); //Red 3
+	ballQueue.push (new PoolBall {{0.0f, 0.0f}, ballRadius, {1.0f, 0.0f, 1.0f, 1.0f}, "12", false}); //pruple 12
+
 	for (int i = 0; i < 5; ++i)
 	{
 		float xPos = (width * -0.15f) + (-ballRadius * 2.0f * i);
 
 		for (int j = 0; j <= i; ++j)
 		{
-			float yPos = (-ballRadius * i) + (ballRadius * 2.0f * j);
-			gameObjects.push_back(new PoolBall({ xPos, yPos }, ballRadius, ImColor(1.0f, 0.0f, 0.0f, 1.0f)));
+			float yPos = (ballRadius * i) - (ballRadius * 2.0f * j);
+
+			PoolBall* ball = ballQueue.front();
+			ballQueue.pop();
+			ball->SetPosition ({ xPos, yPos });
+
+			gameObjects.push_back(ball);
 		}
 	}
 }
