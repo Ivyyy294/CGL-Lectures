@@ -26,7 +26,7 @@ void WhiteBall::Update(float deltaTime)
 		m_isAiming = false;
 		SetStatic (false);
 		SetTrigger(false);
-		ApplyImpulse (Input::GetMousePos() - m_position);
+		ApplyImpulse (GetImpulse());
 	}
 }
 
@@ -42,14 +42,12 @@ void WhiteBall::Draw()
 		Draw::SetColor(ImColor(255, 0, 0, 255));
 		Draw::Arrow(m_position, mousePos);
 
-		float maxPreviweTime = 2.0f;
-
-		glm::vec2 impulse = mousePos - m_position;
+		float maxPreviweTime = 1.0f;
 
 		BouncingBall dummy(m_position, m_radius, m_mass);
 		dummy.SetSimulation(true);
 		dummy.SetLinearDamping(m_linearDamping);
-		dummy.ApplyImpulse(impulse);
+		dummy.ApplyImpulse(GetImpulse());
 
 		float stepSize = 1.0f / 24.0f;
 
@@ -66,4 +64,9 @@ void WhiteBall::ResetPosition()
 {
 	m_position = m_spawnPos;
 	m_velocity = {0.0f, 0.0f};
+}
+
+glm::vec2 WhiteBall::GetImpulse()
+{
+	return (Input::GetMousePos() - m_position) * 1.5f;
 }

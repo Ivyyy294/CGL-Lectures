@@ -21,7 +21,7 @@ void PoolBall::Draw()
 
 		//x sind
 		//y cos
-		int stepCount = 8;
+		int stepCount = 16;
 		float stepSize = 0.75f / stepCount;
 		for (int i = 0; i < stepCount; i++)
 		{

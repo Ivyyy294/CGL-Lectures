@@ -2,7 +2,7 @@
 #include "core/Draw.h"
 #include "PoolBall.h"
 #include "WhiteBall.h"
-#include "scenes/PoolScene.h"
+#include "PoolGameState.h"
 
 PoolPocket::PoolPocket(glm::vec2 pos, float colliderRadius, float drawRadius, ImColor color)
 	: Circle (pos, colliderRadius, color, true)
@@ -21,7 +21,7 @@ void PoolPocket::OnTriggerEnter(PhysicObject* obj, const Collision& collision)
 	if (PoolBall* ball = dynamic_cast<PoolBall*>(obj))
 	{
 		if (ball->Number() == "8")
-			PoolScene::GameOver = true;
+			PoolGameState::gameOver = true;
 		else
 			ball->SetActive(false);
 	}

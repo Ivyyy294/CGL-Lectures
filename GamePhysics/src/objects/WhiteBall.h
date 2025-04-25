@@ -15,4 +15,6 @@ public:
 private:
 	bool m_isAiming = false;
 	const glm::vec2 m_spawnPos;
+
+	glm::vec2 GetImpulse();
 };

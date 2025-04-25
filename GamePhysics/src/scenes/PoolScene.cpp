@@ -3,9 +3,8 @@
 #include "objects/PoolBall.h"
 #include "objects/ColorRect.h"
 #include "objects/PoolPocket.h"
+#include "objects/PoolGameState.h"
 #include <queue>
-
-bool PoolScene::GameOver = false;
 
 PoolScene::PoolScene()
 {
@@ -25,7 +24,7 @@ void PoolScene::DrawGUI()
 
 void PoolScene::Update(float deltaTime)
 {
-	if (PoolScene::GameOver)
+	if (PoolGameState::gameOver)
 		Reset();
 	else
 		BaseScene::Update (deltaTime);
@@ -122,7 +121,7 @@ void PoolScene::SpawnBall(float width, float height)
 
 void PoolScene::SpawnScene()
 {
-	PoolScene::GameOver = false;
+	PoolGameState::Reset();
 	float width = 16.0f;
 	float height = 8.0f;
 	SpawnTable(width, height);
