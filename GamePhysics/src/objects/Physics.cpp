@@ -14,7 +14,7 @@ void Physics::Run(float deltaTime)
 
 void Physics::RunPhysicForObject(float deltaTime, PhysicObject* obj)
 {
-	if (obj->IsStatic())
+	if (obj->IsStatic() || !obj->IsActive())
 		return;
 	
 	//apply damping
@@ -41,6 +41,9 @@ void Physics::RunCollisionsForObject(float deltaTime, PhysicObject* obj, int sta
 	for (int i = startIndex; i < m_physicObjects.size(); ++i)
 	{
 		PhysicObject* obj2 = m_physicObjects[i];
+
+		if (!obj->IsActive() || !obj2->IsActive())
+			continue;
 
 		//Prevent collision with self in case startIndex was not passed
 		if (startIndex == 0 && obj == obj2)

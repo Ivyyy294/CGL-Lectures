@@ -373,6 +373,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PlanetGravity.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolBall.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolBall.h" />
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolPocket.cpp" />
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolPocket.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ThrowBall.cpp" />
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ThrowBall.h" />
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Wall.cpp" />

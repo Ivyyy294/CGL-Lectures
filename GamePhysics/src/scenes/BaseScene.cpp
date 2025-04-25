@@ -26,7 +26,10 @@ void BaseScene::OnDisable()
 void BaseScene::Update(float deltaTime)
 {
 	for (size_t i = 0; i < gameObjects.size(); ++i)
-		gameObjects[i]->Update(deltaTime);
+	{
+		if (gameObjects[i]->IsActive())
+			gameObjects[i]->Update(deltaTime);
+	}
 
 	Physics::Run(deltaTime);
 }
@@ -35,8 +38,11 @@ void BaseScene::Draw()
 {
 	for (size_t i = 0; i < gameObjects.size(); ++i)
 	{
-		Draw::SetColor (ImColor(1.0f, 1.0f, 1.0f, 1.0f));
-		gameObjects[i]->Draw();
+		if (gameObjects[i]->IsActive())
+		{
+			gameObjects[i]->Draw();
+			Draw::Reset();
+		}
 	}
 }
 

@@ -2,15 +2,14 @@
 #include "objects/WhiteBall.h"
 #include "objects/PoolBall.h"
 #include "objects/ColorRect.h"
-#include "objects/Circle.h"
+#include "objects/PoolPocket.h"
 #include <queue>
+
+bool PoolScene::GameOver = false;
 
 PoolScene::PoolScene()
 {
-	float width = 16.0f;
-	float height = 8.0f;
-	SpawnTable(width, height);
-	SpawnBall(width, height);
+	SpawnScene();
 }
 
 void PoolScene::Draw()
@@ -18,10 +17,25 @@ void PoolScene::Draw()
 	BaseScene::Draw();
 }
 
+void PoolScene::DrawGUI()
+{
+	if (ImGui::Button ("Reset"))
+		Reset();
+}
+
+void PoolScene::Update(float deltaTime)
+{
+	if (PoolScene::GameOver)
+		Reset();
+	else
+		BaseScene::Update (deltaTime);
+}
+
 void PoolScene::SpawnTable (float width, float height)
 {
 	float borderWidth = 0.75f;
-	float pocketRadius = 0.4f;
+	float pocketDrawRadius = 0.4f;
+	float pocketColliderRadius = 0.3f;
 
 	//Spawn borders
 	gameObjects.push_back (new Wall ({width * -0.5f, height * 0.5f}, { width * 0.5f, height * 0.5f })); //top
@@ -39,13 +53,13 @@ void PoolScene::SpawnTable (float width, float height)
 	gameObjects.push_back(new ColorRect ({(width + borderWidth) * 0.5f, 0.0f}, borderWidth, height + borderWidth * 2.0f, ImColor (37, 140, 75, 255)));
 
 	//Deco Pockets
-	gameObjects.push_back (new Circle ({0.0f, (height + pocketRadius) * 0.5f}, pocketRadius, {0.0f, 0.0f, 0.0f, 1.0f}, true));
-	gameObjects.push_back(new Circle({ (width) * -0.5, (height) * 0.5f }, pocketRadius, { 0.0f, 0.0f, 0.0f, 1.0f }, true));
-	gameObjects.push_back(new Circle({ (width) * 0.5, (height) * 0.5f }, pocketRadius, { 0.0f, 0.0f, 0.0f, 1.0f }, true));
+	gameObjects.push_back (new PoolPocket({0.0f, (height + pocketDrawRadius) * 0.5f}, pocketColliderRadius, pocketDrawRadius, {0.0f, 0.0f, 0.0f, 1.0f}));
+	gameObjects.push_back(new PoolPocket({ (width) * -0.5, (height) * 0.5f }, pocketColliderRadius, pocketDrawRadius, { 0.0f, 0.0f, 0.0f, 1.0f }));
+	gameObjects.push_back(new PoolPocket({ (width) * 0.5, (height) * 0.5f }, pocketColliderRadius, pocketDrawRadius, { 0.0f, 0.0f, 0.0f, 1.0f }));
 
-	gameObjects.push_back (new Circle ({0.0f, (height + pocketRadius) * -0.5f}, pocketRadius, {0.0f, 0.0f, 0.0f, 1.0f}, true));
-	gameObjects.push_back(new Circle({ (width) * -0.5, (height) * -0.5f }, pocketRadius, { 0.0f, 0.0f, 0.0f, 1.0f }, true));
-	gameObjects.push_back(new Circle({ (width) * 0.5, (height) * -0.5f }, pocketRadius, { 0.0f, 0.0f, 0.0f, 1.0f }, true));
+	gameObjects.push_back (new PoolPocket({0.0f, (height + pocketDrawRadius) * -0.5f}, pocketColliderRadius, pocketDrawRadius, {0.0f, 0.0f, 0.0f, 1.0f}));
+	gameObjects.push_back(new PoolPocket({ (width) * -0.5, (height) * -0.5f }, pocketColliderRadius, pocketDrawRadius, { 0.0f, 0.0f, 0.0f, 1.0f }));
+	gameObjects.push_back(new PoolPocket({ (width) * 0.5, (height) * -0.5f }, pocketColliderRadius, pocketDrawRadius, { 0.0f, 0.0f, 0.0f, 1.0f }));
 
 	//Draw white line
 	gameObjects.push_back(new Wall({ width * 0.25f, height * 0.5f }, { width * 0.25f, height * -0.5f })); //right
@@ -90,4 +104,20 @@ void PoolScene::SpawnBall(float width, float height)
 			gameObjects.push_back(ball);
 		}
 	}
+}
+
+void PoolScene::SpawnScene()
+{
+	PoolScene::GameOver = false;
+	float width = 16.0f;
+	float height = 8.0f;
+	SpawnTable(width, height);
+	SpawnBall(width, height);
+}
+
+void PoolScene::Reset()
+{
+	ClearScene();
+	SpawnScene();
+	OnEnable();
 }

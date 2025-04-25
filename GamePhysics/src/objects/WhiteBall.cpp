@@ -5,6 +5,7 @@
 
 WhiteBall::WhiteBall (glm::vec2 pos, float radius)
 	: BouncingBall (radius)
+	, m_spawnPos (pos)
 {
 	m_position = pos;
 	m_color = ImColor (1.0f, 1.0f, 1.0f, 1.0f);
@@ -18,11 +19,13 @@ void WhiteBall::Update(float deltaTime)
 		m_velocity = glm::vec2(0.0f, 0.0f);
 		m_isAiming = true;
 		SetStatic (true);
+		SetTrigger (true);
 	}
 	else if (m_isAiming && Input::IsMouseReleased(ImGuiMouseButton_Left))
 	{
 		m_isAiming = false;
 		SetStatic (false);
+		SetTrigger(false);
 		ApplyImpulse (Input::GetMousePos() - m_position);
 	}
 }
@@ -57,4 +60,10 @@ void WhiteBall::Draw()
 			dummy.Draw();
 		}
 	}
+}
+
+void WhiteBall::ResetPosition()
+{
+	m_position = m_spawnPos;
+	m_velocity = {0.0f, 0.0f};
 }

@@ -8,8 +8,13 @@ class PoolScene
 		PoolScene();
 		virtual const char* GetName() override { return "Pool Scene"; };
 		virtual void Draw() override;
+		virtual void DrawGUI() override;
+		virtual void Update(float deltaTime) override;
 
+		static bool GameOver;
 	private:
 		void SpawnTable(float width, float height);
 		void SpawnBall(float width, float height);
+		void SpawnScene();
+		void Reset();
 };

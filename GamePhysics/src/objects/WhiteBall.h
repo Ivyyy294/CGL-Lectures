@@ -10,6 +10,9 @@ public:
 
 	void Update(float deltaTime) override;
 	void Draw() override;
+
+	void ResetPosition();
 private:
 	bool m_isAiming = false;
+	const glm::vec2 m_spawnPos;
 };
