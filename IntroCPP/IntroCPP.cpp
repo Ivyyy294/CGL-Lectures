@@ -9,20 +9,20 @@ int main()
 {
 	MonsterManager monsterManager;
 
-	monsterManager.AddMonsterEnd (new Monster {"Goblin", 7});
-	monsterManager.AddMonsterEnd (new Monster {"Adult Red Dragon", 256});
-	monsterManager.AddMonsterEnd (new Monster {"Barlgura", 68});
-	monsterManager.AddMonsterEnd (new Monster {"Goblin", 7});
-	monsterManager.AddMonsterEnd (new Monster {"Ettercap", 44});
-	monsterManager.AddMonsterEnd (new Monster {"Flameskull", 40});
-	monsterManager.AddMonsterEnd (new Monster {"Goblin", 7});
-	monsterManager.AddMonsterEnd (new Monster {"Flameskull", 40});
-	monsterManager.AddMonsterEnd (new Monster {"Frost Salamander", 168});
-	monsterManager.AddMonsterEnd (new Monster {"Poltergeist", 22});
-	monsterManager.AddMonsterEnd (new Monster {"Star Spawn Hulk", 136});
-	monsterManager.AddMonsterEnd (new Monster {"Poltergeist", 22});
-	monsterManager.AddMonsterEnd (new Monster {"Gorgon", 114});
-	monsterManager.AddMonsterEnd (new Monster {"Yuan-ti Malison", 66});
+	monsterManager.AddMonsterEnd (new Monster {"Goblin", "Humanoid", 7});
+	monsterManager.AddMonsterEnd (new Monster {"Adult Red Dragon", "Dragon", 256});
+	monsterManager.AddMonsterEnd (new Monster {"Barlgura", "Fiend", 68});
+	monsterManager.AddMonsterEnd (new Monster {"Goblin", "Humanoid", 7});
+	monsterManager.AddMonsterEnd (new Monster {"Ettercap", "Monstrosity", 44});
+	monsterManager.AddMonsterEnd (new Monster {"Flameskull", "Undead", 40});
+	monsterManager.AddMonsterEnd (new Monster {"Goblin", "Humanoid", 7});
+	monsterManager.AddMonsterEnd (new Monster {"Flameskull", "Undead", 40});
+	monsterManager.AddMonsterEnd (new Monster {"Frost Salamander", "Elemental", 168});
+	monsterManager.AddMonsterEnd (new Monster {"Poltergeist", "Undead", 22});
+	monsterManager.AddMonsterEnd (new Monster {"Star Spawn Hulk", "Aberration", 136});
+	monsterManager.AddMonsterEnd (new Monster {"Poltergeist", "Undead", 22});
+	monsterManager.AddMonsterEnd (new Monster {"Gorgon", "Monstrosity", 114});
+	monsterManager.AddMonsterEnd (new Monster {"Yuan-ti Malison", "Monstrosity", 66});
 
 	monsterManager.PrintInstruction();
 	monsterManager.ProcessInstruction();

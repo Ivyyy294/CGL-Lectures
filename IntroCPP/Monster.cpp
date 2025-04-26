@@ -1,15 +1,16 @@
 #include "Monster.h"
 #include <iostream>
 
-Monster::Monster(const std::string& name, int hp)
+Monster::Monster(const std::string& name, const std::string& type, int hp)
 	: m_name (name)
 	, m_hp (hp)
+	, m_type (type)
 {
 }
 
 void Monster::Print()
 {
-	std::cout << m_name << " [" << m_hp << "]" << std::endl;
+	std::cout << m_name << " [" << m_type << "] [" << m_hp << "]" << std::endl;
 }
 
 void Monster::PrintAll()
@@ -34,13 +35,11 @@ void Monster::AddEnd(Monster* monster)
 	monster->m_prev = end;
 }
 
-void Monster::AddAtIndex(int index, Monster* monster)
+bool Monster::AddAtIndex(int index, Monster* monster)
 {
+	//Early exit if index below zero
 	if (index < 0)
-	{
-		std::cout << "ERROR: Invalid index: " << index;
-		return;
-	}
+		return false;
 
 	Monster* current = Find (index);
 
@@ -52,10 +51,10 @@ void Monster::AddAtIndex(int index, Monster* monster)
 		monster->m_prev = current->m_prev;
 		monster->m_next = current;
 		current->m_prev = monster;
-		return;
+		return true;
 	}
 
-	std::cout << "ERROR: Invalid index: " << index;
+	return false;
 }
 
 Monster* Monster::Front() const
@@ -74,11 +73,11 @@ Monster* Monster::End() const
 		return m_next->End();
 }
 
-Monster* Monster::Find(const std::string& name) const
+Monster* Monster::Find(const std::string& val) const
 {
 	for (Monster* i = Front(); i != nullptr; i = i->Next())
 	{
-		if (i->Name() == name)
+		if (i->Compare (val))
 			return i;
 	}
 
@@ -100,6 +99,12 @@ Monster* Monster::Find(int index) const
 	return nullptr;
 }
 
+bool Monster::Compare(const std::string& val)
+{
+	return ToUpper(m_name).find(val) != std::string::npos
+		|| ToUpper(m_type).find(val) != std::string::npos;
+}
+
 void Monster::Delete(Monster* monster)
 {
 	if (monster->m_prev != nullptr)
@@ -110,3 +115,14 @@ void Monster::Delete(Monster* monster)
 
 	delete (monster);
 }
+
+std::string Monster::ToUpper(const std::string& val) const
+{
+	std::string result;
+
+	for (size_t i = 0; i < val.length(); ++i)
+		result += std::toupper(val[i]);
+
+	return result;
+}
+

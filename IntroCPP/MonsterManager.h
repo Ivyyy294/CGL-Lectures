@@ -6,16 +6,17 @@ class MonsterManager
 {
 public:
 	void PrintInstruction() const;
-
 	void AddMonsterFront(Monster* monster, bool silent = true);
 	void AddMonsterEnd(Monster* monster, bool silent = true);
-
 	void ProcessInstruction ();
-
 	void DeleteMonsterList();
-private:
-	Monster* m_root = nullptr;
 
+private:
+	Monster* m_current = nullptr;
+
+	void Next();
+	void Back();
+	void GoToIndex();
 	void Print() const;
 	void PrintAll() const;
 	void FindMonster () const;

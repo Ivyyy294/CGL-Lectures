@@ -2,38 +2,97 @@
 #include <iostream>
 #include <cstring>
 
+void MonsterManager::Next()
+{
+	if (m_current == nullptr)
+		std::cout << "ERROR: Monster list is empty!" << std::endl;
+	else if (m_current->Next() == nullptr)
+		std::cout << "Reached end of list!" << std::endl;
+	else
+	{
+		m_current = m_current->Next();
+		m_current->Print();
+	}
+}
+
+void MonsterManager::Back()
+{
+	if (m_current == nullptr)
+		std::cout << "ERROR: Monster list is empty!" << std::endl;
+	else if (m_current->Previous() == nullptr)
+		std::cout << "Reached head of list!" << std::endl;
+	else
+	{
+		m_current = m_current->Previous();
+		m_current->Print();
+	}
+}
+
+void MonsterManager::GoToIndex()
+{
+	int index;
+
+	std::cin>>index;
+
+	if (std::cin.fail())
+	{
+		std::cin.clear();
+		std::string input;
+		std::cin >> input;
+		std::cout << "ERROR: Invalid index: " << input;
+	}
+	else 	if (m_current == nullptr)
+		std::cout << "ERROR: Monster list is empty!" << std::endl;
+	else if (Monster* newMonster = m_current->Find(index))
+	{
+		m_current = newMonster;
+		m_current->Print();
+	}
+	else
+		std::cout << "ERROR: Invalid index: " << index;
+}
+
 void MonsterManager::Print() const
 {
-	if (m_root == nullptr)
+	if (m_current == nullptr)
 		std::cout << "ERROR: Monster list is empty!" << std::endl;
 	else
-		m_root->Print();
+		m_current->Print();
 }
 void MonsterManager::PrintAll() const
 {
-	if (m_root == nullptr)
+	if (m_current == nullptr)
 		std::cout << "ERROR: Monster list is empty!" << std::endl;
 	else
-		m_root->Front()->PrintAll();
+		m_current->Front()->PrintAll();
 }
 void MonsterManager::PrintInstruction() const
 {
 	std::cout << "Welcome to the Ivyyy Monster Manager (c)" << std::endl << std::endl;
 	std::cout << "Instructions:" << std::endl;
-	std::cout << "exit" << std::endl;
+	std::cout << "-----------------" << std::endl;
 	std::cout << "print" << std::endl;
 	std::cout << "printall" << std::endl;
+	std::cout << "find name" << std::endl;
+	std::cout << "find index" << std::endl;
+	std::cout << "-----------------" << std::endl;
+	std::cout << "next" << std::endl;
+	std::cout << "back" << std::endl;
+	std::cout << "go index" << std::endl;
+	std::cout << "-----------------" << std::endl;
 	std::cout << "add front name hp" << std::endl;
 	std::cout << "add end name hp" << std::endl;
 	std::cout << "add index name hp" << std::endl;
 	std::cout << "delete index" << std::endl;
 	std::cout << "delete name" << std::endl;
-	std::cout << "find name" << std::endl;
-	std::cout << "find index" << std::endl;
+	std::cout << "delete all name" << std::endl;
+	std::cout << "-----------------" << std::endl;
+	std::cout << "help" << std::endl;
+	std::cout << "exit" << std::endl;
 }
 void MonsterManager::AddMonster()
 {
-	std::string pos, name;
+	std::string pos, name, type;
 	int iPos = -1, hp = 0;
 
 	std::cin >> iPos;
@@ -44,18 +103,18 @@ void MonsterManager::AddMonster()
 		std::cin >> pos >> name >> hp;
 	}
 	else
-		std::cin >> name >> hp;
+		std::cin >> name >> type >> hp;
 
 	if (!std::cin.fail() && ToUpper (pos) == "FRONT")
-		AddMonsterFront (new Monster {name, hp}, false);
+		AddMonsterFront (new Monster {name, type, hp}, false);
 	else if (!std::cin.fail() && ToUpper(pos) == "END")
-		AddMonsterEnd(new Monster{ name, hp }, false);
+		AddMonsterEnd(new Monster{ name, type, hp }, false);
 	else if (!std::cin.fail() && iPos != -1)
-		AddAtIndex(iPos, new Monster{ name, hp });
+		AddAtIndex(iPos, new Monster{ name, type, hp });
 	else
 	{
 		std::cin.clear();
-		std::cout << "ERROR: Invalid input: " << pos << " " << name << " " << hp << std::endl;
+		std::cout << "ERROR: Invalid input: " << pos << " " << name << " " << type << " " << hp << std::endl;
 	}
 }
 
@@ -66,7 +125,7 @@ void MonsterManager::RemoveMonster()
 
 	GetSearchPara (name, index);
 
-	if (m_root == nullptr)
+	if (m_current == nullptr)
 	{
 		std::cout << "ERROR: Monster list is empty!" << std::endl;
 		return;
@@ -74,37 +133,64 @@ void MonsterManager::RemoveMonster()
 
 	Monster* monster = nullptr;
 
-	if (index != -1)
-		monster = m_root->Find(index);
-	else
-		monster = m_root->Find (name);
-
-	if (monster != nullptr)
+	if (ToUpper(name) == "ALL")
 	{
-		if (monster == m_root)
-			m_root = monster->Next();
+		if (ToUpper(name) == "ALL")
+			std::cin >> name;
 
-		Monster::Delete (monster);
+		name = ToUpper(name);
+
+		while (monster = m_current->Find (name))
+		{
+			if (monster == m_current)
+				m_current = monster->Next();
+
+			std::cout << "Deleting " << monster->Name() << "..." << std::endl;
+			Monster::Delete (monster);
+		}
+	}
+	else
+	{
+		if (index != -1)
+			monster = m_current->Find(index);
+		else
+			monster = m_current->Find(name);
+
+		if (monster != nullptr)
+		{
+			if (monster == m_current)
+				m_current = monster->Next();
+
+			Monster::Delete (monster);
+			std::cout << "Monster deleted!" << std::endl;
+		}
+		else
+			std::cout << "ERROR: Invalid monster!" << std::endl;
 	}
 }
 
 void MonsterManager::AddAtIndex(int index, Monster* monster)
 {
-	if (m_root == nullptr)
-		m_root = monster;
-	else
-		m_root->AddAtIndex(index, monster);
+	bool ok = false;
 
-	std::cout << "Added at index: " << index << " ";
-	monster->Print();
+	if (m_current != nullptr)
+		ok = m_current->AddAtIndex(index, monster);
+
+	if (ok)
+	{
+		std::cout << "Added at index: " << index << " ";
+		monster->Print();
+	}
+	else
+		std::cout << "ERROR: Invalid index: " << index;
 }
 
 void MonsterManager::AddMonsterFront(Monster* monster, bool silent)
 {
-	if (m_root == nullptr)
-		m_root = monster;
+	if (m_current == nullptr)
+		m_current = monster;
 	else
-		m_root->AddFront (monster);
+		m_current->AddFront (monster);
 
 	if (!silent)
 	{
@@ -115,10 +201,10 @@ void MonsterManager::AddMonsterFront(Monster* monster, bool silent)
 
 void MonsterManager::AddMonsterEnd(Monster* monster, bool silent)
 {
-	if (m_root == nullptr)
-		m_root = monster;
+	if (m_current == nullptr)
+		m_current = monster;
 	else
-		m_root->AddEnd(monster);
+		m_current->AddEnd(monster);
 
 	if (!silent)
 	{
@@ -140,6 +226,8 @@ void MonsterManager::ProcessInstruction()
 
 		if (input == "EXIT")
 			return;
+		else if (input == "HELP")
+			PrintInstruction();
 		else if (input == "PRINT")
 			Print();
 		else if (input == "PRINTALL")
@@ -148,10 +236,19 @@ void MonsterManager::ProcessInstruction()
 			AddMonster();
 		else if (input == "FIND")
 			FindMonster();
-		else if (input == "DEL")
+		else if (input == "DELETE")
 			RemoveMonster();
+		else if (input == "NEXT")
+			Next();
+		else if (input == "BACK")
+			Back();
+		else if (input == "GO")
+			GoToIndex();
 		else
+		{
+			std::cin.clear();
 			std::cout << std::endl << "ERROR: Invalid instrcution " << input << "!";
+		}
 	}
 }
 
@@ -162,7 +259,7 @@ void MonsterManager::FindMonster() const
 
 	GetSearchPara(name, index);
 
-	if (m_root == nullptr)
+	if (m_current == nullptr)
 	{
 		std::cout << "ERROR: Monster list is empty!" << std::endl;
 		return;
@@ -172,16 +269,16 @@ void MonsterManager::FindMonster() const
 
 	if (index != -1)
 	{
-		Monster* monster = m_root->Find (index);
+		Monster* monster = m_current->Find (index);
 
 		if (monster !=nullptr)
 			monster->Print();
 	}
 	else
 	{
-		for (Monster* i = m_root->Front(); i != nullptr; i = i->Next())
+		for (Monster* i = m_current->Front(); i != nullptr; i = i->Next())
 		{
-			if (ToUpper (i->Name()) == name)
+			if (i->Compare (name))
 				i->Print();
 		}
 	}
@@ -189,7 +286,7 @@ void MonsterManager::FindMonster() const
 
 void MonsterManager::DeleteMonsterList()
 {
-	Monster* current = m_root;
+	Monster* current = m_current;
 
 	while (current != nullptr)
 	{
