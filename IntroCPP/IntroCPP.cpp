@@ -2,19 +2,31 @@
 //
 
 #include <iostream>
-#include "Monster.h"
+#include "MonsterManager.h"
 //#include "romanNumeral.h"
 //#include "Inventory.h"
 int main()
 {
-	Monster* first = new Monster ("Goblin", 3);
-	Monster* second = new Monster ("Ork", 6);
-	Monster* third = new Monster ("owl", 666);
-	first->AddMonster (second);
-	first->AddMonster (third);
+	MonsterManager monsterManager;
 
-	first->Print();
+	monsterManager.AddMonsterEnd (new Monster {"Goblin", 7});
+	monsterManager.AddMonsterEnd (new Monster {"Adult Red Dragon", 256});
+	monsterManager.AddMonsterEnd (new Monster {"Barlgura", 68});
+	monsterManager.AddMonsterEnd (new Monster {"Goblin", 7});
+	monsterManager.AddMonsterEnd (new Monster {"Ettercap", 44});
+	monsterManager.AddMonsterEnd (new Monster {"Flameskull", 40});
+	monsterManager.AddMonsterEnd (new Monster {"Goblin", 7});
+	monsterManager.AddMonsterEnd (new Monster {"Flameskull", 40});
+	monsterManager.AddMonsterEnd (new Monster {"Frost Salamander", 168});
+	monsterManager.AddMonsterEnd (new Monster {"Poltergeist", 22});
+	monsterManager.AddMonsterEnd (new Monster {"Star Spawn Hulk", 136});
+	monsterManager.AddMonsterEnd (new Monster {"Poltergeist", 22});
+	monsterManager.AddMonsterEnd (new Monster {"Gorgon", 114});
+	monsterManager.AddMonsterEnd (new Monster {"Yuan-ti Malison", 66});
 
+	monsterManager.PrintInstruction();
+	monsterManager.ProcessInstruction();
+	monsterManager.DeleteMonsterList();
 	//Inventory inventory;
 	//inventory.Populate();
 	//inventory.OpenInventory();

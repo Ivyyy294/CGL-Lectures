@@ -131,12 +131,14 @@
     <ClCompile Include="CurrencyManager.cpp" />
     <ClCompile Include="IntroCPP.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterManager.cpp" />
     <ClCompile Include="RomanNumeral.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoinType.h" />
     <ClInclude Include="CurrencyManager.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterManager.h" />
     <ClInclude Include="RomanNumeral.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
