@@ -7,11 +7,11 @@
 #include "Shader.h"    // Manages compiling and using GLSL shaders
 #include <glm/glm.hpp>
 
-class ShaderLecture3
+class PracticalAssignment
 {
 public:
     // Stores window dimensions and title
-    ShaderLecture3(int width, int height, const std::string& title);
+    PracticalAssignment(int width, int height, const std::string& title);
 
     // Sets up the window, OpenGL, and loads the shader
     bool Initialize(const std::string& vertexShaderToLoad, const std::string& fragmentShaderToLoad, int meshWidth, int meshHeight, const std::string& textureToLoad);
@@ -21,7 +21,7 @@ public:
     void Run();
 
     // Cleans up on destruction
-    ~ShaderLecture3();
+    ~PracticalAssignment();
 
 private:
     // Creates the GLFW window and context
@@ -50,6 +50,8 @@ private:
     GLuint mVAO;
     GLuint mVBO;
     GLuint mEBO;
+
+    bool useFullWindowQuad = false;
 
     GLint mTimeUniformLoc;
     GLint mTextureLoc;

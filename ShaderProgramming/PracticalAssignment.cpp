@@ -1,13 +1,12 @@
 #define STB_IMAGE_IMPLEMENTATION
 
-
-#include "ShaderLecture3.h"
+#include "PracticalAssignment.h"
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 // Store initial window data
-ShaderLecture3::ShaderLecture3(int width, int height, const std::string& title)
+PracticalAssignment::PracticalAssignment(int width, int height, const std::string& title)
     : mWidth(width)
     , mHeight(height)
     , mWindowTitle(title)
@@ -19,10 +18,13 @@ ShaderLecture3::ShaderLecture3(int width, int height, const std::string& title)
     , texture(0)
     , mTimeUniformLoc(-1)
     , mTextureLoc(-1)
+    , mMvpLoc(-1)
+    , mCameraPosition(0.0f)
+    , mObjectPosition(0.0f)
 {
 }
 
-bool ShaderLecture3::Initialize(const std::string& vertexShaderToLoad, const std::string& fragmentShaderToLoad, int meshWidth, int meshHeight, const std::string& textureToLoad)
+bool PracticalAssignment::Initialize(const std::string& vertexShaderToLoad, const std::string& fragmentShaderToLoad, int meshWidth, int meshHeight, const std::string& textureToLoad)
 {
     // 1) Create a GLFW window
     if (!InitWindow())
@@ -38,7 +40,6 @@ bool ShaderLecture3::Initialize(const std::string& vertexShaderToLoad, const std
         std::cerr << "Error: Failed to initialize GLEW!" << std::endl;
         return false;
     }
-
     std::cout << "Initialized GLEW." << std::endl;
 
     // Set the render area
@@ -97,37 +98,48 @@ bool ShaderLecture3::Initialize(const std::string& vertexShaderToLoad, const std
     return true;
 }
 
-void ShaderLecture3::InitializeScene(const glm::vec3& objectPosition, const glm::vec3& cameraPosition)
+void PracticalAssignment::InitializeScene(const glm::vec3& objectPosition, const glm::vec3& cameraPosition)
 {
     mObjectPosition = objectPosition;
     mCameraPosition = cameraPosition;    
 
-    //Model Matrix
-    mModel = glm::translate (glm::mat4(1.0f), mObjectPosition);
-    //View Matrix
-    mView = glm::lookAt(mCameraPosition, mObjectPosition, glm::vec3(0.0f, 1.0f, 0.0f));
+    ObjectPositionUpdated();
+
     //Projection Matrix
-    mProjection = glm::perspective (glm::radians (45.0f), (float) mWidth / (float) mHeight, 0.1f, 100.f);
+    mProjection = glm::perspective(
+        glm::radians(45.0f),                //Field of View
+        (float)mWidth / (float)mHeight,     //Screen Aspect Ratio
+        0.1f,                               //Near plane
+        100.0f                              //Far plane
+    );
+
 }
 
-void ShaderLecture3::ObjectPositionUpdated()
+void PracticalAssignment::ObjectPositionUpdated()
 {
-    //TODO
+    //Model Matrix
+    mModel = glm::translate(glm::mat4(1.0f), mObjectPosition);
+
+    //View Matrix
+    mView = glm::lookAt(
+        mCameraPosition, //Eye 
+        mObjectPosition, //Center 
+        glm::vec3(0.0f, 1.0f, 0.0f)); //Up Vector
 }
 
-void ShaderLecture3::Run()
+void PracticalAssignment::Run()
 {
     // Enter the main loop
     RenderLoop();
 }
 
-ShaderLecture3::~ShaderLecture3()
+PracticalAssignment::~PracticalAssignment()
 {
     // Clean up on destruction
     CleanUp();
 }
 
-bool ShaderLecture3::InitWindow()
+bool PracticalAssignment::InitWindow()
 {
     if (!glfwInit())
     {
@@ -153,13 +165,13 @@ bool ShaderLecture3::InitWindow()
     return true;
 }
 
-void ShaderLecture3::InitQuad(int meshWidth, int meshHeight)
+void PracticalAssignment::InitQuad(int meshWidth, int meshHeight)
 {
     std::vector<float> vertices;
     vertices.reserve(meshWidth * meshHeight * 5);
 
-    glm::vec3 upperLeft(-0.6f,  0.4f, 0.0f);
-    glm::vec3 lowerRight(0.6f, -0.4f, 0.0f);
+    glm::vec3 upperLeft(-20.0f, 0.f, 20.0f);
+    glm::vec3 lowerRight(20.0f, 0.0f, -20.0f);
 
     for (int row = 0; row < meshHeight; ++row)
     {
@@ -174,11 +186,9 @@ void ShaderLecture3::InitQuad(int meshWidth, int meshHeight)
             // Interpolate in x, y, z
             // (1 - u,v) * upperLeft + (u,v) * lowerRight
             float x = upperLeft.x + u * (lowerRight.x - upperLeft.x);
-            float y = upperLeft.y + v * (lowerRight.y - upperLeft.y);
-            float z = upperLeft.z + u * (lowerRight.z - upperLeft.z);
-            // ^ If you want the plane to tilt in Z as well.
-            //   If you want a strictly flat plane at upperLeft.z, use that instead:
-            // float z = upperLeft.z;
+            float y = upperLeft.y;
+            float z = upperLeft.z + v * (lowerRight.z - upperLeft.z);
+
 
             // Push back the data
             vertices.push_back(x);
@@ -263,12 +273,14 @@ void ShaderLecture3::InitQuad(int meshWidth, int meshHeight)
 }
 
 
-void ShaderLecture3::RenderLoop()
+void PracticalAssignment::RenderLoop()
 {
     // Keep drawing until the window closes
+    bool objectPositionChanged = false;
+
     while (!glfwWindowShouldClose(mWindow))
     {
-        glClearColor(0.095f, 0.095f, 0.095f, 1.0f);
+        glClearColor(0.53f, 0.81f, 0.98f, 1.0f); 
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Use our shader and draw the quad
@@ -292,7 +304,7 @@ void ShaderLecture3::RenderLoop()
     }
 }
 
-void ShaderLecture3::CleanUp()
+void PracticalAssignment::CleanUp()
 {
     // Free GPU buffers
     if (mVAO)

@@ -18,16 +18,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ShaderProgramming.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ShaderLecture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderLecture3.cpp">
+    <ClCompile Include="AssignmentMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PracticalAssignment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +38,7 @@
     <ClInclude Include="ShaderLecture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderLecture3.h">
+    <ClInclude Include="PracticalAssignment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,6 +59,12 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="matrix.vert">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="assignment.frag">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="assignment.vert">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

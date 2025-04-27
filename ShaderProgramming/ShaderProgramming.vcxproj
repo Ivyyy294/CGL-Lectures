@@ -133,17 +133,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssignmentMain.cpp" />
+    <ClCompile Include="PracticalAssignment.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderLecture.cpp" />
-    <ClCompile Include="ShaderLecture3.cpp" />
-    <ClCompile Include="ShaderProgramming.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PracticalAssignment.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderLecture.h" />
-    <ClInclude Include="ShaderLecture3.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assignment.frag" />
+    <None Include="assignment.vert" />
     <None Include="basic.frag" />
     <None Include="basic.vert" />
     <None Include="matrix.frag" />
