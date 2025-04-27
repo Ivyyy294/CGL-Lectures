@@ -4,6 +4,7 @@
 
 class  GameObject {
 	friend class Physics;
+	friend class ParticleCollision;
 public:
 	typedef std::vector<GameObject*> Vec;
 

@@ -19,7 +19,7 @@ void PoolBall::Draw()
 		Draw::Circle(m_position, m_radius, true);
 		Draw::SetColor(m_color);
 
-		//x sind
+		//x sin
 		//y cos
 		int stepCount = 16;
 		float stepSize = 0.75f / stepCount;

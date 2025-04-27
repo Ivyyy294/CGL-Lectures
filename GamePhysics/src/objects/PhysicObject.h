@@ -1,5 +1,4 @@
 #pragma once
-#include "Collision.h"
 #include <glm/glm.hpp>
 #include <vector>
 #include "GameObject.h"
@@ -8,6 +7,7 @@ class PhysicObject
 	: public GameObject
 {
     friend class Physics;
+    friend class ParticleCollision;
 public:
     PhysicObject();
     ~PhysicObject();
@@ -36,8 +36,6 @@ public:
 
 	 glm::vec2 Reflection (glm::vec2 direction, glm::vec2 normal);
 	 glm::vec2 GetForce();
-	
-	virtual Collision TestCollision (PhysicObject* collider);
 protected:
 	float m_mass = 1.0f;
    glm::vec2 m_velocity = glm::vec2 (0,0);
@@ -50,6 +48,6 @@ protected:
 	bool m_trigger = false;
 	bool m_simulation = false;
 
-	virtual void OnTriggerEnter (PhysicObject* obj, const Collision& collision) {};
-	virtual void OnCollisionEnter (PhysicObject* obj, const Collision& collision) {};
+	virtual void OnTriggerEnter (PhysicObject* obj) {};
+	virtual void OnCollisionEnter (PhysicObject* obj) {};
 };

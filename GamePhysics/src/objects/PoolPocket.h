@@ -9,7 +9,7 @@ public:
 	~PoolPocket(){};
 
 	void Draw() override;
-	void OnTriggerEnter(PhysicObject* obj, const Collision& collision) override;
+	void OnTriggerEnter(PhysicObject* obj) override;
 
 private:
 	float m_drawRadius;

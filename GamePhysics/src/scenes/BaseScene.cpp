@@ -7,8 +7,8 @@ void BaseScene::OnEnable()
 	{
 		if (PhysicObject* obj = dynamic_cast<PhysicObject*> (gameObjects[i]))
 			Physics::AddPhysicObject (obj);
-		if (ForceField* obj = dynamic_cast<ForceField*> (gameObjects[i]))
-			Physics::AddForceField(obj);
+		if (ForceGenerator* obj = dynamic_cast<ForceGenerator*> (gameObjects[i]))
+			Physics::AddForceGenerator(obj);
 	}
 }
 
@@ -18,8 +18,8 @@ void BaseScene::OnDisable()
 	{
 		if (PhysicObject* obj = dynamic_cast<PhysicObject*> (gameObjects[i]))
 			Physics::RemovePhysicObject(obj);
-		if (ForceField* obj = dynamic_cast<ForceField*> (gameObjects[i]))
-			Physics::RemoveForceField(obj);
+		if (ForceGenerator* obj = dynamic_cast<ForceGenerator*> (gameObjects[i]))
+			Physics::RemoveForceGenerator(obj);
 	}
 }
 

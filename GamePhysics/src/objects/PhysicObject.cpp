@@ -42,11 +42,3 @@ glm::vec2 PhysicObject::GetForce()
 {
 	return m_velocity * m_mass;
 }
-
-Collision PhysicObject::TestCollision (PhysicObject* collider)
-{
-    return Collision();
-}
-
-
-

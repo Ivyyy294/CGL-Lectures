@@ -16,7 +16,7 @@ void PoolPocket::Draw()
 	Draw::Circle(m_position, m_drawRadius, true);
 }
 
-void PoolPocket::OnTriggerEnter(PhysicObject* obj, const Collision& collision)
+void PoolPocket::OnTriggerEnter(PhysicObject* obj)
 {
 	if (PoolBall* ball = dynamic_cast<PoolBall*>(obj))
 	{

@@ -54,10 +54,3 @@ float Wall::Length()
 	float length = glm::length(m_end - m_start);
 	return glm::length (m_end - m_start);
 }
-
-Collision Wall::TestCollision(PhysicObject* collider)
-{
-	return Collision();
-}
-
-
