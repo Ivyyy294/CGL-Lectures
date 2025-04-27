@@ -25,7 +25,7 @@ void CircleForceField::ApplyForceForObject(PhysicObject* obj)
 		float distance = glm::length(direction);
 
 		if (distance <= m_radius + bb->Radius())
-			force = glm::normalize(direction) * m_appliedForce;
+			obj->ApplyForce (glm::normalize(direction) * m_appliedForce);
 	}
 	else if (obj != nullptr)
 		obj->ApplyForce(force * obj->GetMass());
