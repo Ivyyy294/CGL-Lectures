@@ -1,9 +1,7 @@
 #pragma once
-
-#include "BouncingBall.h"
-#include "Wall.h"
+#include "ParticleCollision.h"
 #include <glm/glm.hpp>
-#include "objects/ForceField.h"
+#include "objects/ForceGenerator.h"
 #include "objects/PhysicObject.h"
 #include <vector>
 
@@ -15,14 +13,13 @@ public:
 	 static void AddPhysicObject (PhysicObject* obj);
 	 static void RemovePhysicObject (PhysicObject* obj);
 	
-	 static void AddForceField(ForceField* obj);
-	 static void RemoveForceField(ForceField* obj);
+	 static void AddForceGenerator(ForceGenerator* obj);
+	 static void RemoveForceGenerator(ForceGenerator* obj);
 
 private:
 	static std::vector <PhysicObject*> m_physicObjects;
-	static std::vector <ForceField*> m_forceFields;
+	static std::vector <ForceGenerator*> m_forceGenerator;
    
-	static void ResolveCollision(PhysicObject* obj1, PhysicObject* obj2);
 	static void RunPhysicForObject(float deltaTime, PhysicObject* obj);
 	static void RunCollisionsForObject(float deltaTime, PhysicObject* obj, int startIndex = 0);
 };

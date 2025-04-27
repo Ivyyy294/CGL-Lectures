@@ -1,24 +1,24 @@
-#include "GameObject.h"
-#include "PhysicObject.h"
+#pragma once
+#include "Circle.h"
 #include <imgui.h>
+#include "ForceGenerator.h"
 
 class Planet
-: public GameObject
-, public PhysicObject
+	: public Circle
+	, public ForceGenerator
 {
 public:
 	Planet (float radius, float mass, ImColor color = ImColor (1.0f, 1.0f, 1.0f, 1.0f));
 	~Planet(){};
 
-	static float m_universalGravitationalConstant;
 	static float m_ScaleOneTo;
+	static float m_universalGravitationalConstant;
+
+	void ApplyForceForObject(PhysicObject* obj) final;
 private:
-	float m_radius;
-	ImColor m_color;
 
 	void Draw() override;
 	void Update(float deltaTime) override{};
-	void ResolveCollision(PhysicObject* obj) override;
 
 	float GetScale();
 };

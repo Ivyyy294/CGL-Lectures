@@ -2,6 +2,7 @@
 #include "objects//Physics.h"
 #include "imgui.h"
 #include "objects/CircleForceField.h"
+#include "objects/BouncingBall.h"
 
 AssignmentScene2::AssignmentScene2()
 {

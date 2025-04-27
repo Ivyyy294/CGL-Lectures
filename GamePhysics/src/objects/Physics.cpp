@@ -1,7 +1,8 @@
 #include "Physics.h"
+#include "ParticleCollisionDetector.h"
 
 std::vector <PhysicObject*> Physics::m_physicObjects;
-std::vector <ForceField*> Physics::m_forceFields;
+std::vector <ForceGenerator*> Physics::m_forceGenerator;
 
 void Physics::Run(float deltaTime)
 {
@@ -14,9 +15,15 @@ void Physics::Run(float deltaTime)
 
 void Physics::RunPhysicForObject(float deltaTime, PhysicObject* obj)
 {
-	if (obj->IsStatic())
+	if (obj->IsStatic() || !obj->IsActive())
 		return;
 	
+	for (size_t i = 0; i < m_forceGenerator.size(); i++)
+		m_forceGenerator[i]->ApplyForceForObject(obj);
+
+	//apply damping
+	obj->m_velocity *= 1 - obj->m_linearDamping * deltaTime;
+
 	glm::vec2 zero = glm::vec2(0.0f, 0.0f);
 
 	obj->m_velocity += obj->m_impulse + obj->m_force * deltaTime;
@@ -24,8 +31,7 @@ void Physics::RunPhysicForObject(float deltaTime, PhysicObject* obj)
 	obj->m_impulse = zero;
 	obj->m_force = zero;
 
-	if (GameObject* gameObj = dynamic_cast<GameObject*>(obj))
-		gameObj->m_position += obj->m_velocity * deltaTime;
+	obj->m_position += obj->m_velocity * deltaTime;
 }
 
 void Physics::RunPhysicForSingleObject(PhysicObject* obj, float deltaTime)
@@ -40,23 +46,29 @@ void Physics::RunCollisionsForObject(float deltaTime, PhysicObject* obj, int sta
 	{
 		PhysicObject* obj2 = m_physicObjects[i];
 
+		if (!obj->IsActive() || !obj2->IsActive())
+			continue;
+
 		//Prevent collision with self in case startIndex was not passed
 		if (startIndex == 0 && obj == obj2)
 			continue;
-		else
+
+		if ((obj->IsTrigger() && obj2->IsTrigger())
+		|| (obj->IsStatic() && obj2->IsStatic()))
+			continue;
+
+		ParticleCollision collision1 = ParticleCollisionDetector::TestCollision (obj, obj2);
+
+		if (collision1.m_collision)
 		{
-			if (obj->IsTrigger() || obj2->IsTrigger())
-				continue;
-
-			ResolveCollision(obj, obj2);
-			ResolveCollision(obj2, obj);
+			collision1.Resolve();
+			continue;
 		}
-	}
-}
 
-void Physics::ResolveCollision(PhysicObject* obj1, PhysicObject* obj2)
-{
-	obj1->ResolveCollision (obj2);
+		ParticleCollision collision2 = ParticleCollisionDetector::TestCollision(obj2, obj);
+		if (collision2.m_collision)
+			collision2.Resolve();
+	}
 }
 
 void Physics::AddPhysicObject(PhysicObject* obj)
@@ -76,18 +88,18 @@ void Physics::RemovePhysicObject(PhysicObject* obj)
 	}
 }
 
-void Physics::AddForceField(ForceField* obj)
+void Physics::AddForceGenerator(ForceGenerator* obj)
 {
-	m_forceFields.push_back (obj);
+	m_forceGenerator.push_back (obj);
 }
 
-void Physics::RemoveForceField(ForceField* obj)
+void Physics::RemoveForceGenerator(ForceGenerator* obj)
 {
-	for (auto i = m_forceFields.begin(); i != m_forceFields.end(); i++)
+	for (auto i = m_forceGenerator.begin(); i != m_forceGenerator.end(); i++)
 	{
 		if (*i == obj)
 		{
-			m_forceFields.erase(i);
+			m_forceGenerator.erase(i);
 			return;
 		}
 	}

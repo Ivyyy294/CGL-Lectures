@@ -22,6 +22,9 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PlanetScene.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PoolScene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
@@ -31,16 +34,28 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Circle.cpp">
       <Filter>objects</Filter>
     </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\CircleCollider.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\CircleForceField.cpp">
       <Filter>objects</Filter>
     </ClCompile>
-    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ForceField.cpp">
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ColorRect.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ForceGenerator.cpp">
       <Filter>objects</Filter>
     </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\GameObject.cpp">
       <Filter>objects</Filter>
     </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\GlobalForceField.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ParticleCollision.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ParticleCollisionDetector.cpp">
       <Filter>objects</Filter>
     </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\PhysicObject.cpp">
@@ -52,10 +67,22 @@
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Planet.cpp">
       <Filter>objects</Filter>
     </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolBall.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolGameState.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolPocket.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\ThrowBall.cpp">
       <Filter>objects</Filter>
     </ClCompile>
     <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\Wall.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\00_Git\Semester3\GamePhysics\src\objects\WhiteBall.cpp">
       <Filter>objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,6 +105,9 @@
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PlanetScene.h">
       <Filter>scenes</Filter>
     </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\PoolScene.h">
+      <Filter>scenes</Filter>
+    </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\scenes\TestScene.h">
       <Filter>scenes</Filter>
     </ClInclude>
@@ -87,16 +117,28 @@
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Circle.h">
       <Filter>objects</Filter>
     </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\CircleCollider.h">
+      <Filter>objects</Filter>
+    </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\CircleForceField.h">
       <Filter>objects</Filter>
     </ClInclude>
-    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ForceField.h">
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ColorRect.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ForceGenerator.h">
       <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\GameObject.h">
       <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\GlobalForceField.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ParticleCollision.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ParticleCollisionDetector.h">
       <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PhysicObject.h">
@@ -108,10 +150,22 @@
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Planet.h">
       <Filter>objects</Filter>
     </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolBall.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolGameState.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\PoolPocket.h">
+      <Filter>objects</Filter>
+    </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\ThrowBall.h">
       <Filter>objects</Filter>
     </ClInclude>
     <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\Wall.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\00_Git\Semester3\GamePhysics\src\objects\WhiteBall.h">
       <Filter>objects</Filter>
     </ClInclude>
   </ItemGroup>

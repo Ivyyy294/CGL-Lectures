@@ -1,16 +1,17 @@
 #pragma once
 #include <glm/glm.hpp>
+#include <imgui.h>
 #include <vector>
-
 #include "GameObject.h"
 #include "objects/PhysicObject.h"
 
-class Wall : public GameObject, public PhysicObject
+class Wall : public PhysicObject
 {
 public:
     typedef std::vector<Wall> Vec;
 
     Wall(glm::vec2 start, glm::vec2 end);
+    Wall(glm::vec2 start, glm::vec2 end, ImColor color);
 
     void Draw() override;
     void Update(float deltaTime) override;
@@ -22,10 +23,8 @@ public:
 	 glm::vec2 GetDirection();
 	 glm::vec2 GetNormal();
 	 float Length();
-
 private:
     glm::vec2 m_start;
     glm::vec2 m_end;
-
-	 void ResolveCollision(PhysicObject* obj) override;
+	 ImColor m_color;
 };

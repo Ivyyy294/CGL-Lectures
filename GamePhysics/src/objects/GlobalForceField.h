@@ -1,21 +1,15 @@
 #pragma once
 
 #include "GameObject.h"
-#include "ForceField.h"
+#include "ForceGenerator.h"
 
 class GlobalForceField
 	: public GameObject
-	, public ForceField
+	, public ForceGenerator
 {
 public:
 	GlobalForceField();
 	GlobalForceField(float force);
 
-	virtual void Update(float deltaTime) override {};
-	virtual void Draw() override {};
-
-protected:
-
-	// Inherited via ForceField
-	void ResolveCollision (PhysicObject* obj) override;
+	void ApplyForceForObject(PhysicObject* obj) final;
 };

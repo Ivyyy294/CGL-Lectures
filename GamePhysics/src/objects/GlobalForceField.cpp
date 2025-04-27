@@ -2,18 +2,17 @@
 #include "Physics.h"
 
 GlobalForceField::GlobalForceField()
-	: ForceField (9.81)
+	: ForceGenerator (9.81)
 {
-	SetStatic (true);
 }
 
 GlobalForceField::GlobalForceField(float force)
-: ForceField (force)
+: ForceGenerator (force)
 {
 }
 
-void GlobalForceField::ResolveCollision (PhysicObject* obj)
+void GlobalForceField::ApplyForceForObject(PhysicObject* obj)
 {
-	obj->ApplyForce (glm::vec2(0.0f, m_force * -1.0f * obj->GetMass()));
+	obj->ApplyForce (glm::vec2(0.0f, m_appliedForce * -1.0f * obj->GetMass()));
 }
 
