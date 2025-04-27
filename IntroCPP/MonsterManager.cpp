@@ -71,8 +71,8 @@ void MonsterManager::PrintInstruction() const
 	std::cout << "Welcome to the Ivyyy Monster Manager (c)" << std::endl << std::endl;
 	std::cout << "Instructions:" << std::endl;
 	std::cout << "-----------------" << std::endl;
-	std::cout << "print" << std::endl;
-	std::cout << "printall" << std::endl;
+	std::cout << "view" << std::endl;
+	std::cout << "viewall" << std::endl;
 	std::cout << "find name" << std::endl;
 	std::cout << "find index" << std::endl;
 	std::cout << "-----------------" << std::endl;
@@ -99,8 +99,9 @@ void MonsterManager::AddMonster()
 
 	if (std::cin.fail())
 	{
+		iPos = -1;
 		std::cin.clear();
-		std::cin >> pos >> name >> hp;
+		std::cin >> pos >> name >> type >> hp;
 	}
 	else
 		std::cin >> name >> type >> hp;
@@ -228,9 +229,9 @@ void MonsterManager::ProcessInstruction()
 			return;
 		else if (input == "HELP")
 			PrintInstruction();
-		else if (input == "PRINT")
+		else if (input == "VIEW")
 			Print();
-		else if (input == "PRINTALL")
+		else if (input == "VIEWALL")
 			PrintAll();
 		else if (input == "ADD")
 			AddMonster();
