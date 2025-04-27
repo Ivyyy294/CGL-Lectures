@@ -8,7 +8,7 @@ int main()
 {
     PracticalAssignment assignment(800, 800, "Shader Programming - Assignment - Lara Gülpen");
 
-    if (!assignment.Initialize("assignment.vert", "assignment.frag", 20, 20, "grid.jpg"))
+    if (!assignment.Initialize("assignment.vert", "assignment.frag", 200, 200, "grid.jpg"))
     {
         return 1; // Initialization failed
     }
