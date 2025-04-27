@@ -24,9 +24,9 @@ void Planet::ApplyForceForObject(PhysicObject* obj)
 
 		glm::vec2 diff = m_position - obj->GetPosition();
 		glm::vec2 direction = glm::normalize(diff);
-		float distance = glm::dot(direction, diff);
+		float distance = glm::length(diff);
 
-		float force = m_universalGravitationalConstant * ((GetMass() * planet2->GetMass()) / std::pow(distance, 2.0f));
+		float force = m_universalGravitationalConstant * ((GetMass() * planet2->GetMass()) / (distance * distance));
 
 		glm::vec2 forceVec = direction * force;
 

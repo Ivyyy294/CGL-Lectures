@@ -23,6 +23,7 @@ public:
     inline void SetStatic (bool val) { m_static = val; }
 
 	 inline float GetMass() const {return m_mass;}
+	 inline float GetIMass() const {return m_static ? 0.0f : 1.0f / m_mass;}
 	 inline void SetMass(float mass) {m_mass = mass;}
 
 	 inline bool IsTrigger() const { return m_trigger; }
