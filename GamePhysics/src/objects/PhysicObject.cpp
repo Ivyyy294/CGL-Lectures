@@ -13,7 +13,7 @@ void PhysicObject::ApplyImpulse(glm::vec2 force)
 	if (m_static)
 		return;
 
-	m_impulse += force / m_mass;
+	m_impulse += force * m_iMass;
 }
 
 void PhysicObject::ApplyForce(glm::vec2 force)
@@ -21,7 +21,13 @@ void PhysicObject::ApplyForce(glm::vec2 force)
 	if (m_static)
 		return;
 
-	m_force += force / m_mass;
+	m_force += force * m_iMass;
+}
+
+void PhysicObject::SetMass(float mass)
+{
+	m_mass = mass;
+	m_iMass = 1.0f / mass;
 }
 
 void PhysicObject::SetLinearDamping(const float val)

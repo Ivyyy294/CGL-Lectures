@@ -23,8 +23,8 @@ public:
     inline void SetStatic (bool val) { m_static = val; }
 
 	 inline float GetMass() const {return m_mass;}
-	 inline float GetIMass() const {return m_static ? 0.0f : 1.0f / m_mass;}
-	 inline void SetMass(float mass) {m_mass = mass;}
+	 inline float GetIMass() const {return m_static ? 0.0f : m_iMass;}
+	 void SetMass(float mass);
 
 	 inline bool IsTrigger() const { return m_trigger; }
 	 inline void SetTrigger(bool val) { m_trigger = val; }
@@ -38,7 +38,6 @@ public:
 	 glm::vec2 Reflection (glm::vec2 direction, glm::vec2 normal);
 	 glm::vec2 GetForce();
 protected:
-	float m_mass = 1.0f;
    glm::vec2 m_velocity = glm::vec2 (0,0);
    glm::vec2 m_impulse = glm::vec2 (0,0);
    glm::vec2 m_force = glm::vec2 (0,0);
@@ -51,4 +50,8 @@ protected:
 
 	virtual void OnTriggerEnter (PhysicObject* obj) {};
 	virtual void OnCollisionEnter (PhysicObject* obj) {};
+
+private:
+	float m_mass = 1.0f;
+	float m_iMass = 1.0f;
 };

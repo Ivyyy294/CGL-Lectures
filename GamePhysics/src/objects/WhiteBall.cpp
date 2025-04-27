@@ -44,7 +44,7 @@ void WhiteBall::Draw()
 
 		float maxPreviweTime = 1.0f;
 
-		BouncingBall dummy(m_position, m_radius, m_mass);
+		BouncingBall dummy(m_position, m_radius, GetMass());
 		dummy.SetSimulation(true);
 		dummy.SetLinearDamping(m_linearDamping);
 		dummy.ApplyImpulse(GetImpulse());
