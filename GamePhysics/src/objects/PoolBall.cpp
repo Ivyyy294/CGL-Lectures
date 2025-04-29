@@ -39,6 +39,6 @@ void PoolBall::Draw()
 	Draw::SetColor({1.0f, 1.0f, 1.f, 1.0f});
 	Draw::Circle(m_position, m_radius / 1.75f, true);
 	Draw::SetColor({0.0f, 0.0f, 0.f, 1.0f});
-	glm::vec2 textPos = m_position + glm::vec2{-m_radius * 0.2f * m_number.length(), m_radius * 0.5f};
-	Draw::Text (textPos, m_number.c_str());
+	glm::vec2 textPos = m_position + glm::vec2{-m_radius * 0.225f * m_number.length(), m_radius * 0.5f};
+	Draw::Text (textPos, m_number.c_str(), m_radius);
 }

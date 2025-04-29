@@ -48,6 +48,7 @@ void Grid(const glm::vec2& min,
           const glm::vec2& lineDistance);
 // Draws some text.
 void Text(const glm::vec2& position, const char* text);
+void Text(const glm::vec2& position, const char* text, const float fontSize);
 
 // Sets the color to draw with.
 void SetColor(ImColor color);
