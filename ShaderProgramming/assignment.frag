@@ -46,13 +46,12 @@ vec3 GetDiffuseColor()
 	return diffuseColor;
 }
 
-vec3 GetSpecularColor()
+vec3 GetSpecularColor(vec3 specularColor, float smoothness)
 {
 	vec3 viewDir = normalize (camPos - worldPos);
 	vec3 halfVector = normalize(lightDirection + viewDir);
-	vec3 specularLightIntesity1 = lightColor * pow(DotClamped(halfVector, normal), smootness * 1000.0f);
-	vec3 specularLightIntesity2 = lightColor * pow(DotClamped(halfVector, normal), smootness * 200.0f);
-	vec3 specular = Saturate (waterSpecular * specularLightIntesity1 + waterSpecular2 * specularLightIntesity2);
+	vec3 specularLightIntesity = lightColor * pow(DotClamped(halfVector, normal), smoothness);
+	vec3 specular = specularColor * specularLightIntesity;
 	return specular;
 }
 
@@ -61,8 +60,11 @@ void main()
 	//Diffuse
 	vec3 diffuseColor = GetDiffuseColor();
 
-	//Specular
-	vec3 specular = GetSpecularColor();
+	//Specular white
+	vec3 specular1 = GetSpecularColor(waterSpecular,  smootness * 1000.0f);
 
-	outColor = vec4 (Saturate(diffuseColor + specular), 1.0f);
+	//Specular turquoise 
+	vec3 specular2 = GetSpecularColor(waterSpecular2,  smootness * 200.0f);
+
+	outColor = vec4 (Saturate(diffuseColor + specular1 + specular2), 1.0f);
 }
