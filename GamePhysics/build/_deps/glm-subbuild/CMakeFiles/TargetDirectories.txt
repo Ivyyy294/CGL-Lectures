@@ -1,3 +1,0 @@
-D:/00_Git/Semester3/GamePhysics/build/_deps/glm-subbuild/CMakeFiles/glm-populate.dir
-D:/00_Git/Semester3/GamePhysics/build/_deps/glm-subbuild/CMakeFiles/ALL_BUILD.dir
-D:/00_Git/Semester3/GamePhysics/build/_deps/glm-subbuild/CMakeFiles/ZERO_CHECK.dir
