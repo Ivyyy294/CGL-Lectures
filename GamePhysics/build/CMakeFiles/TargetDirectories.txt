@@ -1,8 +1,0 @@
-D:/00_Git/Semester3/GamePhysics/build/CMakeFiles/GamePhysics.dir
-D:/00_Git/Semester3/GamePhysics/build/CMakeFiles/ALL_BUILD.dir
-D:/00_Git/Semester3/GamePhysics/build/CMakeFiles/ZERO_CHECK.dir
-D:/00_Git/Semester3/GamePhysics/build/src/core/CMakeFiles/core.dir
-D:/00_Git/Semester3/GamePhysics/build/src/core/CMakeFiles/imgui.dir
-D:/00_Git/Semester3/GamePhysics/build/src/core/CMakeFiles/imguizmo.dir
-D:/00_Git/Semester3/GamePhysics/build/_deps/glm-build/CMakeFiles/ALL_BUILD.dir
-D:/00_Git/Semester3/GamePhysics/build/_deps/glm-build/glm/CMakeFiles/glm.dir
