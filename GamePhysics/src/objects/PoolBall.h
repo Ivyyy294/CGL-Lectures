@@ -10,7 +10,10 @@ public:
 	~PoolBall(){};
 
 	void Draw() override;
-	inline const std::string& Number() const {return m_number;}
+	void OnTriggerEnter(PhysicObject * obj) override;
+	
+	inline const std::string& Number() const {return m_number;};
+
 private:
 	const std::string m_number;
 	bool m_halfFilled;

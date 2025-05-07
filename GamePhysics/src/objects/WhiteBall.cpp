@@ -2,6 +2,7 @@
 #include "core/Input.h"
 #include "core/Draw.h"
 #include "Physics.h"
+#include "PoolPocket.h"
 
 WhiteBall::WhiteBall (glm::vec2 pos, float radius)
 	: BouncingBall (radius)
@@ -58,6 +59,12 @@ void WhiteBall::Draw()
 			dummy.Draw();
 		}
 	}
+}
+
+void WhiteBall::OnTriggerEnter(PhysicObject* obj)
+{
+	if (PoolPocket* poolPocket = dynamic_cast<PoolPocket*>(obj))
+		ResetPosition();
 }
 
 void WhiteBall::ResetPosition()
