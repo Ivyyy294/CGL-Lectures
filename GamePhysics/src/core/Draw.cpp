@@ -240,6 +240,13 @@ void Text(const glm::vec2& position, const char* text) {
     drawList->AddText(positionl, gContext.color, text);
 }
 
+void Text(const glm::vec2& position, const char* text, const float fontSize)
+{
+	ImVec2 positionl = transformPoint(camMatrix, position);
+	float actualFontSize = transformLength (camMatrix, fontSize);
+	drawList->AddText(nullptr, actualFontSize, positionl, gContext.color, text);
+}
+
 void SetColor(ImColor color) {
     gContext.color = color;
 }

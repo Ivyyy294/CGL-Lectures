@@ -15,16 +15,3 @@ void PoolPocket::Draw()
 	Draw::SetColor(m_color);
 	Draw::Circle(m_position, m_drawRadius, true);
 }
-
-void PoolPocket::OnTriggerEnter(PhysicObject* obj)
-{
-	if (PoolBall* ball = dynamic_cast<PoolBall*>(obj))
-	{
-		if (ball->Number() == "8")
-			PoolGameState::gameOver = true;
-		else
-			ball->SetActive(false);
-	}
-	else if (WhiteBall* ball = dynamic_cast <WhiteBall*>(obj))
-		ball->ResetPosition();
-}

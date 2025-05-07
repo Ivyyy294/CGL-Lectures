@@ -36,5 +36,9 @@ void AssignmentScene4::DrawGUI() {
 	 float mass = m_bb->GetMass();
     ImGui::DragFloat("Ball mass", &mass, 0.1f, 1.0f, 10.f);
 	 m_bb->SetMass(mass);
+
+	 float drag = m_bb->GetLinearDamping();
+	 ImGui::DragFloat("Ball linear damping", &drag, 0.1f, 0.0f, 1.f);
+	 m_bb->SetLinearDamping(drag);
     ImGui::End();
 }

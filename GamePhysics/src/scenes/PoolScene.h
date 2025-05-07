@@ -6,7 +6,7 @@ class PoolScene
 {
 	public:
 		PoolScene();
-		virtual const char* GetName() override { return "Pool Scene"; };
+		virtual const char* GetName() override { return "Assignment5"; };
 		virtual void Draw() override;
 		virtual void DrawGUI() override;
 		virtual void Update(float deltaTime) override;

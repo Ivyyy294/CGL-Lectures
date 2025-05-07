@@ -14,11 +14,11 @@ int main(int argc, char** argv)
 	std::vector<Scene*> scenes = 
 	{
 		new TestScene(),
+		new PlanetScene(),
 		new AssignmentScene1(),
 		new AssignmentScene2(),
 		new AssignmentScene3(),
 		new AssignmentScene4(),
-		new PlanetScene(),
 		new PoolScene()
 	};
 

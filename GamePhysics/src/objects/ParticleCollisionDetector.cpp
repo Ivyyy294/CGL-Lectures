@@ -2,7 +2,7 @@
 #include "CircleCollider.h"
 #include "Wall.h"
 
-ParticleCollision TestCollisionCircleCollider(CircleCollider* circle, CircleCollider* circle2)
+ParticleCollision TestCollisionCircleCircleCollider(CircleCollider* circle, CircleCollider* circle2)
 {
 	ParticleCollision collision;
 	collision.obj1 = circle;
@@ -35,7 +35,7 @@ ParticleCollision TestCollisionCircleCollider(CircleCollider* circle, CircleColl
 	return collision;
 }
 
-ParticleCollision TestCollisionCircleCollider(CircleCollider* circle, Wall* wall)
+ParticleCollision TestCollisionCircleWallCollider(CircleCollider* circle, Wall* wall)
 {
 	ParticleCollision collision;
 	collision.obj1 = circle;
@@ -102,9 +102,18 @@ ParticleCollision TestCollisionCircleCollider(CircleCollider* circle, Wall* wall
 ParticleCollision TestCollisionCircleCollider(CircleCollider* circle, PhysicObject* obj2)
 {
 	if (CircleCollider* circle2 = dynamic_cast<CircleCollider*> (obj2))
-		return TestCollisionCircleCollider(circle, circle2);
+		return TestCollisionCircleCircleCollider(circle, circle2);
 	else if (Wall* wall = dynamic_cast<Wall*> (obj2))
-		return TestCollisionCircleCollider(circle, wall);
+		return TestCollisionCircleWallCollider(circle, wall);
+
+	return ParticleCollision();
+}
+
+ParticleCollision TestCollisionWallCollider(Wall* wall, PhysicObject* obj2)
+{
+	if (CircleCollider* circle = dynamic_cast<CircleCollider*> (obj2))
+		return TestCollisionCircleWallCollider(circle, wall);
+
 	return ParticleCollision();
 }
 
@@ -112,8 +121,8 @@ ParticleCollision ParticleCollisionDetector::TestCollision(PhysicObject* obj1, P
 {
 	if (CircleCollider* circle = dynamic_cast <CircleCollider*> (obj1))
 		return TestCollisionCircleCollider (circle, obj2);
-	else if (CircleCollider* circle = dynamic_cast <CircleCollider*> (obj2))
-		return TestCollisionCircleCollider(circle, obj1);
+	else if (Wall* wall = dynamic_cast <Wall*> (obj1))
+		return TestCollisionWallCollider(wall, obj2);
 
     return ParticleCollision();
 }

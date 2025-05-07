@@ -18,8 +18,12 @@ void PoolScene::Draw()
 
 void PoolScene::DrawGUI()
 {
+	ImGui::Begin("Inspector");
+
 	if (ImGui::Button ("Reset"))
 		Reset();
+
+	ImGui::End();
 }
 
 void PoolScene::Update(float deltaTime)
