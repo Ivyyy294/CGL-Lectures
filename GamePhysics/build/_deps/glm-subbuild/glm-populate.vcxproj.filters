@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeFiles\8462c4de6cf18b4e4d02297211517ae2\glm-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeFiles\8462c4de6cf18b4e4d02297211517ae2\glm-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeFiles\8462c4de6cf18b4e4d02297211517ae2\glm-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeFiles\8462c4de6cf18b4e4d02297211517ae2\glm-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeFiles\8462c4de6cf18b4e4d02297211517ae2\glm-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeFiles\8462c4de6cf18b4e4d02297211517ae2\glm-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeFiles\8462c4de6cf18b4e4d02297211517ae2\glm-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeFiles\8462c4de6cf18b4e4d02297211517ae2\glm-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeFiles\9db5552b704e57318593e7c9afcc954d\glm-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeFiles\4909f21f3bf6b4808ddee82c24d6371f\glm-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\00_Git\Semester3\GamePhysics\build\_deps\glm-subbuild\CMakeFiles\glm-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{C474E883-00AB-3F9D-917D-C7DCD21C7EF1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

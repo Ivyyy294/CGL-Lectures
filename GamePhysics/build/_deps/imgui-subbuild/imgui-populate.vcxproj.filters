@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeFiles\f7ec0cdbdf63b061c1fd9632480398bb\imgui-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeFiles\f7ec0cdbdf63b061c1fd9632480398bb\imgui-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeFiles\f7ec0cdbdf63b061c1fd9632480398bb\imgui-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeFiles\f7ec0cdbdf63b061c1fd9632480398bb\imgui-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeFiles\f7ec0cdbdf63b061c1fd9632480398bb\imgui-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeFiles\f7ec0cdbdf63b061c1fd9632480398bb\imgui-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeFiles\f7ec0cdbdf63b061c1fd9632480398bb\imgui-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeFiles\f7ec0cdbdf63b061c1fd9632480398bb\imgui-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeFiles\729e45c1af9d25151213a7d8b8c47e2c\imgui-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeFiles\57da59d665896f677799d1c20f760463\imgui-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\00_Git\Semester3\GamePhysics\build\_deps\imgui-subbuild\CMakeFiles\imgui-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{71FF8B83-A48E-3B85-B934-BCDE1A7F4F81}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
