@@ -30,7 +30,8 @@ class Monster
 		
 		static void Delete (Monster* monster);
 		static Monster* Import (const std::string& data);
-		std::string ToSaveString () const;
+		std::string GetRawDataString () const;
+		std::string GetFormatedDataString () const;
 
 	private:
 		static const char m_seperator {';'};
@@ -49,5 +50,6 @@ class Monster
 		Monster* m_next {nullptr};
 		Monster* m_prev {nullptr};
 
+		std::string GetFormatedContentLine (const std::string& rawData, size_t lineLength) const;
 };
 

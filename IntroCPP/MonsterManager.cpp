@@ -182,7 +182,7 @@ bool MonsterManager::SaveFileIntern()
 	std::string data;
 
 	for (Monster* i = m_current->Front(); i != nullptr; i = i->Next())
-		data += i->ToSaveString() + "\n";
+		data += i->GetRawDataString() + "\n";
 
 	file.clear();
 	file << data;
@@ -353,6 +353,8 @@ void MonsterManager::Import(const std::string& filePath)
 		if (monster != nullptr)
 			AddMonsterEnd (monster);
 	}
+
+	std::cout << m_current->GetFormatedDataString();
 }
 
 void MonsterManager::GetSearchPara(std::string& name, int& index) const

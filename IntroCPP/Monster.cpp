@@ -149,7 +149,7 @@ Monster* Monster::Import(const std::string& data)
 	return newMonster;
 }
 
-std::string Monster::ToSaveString() const
+std::string Monster::GetRawDataString() const
 {
 	std::string data = m_name + m_seperator
 		+ m_cr + m_seperator
@@ -161,6 +161,59 @@ std::string Monster::ToSaveString() const
 		+ m_movement + m_seperator
 		+ m_alignment + m_seperator
 		+ (m_legendary ? "Legendary" : "");
+
+	return data;
+}
+
+std::string Monster::GetFormatedDataString() const
+{
+	std::string data;
+	const size_t lineLength = 48;
+	char lineBuffer[lineLength];
+
+	//Init fixed lines
+	std::string borderHorizontal;
+	borderHorizontal.resize (lineLength, '-');
+	borderHorizontal[0] = '+';
+	borderHorizontal[lineLength-1] = '+';
+
+	std::string contentSeperator;
+	contentSeperator.resize (lineLength, '=');
+	contentSeperator[0] = '|';
+	contentSeperator[1] = ' ';
+	contentSeperator[lineLength-2] = ' ';
+	contentSeperator[lineLength-1] = '|';
+
+	const std::string fillerLine = GetFormatedContentLine("", lineLength);
+
+	data = borderHorizontal + '\n'
+	 + fillerLine + '\n'
+	 + GetFormatedContentLine(m_name, lineLength) + '\n'
+	 + GetFormatedContentLine(m_type + std::string (m_subType.empty() ? "" : " (" + m_subType + ")"), lineLength) + '\n'
+	 + GetFormatedContentLine(m_alignment, lineLength) + '\n'
+	 + fillerLine + '\n'
+	 + contentSeperator + '\n'
+	 + fillerLine + '\n'
+	 + GetFormatedContentLine("AC       :" + std::to_string(m_ac), lineLength) + '\n'
+	 + GetFormatedContentLine("HP       :" + std::to_string(m_hp), lineLength) + '\n'
+	 + GetFormatedContentLine("CR       :" + std::to_string(m_hp), lineLength) + '\n'
+	 + fillerLine + '\n'
+	 + GetFormatedContentLine("Size     :" + m_size, lineLength) + '\n'
+	 + GetFormatedContentLine("Movement :" + m_movement, lineLength) + '\n'
+	 + GetFormatedContentLine("Legend.  :" + std::string(m_legendary ? "Yes" : "No"), lineLength) + '\n'
+	 + fillerLine + '\n'
+	 + borderHorizontal + '\n';
+
+	return data;
+}
+
+std::string Monster::GetFormatedContentLine(const std::string& rawData, size_t lineLength) const
+{
+	std::string data;
+	data.resize (lineLength, ' ');
+	data[0] = '|';
+	data[lineLength-1] = '|';
+	data.replace (2, std::min(lineLength - 5, rawData.size()), rawData.c_str());
 
 	return data;
 }
