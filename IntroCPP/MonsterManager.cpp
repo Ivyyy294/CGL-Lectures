@@ -172,6 +172,38 @@ void MonsterManager::RemoveMonster()
 	}
 }
 
+bool MonsterManager::SaveFileIntern()
+{
+	std::ofstream file{ m_filePath };
+
+	if (!file)
+		return false;
+
+	std::string data;
+
+	for (Monster* i = m_current->Front(); i != nullptr; i = i->Next())
+		data += i->ToSaveString() + "\n";
+
+	file.clear();
+	file << data;
+
+	return file.good();
+}
+
+void MonsterManager::SaveFile()
+{
+	if (m_current == nullptr)
+	{
+		std::cout << "ERROR: Monster list is empty!" << std::endl;
+		return;
+	}
+
+	if (SaveFileIntern())
+		std::cout << "Saving successful: " << m_filePath << std::endl;
+	else
+		std::cout << "ERROR: Unable to save file: " << m_filePath << std::endl;
+}
+
 void MonsterManager::AddAtIndex(int index, Monster* monster)
 {
 	bool ok = false;
@@ -309,8 +341,8 @@ void MonsterManager::Import(const std::string& filePath)
 		return;
 	}
 
+	m_filePath = filePath;
 	std::string data;
-
 
 	while (!file.eof())
 	{

@@ -144,9 +144,25 @@ Monster* Monster::Import(const std::string& data)
 	newMonster->m_movement = dataVec [7];
 	newMonster->m_alignment = dataVec [8];
 
-	newMonster->m_legendary = dataVec.size() > 9 && Utils::StrToUpper (dataVec [9]) != "FALSE" ? true : false;
+	newMonster->m_legendary = dataVec.size() > 9;
 
 	return newMonster;
+}
+
+std::string Monster::ToSaveString() const
+{
+	std::string data = m_name + m_seperator
+		+ m_cr + m_seperator
+		+ m_type + m_seperator
+		+ m_subType + m_seperator
+		+ m_size + m_seperator
+		+ std::to_string(m_ac) + m_seperator
+		+ std::to_string(m_hp) + m_seperator
+		+ m_movement + m_seperator
+		+ m_alignment + m_seperator
+		+ (m_legendary ? "Legendary" : "");
+
+	return data;
 }
 
 

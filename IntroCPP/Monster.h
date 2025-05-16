@@ -30,6 +30,7 @@ class Monster
 		
 		static void Delete (Monster* monster);
 		static Monster* Import (const std::string& data);
+		std::string ToSaveString () const;
 
 	private:
 		static const char m_seperator {';'};

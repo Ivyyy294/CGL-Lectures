@@ -11,9 +11,11 @@ public:
 	void ProcessInstruction ();
 	void DeleteMonsterList();
 	void Import (const std::string& filePath);
+	void SaveFile ();
 
 private:
 	Monster* m_current = nullptr;
+	std::string m_filePath;
 
 	void Next();
 	void Back();
@@ -23,6 +25,7 @@ private:
 	void FindMonster () const;
 	void AddMonster();
 	void RemoveMonster();
+	bool SaveFileIntern();
 
 	//Help methods
 	void AddAtIndex(int index, Monster* monster);
