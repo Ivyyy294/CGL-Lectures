@@ -133,6 +133,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterManager.cpp" />
     <ClCompile Include="RomanNumeral.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoinType.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterManager.h" />
     <ClInclude Include="RomanNumeral.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,6 +10,7 @@ public:
 	void AddMonsterEnd(Monster* monster, bool silent = true);
 	void ProcessInstruction ();
 	void DeleteMonsterList();
+	void Import (const std::string& filePath);
 
 private:
 	Monster* m_current = nullptr;
@@ -25,7 +26,6 @@ private:
 
 	//Help methods
 	void AddAtIndex(int index, Monster* monster);
-	std::string ToUpper (const std::string& source) const;
 	void GetSearchPara (std::string& name, int& index) const;
 };
 

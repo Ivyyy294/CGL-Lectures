@@ -4,6 +4,7 @@
 class Monster
 {
 	public:
+		Monster(){};
 		Monster (const std::string& name, const std::string& type, int hp);
 		~Monster(){};
 
@@ -26,14 +27,23 @@ class Monster
 		bool Compare (const std::string& val);
 
 		inline const std::string& Name() const {return m_name;}
-		std::string ToUpper(const std::string& val) const;
 		
 		static void Delete (Monster* monster);
+		static Monster* Import (const std::string& data);
 
 	private:
+		static const char m_seperator {';'};
+
 		std::string m_name;
+		std::string m_cr;
 		std::string m_type;
-		int m_hp;
+		std::string m_subType;
+		std::string m_size;
+		size_t m_ac {0};
+		size_t m_hp {0};
+		std::string m_movement;
+		std::string m_alignment;
+		bool m_legendary {false};
 
 		Monster* m_next {nullptr};
 		Monster* m_prev {nullptr};

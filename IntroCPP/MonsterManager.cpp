@@ -1,6 +1,8 @@
-﻿#include "MonsterManager.h"
-#include <iostream>
+﻿#include <iostream>
 #include <cstring>
+#include <fstream>
+#include "MonsterManager.h"
+#include "Utils.h"
 
 void MonsterManager::Next()
 {
@@ -106,9 +108,9 @@ void MonsterManager::AddMonster()
 	else
 		std::cin >> name >> type >> hp;
 
-	if (!std::cin.fail() && ToUpper (pos) == "FRONT")
+	if (!std::cin.fail() && Utils::StrToUpper (pos) == "FRONT")
 		AddMonsterFront (new Monster {name, type, hp}, false);
-	else if (!std::cin.fail() && ToUpper(pos) == "END")
+	else if (!std::cin.fail() && Utils::StrToUpper(pos) == "END")
 		AddMonsterEnd(new Monster{ name, type, hp }, false);
 	else if (!std::cin.fail() && iPos != -1)
 		AddAtIndex(iPos, new Monster{ name, type, hp });
@@ -134,12 +136,12 @@ void MonsterManager::RemoveMonster()
 
 	Monster* monster = nullptr;
 
-	if (ToUpper(name) == "ALL")
+	if (Utils::StrToUpper(name) == "ALL")
 	{
-		if (ToUpper(name) == "ALL")
+		if (Utils::StrToUpper(name) == "ALL")
 			std::cin >> name;
 
-		name = ToUpper(name);
+		name = Utils::StrToUpper(name);
 
 		while (monster = m_current->Find (name))
 		{
@@ -223,7 +225,7 @@ void MonsterManager::ProcessInstruction()
 		std::cout << std::endl << std::endl << "Waiting for instruction..." << std::endl << ">";
 
 		std::cin >> input;
-		input = ToUpper (input);
+		input = Utils::StrToUpper (input);
 
 		if (input == "EXIT")
 			return;
@@ -297,14 +299,28 @@ void MonsterManager::DeleteMonsterList()
 	}
 }
 
-std::string MonsterManager::ToUpper(const std::string& source) const
+void MonsterManager::Import(const std::string& filePath)
 {
-	std::string val;
-	
-	for (size_t i = 0; i < source.length(); ++i)
-		val += std::toupper(source[i]);
+	std::ifstream file {filePath};
 
-	return val;
+	if (!file)
+	{
+		std::cout << "ERROR: Unable to open file: " << filePath;
+		return;
+	}
+
+	std::string data;
+
+
+	while (!file.eof())
+	{
+		std::getline (file, data);
+
+		Monster* monster = Monster::Import(data);
+
+		if (monster != nullptr)
+			AddMonsterEnd (monster);
+	}
 }
 
 void MonsterManager::GetSearchPara(std::string& name, int& index) const
@@ -317,6 +333,6 @@ void MonsterManager::GetSearchPara(std::string& name, int& index) const
 		std::cin.clear();
 		std::cin >> name;
 
-		name = ToUpper(name);
+		name = Utils::StrToUpper(name);
 	}
 }

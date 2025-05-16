@@ -1,5 +1,8 @@
-#include "Monster.h"
 #include <iostream>
+#include <string>
+#include "Utils.h"
+#include "Monster.h"
+#include <sstream>
 
 Monster::Monster(const std::string& name, const std::string& type, int hp)
 	: m_name (name)
@@ -101,8 +104,8 @@ Monster* Monster::Find(int index) const
 
 bool Monster::Compare(const std::string& val)
 {
-	return ToUpper(m_name).find(val) != std::string::npos
-		|| ToUpper(m_type).find(val) != std::string::npos;
+	return Utils::StrToUpper(m_name).find(val) != std::string::npos
+		|| Utils::StrToUpper(m_type).find(val) != std::string::npos;
 }
 
 void Monster::Delete(Monster* monster)
@@ -116,13 +119,34 @@ void Monster::Delete(Monster* monster)
 	delete (monster);
 }
 
-std::string Monster::ToUpper(const std::string& val) const
+Monster* Monster::Import(const std::string& data)
 {
-	std::string result;
+	std::vector <std::string> dataVec = Utils::StrSplit (data, m_seperator);
 
-	for (size_t i = 0; i < val.length(); ++i)
-		result += std::toupper(val[i]);
+	//Invalid argument count!
+	if (dataVec.size() < 9)
+		return nullptr;
 
-	return result;
+	Monster* newMonster = new Monster();
+
+	newMonster->m_name = dataVec[0];
+	newMonster->m_cr = dataVec [1];
+	newMonster->m_type = dataVec [2];
+	newMonster->m_subType = dataVec [3];
+	newMonster->m_size = dataVec [4];
+
+	std::stringstream stringStream;
+	stringStream << dataVec[5] << " " << dataVec[6];
+
+	stringStream >> newMonster->m_ac;
+	stringStream >> newMonster->m_hp;
+	
+	newMonster->m_movement = dataVec [7];
+	newMonster->m_alignment = dataVec [8];
+
+	newMonster->m_legendary = dataVec.size() > 9 && Utils::StrToUpper (dataVec [9]) != "FALSE" ? true : false;
+
+	return newMonster;
 }
+
 
