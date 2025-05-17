@@ -173,13 +173,13 @@ std::string Monster::GetRawDataString() const
 
 std::string Monster::GetFormatedDataString() const
 {
-	std::string data;
 	const size_t lineLength = 48;
+	std::string data;
 	char lineBuffer[lineLength];
 
 	//Init fixed lines
 	std::string borderHorizontal;
-	borderHorizontal.resize (lineLength, '-');
+	borderHorizontal.resize (lineLength, m_legendary ? '#' : '-');
 	borderHorizontal[0] = '+';
 	borderHorizontal[lineLength-1] = '+';
 
@@ -205,11 +205,23 @@ std::string Monster::GetFormatedDataString() const
 	 + fillerLine + '\n'
 	 + GetFormatedContentLine("Size      :" + m_size, lineLength) + '\n'
 	 + GetFormatedContentLine("Movement  :" + m_movement, lineLength) + '\n'
-	 + fillerLine + '\n'
 	 + GetFormatedContentLine("Challenge :" + m_cr, lineLength) + '\n'
-	 + GetFormatedContentLine("Legend.   :" + std::string(m_legendary ? "Yes" : "No"), lineLength) + '\n'
 	 + fillerLine + '\n'
 	 + borderHorizontal + '\n';
+
+	if (m_legendary)
+	{
+		std::string legendaryHeader;
+		legendaryHeader.resize (lineLength, ' ');
+		legendaryHeader[0] = '|';
+		legendaryHeader[lineLength-1] = '|';
+
+		std::string text = ">>>>   LEGENDARY MONSTER PROFILE   <<<<";
+
+		legendaryHeader = legendaryHeader.replace ((lineLength - text.size()) * 0.5f, text.size(), text);
+
+		data = borderHorizontal + '\n' + legendaryHeader + '\n' + data;
+	}
 
 	return data;
 }
@@ -227,7 +239,7 @@ std::string Monster::GetFormatedContentLine(const std::string& rawData, size_t l
 
 bool Monster::CheckPrompt(const std::string& val) const
 {
-	if (val == "LEGENDARY")
+	if (val.find ("LEGENDARY") != std::string::npos)
 		return m_legendary;
 
 	size_t index = val.find_first_of('=');

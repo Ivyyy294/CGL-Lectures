@@ -277,7 +277,7 @@ void MonsterManager::AddAtIndex(int index, Monster* monster)
 
 	if (ok)
 	{
-		std::cout << monster->GetFormatedDataString() << std::endl;
+		std::cout << std::endl << monster->GetFormatedDataString() << std::endl;
 		SaveFileIntern();
 	}
 	else
@@ -292,7 +292,7 @@ void MonsterManager::AddMonsterFront(Monster* monster, bool silent)
 		m_current->AddFront (monster);
 
 	if (!silent)
-		std::cout << monster->GetFormatedDataString() << std::endl;
+		std::cout << std::endl << monster->GetFormatedDataString() << std::endl;
 
 	SaveFileIntern();
 }
@@ -305,9 +305,7 @@ void MonsterManager::AddMonsterEnd(Monster* monster, bool silent)
 		m_current->AddEnd(monster);
 
 	if (!silent)
-	{
-		std::cout << monster->GetFormatedDataString() << std::endl;
-	}
+		std::cout << std::endl << monster->GetFormatedDataString() << std::endl;
 
 	SaveFileIntern();
 }
@@ -347,8 +345,9 @@ void MonsterManager::ProcessInstruction()
 			Export();
 		else
 		{
-			std::cin.clear();
-			std::cout << std::endl << "ERROR: Invalid instrcution " << input << "!";
+			//clear cin
+			std::getline (std::cin, input);
+			std::cout << std::endl << "ERROR: Invalid instrcution!";
 		}
 	}
 }
@@ -407,7 +406,12 @@ void MonsterManager::Import(const std::string& filePath)
 		Monster* monster = Monster::Import(data);
 
 		if (monster != nullptr)
-			AddMonsterEnd (monster);
+		{
+			if (m_current == nullptr)
+				m_current = monster;
+			else
+				m_current->AddEnd(monster);
+		}
 	}
 }
 
