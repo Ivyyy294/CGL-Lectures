@@ -25,6 +25,7 @@ class Monster
 		Monster* Find(int index) const;
 
 		bool Compare (const std::string& val);
+		bool Filter (const std::string& val);
 
 		inline const std::string& Name() const {return m_name;}
 		
@@ -51,5 +52,6 @@ class Monster
 		Monster* m_prev {nullptr};
 
 		std::string GetFormatedContentLine (const std::string& rawData, size_t lineLength) const;
+		bool CheckPrompt (const std::string& val);
 };
 

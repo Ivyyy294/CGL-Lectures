@@ -73,8 +73,7 @@ void MonsterManager::PrintInstruction() const
 	std::cout << "Welcome to the Ivyyy Monster Manager (c)" << std::endl << std::endl;
 	std::cout << "Instructions:" << std::endl;
 	std::cout << "-----------------" << std::endl;
-	std::cout << "view" << std::endl;
-	std::cout << "viewall" << std::endl;
+	std::cout << "list" << std::endl;
 	std::cout << "find name" << std::endl;
 	std::cout << "find index" << std::endl;
 	std::cout << "-----------------" << std::endl;
@@ -88,6 +87,9 @@ void MonsterManager::PrintInstruction() const
 	std::cout << "delete index" << std::endl;
 	std::cout << "delete name" << std::endl;
 	std::cout << "delete all name" << std::endl;
+	std::cout << "-----------------" << std::endl;
+	std::cout << "save" << std::endl;
+	std::cout << "export filename" << std::endl;
 	std::cout << "-----------------" << std::endl;
 	std::cout << "help" << std::endl;
 	std::cout << "exit" << std::endl;
@@ -190,6 +192,26 @@ bool MonsterManager::SaveFileIntern()
 	return file.good();
 }
 
+void MonsterManager::Export()
+{
+	std::string filename;
+	std::cin >> filename;
+
+	if (std::cin.good())
+	{
+		if (std:: ofstream file {filename})
+		{
+			if (m_filterList.size() > 0)
+			{
+				for (size_t i = 0; i < m_filterList.size(); ++i)
+					file << m_filterList[i]->GetFormatedDataString() << std::endl;
+			}
+			else
+				file << m_current->GetFormatedDataString();
+		}
+	}
+}
+
 void MonsterManager::SaveFile()
 {
 	if (m_current == nullptr)
@@ -263,9 +285,7 @@ void MonsterManager::ProcessInstruction()
 			return;
 		else if (input == "HELP")
 			PrintInstruction();
-		else if (input == "VIEW")
-			Print();
-		else if (input == "VIEWALL")
+		else if (input == "LIST")
 			PrintAll();
 		else if (input == "ADD")
 			AddMonster();
@@ -279,6 +299,10 @@ void MonsterManager::ProcessInstruction()
 			Back();
 		else if (input == "GO")
 			GoToIndex();
+		else if (input == "SAVE")
+			SaveFile();
+		else if (input == "EXPORT")
+			Export();
 		else
 		{
 			std::cin.clear();
@@ -287,12 +311,10 @@ void MonsterManager::ProcessInstruction()
 	}
 }
 
-void MonsterManager::FindMonster() const
+void MonsterManager::FindMonster()
 {
-	int index;
-	std::string name;
-
-	GetSearchPara(name, index);
+	std::string prompt;
+	std::getline (std::cin, prompt);
 
 	if (m_current == nullptr)
 	{
@@ -300,23 +322,16 @@ void MonsterManager::FindMonster() const
 		return;
 	}
 
-	std::cout << "FIND result:" << std::endl;
+	m_filterList.clear();
 
-	if (index != -1)
+	for (Monster* i = m_current->Front(); i != nullptr; i = i->Next())
 	{
-		Monster* monster = m_current->Find (index);
+		if (i->Filter (prompt))
+			m_filterList.push_back(i);
+	}
 
-		if (monster !=nullptr)
-			monster->Print();
-	}
-	else
-	{
-		for (Monster* i = m_current->Front(); i != nullptr; i = i->Next())
-		{
-			if (i->Compare (name))
-				i->Print();
-		}
-	}
+	for (size_t i = 0; i < m_filterList.size(); ++i)
+		m_filterList[i]->Print();
 }
 
 void MonsterManager::DeleteMonsterList()

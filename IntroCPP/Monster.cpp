@@ -108,6 +108,26 @@ bool Monster::Compare(const std::string& val)
 		|| Utils::StrToUpper(m_type).find(val) != std::string::npos;
 }
 
+bool Monster::Filter(const std::string& val)
+{
+	std::vector <std::string> commandList = Utils::StrSplit (Utils::StrToUpper(val), " OR ");
+
+	for (size_t i = 0; i < commandList.size(); ++i)
+	{
+		std::vector <std::string> promptList = Utils::StrSplit(commandList[i], " AND ");
+
+		bool ok = true;
+
+		for (int j = 0; j < promptList.size(); ++j)
+			ok &= CheckPrompt (promptList[j]);
+		
+		if (ok)
+			return true;
+	}
+
+	return false;
+}
+
 void Monster::Delete(Monster* monster)
 {
 	if (monster->m_prev != nullptr)
@@ -194,13 +214,14 @@ std::string Monster::GetFormatedDataString() const
 	 + fillerLine + '\n'
 	 + contentSeperator + '\n'
 	 + fillerLine + '\n'
-	 + GetFormatedContentLine("AC       :" + std::to_string(m_ac), lineLength) + '\n'
-	 + GetFormatedContentLine("HP       :" + std::to_string(m_hp), lineLength) + '\n'
-	 + GetFormatedContentLine("CR       :" + std::to_string(m_hp), lineLength) + '\n'
+	 + GetFormatedContentLine("AC        :" + std::to_string(m_ac), lineLength) + '\n'
+	 + GetFormatedContentLine("HP        :" + std::to_string(m_hp), lineLength) + '\n'
 	 + fillerLine + '\n'
-	 + GetFormatedContentLine("Size     :" + m_size, lineLength) + '\n'
-	 + GetFormatedContentLine("Movement :" + m_movement, lineLength) + '\n'
-	 + GetFormatedContentLine("Legend.  :" + std::string(m_legendary ? "Yes" : "No"), lineLength) + '\n'
+	 + GetFormatedContentLine("Size      :" + m_size, lineLength) + '\n'
+	 + GetFormatedContentLine("Movement  :" + m_movement, lineLength) + '\n'
+	 + fillerLine + '\n'
+	 + GetFormatedContentLine("Challenge :" + m_cr, lineLength) + '\n'
+	 + GetFormatedContentLine("Legend.   :" + std::string(m_legendary ? "Yes" : "No"), lineLength) + '\n'
 	 + fillerLine + '\n'
 	 + borderHorizontal + '\n';
 
@@ -216,6 +237,50 @@ std::string Monster::GetFormatedContentLine(const std::string& rawData, size_t l
 	data.replace (2, std::min(lineLength - 5, rawData.size()), rawData.c_str());
 
 	return data;
+}
+
+bool Monster::CheckPrompt(const std::string& val)
+{
+	if (val == "LEGENDARY")
+		return m_legendary;
+
+	size_t index = val.find_first_of('=');
+
+	//early acces, invalid prompt
+	if (index == std::string::npos)
+		return false;
+	
+	//Set category string
+	std::string category = val.substr (0, index);
+	category = Utils::StrRemove (category, " ");
+
+	//Set value string
+	index = val.find_first_of ('"');
+	size_t index2 = val.find_last_of ('"');
+
+	std::string value = "";
+
+	if (index != std::string::npos || index2 != std::string::npos)
+		value = val.substr (index + 1, index2 - index - 1);
+
+	if (category == "NAME")
+		return Utils::StrToUpper (m_name).find (value) != std::string::npos;
+	if (category == "CR")
+		return Utils::StrToUpper(m_cr).find(value) != std::string::npos;
+	if (category == "TYPE")
+		return Utils::StrToUpper(m_type).find(value) != std::string::npos;
+	if (category == "SUBTYPE")
+		return Utils::StrToUpper(m_subType).find(value) != std::string::npos;
+	if (category == "AC")
+		return std::to_string (m_ac) == value;
+	if (category == "HP")
+		return std::to_string(m_hp) == value;
+	if (category == "MOVEMENT")
+		return Utils::StrToUpper(m_movement).find(value) != std::string::npos;
+	if (category == "ALIGNMENT")
+		return Utils::StrToUpper(m_alignment).find(value) != std::string::npos;
+
+	return false;
 }
 
 
