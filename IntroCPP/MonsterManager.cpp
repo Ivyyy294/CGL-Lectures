@@ -13,7 +13,7 @@ void MonsterManager::Next()
 	else
 	{
 		m_current = m_current->Next();
-		m_current->Print();
+		std::cout << m_current->GetFormatedDataString() << std::endl;
 	}
 }
 
@@ -26,7 +26,7 @@ void MonsterManager::Back()
 	else
 	{
 		m_current = m_current->Previous();
-		m_current->Print();
+		std::cout << m_current->GetFormatedDataString() << std::endl;
 	}
 }
 
@@ -48,45 +48,65 @@ void MonsterManager::GoToIndex()
 	else if (Monster* newMonster = m_current->Find(index))
 	{
 		m_current = newMonster;
-		m_current->Print();
+		std::cout << m_current->GetFormatedDataString() << std::endl;
 	}
 	else
 		std::cout << "ERROR: Invalid index: " << index;
 }
 
-void MonsterManager::Print() const
+void MonsterManager::List() const
+{
+	std::string command;
+	std::cin >> command;
+	command = Utils::StrToUpper (command);
+
+	if (command == "CURRENT")
+		std::cout << m_current->GetFormatedDataString() << std::endl;
+	else if (command == "FILTER")
+		ListFilter();
+	else if (command == "ALL")
+		ListAll();
+}
+void MonsterManager::ListAll() const
 {
 	if (m_current == nullptr)
 		std::cout << "ERROR: Monster list is empty!" << std::endl;
 	else
-		m_current->Print();
+	{
+		Monster* current = m_current->Front();
+		while (current != nullptr)
+		{
+			std::cout << current->GetPrintString() << std::endl;
+			current = current->Next();
+		}
+	}
 }
-void MonsterManager::PrintAll() const
+
+void MonsterManager::ListFilter() const
 {
-	if (m_current == nullptr)
-		std::cout << "ERROR: Monster list is empty!" << std::endl;
-	else
-		m_current->Front()->PrintAll();
+	for (size_t i = 0; i < m_filterList.size(); ++i)
+		std::cout << m_filterList[i]->GetPrintString() << std::endl;
 }
+
 void MonsterManager::PrintInstruction() const
 {
 	std::cout << "Welcome to the Ivyyy Monster Manager (c)" << std::endl << std::endl;
 	std::cout << "Instructions:" << std::endl;
 	std::cout << "-----------------" << std::endl;
-	std::cout << "list" << std::endl;
-	std::cout << "find name" << std::endl;
-	std::cout << "find index" << std::endl;
+	std::cout << "list current" << std::endl;
+	std::cout << "list filter" << std::endl;
+	std::cout << "list all" << std::endl;
 	std::cout << "-----------------" << std::endl;
 	std::cout << "next" << std::endl;
 	std::cout << "back" << std::endl;
 	std::cout << "go index" << std::endl;
+	std::cout << "find valuename=\"value\" AND valuename=\"value\" OR valuename=\"value\"" << std::endl;
 	std::cout << "-----------------" << std::endl;
-	std::cout << "add front name hp" << std::endl;
-	std::cout << "add end name hp" << std::endl;
-	std::cout << "add index name hp" << std::endl;
+	std::cout << "add front" << std::endl;
+	std::cout << "add end" << std::endl;
+	std::cout << "add index" << std::endl;
 	std::cout << "delete index" << std::endl;
-	std::cout << "delete name" << std::endl;
-	std::cout << "delete all name" << std::endl;
+	std::cout << "delete valuename=\"value\" AND valuename=\"value\" OR valuename=\"value\"" << std::endl;
 	std::cout << "-----------------" << std::endl;
 	std::cout << "save" << std::endl;
 	std::cout << "export filename" << std::endl;
@@ -96,8 +116,8 @@ void MonsterManager::PrintInstruction() const
 }
 void MonsterManager::AddMonster()
 {
-	std::string pos, name, type;
-	int iPos = -1, hp = 0;
+	std::string pos, buffer, values;
+	int iPos = -1;
 
 	std::cin >> iPos;
 
@@ -105,30 +125,53 @@ void MonsterManager::AddMonster()
 	{
 		iPos = -1;
 		std::cin.clear();
-		std::cin >> pos >> name >> type >> hp;
-	}
-	else
-		std::cin >> name >> type >> hp;
-
-	if (!std::cin.fail() && Utils::StrToUpper (pos) == "FRONT")
-		AddMonsterFront (new Monster {name, type, hp}, false);
-	else if (!std::cin.fail() && Utils::StrToUpper(pos) == "END")
-		AddMonsterEnd(new Monster{ name, type, hp }, false);
-	else if (!std::cin.fail() && iPos != -1)
-		AddAtIndex(iPos, new Monster{ name, type, hp });
-	else
-	{
+		std::cin >> pos;
 		std::cin.clear();
-		std::cout << "ERROR: Invalid input: " << pos << " " << name << " " << type << " " << hp << std::endl;
 	}
+	
+	std::cout << "Enter values: Name;CR;Type;Subtype;Size;AC;HP;SpecialMovementType;Alignment;Legendary" << std::endl;
+
+	std::cin>>buffer;
+	std::getline (std::cin, values);
+
+	values = buffer + values;
+
+	Monster* monster = Monster::Import(values);
+
+	if (monster == nullptr)
+	{
+		std::cout << "ERROR: Invalid input: " << values << std::endl;
+		return;
+	}
+	else if ( Utils::StrToUpper (pos) == "FRONT")
+		AddMonsterFront (monster, false);
+	else if (Utils::StrToUpper(pos) == "END")
+		AddMonsterEnd(monster, false);
+	else if (iPos != -1)
+		AddAtIndex(iPos, monster);
+	else
+		std::cout << "ERROR: Invalid input: " << pos << std::endl;
 }
 
 void MonsterManager::RemoveMonster()
 {
-	int index;
-	std::string name;
+	if (m_current == nullptr)
+	{
+		std::cout << "ERROR: Monster list is empty!" << std::endl;
+		return;
+	}
 
-	GetSearchPara (name, index);
+	int index = -1;
+	std::string prompt;
+
+	std::cin >> index;
+
+	if (std::cin.fail())
+	{
+		index = -1;
+		std::cin.clear();
+		std::getline (std::cin, prompt);
+	}
 
 	if (m_current == nullptr)
 	{
@@ -136,41 +179,40 @@ void MonsterManager::RemoveMonster()
 		return;
 	}
 
+	std::vector <Monster*> deleteList;
 	Monster* monster = nullptr;
 
-	if (Utils::StrToUpper(name) == "ALL")
+	//Delete at index
+	if (index >= 0)
 	{
-		if (Utils::StrToUpper(name) == "ALL")
-			std::cin >> name;
+		monster = m_current->Find(index);
 
-		name = Utils::StrToUpper(name);
-
-		while (monster = m_current->Find (name))
-		{
-			if (monster == m_current)
-				m_current = monster->Next();
-
-			std::cout << "Deleting " << monster->Name() << "..." << std::endl;
-			Monster::Delete (monster);
-		}
+		if (monster != nullptr)
+			deleteList.push_back (monster);
+		else
+			std::cout << "ERROR: Invalid monster!" << std::endl;
 	}
 	else
 	{
-		if (index != -1)
-			monster = m_current->Find(index);
-		else
-			monster = m_current->Find(name);
+		Monster* monster = m_current->Front();
 
-		if (monster != nullptr)
+		while (monster != nullptr)
 		{
-			if (monster == m_current)
-				m_current = monster->Next();
+			if (monster->Filter (prompt))
+				deleteList.push_back (monster);
 
-			Monster::Delete (monster);
-			std::cout << "Monster deleted!" << std::endl;
+			monster = monster->Next();
 		}
-		else
-			std::cout << "ERROR: Invalid monster!" << std::endl;
+	}
+
+	for (size_t i = 0; i < deleteList.size(); ++i)
+	{
+		Monster* monster = deleteList[i];
+
+		if (monster == m_current)
+			m_current = monster->Next();
+
+		Monster::Delete(monster);
 	}
 }
 
@@ -235,8 +277,8 @@ void MonsterManager::AddAtIndex(int index, Monster* monster)
 
 	if (ok)
 	{
-		std::cout << "Added at index: " << index << " ";
-		monster->Print();
+		std::cout << monster->GetFormatedDataString() << std::endl;
+		SaveFileIntern();
 	}
 	else
 		std::cout << "ERROR: Invalid index: " << index;
@@ -250,10 +292,9 @@ void MonsterManager::AddMonsterFront(Monster* monster, bool silent)
 		m_current->AddFront (monster);
 
 	if (!silent)
-	{
-		std::cout << "Added to front: ";
-		monster->Print();
-	}
+		std::cout << monster->GetFormatedDataString() << std::endl;
+
+	SaveFileIntern();
 }
 
 void MonsterManager::AddMonsterEnd(Monster* monster, bool silent)
@@ -265,9 +306,10 @@ void MonsterManager::AddMonsterEnd(Monster* monster, bool silent)
 
 	if (!silent)
 	{
-		std::cout << "Added to end: ";
-		monster->Print();
+		std::cout << monster->GetFormatedDataString() << std::endl;
 	}
+
+	SaveFileIntern();
 }
 
 void MonsterManager::ProcessInstruction()
@@ -286,7 +328,7 @@ void MonsterManager::ProcessInstruction()
 		else if (input == "HELP")
 			PrintInstruction();
 		else if (input == "LIST")
-			PrintAll();
+			List();
 		else if (input == "ADD")
 			AddMonster();
 		else if (input == "FIND")
@@ -330,8 +372,7 @@ void MonsterManager::FindMonster()
 			m_filterList.push_back(i);
 	}
 
-	for (size_t i = 0; i < m_filterList.size(); ++i)
-		m_filterList[i]->Print();
+	ListFilter();
 }
 
 void MonsterManager::DeleteMonsterList()
@@ -368,20 +409,5 @@ void MonsterManager::Import(const std::string& filePath)
 		if (monster != nullptr)
 			AddMonsterEnd (monster);
 	}
-
-	std::cout << m_current->GetFormatedDataString();
 }
 
-void MonsterManager::GetSearchPara(std::string& name, int& index) const
-{
-	std::cin >> index;
-
-	if (std::cin.fail())
-	{
-		index = -1;
-		std::cin.clear();
-		std::cin >> name;
-
-		name = Utils::StrToUpper(name);
-	}
-}

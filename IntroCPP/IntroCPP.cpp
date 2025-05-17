@@ -9,7 +9,6 @@ int main()
 	MonsterManager monsterManager;
 
 	monsterManager.Import ("monsters_data.txt");
-	monsterManager.SaveFile();
 
 	monsterManager.PrintInstruction();
 	monsterManager.ProcessInstruction();

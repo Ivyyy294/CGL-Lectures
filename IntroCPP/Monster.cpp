@@ -11,19 +11,6 @@ Monster::Monster(const std::string& name, const std::string& type, int hp)
 {
 }
 
-void Monster::Print()
-{
-	std::cout << m_name << " [" << m_type << "] [" << m_hp << "]" << std::endl;
-}
-
-void Monster::PrintAll()
-{
-	Print();
-
-	if (m_next != nullptr)
-		m_next->PrintAll();
-}
-
 void Monster::AddFront(Monster* monster)
 {
 	Monster* head = Front();
@@ -80,7 +67,7 @@ Monster* Monster::Find(const std::string& val) const
 {
 	for (Monster* i = Front(); i != nullptr; i = i->Next())
 	{
-		if (i->Compare (val))
+		if (i->Filter (val))
 			return i;
 	}
 
@@ -102,13 +89,7 @@ Monster* Monster::Find(int index) const
 	return nullptr;
 }
 
-bool Monster::Compare(const std::string& val)
-{
-	return Utils::StrToUpper(m_name).find(val) != std::string::npos
-		|| Utils::StrToUpper(m_type).find(val) != std::string::npos;
-}
-
-bool Monster::Filter(const std::string& val)
+bool Monster::Filter(const std::string& val) const
 {
 	std::vector <std::string> commandList = Utils::StrSplit (Utils::StrToUpper(val), " OR ");
 
@@ -167,6 +148,11 @@ Monster* Monster::Import(const std::string& data)
 	newMonster->m_legendary = dataVec.size() > 9;
 
 	return newMonster;
+}
+
+std::string Monster::GetPrintString() const
+{
+	return m_name + " [" + m_type + "] [" + std::to_string (m_hp) + "]";
 }
 
 std::string Monster::GetRawDataString() const
@@ -239,7 +225,7 @@ std::string Monster::GetFormatedContentLine(const std::string& rawData, size_t l
 	return data;
 }
 
-bool Monster::CheckPrompt(const std::string& val)
+bool Monster::CheckPrompt(const std::string& val) const
 {
 	if (val == "LEGENDARY")
 		return m_legendary;
@@ -279,6 +265,8 @@ bool Monster::CheckPrompt(const std::string& val)
 		return Utils::StrToUpper(m_movement).find(value) != std::string::npos;
 	if (category == "ALIGNMENT")
 		return Utils::StrToUpper(m_alignment).find(value) != std::string::npos;
+	if (category == "SIZE")
+		return Utils::StrToUpper(m_size).find(value) != std::string::npos;
 
 	return false;
 }

@@ -8,9 +8,6 @@ class Monster
 		Monster (const std::string& name, const std::string& type, int hp);
 		~Monster(){};
 
-		void Print();
-		void PrintAll();
-
 		void AddFront (Monster* monster);
 		void AddEnd (Monster* monster);
 		bool AddAtIndex (int index, Monster* monster);
@@ -24,13 +21,12 @@ class Monster
 		Monster* Find(const std::string& val) const;
 		Monster* Find(int index) const;
 
-		bool Compare (const std::string& val);
-		bool Filter (const std::string& val);
+		bool Filter (const std::string& val)const;
 
-		inline const std::string& Name() const {return m_name;}
-		
 		static void Delete (Monster* monster);
 		static Monster* Import (const std::string& data);
+
+		std::string GetPrintString() const;
 		std::string GetRawDataString () const;
 		std::string GetFormatedDataString () const;
 
@@ -52,6 +48,6 @@ class Monster
 		Monster* m_prev {nullptr};
 
 		std::string GetFormatedContentLine (const std::string& rawData, size_t lineLength) const;
-		bool CheckPrompt (const std::string& val);
+		bool CheckPrompt (const std::string& val) const;
 };
 

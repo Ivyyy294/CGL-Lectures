@@ -22,8 +22,10 @@ private:
 	void Next();
 	void Back();
 	void GoToIndex();
-	void Print() const;
-	void PrintAll() const;
+
+	void List() const;
+	void ListAll() const;
+	void ListFilter() const;
 	void FindMonster ();
 	void AddMonster();
 	void RemoveMonster();
@@ -32,6 +34,5 @@ private:
 
 	//Help methods
 	void AddAtIndex(int index, Monster* monster);
-	void GetSearchPara (std::string& name, int& index) const;
 };
 
