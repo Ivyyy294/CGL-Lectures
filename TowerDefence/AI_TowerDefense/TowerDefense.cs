@@ -53,8 +53,8 @@ namespace AI_TowerDefense
             // here you replace the selected strategy with your strategy class(es).
             // Your strategy should at least be able to beat random!
             
-            _playerAStrategy = new RandomStrategyLoggerDemo(_playerA);
-            _playerBStrategy = new RandomStrategyLoggerDemo(_playerB);
+            _playerAStrategy = new LaneRunnerStrategy(_playerA);
+            _playerBStrategy = new DummyStrategy(_playerB);
         }
 
         public static TowerDefense Instance => instance ??= new TowerDefense();
