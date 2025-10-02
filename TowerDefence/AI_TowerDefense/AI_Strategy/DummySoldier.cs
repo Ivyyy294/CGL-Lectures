@@ -15,7 +15,22 @@ namespace AI_Strategy
         public override void Move()
         {
             if (deployed)
-                MoveTo (posX, posY+1);
+            {
+                int x = posX;
+                int y = posY;
+
+                for (int i = speed; i > 0; i--)
+                {
+                    if (MoveTo(x, y + i)) return;
+                    if (MoveTo(x + i, y + i)) return;
+                    if (MoveTo(x - i, y + i)) return;
+                    if (MoveTo(x + i, y)) return;
+                    if (MoveTo(x - i, y)) return;
+                    if (MoveTo(x, y - i)) return;
+                    if (MoveTo(x - i, y - i)) return;
+                    if (MoveTo(x + i, y - i)) return;
+                }
+            }
             else if (IsRegimentComplete())
                 deployed = true;
             else if (posY < DummyStrategy.regimentDepth -1)

@@ -11,7 +11,7 @@ namespace AI_Strategy
     {
         public static int regimentStartIndex = 0;
         public static int regimentWidth = 3;
-        public static int regimentDepth = 3;
+        public static int regimentDepth = 4;
 
         private int m_soldierLaneIndex = 0;
         public DummyStrategy(Player player) : base(player)
