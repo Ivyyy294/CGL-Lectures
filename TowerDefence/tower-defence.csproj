@@ -47,12 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI_TowerDefense\AI_Strategy\AbstractStrategy.cs" />
+    <Compile Include="AI_TowerDefense\AI_Strategy\ActiveRegimentSettings.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\LaneRunnerStrategy.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\DummyStrategy.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\DummySoldier.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\MySoldier.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\RandomStrategy.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\RandomStrategyLoggerDemo.cs" />
+    <Compile Include="AI_TowerDefense\AI_Strategy\StrategyState.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\TowerPlacementTestStrategy.cs" />
     <Compile Include="AI_TowerDefense\GameFramework\Cell.cs" />
     <Compile Include="AI_TowerDefense\GameFramework\Logging\DebugLogger.cs" />

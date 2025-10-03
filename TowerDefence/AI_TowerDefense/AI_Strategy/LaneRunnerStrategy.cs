@@ -9,18 +9,21 @@ namespace AI_Strategy
 {
     public class LaneRunnerStrategy : AbstractStrategy
     {
-        private int m_soldierLaneIndex = 0;
+        private ActiveRegimentSettings m_activeRegimentSettings;
         public LaneRunnerStrategy(Player player) : base(player)
         {
-
+            m_activeRegimentSettings = ActiveRegimentSettings.AddInstance(player.Name);
+            m_activeRegimentSettings.Width = 3;
+            m_activeRegimentSettings.Depth = 4;
+            m_activeRegimentSettings.SoldierLane = player.EnemyLane;
         }
         public override void DeploySoldiers()
         {
-            if (player.Gold < DummyStrategy.regimentWidth * 2)
+            if (player.Gold < m_activeRegimentSettings.Width * 2)
                 return;
 
-            for (int i = 0; i < DummyStrategy.regimentWidth; ++i)
-                player.TryBuySoldier<DummySoldier>(DummyStrategy.regimentStartIndex + i);
+            for (int i = 0; i < m_activeRegimentSettings.Width; ++i)
+                player.TryBuySoldier<DummySoldier>(m_activeRegimentSettings.StartIndex + i);
         }
 
         public override void DeployTowers()

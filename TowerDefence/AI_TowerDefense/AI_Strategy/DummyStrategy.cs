@@ -9,27 +9,24 @@ namespace AI_Strategy
 {
     public class DummyStrategy : AbstractStrategy
     {
-        public static int regimentStartIndex = 0;
-        public static int regimentWidth = 3;
-        public static int regimentDepth = 4;
-
-        private int m_soldierLaneIndex = 0;
+        private ActiveRegimentSettings m_activeRegimentSettings;
         public DummyStrategy(Player player) : base(player)
         {
-
+            m_activeRegimentSettings = ActiveRegimentSettings.AddInstance (player.Name);
+            m_activeRegimentSettings.Width = 3;
+            m_activeRegimentSettings.Depth = 4;
+            m_activeRegimentSettings.SoldierLane = player.EnemyLane;
         }
-
-
         public override void DeploySoldiers()
         {
             if (!AllTowersPlaced())
                 return;
 
-            if (player.Gold < regimentWidth * 2)
+            if (player.Gold < m_activeRegimentSettings.Width * 2)
                 return;
 
-            for (int i = 0; i < regimentWidth; ++i)
-                player.TryBuySoldier<DummySoldier>(regimentStartIndex + i);
+            for (int i = 0; i < m_activeRegimentSettings.Width; ++i)
+                player.TryBuySoldier<DummySoldier>(m_activeRegimentSettings.StartIndex + i);
         }
 
         public override void DeployTowers()
@@ -37,17 +34,23 @@ namespace AI_Strategy
             if (AllTowersPlaced())
                 return;
 
-            for (int i = 1; i <= 13 && player.Gold >= 8; ++i)
-            {
-                int laneOffset = i / PlayerLane.WIDTH;
-                int lane = 17 - (laneOffset * 2);
-                int row = i - (PlayerLane.WIDTH * laneOffset);
+            player.TryBuyTower<Tower>(3, 10);
+            player.TryBuyTower<Tower>(3, 12);
+            player.TryBuyTower<Tower>(3, 14);
 
-                player.TryBuyTower<Tower>(row, lane);
+            
 
-                if (m_soldierLaneIndex < PlayerLane.WIDTH - 1)
-                    m_soldierLaneIndex+=2;
-            }
+            //for (int i = 1; i <= 13 && player.Gold >= 8; ++i)
+            //{
+            //    int laneOffset = i / PlayerLane.WIDTH;
+            //    int lane = 17 - (laneOffset * 2);
+            //    int row = i - (PlayerLane.WIDTH * laneOffset);
+
+            //    player.TryBuyTower<Tower>(row, lane);
+
+            //    if (m_soldierLaneIndex < PlayerLane.WIDTH - 1)
+            //        m_soldierLaneIndex+=2;
+            //}
         }
 
         public override List<Soldier> SortedSoldierArray(List<Soldier> unsortedList)
@@ -67,6 +70,7 @@ namespace AI_Strategy
 
         private int GetTargetTowerCount()
         {
+            return 3;
             int towerPerBlock = 7;
             int goldPerBlock = towerPerBlock * 8;
             int blockCount = Math.Max (1, player.Gold / goldPerBlock);

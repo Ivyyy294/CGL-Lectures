@@ -9,11 +9,15 @@ namespace AI_Strategy
     {
         bool advance = false;
         bool deployed = false;
+        ActiveRegimentSettings m_activeRegimentSettings;
         /*
          * This move method is a mere copy of the base movement method.
          */
         public override void Move()
         {
+            if (m_activeRegimentSettings == null)
+                m_activeRegimentSettings = ActiveRegimentSettings.GetInstance(player.Name);
+
             if (deployed)
             {
                 int x = posX;
@@ -31,30 +35,10 @@ namespace AI_Strategy
                     if (MoveTo(x + i, y - i)) return;
                 }
             }
-            else if (IsRegimentComplete())
+            else if (m_activeRegimentSettings.IsRegimentComplete())
                 deployed = true;
-            else if (posY < DummyStrategy.regimentDepth -1)
+            else if (posY < m_activeRegimentSettings.Depth -1)
                 MoveTo (posX, posY + 1);
-        }
-        private bool IsRegimentComplete()
-        {
-            for (int i = 0; i < DummyStrategy.regimentDepth; ++i)
-            {
-                if (!IsRowComplete(i))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private bool IsRowComplete (int row)
-        {
-            for (int i = 0; i < DummyStrategy.regimentWidth; ++i)
-            {
-                if (player.EnemyLane.GetCellAt(DummyStrategy.regimentStartIndex + i, row).Unit == null)
-                    return false;
-            }
-            return true;
         }
     }
 }
