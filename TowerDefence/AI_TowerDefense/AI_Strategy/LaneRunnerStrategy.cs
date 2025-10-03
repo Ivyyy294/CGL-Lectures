@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AI_Strategy
 {
-    public class LaneRunnerStrategy : AbstractStrategy
+    public class LaneRunnerStrategy : StrategyStateMachine
     {
         private ActiveRegimentSettings m_activeRegimentSettings;
         public LaneRunnerStrategy(Player player) : base(player)
@@ -15,19 +15,10 @@ namespace AI_Strategy
             m_activeRegimentSettings = ActiveRegimentSettings.AddInstance(player.Name);
             m_activeRegimentSettings.Width = 3;
             m_activeRegimentSettings.Depth = 4;
+            m_activeRegimentSettings.StartIndex = 0;
             m_activeRegimentSettings.SoldierLane = player.EnemyLane;
-        }
-        public override void DeploySoldiers()
-        {
-            if (player.Gold < m_activeRegimentSettings.Width * 2)
-                return;
 
-            for (int i = 0; i < m_activeRegimentSettings.Width; ++i)
-                player.TryBuySoldier<DummySoldier>(m_activeRegimentSettings.StartIndex + i);
-        }
-
-        public override void DeployTowers()
-        {
+            Push (new LaneRunnerBrain (this));
         }
 
         public override List<Soldier> SortedSoldierArray(List<Soldier> unsortedList)
@@ -39,15 +30,58 @@ namespace AI_Strategy
         {
             return unsortedList;
         }
+    }
 
-        private bool AllTowersPlaced()
+    class LaneRunnerBrain : StrategyState
+    {
+        ActiveRegimentSettings m_activeRegimentSettings;
+        public LaneRunnerBrain(StrategyStateMachine stateMachine) : base(stateMachine)
         {
-            return player.HomeLane.TowerCount() >= GetTargetTowerCount();
+            m_activeRegimentSettings = ActiveRegimentSettings.GetInstance(m_player.Name);
         }
 
-        private int GetTargetTowerCount()
+        public override void Continue()
         {
-            return 3;
+            EvaluateRegimentSize();
+            SetRegimentStartIndex();
+            m_stateMachine.Push(new DeployRegimentState(m_stateMachine));
+        }
+        public override void DeploySoldiers()
+        {
+        }
+        public override void DeployTowers()
+        {
+        }
+
+        public override void Enter()
+        {
+            EvaluateRegimentSize();
+            SetRegimentStartIndex();
+            m_stateMachine.Push(new DeployRegimentState(m_stateMachine));
+        }
+
+        public override void Exit()
+        {
+        }
+
+        private void EvaluateRegimentSize()
+        {
+            if (m_player.Gold >= 42)
+                m_activeRegimentSettings.Width = 6;
+            else if (m_player.Gold >= 36)
+                m_activeRegimentSettings.Width = 6;
+            else if (m_player.Gold >= 30)
+                m_activeRegimentSettings.Width = 5;
+            else if (m_player.Gold >= 24)
+                m_activeRegimentSettings.Width = 4;
+            else
+                m_activeRegimentSettings.Width = 3;
+        }
+
+        private void SetRegimentStartIndex()
+        {
+            Random r = new Random();
+            m_activeRegimentSettings.StartIndex = r.Next(0, 7-m_activeRegimentSettings.Width);
         }
     }
 }

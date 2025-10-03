@@ -13,7 +13,7 @@ namespace AI_Strategy
         public int Width { get; set; }
         public int Depth { get; set; }
         public int SoldierCount => Width * Depth;
-        public int StartIndex => GetStartIndex();
+        public int StartIndex { get; set;}
 
         //Public Methods
         public static ActiveRegimentSettings AddInstance (string key)
@@ -42,10 +42,6 @@ namespace AI_Strategy
         }
 
         //Private Methods
-        private int GetStartIndex()
-        {
-            return 0;
-        }
         private bool IsRowComplete(int row)
         {
             if (SoldierLane == null) 
