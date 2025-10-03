@@ -14,7 +14,7 @@ namespace AI_Strategy
         {
             m_activeRegimentSettings = ActiveRegimentSettings.AddInstance(player.Name);
             m_activeRegimentSettings.Width = 3;
-            m_activeRegimentSettings.Depth = 4;
+            m_activeRegimentSettings.Depth = 3;
             m_activeRegimentSettings.StartIndex = 0;
             m_activeRegimentSettings.SoldierLane = player.EnemyLane;
 
@@ -42,8 +42,6 @@ namespace AI_Strategy
 
         public override void Continue()
         {
-            EvaluateRegimentSize();
-            SetRegimentStartIndex();
             m_stateMachine.Push(new DeployRegimentState(m_stateMachine));
         }
         public override void DeploySoldiers()
@@ -55,33 +53,11 @@ namespace AI_Strategy
 
         public override void Enter()
         {
-            EvaluateRegimentSize();
-            SetRegimentStartIndex();
             m_stateMachine.Push(new DeployRegimentState(m_stateMachine));
         }
 
         public override void Exit()
         {
-        }
-
-        private void EvaluateRegimentSize()
-        {
-            if (m_player.Gold >= 42)
-                m_activeRegimentSettings.Width = 6;
-            else if (m_player.Gold >= 36)
-                m_activeRegimentSettings.Width = 6;
-            else if (m_player.Gold >= 30)
-                m_activeRegimentSettings.Width = 5;
-            else if (m_player.Gold >= 24)
-                m_activeRegimentSettings.Width = 4;
-            else
-                m_activeRegimentSettings.Width = 3;
-        }
-
-        private void SetRegimentStartIndex()
-        {
-            Random r = new Random();
-            m_activeRegimentSettings.StartIndex = r.Next(0, 7-m_activeRegimentSettings.Width);
         }
     }
 }

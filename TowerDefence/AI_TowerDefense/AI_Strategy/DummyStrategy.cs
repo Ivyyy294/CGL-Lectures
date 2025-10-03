@@ -13,7 +13,7 @@ namespace AI_Strategy
         public DummyStrategy(Player player) : base(player)
         {
             m_activeRegimentSettings = ActiveRegimentSettings.AddInstance (player.Name);
-            m_activeRegimentSettings.Width = 3;
+            m_activeRegimentSettings.Width = 2;
             m_activeRegimentSettings.Depth = 3;
             m_activeRegimentSettings.StartIndex = 0;
             m_activeRegimentSettings.SoldierLane = player.EnemyLane;
@@ -41,7 +41,7 @@ namespace AI_Strategy
         }
         public override void Continue()
         {
-            if (regimentCounter >= 1)
+            if (regimentCounter >= 1 && m_player.HomeLane.SoldierCount() < 20)
             {
                 regimentCounter = 0;
                 m_stateMachine.Push(new DummyTowerDeploy(m_stateMachine));
@@ -49,8 +49,6 @@ namespace AI_Strategy
             else
             {
                 regimentCounter++;
-                EvaluateRegimentSize();
-                SetRegimentStartIndex();
                 m_stateMachine.Push(new DeployRegimentState(m_stateMachine));
             }
         }
@@ -65,36 +63,18 @@ namespace AI_Strategy
 
         public override void Enter()
         {
-            m_stateMachine.Push(new DummyTowerDeploy(m_stateMachine));
+            m_stateMachine.Push(new DeployRegimentState(m_stateMachine));
         }
 
         public override void Exit()
         {
         }
-
-        private void EvaluateRegimentSize()
-        {
-            if (m_player.Gold >= 42)
-                m_activeRegimentSettings.Width = 6;
-            else if (m_player.Gold >= 36)
-                m_activeRegimentSettings.Width = 6;
-            else if (m_player.Gold >= 30)
-                m_activeRegimentSettings.Width = 5;
-            else if (m_player.Gold >= 24)
-                m_activeRegimentSettings.Width = 4;
-            else
-                m_activeRegimentSettings.Width = 3;
-        }
-
-        private void SetRegimentStartIndex()
-        {
-            Random r = new Random();
-            m_activeRegimentSettings.StartIndex = r.Next(0, 7 - m_activeRegimentSettings.Width);
-        }
     }
 
     public class DummyTowerDeploy : StrategyState
     {
+        bool baseLineDone = false;
+        int secondaryDefenseGrid = -1;
         public DummyTowerDeploy(StrategyStateMachine stateMachine) : base(stateMachine)
         {
         }
@@ -109,16 +89,43 @@ namespace AI_Strategy
 
         public override void DeployTowers()
         {
-            if (m_player.TryBuyTower<Tower>(1, 4) == Player.TowerPlacementResult.NotEnoughGold)
+            if (!baseLineDone)
+            {
+                if (m_player.TryBuyTower<Tower>(2, 4) == Player.TowerPlacementResult.NotEnoughGold)
+                    return;
+                if (m_player.TryBuyTower<Tower>(3, 5) == Player.TowerPlacementResult.NotEnoughGold)
+                    return;
+                if (m_player.TryBuyTower<Tower>(4, 4) == Player.TowerPlacementResult.NotEnoughGold)
+                    return;
+
+                baseLineDone = true;
                 return;
-            if (m_player.TryBuyTower<Tower>(3, 4) == Player.TowerPlacementResult.NotEnoughGold)
-                return;
-            if (m_player.TryBuyTower<Tower>(5, 4) == Player.TowerPlacementResult.NotEnoughGold)
-                return;
-            if (m_player.TryBuyTower<Tower>(2, 5) == Player.TowerPlacementResult.NotEnoughGold)
-                return;
-            if (m_player.TryBuyTower<Tower>(4, 5) == Player.TowerPlacementResult.NotEnoughGold)
-                return;
+            }
+
+            if (secondaryDefenseGrid == -1)
+                secondaryDefenseGrid = GetSecondaryDefenseGrid();
+
+            if (secondaryDefenseGrid == 0)
+            {
+                if (m_player.TryBuyTower<Tower>(0, 4) == Player.TowerPlacementResult.NotEnoughGold)
+                    return;
+                if (m_player.TryBuyTower<Tower>(1, 5) == Player.TowerPlacementResult.NotEnoughGold)
+                    return;
+            }
+            else if (secondaryDefenseGrid == 1)
+            {
+                if (m_player.TryBuyTower<Tower>(1, 5) == Player.TowerPlacementResult.NotEnoughGold)
+                    return;
+                if (m_player.TryBuyTower<Tower>(5, 5) == Player.TowerPlacementResult.NotEnoughGold)
+                    return;
+            }
+            else 
+            {
+                if (m_player.TryBuyTower<Tower>(5, 5) == Player.TowerPlacementResult.NotEnoughGold)
+                    return;
+                if (m_player.TryBuyTower<Tower>(6, 4) == Player.TowerPlacementResult.NotEnoughGold)
+                    return;
+            }
 
             m_stateMachine.Pop();
         }
@@ -129,6 +136,37 @@ namespace AI_Strategy
 
         public override void Exit()
         {
+        }
+
+        private int GetSecondaryDefenseGrid()
+        {
+            int cLeft = GetEnemyCount(0);
+            int cCenter = GetEnemyCount(2);
+            int cRight = GetEnemyCount(4);
+
+            if (cLeft > cCenter && cLeft > cRight)
+                return 0;
+            else if (cRight > cLeft && cRight > cCenter)
+                return 2;
+            else
+                return 1;
+        }
+        private int GetEnemyCount (int startIndex)
+        {
+            int count = 0;
+
+            for (int r = 0; r < 2; ++r)
+            {
+                for (int c = 0; c < 3; ++c)
+                {
+                    Cell cell = m_player.HomeLane.GetCellAt (r, startIndex + c);
+
+                    if (cell.Unit != null)
+                        count++;
+                }
+            }
+
+            return count;
         }
     }
 }
