@@ -18,7 +18,7 @@ namespace AI_TowerDefense
     public class TowerDefense
     {
         public static bool DISPLAY_LOG_MESSAGES = true;
-        public static int NORMAL_SPEED_MS = 500;
+        public static int NORMAL_SPEED_MS = 100;
         public static int FAST_SPEED_MS = 5;
 
         private bool fastSpeedActivated = false;
@@ -53,8 +53,8 @@ namespace AI_TowerDefense
             // here you replace the selected strategy with your strategy class(es).
             // Your strategy should at least be able to beat random!
             
-            _playerAStrategy = new DummyStrategy(_playerA);
-            _playerBStrategy = new LaneRunnerStrategy(_playerB);
+            _playerAStrategy = new IvyyyStrategy(_playerA);
+            _playerBStrategy = new IvyyyStrategy(_playerB);
         }
 
         public static TowerDefense Instance => instance ??= new TowerDefense();

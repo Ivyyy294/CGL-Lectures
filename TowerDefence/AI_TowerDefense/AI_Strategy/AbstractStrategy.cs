@@ -38,8 +38,5 @@ namespace AI_Strategy
          * the order in which towers will plan and perform their action.
          */
         public abstract List<Tower> SortedTowerArray(List<Tower> unsortedList);
-
-
-
     }
 }

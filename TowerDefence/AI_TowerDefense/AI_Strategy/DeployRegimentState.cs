@@ -74,17 +74,15 @@ namespace AI_Strategy
         private void EvaluateRegimentSize()
         {
             if (m_player.Gold >= 42)
-                m_activeRegimentSettings.Width = 6;
+                m_activeRegimentSettings.Width = 7;
             else if (m_player.Gold >= 36)
                 m_activeRegimentSettings.Width = 6;
             else if (m_player.Gold >= 30)
                 m_activeRegimentSettings.Width = 5;
             else if (m_player.Gold >= 24)
                 m_activeRegimentSettings.Width = 4;
-            else if (m_player.Gold >= 18)
-                m_activeRegimentSettings.Width = 3;
             else
-                m_activeRegimentSettings.Width = 2;
+                m_activeRegimentSettings.Width = 3;
         }
 
         private void SetRegimentStartIndex()
