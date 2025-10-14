@@ -46,8 +46,20 @@
     <None Include="AI_TowerDefense\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI_TowerDefense\Agent_System\AgentGoal.cs" />
+    <Compile Include="AI_TowerDefense\Agent_System\AgentState.cs" />
+    <Compile Include="AI_TowerDefense\Agent_System\BenefitOrientedAgent.cs" />
+    <Compile Include="AI_TowerDefense\Agent_System\ObservingAgent.cs" />
+    <Compile Include="AI_TowerDefense\Agent_System\ReflexAgent.cs" />
+    <Compile Include="AI_TowerDefense\Agent_System\AgentRule.cs" />
+    <Compile Include="AI_TowerDefense\Agent_System\TargetedAgent.cs" />
+    <Compile Include="AI_TowerDefense\Agent_Test\BuildSoldierRule.cs" />
+    <Compile Include="AI_TowerDefense\Agent_Test\TowerDefenseAgentState.cs" />
+    <Compile Include="AI_TowerDefense\Agent_Test\TowerDefensePerception.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\AbstractStrategy.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\ActiveRegimentSettings.cs" />
+    <Compile Include="AI_TowerDefense\Agent_System\Agent.cs" />
+    <Compile Include="AI_TowerDefense\AI_Strategy\AgentStrategy.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\DeployRegimentState.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\DeployTowerState.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\LaneRunnerStrategy.cs" />
@@ -70,6 +82,7 @@
     <Compile Include="AI_TowerDefense\Program.cs" />
     <Compile Include="AI_TowerDefense\TowerDefense.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

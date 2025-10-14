@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Threading;
+using tower_defence.AI_TowerDefense.AI_Strategy;
 
 namespace AI_TowerDefense
 {
@@ -54,7 +55,7 @@ namespace AI_TowerDefense
             // Your strategy should at least be able to beat random!
             
             _playerAStrategy = new IvyyyStrategy(_playerA);
-            _playerBStrategy = new IvyyyStrategy(_playerB);
+            _playerBStrategy = new AgentStrategy(_playerB);
         }
 
         public static TowerDefense Instance => instance ??= new TowerDefense();
