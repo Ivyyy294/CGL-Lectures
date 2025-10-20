@@ -3,18 +3,16 @@ using GameFramework;
 
 namespace AI_Strategy
 {
-    public class IvyyyBuildRegimentRule
+    public class IvyyyBuildRegimentRule : IvyyyRule
     {
         private ActiveRegimentSettings m_activeRegimentSettings;
-        private TowerDefenseAgentState m_worldState;
 
-        public IvyyyBuildRegimentRule(ActiveRegimentSettings activeRegimentSettings, TowerDefenseAgentState state)
+        public IvyyyBuildRegimentRule(ActiveRegimentSettings activeRegimentSettings, TowerDefenseAgentState state) : base(state)
         {
             m_activeRegimentSettings = activeRegimentSettings;
-            m_worldState = state;
         }
 
-        public void BuildRegiment()
+        public override void Action()
         {
             if (m_worldState.Gold < m_activeRegimentSettings.Width * 2)
                 return;
@@ -32,6 +30,13 @@ namespace AI_Strategy
                     m_activeRegimentSettings.m_soldiers.Add(soldier);
                 }
             }
+
+        }
+
+        public override bool MatchRule(IvyyyStrategy.Goal goal)
+        {
+            return goal == IvyyyStrategy.Goal.BuildSoldiers
+                && m_worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeploySoldiers;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace AI_Strategy
 {
     public class IvyyyStrategy : AbstractStrategy
     {
-        private enum Goal
+        public enum Goal
         {
             BuildTower,
             CalculateRegimentSettings,
@@ -21,12 +21,7 @@ namespace AI_Strategy
         }
 
         private Goal m_goal;
-
-        //Rules
-        IvyyyUpdateRegimentRule m_updateRegimentRule;
-        IvyyyBuildRegimentRule m_buildRegimentRule;
-        IvyyyBuildTowerRule m_buildTowerRule;
-        //
+        private List<IvyyyRule> m_rules = new();
 
         private TowerDefenseAgentState m_worldState = new();
         private TowerDefensePerception m_perception = new();
@@ -42,9 +37,10 @@ namespace AI_Strategy
             m_activeRegimentSettings.StartIndex = 0;
             m_activeRegimentSettings.SoldierLane = player.EnemyLane;
 
-            m_updateRegimentRule = new IvyyyUpdateRegimentRule (m_activeRegimentSettings, m_worldState);
-            m_buildRegimentRule = new IvyyyBuildRegimentRule (m_activeRegimentSettings, m_worldState);
-            m_buildTowerRule = new IvyyyBuildTowerRule (m_worldState);
+            m_rules.Add (new IvyyyUpdateRegimentRule (m_activeRegimentSettings, m_worldState));
+            m_rules.Add(new IvyyyBuildRegimentRule (m_activeRegimentSettings, m_worldState));
+            m_rules.Add(new IvyyyDeployRegimentRule (m_activeRegimentSettings, m_worldState));
+            m_rules.Add(new IvyyyBuildTowerRule (m_worldState));
         }
         public override List<Soldier> SortedSoldierArray(List<Soldier> unsortedList)
         {
@@ -89,12 +85,20 @@ namespace AI_Strategy
         //Private Methods
         private void AgentLoop()
         {
-            m_worldState.Update(m_perception);
-            UpdateGoal(ref m_goal, ref m_worldState);
-            Action action = SelectAction(m_goal);
+            Goal prevGoal = m_goal;
+            while (true)
+            {
+                m_worldState.Update(m_perception);
+                UpdateGoal(ref m_goal, ref m_worldState);
+                Action action = SelectAction(m_goal);
             
-            if (action != null)
-                action();
+                if (action != null)
+                    action();
+                
+                if (m_goal == prevGoal
+                    || action == null)
+                    return;
+            }
         }
 
         private void UpdateGoal (ref Goal goal, ref TowerDefenseAgentState worldState)
@@ -115,39 +119,22 @@ namespace AI_Strategy
             }
             else if (goal == Goal.DeploySoldiers)
             {
-                if (m_worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeployTowers)
+                if (m_worldState.TowerCount > 0 && m_worldState.TowerCount < 8)
                     goal = Goal.BuildTower;
+                else
+                    goal = Goal.CalculateRegimentSettings;
             }
         }
 
         private Action SelectAction (Goal goal)
         {
-            if (goal == Goal.NULL)
-                return null;
-            else if (goal == Goal.CalculateRegimentSettings)
-                return m_updateRegimentRule.CalculateRegimentSettings;
-            else if (goal == Goal.BuildSoldiers)
+            for (int i = 0; i < m_rules.Count; ++i)
             {
-                if (m_worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeploySoldiers)
-                    return m_buildRegimentRule.BuildRegiment;
-                else
-                    return null;
-            }
-            else if (goal == Goal.DeploySoldiers)
-                return DeployRegiment;
-            else if (goal == Goal.BuildTower)
-            {
-                if (m_worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeployTowers)
-                    return m_buildTowerRule.DeployTowers;
+                if (m_rules[i].MatchRule (goal))
+                    return m_rules[i].Action;
             }
 
             return null;
-        }
-
-        private void DeployRegiment()
-        {
-            DebugLogger.Log("#Player" + m_perception.Player.Name + " Deploy Regiment!");
-            m_activeRegimentSettings.Deploy();
         }
     }
 }

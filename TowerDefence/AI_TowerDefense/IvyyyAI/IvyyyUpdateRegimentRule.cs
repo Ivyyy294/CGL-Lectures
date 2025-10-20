@@ -2,21 +2,24 @@
 
 namespace AI_Strategy
 {
-    public class IvyyyUpdateRegimentRule
+    public class IvyyyUpdateRegimentRule : IvyyyRule
     {
         private ActiveRegimentSettings m_activeRegimentSettings;
-        private TowerDefenseAgentState m_worldState;
 
-        public IvyyyUpdateRegimentRule (ActiveRegimentSettings activeRegimentSettings, TowerDefenseAgentState state)
+        public IvyyyUpdateRegimentRule (ActiveRegimentSettings activeRegimentSettings, TowerDefenseAgentState state) : base (state)
         {
             m_activeRegimentSettings = activeRegimentSettings;
-            m_worldState = state;
         }
 
-        public void CalculateRegimentSettings()
+        public override void Action()
         {
             EvaluateRegimentSize();
             SetRegimentStartIndex();
+        }
+
+        public override bool MatchRule(IvyyyStrategy.Goal goal)
+        {
+            return goal == IvyyyStrategy.Goal.CalculateRegimentSettings;
         }
 
         private void EvaluateRegimentSize()

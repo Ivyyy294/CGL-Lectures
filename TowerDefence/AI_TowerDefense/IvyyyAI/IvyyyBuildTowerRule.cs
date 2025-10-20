@@ -6,18 +6,15 @@ using System.Text;
 
 namespace AI_Strategy
 {
-    public class IvyyyBuildTowerRule
+    public class IvyyyBuildTowerRule : IvyyyRule
     {
-        private TowerDefenseAgentState m_worldState;
-
-        public IvyyyBuildTowerRule (TowerDefenseAgentState state)
+        public IvyyyBuildTowerRule (TowerDefenseAgentState state) : base (state)
         {
-            m_worldState = state;
         }
 
-        public void DeployTowers()
+        public override void Action()
         {
-            int defenseGrid = GetSecondaryDefenseGrid();
+            int defenseGrid = m_worldState.DefenseRerimeter;
 
             List<TowerPos> pos = new List<TowerPos>();
             GetTowerListForDefenseGrid(defenseGrid, ref pos);
@@ -31,20 +28,6 @@ namespace AI_Strategy
                 PlaceTower(pos);
             else
                 DebugLogger.Log("#Player" + m_worldState.Player.Name + " Abandon Defense!");
-        }
-
-        private int GetSecondaryDefenseGrid()
-        {
-            int cLeft = GetEnemyCount(0);
-            int cCenter = GetEnemyCount(2);
-            int cRight = GetEnemyCount(4);
-
-            if (cLeft > cCenter && cLeft > cRight)
-                return 0;
-            else if (cRight > cLeft && cRight > cCenter)
-                return 2;
-            else
-                return 1;
         }
 
         private int GetEnemyCount(int startIndex)
@@ -131,6 +114,12 @@ namespace AI_Strategy
                 TowerPos pos = positions[i];
                 m_worldState.Player.TryBuyTower<Tower>(pos.x, pos.y);
             }
+        }
+
+        public override bool MatchRule(IvyyyStrategy.Goal goal)
+        {
+            return goal == IvyyyStrategy.Goal.BuildTower
+                && m_worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeployTowers;
         }
     }
 }
