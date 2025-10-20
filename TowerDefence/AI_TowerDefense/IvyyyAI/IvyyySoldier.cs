@@ -1,6 +1,8 @@
 ﻿using GameFramework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace AI_Strategy
 {
     /*
@@ -58,17 +60,27 @@ namespace AI_Strategy
 
         private bool IsTowerInRange(ref Waypoint waypoint)
         {
+            List<Tower> towers = new List<Tower>();
+
             for (int x = Math.Max(0, PosX-2); x < Math.Min(7, PosX+3); ++x)
             {
                 for (int y = Math.Max(0, PosY); y < Math.Min(20, PosY + 3); ++y)
                 {
-                    if (player.EnemyLane.GetCellAt (x, y).Unit is Tower)
-                    {
-                        waypoint.x = x;
-                        waypoint.y = y;
-                        return true;
-                    }
+                    Unit unit = player.EnemyLane.GetCellAt(x, y).Unit;
+
+                    if (unit is Tower)
+                        towers.Add ((Tower)unit);
                 }
+            }
+
+            towers = towers.OrderBy(x=>x.Health).ToList();
+
+            if (towers.Count > 0)
+            {
+                Tower tower = towers[0];
+                waypoint.x = tower.PosX;
+                waypoint.y = tower.PosY;
+                return true;
             }
 
             return false;

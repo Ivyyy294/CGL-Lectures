@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Agent_Test
+namespace AI_Strategy
 {
     public class TowerDefensePerception
     {
         public enum ActionTyp
         {
+            TurnStart,
+            TurnEnd,
             DeployTowers,
             DeploySoldiers
         }

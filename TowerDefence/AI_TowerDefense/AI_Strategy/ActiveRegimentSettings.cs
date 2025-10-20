@@ -14,6 +14,7 @@ namespace AI_Strategy
         public int Depth { get; set; }
         public int SoldierCount => Width * Depth;
         public int StartIndex { get; set;}
+        public List<IvyyySoldier> m_soldiers = new();
 
         //Public Methods
         public static ActiveRegimentSettings AddInstance (string key)
@@ -39,6 +40,17 @@ namespace AI_Strategy
             }
 
             return true;
+        }
+
+        public void Deploy()
+        {
+            foreach (var s in m_soldiers)
+            {
+                if (s != null)
+                    s.Deploy();
+            }
+
+            m_soldiers.Clear();
         }
 
         //Private Methods

@@ -54,17 +54,19 @@
     <Compile Include="AI_TowerDefense\Agent_System\AgentRule.cs" />
     <Compile Include="AI_TowerDefense\Agent_System\TargetedAgent.cs" />
     <Compile Include="AI_TowerDefense\Agent_Test\BuildSoldierRule.cs" />
-    <Compile Include="AI_TowerDefense\Agent_Test\TowerDefenseAgentState.cs" />
-    <Compile Include="AI_TowerDefense\Agent_Test\TowerDefensePerception.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyBuildTowerRule.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\TowerDefenseAgentState.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\TowerDefensePerception.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\AbstractStrategy.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\ActiveRegimentSettings.cs" />
     <Compile Include="AI_TowerDefense\Agent_System\Agent.cs" />
-    <Compile Include="AI_TowerDefense\AI_Strategy\AgentStrategy.cs" />
+    <Compile Include="AI_TowerDefense\Agent_Test\AgentStrategy.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\DeployRegimentState.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\DeployTowerState.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\LaneRunnerStrategy.cs" />
-    <Compile Include="AI_TowerDefense\AI_Strategy\IvyyyStrategy.cs" />
-    <Compile Include="AI_TowerDefense\AI_Strategy\IvyyySoldier.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyBuildRegimentRule.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyStrategy.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyySoldier.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\MySoldier.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\RandomStrategy.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\RandomStrategyLoggerDemo.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="AI_TowerDefense\GameFramework\Soldier.cs" />
     <Compile Include="AI_TowerDefense\GameFramework\Tower.cs" />
     <Compile Include="AI_TowerDefense\GameFramework\Unit.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyUpdateRegimentRule.cs" />
     <Compile Include="AI_TowerDefense\Program.cs" />
     <Compile Include="AI_TowerDefense\TowerDefense.cs" />
   </ItemGroup>

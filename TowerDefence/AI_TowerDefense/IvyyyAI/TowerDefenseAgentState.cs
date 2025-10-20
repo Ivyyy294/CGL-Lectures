@@ -1,11 +1,7 @@
 ﻿using Agent_System;
 using GameFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Agent_Test
+namespace AI_Strategy
 {
     public class TowerDefenseAgentState : AgentState<TowerDefensePerception>
     {
@@ -13,6 +9,7 @@ namespace Agent_Test
         public int TowerCount { get; private set; }
         public int EnemyCount { get; private set; }
         public int RegimentCounter { get; set;}
+        public Player Player { get; private set; }
 
         public TowerDefensePerception.ActionTyp ActionTyp {get; private set;}
 
@@ -22,6 +19,7 @@ namespace Agent_Test
             TowerCount = perception.Player.HomeLane.TowerCount();
             EnemyCount = perception.Player.HomeLane.SoldierCount();
             ActionTyp = perception.CurrentActionTyp;
+            Player = perception.Player;
         }
     }
 }

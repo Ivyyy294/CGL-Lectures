@@ -6,62 +6,34 @@ using System.Text;
 
 namespace AI_Strategy
 {
-    internal struct TowerPos
+    public class IvyyyBuildTowerRule
     {
-        public int x;
-        public int y;
+        private TowerDefenseAgentState m_worldState;
 
-        public TowerPos (int xPos, int yPos)
+        public IvyyyBuildTowerRule (TowerDefenseAgentState state)
         {
-            x = xPos;
-            y = yPos;
-        }
-    }
-
-    public class DeployTowerState: StrategyState
-    {
-        public DeployTowerState (StrategyStateMachine stateMachine) : base(stateMachine)
-        {
+            m_worldState = state;
         }
 
-        public override void Continue()
-        {
-        }
-
-        public override void DeploySoldiers()
-        {
-        }
-
-        public override void DeployTowers()
+        public void DeployTowers()
         {
             int defenseGrid = GetSecondaryDefenseGrid();
 
             List<TowerPos> pos = new List<TowerPos>();
-            GetTowerListForDefenseGrid (defenseGrid, ref pos);
-            FilterTowerListForDefenseGrid (ref pos);
+            GetTowerListForDefenseGrid(defenseGrid, ref pos);
+            FilterTowerListForDefenseGrid(ref pos);
 
-            int totalCost = GetTowerListCost (ref pos);
+            int totalCost = GetTowerListCost(ref pos);
             //int enemyCountDefenseGrid = GetEnemyCount (0, 0, 9, 7);
-            int towerCount = m_player.HomeLane.TowerCount() + pos.Count;
+            int towerCount = m_worldState.Player.HomeLane.TowerCount() + pos.Count;
 
-            if (totalCost < m_player.Gold/* && enemyCountDefenseGrid <= towerCount*/)
-                PlaceTower (pos);
+            if (totalCost < m_worldState.Player.Gold/* && enemyCountDefenseGrid <= towerCount*/)
+                PlaceTower(pos);
             else
-                DebugLogger.Log("#Player" + m_player.Name + " Abandon Defense!");
-
-            m_stateMachine.Pop();
+                DebugLogger.Log("#Player" + m_worldState.Player.Name + " Abandon Defense!");
         }
 
-        public override void Enter()
-        {
-            DebugLogger.Log("#Player" + m_player.Name + " Build Defense!");
-        }
-
-        public override void Exit()
-        {
-        }
-
-        private int GetSecondaryDefenseGrid ()
+        private int GetSecondaryDefenseGrid()
         {
             int cLeft = GetEnemyCount(0);
             int cCenter = GetEnemyCount(2);
@@ -77,7 +49,7 @@ namespace AI_Strategy
 
         private int GetEnemyCount(int startIndex)
         {
-            return GetEnemyCount (startIndex, 0, 2, 3);
+            return GetEnemyCount(startIndex, 0, 2, 3);
         }
 
         private int GetEnemyCount(int startX, int startY, int rCount, int cCount)
@@ -88,7 +60,7 @@ namespace AI_Strategy
             {
                 for (int c = 0; c < cCount; ++c)
                 {
-                    Cell cell = m_player.HomeLane.GetCellAt(startX + c, startY + r);
+                    Cell cell = m_worldState.Player.HomeLane.GetCellAt(startX + c, startY + r);
 
                     if (cell.Unit != null)
                         count++;
@@ -98,14 +70,14 @@ namespace AI_Strategy
             return count;
         }
 
-        private void GetTowerListForDefenseGrid (int grid, ref List<TowerPos> towerList)
+        private void GetTowerListForDefenseGrid(int grid, ref List<TowerPos> towerList)
         {
             if (grid == 0)
             {
-                towerList.Add (new TowerPos (2,7));
-                towerList.Add (new TowerPos (2,5));
-                towerList.Add (new TowerPos (3,6));
-                towerList.Add (new TowerPos (1,6));
+                towerList.Add(new TowerPos(2, 7));
+                towerList.Add(new TowerPos(2, 5));
+                towerList.Add(new TowerPos(3, 6));
+                towerList.Add(new TowerPos(1, 6));
             }
             else if (grid == 2)
             {
@@ -131,12 +103,12 @@ namespace AI_Strategy
             {
                 TowerPos towerPos = towerList[i];
 
-                if (m_player.HomeLane.GetCellAt(towerPos.x, towerPos.y).Unit == null)
+                if (m_worldState.Player.HomeLane.GetCellAt(towerPos.x, towerPos.y).Unit == null)
                     newList.Add(towerPos);
             }
 
             while (newList.Count > 3)
-                newList.RemoveAt(newList.Count-1);
+                newList.RemoveAt(newList.Count - 1);
 
             towerList = newList;
         }
@@ -144,7 +116,7 @@ namespace AI_Strategy
         private int GetTowerListCost(ref List<TowerPos> towerList)
         {
             int cost = 0;
-            int towerCount = m_player.HomeLane.TowerCount();
+            int towerCount = m_worldState.Player.HomeLane.TowerCount();
 
             for (int i = 0; i < towerList.Count; ++i)
                 cost += 2 + towerCount + i;
@@ -152,12 +124,12 @@ namespace AI_Strategy
             return cost;
         }
 
-        private void PlaceTower (List<TowerPos> positions)
+        private void PlaceTower(List<TowerPos> positions)
         {
             for (int i = 0; i < positions.Count; ++i)
             {
                 TowerPos pos = positions[i];
-                m_player.TryBuyTower<Tower>(pos.x, pos.y);
+                m_worldState.Player.TryBuyTower<Tower>(pos.x, pos.y);
             }
         }
     }
