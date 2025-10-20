@@ -22,7 +22,7 @@
             speed = 1;
             health = 6;
             damageCaused = 1;
-            range = 2;
+            range = 1;
             type = "S";
             cost = 2;
             posX = x;

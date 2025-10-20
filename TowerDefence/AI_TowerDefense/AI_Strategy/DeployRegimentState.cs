@@ -8,7 +8,7 @@ namespace AI_Strategy
 {
     public class DeployRegimentState : StrategyState
     {
-        List<IvyyySoldier> m_soldiers = new();
+        List<IvyyySoldier> m_regiment = new();
 
         ActiveRegimentSettings m_activeRegimentSettings;
         public DeployRegimentState(StrategyStateMachine stateMachine) : base(stateMachine)
@@ -18,7 +18,6 @@ namespace AI_Strategy
 
         public override void Continue()
         {
-       
         }
 
         public override void DeploySoldiers()
@@ -34,7 +33,9 @@ namespace AI_Strategy
                 if (result == Player.SoldierPlacementResult.Success)
                 {
                     Cell cell = m_player.EnemyLane.GetCellAt (xPos, 0);
-                    m_soldiers.Add ((IvyyySoldier)cell.Unit);
+                    IvyyySoldier soldier = (IvyyySoldier)cell.Unit;
+                    soldier.SetRegimentSettings (m_activeRegimentSettings);
+                    m_regiment.Add (soldier);
                 }
             }
 
@@ -62,7 +63,7 @@ namespace AI_Strategy
         {
             DebugLogger.Log("#Player" + m_player.Name + " Deploy Regiment!");
 
-            foreach (var s in m_soldiers)
+            foreach (var s in m_regiment)
             {
                 if (s != null)
                     s.Deploy();

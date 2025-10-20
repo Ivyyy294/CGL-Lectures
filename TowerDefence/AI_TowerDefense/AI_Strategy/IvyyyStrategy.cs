@@ -54,8 +54,6 @@ namespace AI_Strategy
 
         public override void Enter()
         {
-            //m_stateMachine.Push(new DeployTowerState(m_stateMachine));
-            //return;
             MakeDecision();
         }
 
@@ -65,14 +63,14 @@ namespace AI_Strategy
 
         private void MakeDecision()
         {
-            if (regimentCounter >= 1)
+            if (regimentCounter <= 0)
             {
-                regimentCounter = 0;
+                regimentCounter = 1;
                 m_stateMachine.Push(new DeployTowerState(m_stateMachine));
             }
             else
             {
-                regimentCounter++;
+                regimentCounter--;
                 m_stateMachine.Push(new DeployRegimentState(m_stateMachine));
             }
         }
