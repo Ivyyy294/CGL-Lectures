@@ -14,67 +14,39 @@ namespace AI_Strategy
 
         public override void Action()
         {
-            int defenseGrid = m_worldState.DefenseRerimeter;
+            int defenseGrid = m_worldState.BestDefensePerimeter;
 
             List<TowerPos> pos = new List<TowerPos>();
             GetTowerListForDefenseGrid(defenseGrid, ref pos);
             FilterTowerListForDefenseGrid(ref pos);
 
             int totalCost = GetTowerListCost(ref pos);
-            //int enemyCountDefenseGrid = GetEnemyCount (0, 0, 9, 7);
             int towerCount = m_worldState.Player.HomeLane.TowerCount() + pos.Count;
 
-            if (totalCost < m_worldState.Player.Gold/* && enemyCountDefenseGrid <= towerCount*/)
-                PlaceTower(pos);
-            else
-                DebugLogger.Log("#Player" + m_worldState.Player.Name + " Abandon Defense!");
-        }
+            PlaceTower(pos);
 
-        private int GetEnemyCount(int startIndex)
-        {
-            return GetEnemyCount(startIndex, 0, 2, 3);
-        }
-
-        private int GetEnemyCount(int startX, int startY, int rCount, int cCount)
-        {
-            int count = 0;
-
-            for (int r = 0; r < rCount; ++r)
-            {
-                for (int c = 0; c < cCount; ++c)
-                {
-                    Cell cell = m_worldState.Player.HomeLane.GetCellAt(startX + c, startY + r);
-
-                    if (cell.Unit != null)
-                        count++;
-                }
-            }
-
-            return count;
+            //if (totalCost < m_worldState.Player.Gold)
+            //    PlaceTower(pos);
+            //else
+            //    DebugLogger.Log("#Player" + m_worldState.Player.Name + " Abandon Defense!");
         }
 
         private void GetTowerListForDefenseGrid(int grid, ref List<TowerPos> towerList)
         {
-            if (grid == 0)
+            TowerDefensePerimeter perimeter = m_worldState.DefensePerimeter[grid];
+
+            towerList.Add(new TowerPos(perimeter.X + 1, perimeter.Y));
+            towerList.Add(new TowerPos(perimeter.X + 1, perimeter.Y + 2));
+
+            if (perimeter.X > 0)
             {
-                towerList.Add(new TowerPos(2, 7));
-                towerList.Add(new TowerPos(2, 5));
-                towerList.Add(new TowerPos(3, 6));
-                towerList.Add(new TowerPos(1, 6));
-            }
-            else if (grid == 2)
-            {
-                towerList.Add(new TowerPos(4, 7));
-                towerList.Add(new TowerPos(4, 5));
-                towerList.Add(new TowerPos(3, 6));
-                towerList.Add(new TowerPos(5, 6));
+                towerList.Add(new TowerPos(perimeter.X, perimeter.Y + 1));
+                towerList.Add(new TowerPos(perimeter.X + 2, perimeter.Y + 1));
             }
             else
             {
-                towerList.Add(new TowerPos(3, 6));
-                towerList.Add(new TowerPos(2, 5));
-                towerList.Add(new TowerPos(4, 5));
-                towerList.Add(new TowerPos(3, 4));
+                towerList.Add(new TowerPos(perimeter.X + 2, perimeter.Y + 1));
+                towerList.Add(new TowerPos(perimeter.X, perimeter.Y + 1));
             }
         }
 
@@ -89,9 +61,6 @@ namespace AI_Strategy
                 if (m_worldState.Player.HomeLane.GetCellAt(towerPos.x, towerPos.y).Unit == null)
                     newList.Add(towerPos);
             }
-
-            while (newList.Count > 3)
-                newList.RemoveAt(newList.Count - 1);
 
             towerList = newList;
         }
@@ -119,7 +88,8 @@ namespace AI_Strategy
         public override bool MatchRule(IvyyyStrategy.Goal goal)
         {
             return goal == IvyyyStrategy.Goal.BuildTower
-                && m_worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeployTowers;
+                && m_worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeployTowers
+                && m_worldState.DefensePerimeter[0].InReachCount > 0;
         }
     }
 }

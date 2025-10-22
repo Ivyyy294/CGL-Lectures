@@ -20,7 +20,8 @@ namespace AI_Strategy
             NULL
         }
 
-        private Goal m_goal;
+        private int m_turn = 0;
+        private Goal m_goal = Goal.NULL;
         private List<IvyyyRule> m_rules = new();
 
         private TowerDefenseAgentState m_worldState = new();
@@ -62,6 +63,7 @@ namespace AI_Strategy
         {
             m_perception.CurrentActionTyp = TowerDefensePerception.ActionTyp.TurnEnd;
             AgentLoop();
+            m_turn++;
         }
 
         public override void DeploySoldiers()
@@ -85,9 +87,9 @@ namespace AI_Strategy
         //Private Methods
         private void AgentLoop()
         {
-            Goal prevGoal = m_goal;
             while (true)
             {
+                Goal prevGoal = m_goal;
                 m_worldState.Update(m_perception);
                 UpdateGoal(ref m_goal, ref m_worldState);
                 Action action = SelectAction(m_goal);
@@ -104,14 +106,20 @@ namespace AI_Strategy
         private void UpdateGoal (ref Goal goal, ref TowerDefenseAgentState worldState)
         {
             if (goal == Goal.NULL)
-                goal = Goal.BuildTower;
+            {
+                if (worldState.EnemyCount > 0 || m_turn > 2)
+                  goal = Goal.BuildTower;
+            }
             else if (goal == Goal.BuildTower)
             {
-                if (worldState.ActionTyp == TowerDefensePerception.ActionTyp.TurnEnd)
+                if (worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeploySoldiers
+                    || worldState.DefensePerimeter[0].TowerCount == 4)
                     goal = Goal.CalculateRegimentSettings;
             }
             else if (goal == Goal.CalculateRegimentSettings)
+            {
                 goal = Goal.BuildSoldiers;
+            }
             else if (goal == Goal.BuildSoldiers)
             {
                 if (m_activeRegimentSettings.IsRegimentComplete())
@@ -119,7 +127,7 @@ namespace AI_Strategy
             }
             else if (goal == Goal.DeploySoldiers)
             {
-                if (m_worldState.TowerCount > 0 && m_worldState.TowerCount < 8)
+                if (worldState.Gold >= Tower.GetNextTowerCosts(m_worldState.Player.HomeLane))
                     goal = Goal.BuildTower;
                 else
                     goal = Goal.CalculateRegimentSettings;

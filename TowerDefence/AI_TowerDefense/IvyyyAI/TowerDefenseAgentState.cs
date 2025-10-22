@@ -1,5 +1,7 @@
 ﻿using Agent_System;
 using GameFramework;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AI_Strategy
 {
@@ -11,6 +13,13 @@ namespace AI_Strategy
         int m_rows;
 
         public int SoldierCount { get; private set;}
+        public int TowerCount { get; private set;}
+        public int ThreatenedCount { get; private set; }
+        public int InReachCount { get; private set; }
+        public float RatingLevel { get; private set; }
+
+        public int X => m_startX;
+        public int Y => m_startY;
 
         public TowerDefensePerimeter (int x, int y, int c, int r)
         {
@@ -20,27 +29,48 @@ namespace AI_Strategy
             m_rows = r;
         }
 
-        public void Update (TowerDefensePerception perception)
+        public void Update (List<IvyyyPosition> enemyList, List<IvyyyPosition> towerList)
         {
-            SoldierCount = GetEnemyCount (m_startX, m_startY, m_rows, m_colums, perception);
-        }
+            SoldierCount = 0;
+            TowerCount = 0;
+            ThreatenedCount = 0;
+            InReachCount = 0;
+            RatingLevel = 0;
 
-        private int GetEnemyCount(int startX, int startY, int rCount, int cCount, TowerDefensePerception perception)
-        {
-            int count = 0;
-
-            for (int r = 0; r < rCount; ++r)
+            foreach (var enemy in enemyList)
             {
-                for (int c = 0; c < cCount; ++c)
+                if (IsPosInside (enemy))
+                    SoldierCount++;
+                else if (IsPosInside(enemy, 1))
                 {
-                    Cell cell = perception.Player.HomeLane.GetCellAt(startX + c, startY + r);
-
-                    if (cell.Unit != null)
-                        count++;
+                    InReachCount++;
+                    ThreatenedCount++;
                 }
+                else if (IsPosInside(enemy, 2))
+                    InReachCount++;
             }
 
-            return count;
+            foreach (var tower in towerList)
+            {
+                if (IsPosInside (tower))
+                    TowerCount++;
+            }
+
+            SetRatingLevel();
+        }
+
+        private bool IsPosInside (IvyyyPosition pos, int padding = 0)
+        {
+            if (pos.x < m_startX - padding || pos.x > m_startX + m_colums + padding
+                || pos.y < m_startY - padding || pos.y > m_startY + m_rows + padding)
+                return false;
+            else
+                return true;
+        }
+
+        private void SetRatingLevel ()
+        {
+            RatingLevel = ThreatenedCount + SoldierCount + TowerCount * 0.5f - InReachCount * 1.5f ;
         }
     }
 
@@ -52,19 +82,28 @@ namespace AI_Strategy
         public int RegimentCounter { get; set;}
         public Player Player { get; private set; }
 
-        public TowerDefensePerimeter[] EnemySpawn { get; private set; }
+        public List <IvyyyPosition> TowerList { get; private set; }
+        public List <IvyyyPosition> EnemyList { get; private set; }
 
-        public int DefenseRerimeter { get; private set; }
+        public List<TowerDefensePerimeter> DefensePerimeter { get; private set; }
+
+        public int BestDefensePerimeter { get; set; }
 
         public TowerDefensePerception.ActionTyp ActionTyp {get; private set;}
 
         //Enemy Spawn
         public TowerDefenseAgentState()
         {
-            EnemySpawn = new TowerDefensePerimeter[3];
-            EnemySpawn[0] = new TowerDefensePerimeter(0, 0, 3, 3);
-            EnemySpawn[1] = new TowerDefensePerimeter(2, 0, 3, 3);
-            EnemySpawn[2] = new TowerDefensePerimeter(4, 0, 3, 3);
+            DefensePerimeter = new ();
+
+            for (int r = 3; r < PlayerLane.HEIGHT - 1; r += 2)
+            {
+                for (int c = 0; c < PlayerLane.WIDTH - 1; c += 2)
+                    DefensePerimeter.Add(new TowerDefensePerimeter(c, r, 3, 3));
+            }
+
+            TowerList = new List<IvyyyPosition>();
+            EnemyList = new List<IvyyyPosition>();
         }
 
         public override void Update(TowerDefensePerception perception)
@@ -75,17 +114,31 @@ namespace AI_Strategy
             ActionTyp = perception.CurrentActionTyp;
             Player = perception.Player;
 
-            for (int i = 0; i < EnemySpawn.Length; ++i)
-                EnemySpawn[i].Update(perception);
+            ScaneForUnits (perception);
 
-            if (EnemySpawn[0].SoldierCount > EnemySpawn[1].SoldierCount
-                && EnemySpawn[0].SoldierCount > EnemySpawn[2].SoldierCount)
-                DefenseRerimeter = 0;
-            else if (EnemySpawn[2].SoldierCount > EnemySpawn[1].SoldierCount
-                && EnemySpawn[2].SoldierCount > EnemySpawn[0].SoldierCount)
-                DefenseRerimeter = 2;
-            else
-                DefenseRerimeter = 1;
+            for (int i = 0; i < DefensePerimeter.Count; ++i)
+                DefensePerimeter[i].Update(EnemyList, TowerList);
+
+            DefensePerimeter = DefensePerimeter.OrderBy (x=>x.RatingLevel).ToList();
+        }
+
+        public void ScaneForUnits (TowerDefensePerception perception)
+        {
+            TowerList.Clear();
+            EnemyList.Clear();
+
+            for (int r = 0; r < PlayerLane.WIDTH; ++r)
+            {
+                for (int c = 0; c < PlayerLane.HEIGHT; ++c)
+                {
+                    Unit unit = Player.HomeLane.GetCellAt(r, c).Unit;
+
+                    if (unit is Tower)
+                        TowerList.Add(new IvyyyPosition { x = unit.PosX, y = unit.PosY });
+                    else if (unit is not null)
+                        EnemyList.Add(new IvyyyPosition{ x = unit.PosX, y = unit.PosY});
+                }
+            }
         }
     }
 }

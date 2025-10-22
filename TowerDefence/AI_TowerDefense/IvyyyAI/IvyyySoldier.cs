@@ -9,19 +9,8 @@ namespace AI_Strategy
      * This class derives from Soldier and provides a new move method. Your assignment should
      * do the same - but with your own movement strategy.
      */
-    public class Regiment
-    {
-        public List <IvyyySoldier> soldiers = new();
-    }
-
     public class IvyyySoldier : Soldier
     {
-        struct Waypoint
-        {
-            public int x;
-            public int y;
-        }
-
         bool m_deployed = false;
         ActiveRegimentSettings m_activeRegimentSettings;
 
@@ -39,7 +28,7 @@ namespace AI_Strategy
          */
         public override void Move()
         {
-            Waypoint waypoint = new();
+            IvyyyPosition waypoint = new();
 
             if (!IsTowerInRange(ref waypoint))
             {
@@ -58,7 +47,7 @@ namespace AI_Strategy
             ApproachWaypoint (ref waypoint);
         }
 
-        private bool IsTowerInRange(ref Waypoint waypoint)
+        private bool IsTowerInRange(ref IvyyyPosition waypoint)
         {
             List<Tower> towers = new List<Tower>();
 
@@ -86,7 +75,7 @@ namespace AI_Strategy
             return false;
         }
 
-        private void ApproachWaypoint (ref Waypoint waypoint)
+        private void ApproachWaypoint (ref IvyyyPosition waypoint)
         {
             int xOffset = posX - waypoint.x;
             int yOffset = posY - waypoint.y;

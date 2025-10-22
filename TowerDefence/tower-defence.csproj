@@ -56,6 +56,7 @@
     <Compile Include="AI_TowerDefense\Agent_Test\BuildSoldierRule.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyBuildTowerRule.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyDeployRegimentRule.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyPosition.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyRule.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\TowerDefenseAgentState.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\TowerDefensePerception.cs" />
