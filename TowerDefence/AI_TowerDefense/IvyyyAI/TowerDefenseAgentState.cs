@@ -85,21 +85,21 @@ namespace AI_Strategy
         public List <IvyyyPosition> TowerList { get; private set; }
         public List <IvyyyPosition> EnemyList { get; private set; }
 
-        public List<TowerDefensePerimeter> DefensePerimeter { get; private set; }
+        private List<TowerDefensePerimeter> m_defensePerimeter;
 
-        public int BestDefensePerimeter { get; set; }
+        public TowerDefensePerimeter BestDefensePerimeter { get; set; }
 
         public TowerDefensePerception.ActionTyp ActionTyp {get; private set;}
 
         //Enemy Spawn
         public TowerDefenseAgentState()
         {
-            DefensePerimeter = new ();
+            m_defensePerimeter = new ();
 
             for (int r = 3; r < PlayerLane.HEIGHT - 1; r += 2)
             {
                 for (int c = 0; c < PlayerLane.WIDTH - 1; c += 2)
-                    DefensePerimeter.Add(new TowerDefensePerimeter(c, r, 3, 3));
+                    m_defensePerimeter.Add(new TowerDefensePerimeter(c, r, 3, 3));
             }
 
             TowerList = new List<IvyyyPosition>();
@@ -116,13 +116,30 @@ namespace AI_Strategy
 
             ScaneForUnits (perception);
 
-            for (int i = 0; i < DefensePerimeter.Count; ++i)
-                DefensePerimeter[i].Update(EnemyList, TowerList);
+            for (int i = 0; i < m_defensePerimeter.Count; ++i)
+                m_defensePerimeter[i].Update(EnemyList, TowerList);
 
-            DefensePerimeter = DefensePerimeter.OrderBy (x=>x.RatingLevel).ToList();
+            if (EnemyCount == 0)
+                BestDefensePerimeter = new TowerDefensePerimeter (2, 3, 3, 3);
+            else
+            {
+                m_defensePerimeter = m_defensePerimeter.OrderBy (x=>x.RatingLevel).ToList();
+                BestDefensePerimeter = m_defensePerimeter[0];
+            }
         }
 
-        public void ScaneForUnits (TowerDefensePerception perception)
+        public int GetTowerCost (int amount = 1)
+        {
+            int cost = Tower.GetNextTowerCosts (Player.HomeLane);
+            int count = Player.HomeLane.TowerCount() + 1;
+
+            for (int i = 1; i < amount; ++i, count++)
+                cost += Tower.COSTS + count;
+
+            return cost;
+        }
+
+        private void ScaneForUnits (TowerDefensePerception perception)
         {
             TowerList.Clear();
             EnemyList.Clear();

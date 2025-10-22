@@ -112,8 +112,10 @@ namespace AI_Strategy
             }
             else if (goal == Goal.BuildTower)
             {
-                if (worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeploySoldiers
-                    || worldState.DefensePerimeter[0].TowerCount == 4)
+                int goldRequired = worldState.GetTowerCost(4 - worldState.BestDefensePerimeter.TowerCount);
+
+                if (worldState.Gold < goldRequired
+                    || worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeploySoldiers)
                     goal = Goal.CalculateRegimentSettings;
             }
             else if (goal == Goal.CalculateRegimentSettings)
@@ -127,10 +129,7 @@ namespace AI_Strategy
             }
             else if (goal == Goal.DeploySoldiers)
             {
-                if (worldState.Gold >= Tower.GetNextTowerCosts(m_worldState.Player.HomeLane))
-                    goal = Goal.BuildTower;
-                else
-                    goal = Goal.CalculateRegimentSettings;
+                goal = Goal.BuildTower;
             }
         }
 

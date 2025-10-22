@@ -14,10 +14,8 @@ namespace AI_Strategy
 
         public override void Action()
         {
-            int defenseGrid = m_worldState.BestDefensePerimeter;
-
             List<TowerPos> pos = new List<TowerPos>();
-            GetTowerListForDefenseGrid(defenseGrid, ref pos);
+            GetTowerListForDefenseGrid(ref pos);
             FilterTowerListForDefenseGrid(ref pos);
 
             int totalCost = GetTowerListCost(ref pos);
@@ -31,9 +29,9 @@ namespace AI_Strategy
             //    DebugLogger.Log("#Player" + m_worldState.Player.Name + " Abandon Defense!");
         }
 
-        private void GetTowerListForDefenseGrid(int grid, ref List<TowerPos> towerList)
+        private void GetTowerListForDefenseGrid(ref List<TowerPos> towerList)
         {
-            TowerDefensePerimeter perimeter = m_worldState.DefensePerimeter[grid];
+            TowerDefensePerimeter perimeter = m_worldState.BestDefensePerimeter;
 
             towerList.Add(new TowerPos(perimeter.X + 1, perimeter.Y));
             towerList.Add(new TowerPos(perimeter.X + 1, perimeter.Y + 2));
@@ -88,8 +86,7 @@ namespace AI_Strategy
         public override bool MatchRule(IvyyyStrategy.Goal goal)
         {
             return goal == IvyyyStrategy.Goal.BuildTower
-                && m_worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeployTowers
-                && m_worldState.DefensePerimeter[0].InReachCount > 0;
+                && m_worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeployTowers;
         }
     }
 }
