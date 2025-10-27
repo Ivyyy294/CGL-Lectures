@@ -7,75 +7,6 @@ using System.Linq;
 
 namespace AI_Strategy
 {
-    public class TowerDefensePerimeter
-    {
-        int m_startX;
-        int m_startY;
-        int m_colums;
-        int m_rows;
-
-        public int SoldierCount { get; private set;}
-        public int TowerCount { get; private set;}
-        public int ThreatenedCount { get; private set; }
-        public int InReachCount { get; private set; }
-        public float RatingLevel { get; private set; }
-
-        public int X => m_startX;
-        public int Y => m_startY;
-
-        public TowerDefensePerimeter (int x, int y, int c, int r)
-        {
-            m_startX = x;
-            m_startY = y;
-            m_colums = c;
-            m_rows = r;
-        }
-
-        public void Update (List<IvyyyPosition> enemyList, List<IvyyyPosition> towerList)
-        {
-            SoldierCount = 0;
-            TowerCount = 0;
-            ThreatenedCount = 0;
-            InReachCount = 0;
-            RatingLevel = 0;
-
-            foreach (var enemy in enemyList)
-            {
-                if (IsPosInside (enemy))
-                    SoldierCount++;
-                else if (IsPosInside(enemy, 1))
-                {
-                    InReachCount++;
-                    ThreatenedCount++;
-                }
-                else if (IsPosInside(enemy, 2))
-                    InReachCount++;
-            }
-
-            foreach (var tower in towerList)
-            {
-                if (IsPosInside (tower))
-                    TowerCount++;
-            }
-
-            SetRatingLevel();
-        }
-
-        private bool IsPosInside (IvyyyPosition pos, int padding = 0)
-        {
-            if (pos.x < m_startX - padding || pos.x > m_startX + m_colums + padding
-                || pos.y < m_startY - padding || pos.y > m_startY + m_rows + padding)
-                return false;
-            else
-                return true;
-        }
-
-        private void SetRatingLevel ()
-        {
-            RatingLevel = ThreatenedCount + SoldierCount * 1.5f + TowerCount * 0.5f - InReachCount * 1.5f ;
-        }
-    }
-
     public class TowerDefenseAgentState : AgentState<TowerDefensePerception>
     {
         public int Gold { get; private set; }
@@ -88,9 +19,9 @@ namespace AI_Strategy
         public List <IvyyyPosition> TowerList { get; private set; }
         public List <IvyyyPosition> EnemyList { get; private set; }
 
-        private List<TowerDefensePerimeter> m_defensePerimeter;
+        private List<IvyyyTowerBlock> m_towerBlocks;
 
-        public TowerDefensePerimeter BestDefensePerimeter { get; set; }
+        public IvyyyTowerBlock BestDefensePerimeter { get; set; }
 
         public TowerDefensePerception.ActionTyp ActionTyp {get; private set;}
 
@@ -100,21 +31,28 @@ namespace AI_Strategy
         public TowerDefenseAgentState()
         {
             ActiveRegimentSettings = null;
-            m_defensePerimeter = new ();
+            m_towerBlocks = new ();
+
+            List<IvyyyPosition> towerRelPos = new();
+            towerRelPos.Add(new IvyyyPosition(1, 0));
+            towerRelPos.Add(new IvyyyPosition(1, 2));
+            towerRelPos.Add(new IvyyyPosition(0, 1));
+            towerRelPos.Add(new IvyyyPosition(2, 1));
 
             for (int r = 3; r < PlayerLane.HEIGHT - 1; r += 2)
             {
                 for (int c = 0; c < PlayerLane.WIDTH - 1; c += 2)
-                    m_defensePerimeter.Add(new TowerDefensePerimeter(c, r, 3, 3));
+                {
+                    m_towerBlocks.Add(new IvyyyTowerBlock(c, r, 3, 3));
+                    m_towerBlocks.Last().SetTowerList(towerRelPos);
+                }
             }
-
-            List<object> test = m_defensePerimeter.ToList<object>();
 
             TowerList = new List<IvyyyPosition>();
             EnemyList = new List<IvyyyPosition>();
 
             //ActionInputParameters
-            m_targetMap.Add ("TowerField", m_defensePerimeter.ToList<object>());
+            m_targetMap.Add ("TowerBlocks", m_towerBlocks.ToList<object>());
             m_targetMap.Add ("EnemySoldiers", new());
             m_actionInputParameters.Add ("NoEnemyActive", GetNoEnemyActive);
             m_actionInputParameters.Add ("NoTowerActive", GetNoTowerActive);
@@ -124,8 +62,11 @@ namespace AI_Strategy
             m_actionInputParameters.Add ("ActiveRegimentSettings", GetActiveRegimentSettings);
             m_actionInputParameters.Add ("RegimentComplete", GetRegimentComplete);
             m_actionInputParameters.Add ("CanBuySoldiers", GetCanBuySoldiers);
+
+            //TowerBlock
+            m_actionInputParameters.Add ("TargetsInReach", GetTargetsInReach);
+            m_actionInputParameters.Add ("FreeTowerSlots", GetFreeTowerSlots);
             m_actionInputParameters.Add ("CanBuyTowers", GetCanBuyTowers);
-            m_actionInputParameters.Add ("ValidTowerSpot", GetValidTowerSpot);
         }
 
         public override void Update(TowerDefensePerception perception)
@@ -139,15 +80,15 @@ namespace AI_Strategy
 
             ScaneForUnits (perception);
 
-            for (int i = 0; i < m_defensePerimeter.Count; ++i)
-                m_defensePerimeter[i].Update(EnemyList, TowerList);
+            for (int i = 0; i < m_towerBlocks.Count; ++i)
+                m_towerBlocks[i].Update(EnemyList, TowerList);
 
             if (EnemyCount == 0)
-                BestDefensePerimeter = new TowerDefensePerimeter (2, 3, 3, 3);
+                BestDefensePerimeter = new IvyyyTowerBlock (2, 3, 3, 3);
             else
             {
-                m_defensePerimeter = m_defensePerimeter.OrderBy (x=>x.RatingLevel).ToList();
-                BestDefensePerimeter = m_defensePerimeter[0];
+                m_towerBlocks = m_towerBlocks.OrderBy (x=>x.RatingLevel).ToList();
+                BestDefensePerimeter = m_towerBlocks[0];
             }
         }
 
@@ -231,22 +172,37 @@ namespace AI_Strategy
 
         private float GetCanBuyTowers(object target)
         {
-            if (BestDefensePerimeter.TowerCount == 4)
-                return 0f;
-
-            int goldRequired = GetTowerCost(4 - BestDefensePerimeter.TowerCount);
+            IvyyyTowerBlock block = (IvyyyTowerBlock) target;
+            int goldRequired = GetTowerCost(5 - block.TowerCount);
 
             return Gold >= goldRequired ? 1f : 0f;
         }
 
-        private float GetValidTowerSpot(object target)
+        private float GetTargetsInReach(object target)
         {
-            return BestDefensePerimeter.InReachCount == 0 ? 0f : 1f;
+            IvyyyTowerBlock block = (IvyyyTowerBlock) target;
+            return (float)BestDefensePerimeter.InReachCount / 9f;
         }
 
         private float GetDeploySoldiers(object target)
         {
             return ActionTyp == TowerDefensePerception.ActionTyp.DeploySoldiers ? 1f : 0f;
+        }
+
+        //Tower
+        private float GetFreeTowerSlots(object target)
+        {
+            IvyyyTowerBlock block = (IvyyyTowerBlock) target;
+
+            int count = 0;
+
+            foreach ( var item in block.TowerSlots )
+            {
+                if (Player.HomeLane.GetCellAt (item.x, item.y).Unit == null)
+                    ++count;
+            }
+
+            return (float)count / 4f;
         }
     }
 }

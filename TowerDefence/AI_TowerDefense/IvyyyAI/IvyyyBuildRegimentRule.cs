@@ -11,7 +11,7 @@ namespace AI_Strategy
             m_inputParameter.Add ("DeploySoldiers");
         }
 
-        public override void Action()
+        public override void Action(object target)
         {
             ActiveRegimentSettings activeRegimentSettings = m_worldState.ActiveRegimentSettings;
             

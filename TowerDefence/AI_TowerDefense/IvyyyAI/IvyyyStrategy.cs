@@ -12,7 +12,8 @@ namespace AI_Strategy
     public class IvyyyStrategy : AbstractStrategy
     {
         private List<IvyyyRule> m_rules = new();
-        private List<Tuple<float, Action>> m_ratedActions = new();
+
+        private List<Tuple<float, Action<object>, object>> m_ratedActions = new();
 
         private TowerDefenseAgentState m_worldState = new();
         private TowerDefensePerception m_perception = new();
@@ -70,7 +71,7 @@ namespace AI_Strategy
         //Private Methods
         private void AgentLoop()
         {
-            Action lastAction = null;
+            Action<object> lastAction = null;
 
             while (true)
             {
@@ -78,26 +79,24 @@ namespace AI_Strategy
 
                 RateActions();
 
-                Action action = SelectAction();
+                var action = SelectAction();
             
-                if (lastAction == action
-                    || action == null)
+                if (action == null
+                    || lastAction == action.Item2)
                     return;
                 else
                 {
-                    action();
-                    lastAction = action;
+                    action.Item2(action.Item3);
+                    lastAction = action.Item2;
                 }
             }
         }
 
-        private Action SelectAction ()
+        private Tuple<float, Action<object>, object> SelectAction ()
         {
             if (m_ratedActions.Count > 0
                 && m_ratedActions[0].Item1 > 0f)
-            {
-                return m_ratedActions[0].Item2;
-            }
+                return m_ratedActions[0];
 
             return null;
         }
@@ -109,17 +108,17 @@ namespace AI_Strategy
             foreach (var rule in m_rules)
             {
                 if (rule.Target == null)
-                    m_ratedActions.Add (new Tuple<float, Action> (rule.Match (null) * rule.Weight, rule.Action));
+                    m_ratedActions.Add (new Tuple<float, Action<object>, object> (rule.Match (null) * rule.Weight, rule.Action, null));
                 else
                 {
                     List<object> targetList = m_worldState.GetTargetList (rule.Target);
 
                     foreach (var target in targetList)
-                        m_ratedActions.Add(new Tuple<float, Action>(rule.Match(target) * rule.Weight, rule.Action));
+                        m_ratedActions.Add(new Tuple<float, Action<object>, object>(rule.Match(target) * rule.Weight, rule.Action, target));
                 }
             }
 
-            m_ratedActions = m_ratedActions.OrderByDescending (x=>x.Item1).ToList<Tuple<float, Action>>();
+            m_ratedActions = m_ratedActions.OrderByDescending (x=>x.Item1).ToList<Tuple<float, Action<object>, object>>();
         }
     }
 }

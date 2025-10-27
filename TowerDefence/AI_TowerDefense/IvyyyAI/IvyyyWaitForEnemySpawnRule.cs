@@ -15,7 +15,7 @@ namespace AI_Strategy
             m_weight = 10f;
         }
 
-        public override void Action()
+        public override void Action(object target)
         {
         }
     }

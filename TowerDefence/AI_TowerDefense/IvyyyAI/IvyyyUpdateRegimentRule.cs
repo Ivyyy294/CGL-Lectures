@@ -11,7 +11,7 @@ namespace AI_Strategy
             m_weight = 10f;
         }
 
-        public override void Action()
+        public override void Action(object target)
         {
             m_worldState.ActiveRegimentSettings = new ActiveRegimentSettings();
             m_worldState.ActiveRegimentSettings.Width = 2;

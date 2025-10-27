@@ -21,7 +21,7 @@ namespace AI_Strategy
             m_worldState = worldState;
         }
 
-        public abstract void Action();
+        public abstract void Action(object target);
 
         public float Match(object target)
         {
