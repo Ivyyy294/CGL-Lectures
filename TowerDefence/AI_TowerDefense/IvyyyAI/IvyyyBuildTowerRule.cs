@@ -16,6 +16,8 @@ namespace AI_Strategy
             m_inputParameter.Add ("CanBuyTowers");
             m_inputParameter.Add ("DeployTowers");
             m_inputParameter.Add ("FreeTowerSlots");
+            m_inputParameter.Add ("ThreatenedCount");
+            m_inputParameter.Add ("EnemyInBlockCount");
             m_weight = 5f;
         }
 

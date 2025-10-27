@@ -59,8 +59,6 @@ namespace AI_Strategy
                 if (IsPosInside(tower))
                     TowerCount++;
             }
-
-            SetRatingLevel();
         }
 
         private bool IsPosInside(IvyyyPosition pos, int padding = 0)
@@ -70,11 +68,6 @@ namespace AI_Strategy
                 return false;
             else
                 return true;
-        }
-
-        private void SetRatingLevel()
-        {
-            RatingLevel = ThreatenedCount + SoldierCount * 1.5f + TowerCount * 0.5f - InReachCount * 1.5f;
         }
 
         public void SetTowerList (List<IvyyyPosition> towerList)
