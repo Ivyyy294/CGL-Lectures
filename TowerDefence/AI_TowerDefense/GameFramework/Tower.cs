@@ -5,7 +5,7 @@
      * Automatically called by the game play. Forbidden to use as part of
      * the assignment.
      * 
-     * A Tower is anon-movable unit. Towers are expensive, but crucial to prevent the
+     * A Tower is a non-movable unit. Towers are expensive, but crucial to prevent the
      * opponents soldiers to get through. Strategic placement of towers is crucial to success.
      * 
      */

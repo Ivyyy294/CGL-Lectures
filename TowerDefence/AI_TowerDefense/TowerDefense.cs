@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Threading;
-using tower_defence.AI_TowerDefense.AI_Strategy;
 
 namespace AI_TowerDefense
 {
@@ -19,7 +18,7 @@ namespace AI_TowerDefense
     public class TowerDefense
     {
         public static bool DISPLAY_LOG_MESSAGES = true;
-        public static int NORMAL_SPEED_MS = 100;
+        public static int NORMAL_SPEED_MS = 500;
         public static int FAST_SPEED_MS = 5;
 
         private bool fastSpeedActivated = false;
@@ -55,10 +54,12 @@ namespace AI_TowerDefense
             // Your strategy should at least be able to beat random!
             
             _playerAStrategy = new IvyyyStrategy(_playerA);
-            _playerBStrategy = new IvyyyStrategy(_playerB);
+            _playerBStrategy = new RandomStrategyLoggerDemo(_playerB);
         }
 
         public static TowerDefense Instance => instance ??= new TowerDefense();
+
+        public int Turns { get => turns; }
 
         /*
          * prints the current game state.

@@ -1,4 +1,5 @@
 ﻿using GameFramework;
+using System.Collections.Generic;
 namespace AI_Strategy
 {
     /*
