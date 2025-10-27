@@ -54,7 +54,7 @@ namespace AI_Strategy
         }
 
         //Private Methods
-        private bool IsRowComplete(int row)
+        public bool IsRowComplete(int row)
         {
             if (SoldierLane == null) 
                 return false;

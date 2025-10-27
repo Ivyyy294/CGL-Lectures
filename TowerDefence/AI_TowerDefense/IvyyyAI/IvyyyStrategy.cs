@@ -11,37 +11,21 @@ namespace AI_Strategy
 {
     public class IvyyyStrategy : AbstractStrategy
     {
-        public enum Goal
-        {
-            BuildTower,
-            CalculateRegimentSettings,
-            BuildSoldiers,
-            DeploySoldiers,
-            NULL
-        }
-
-        private int m_turn = 0;
-        private Goal m_goal = Goal.NULL;
         private List<IvyyyRule> m_rules = new();
+        private List<Tuple<float, Action>> m_ratedActions = new();
 
         private TowerDefenseAgentState m_worldState = new();
         private TowerDefensePerception m_perception = new();
-
-        private ActiveRegimentSettings m_activeRegimentSettings;
+        
         public IvyyyStrategy(Player player) : base(player)
         {
             m_perception.Player = player;
-            
-            m_activeRegimentSettings = ActiveRegimentSettings.AddInstance (player.Name);
-            m_activeRegimentSettings.Width = 2;
-            m_activeRegimentSettings.Depth = 3;
-            m_activeRegimentSettings.StartIndex = 0;
-            m_activeRegimentSettings.SoldierLane = player.EnemyLane;
 
-            m_rules.Add (new IvyyyUpdateRegimentRule (m_activeRegimentSettings, m_worldState));
-            m_rules.Add(new IvyyyBuildRegimentRule (m_activeRegimentSettings, m_worldState));
-            m_rules.Add(new IvyyyDeployRegimentRule (m_activeRegimentSettings, m_worldState));
+            m_rules.Add (new IvyyyUpdateRegimentRule (m_worldState));
+            m_rules.Add(new IvyyyBuildRegimentRule (m_worldState));
+            m_rules.Add(new IvyyyDeployRegimentRule (m_worldState));
             m_rules.Add(new IvyyyBuildTowerRule (m_worldState));
+            m_rules.Add(new IvyyyWaitForEnemySpawnRule (m_worldState));
         }
         public override List<Soldier> SortedSoldierArray(List<Soldier> unsortedList)
         {
@@ -63,7 +47,6 @@ namespace AI_Strategy
         {
             m_perception.CurrentActionTyp = TowerDefensePerception.ActionTyp.TurnEnd;
             AgentLoop();
-            m_turn++;
         }
 
         public override void DeploySoldiers()
@@ -87,61 +70,56 @@ namespace AI_Strategy
         //Private Methods
         private void AgentLoop()
         {
+            Action lastAction = null;
+
             while (true)
             {
-                Goal prevGoal = m_goal;
                 m_worldState.Update(m_perception);
-                UpdateGoal(ref m_goal, ref m_worldState);
-                Action action = SelectAction(m_goal);
+
+                RateActions();
+
+                Action action = SelectAction();
             
-                if (action != null)
-                    action();
-                
-                if (m_goal == prevGoal
+                if (lastAction == action
                     || action == null)
                     return;
+                else
+                {
+                    action();
+                    lastAction = action;
+                }
             }
         }
 
-        private void UpdateGoal (ref Goal goal, ref TowerDefenseAgentState worldState)
+        private Action SelectAction ()
         {
-            if (goal == Goal.NULL)
+            if (m_ratedActions.Count > 0
+                && m_ratedActions[0].Item1 > 0f)
             {
-                if (worldState.EnemyCount > 0 || m_turn > 2)
-                  goal = Goal.BuildTower;
-            }
-            else if (goal == Goal.BuildTower)
-            {
-                int goldRequired = worldState.GetTowerCost(4 - worldState.BestDefensePerimeter.TowerCount);
-
-                if (worldState.Gold < goldRequired
-                    || worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeploySoldiers)
-                    goal = Goal.CalculateRegimentSettings;
-            }
-            else if (goal == Goal.CalculateRegimentSettings)
-            {
-                goal = Goal.BuildSoldiers;
-            }
-            else if (goal == Goal.BuildSoldiers)
-            {
-                if (m_activeRegimentSettings.IsRegimentComplete())
-                    goal = Goal.DeploySoldiers;
-            }
-            else if (goal == Goal.DeploySoldiers)
-            {
-                goal = Goal.BuildTower;
-            }
-        }
-
-        private Action SelectAction (Goal goal)
-        {
-            for (int i = 0; i < m_rules.Count; ++i)
-            {
-                if (m_rules[i].MatchRule (goal))
-                    return m_rules[i].Action;
+                return m_ratedActions[0].Item2;
             }
 
             return null;
+        }
+
+        private void RateActions ()
+        {
+            m_ratedActions.Clear();
+
+            foreach (var rule in m_rules)
+            {
+                if (rule.Target == null)
+                    m_ratedActions.Add (new Tuple<float, Action> (rule.Match (null) * rule.Weight, rule.Action));
+                else
+                {
+                    List<object> targetList = m_worldState.GetTargetList (rule.Target);
+
+                    foreach (var target in targetList)
+                        m_ratedActions.Add(new Tuple<float, Action>(rule.Match(target) * rule.Weight, rule.Action));
+                }
+            }
+
+            m_ratedActions = m_ratedActions.OrderByDescending (x=>x.Item1).ToList<Tuple<float, Action>>();
         }
     }
 }

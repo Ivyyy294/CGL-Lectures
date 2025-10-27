@@ -10,6 +10,10 @@ namespace AI_Strategy
     {
         public IvyyyBuildTowerRule (TowerDefenseAgentState state) : base (state)
         {
+            m_inputParameter.Add ("CanBuyTowers");
+            m_inputParameter.Add ("ValidTowerSpot");
+            m_inputParameter.Add ("DeployTowers");
+            m_weight = 5f;
         }
 
         public override void Action()
@@ -81,12 +85,6 @@ namespace AI_Strategy
                 TowerPos pos = positions[i];
                 m_worldState.Player.TryBuyTower<Tower>(pos.x, pos.y);
             }
-        }
-
-        public override bool MatchRule(IvyyyStrategy.Goal goal)
-        {
-            return goal == IvyyyStrategy.Goal.BuildTower
-                && m_worldState.ActionTyp == TowerDefensePerception.ActionTyp.DeployTowers;
         }
     }
 }

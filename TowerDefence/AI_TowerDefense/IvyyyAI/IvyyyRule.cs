@@ -7,6 +7,13 @@ namespace AI_Strategy
 {
     public abstract class IvyyyRule
     {
+        protected List<string> m_inputParameter = new();
+        protected float m_weight = 1.0f;
+        protected string m_target = null;
+
+        public float Weight => m_weight;
+        public string Target => m_target;
+
         protected TowerDefenseAgentState m_worldState;
 
         public IvyyyRule (TowerDefenseAgentState worldState)
@@ -14,7 +21,19 @@ namespace AI_Strategy
             m_worldState = worldState;
         }
 
-        public abstract bool MatchRule (IvyyyStrategy.Goal goal);
         public abstract void Action();
+
+        public float Match(object target)
+        {
+            float match = 1.0f;
+
+            if (m_inputParameter.Count == 0)
+                return 0f;
+
+            foreach (string inputParameter in m_inputParameter)
+                match *= m_worldState.GetActionInputParameter(inputParameter, target);
+
+            return match;
+        }
     }
 }

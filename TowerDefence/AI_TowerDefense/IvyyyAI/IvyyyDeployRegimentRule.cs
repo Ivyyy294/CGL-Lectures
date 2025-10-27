@@ -8,22 +8,18 @@ namespace AI_Strategy
 {
     public class IvyyyDeployRegimentRule : IvyyyRule
     {
-        private ActiveRegimentSettings m_activeRegimentSettings;
-
-        public IvyyyDeployRegimentRule(ActiveRegimentSettings activeRegimentSettings, TowerDefenseAgentState state) : base(state)
+        public IvyyyDeployRegimentRule(TowerDefenseAgentState state) : base(state)
         {
-            m_activeRegimentSettings = activeRegimentSettings;
+            m_inputParameter.Add ("RegimentComplete");
+            m_inputParameter.Add ("DeploySoldiers");
+            m_weight = 10f;
         }
 
         public override void Action()
         {
             DebugLogger.Log("#Player" + m_worldState.Player.Name + " Deploy Regiment!");
-            m_activeRegimentSettings.Deploy();
-        }
-
-        public override bool MatchRule(IvyyyStrategy.Goal goal)
-        {
-            return goal == IvyyyStrategy.Goal.DeploySoldiers;
+            m_worldState.ActiveRegimentSettings.Deploy();
+            m_worldState.ActiveRegimentSettings = null;
         }
     }
 }
