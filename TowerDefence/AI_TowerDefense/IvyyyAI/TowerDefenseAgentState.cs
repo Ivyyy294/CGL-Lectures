@@ -49,6 +49,11 @@ namespace AI_Strategy
             TowerList = new List<IvyyyPosition>();
             EnemyList = new List<IvyyyPosition>();
 
+            //Base Stats
+            m_actionInputParameters.Add ("EnemyCount", GetEnemyCount);
+            m_actionInputParameters.Add ("TowerCount", GetTowerCount);
+            m_actionInputParameters.Add ("GoldCount", GetGoldCount);
+
             //ActionInputParameters
             m_targetMap.Add ("TowerBlocks", m_towerBlocks.ToList<object>());
             m_targetMap.Add ("EnemySoldiers", new());
@@ -123,6 +128,22 @@ namespace AI_Strategy
         }
 
         //Get methods
+
+        private float GetGoldCount(object target)
+        {
+            return ((float)Gold) / 64f;
+        }
+
+        private float GetTowerCount(object target)
+        {
+            return ((float)TowerCount) / 16f;
+        }
+
+        private float GetEnemyCount(object target)
+        {
+            return ((float)EnemyCount) / 24f;
+        }
+
         private float GetNoEnemyActive (object target)
         {
             return EnemyCount > 0 ? 0f : 1f;
@@ -145,7 +166,7 @@ namespace AI_Strategy
 
         private float GetActiveRegimentSettings(object target)
         {
-            return ActiveRegimentSettings == null ? 1f : 0f;
+            return ActiveRegimentSettings != null ? 1f : 0f;
 
             //bool upgrade = Gold > ActiveRegimentSettings.Depth * (ActiveRegimentSettings.Width + 1) * 2;
             //bool downgrade = Gold < (ActiveRegimentSettings.Width - 1) * 2;
@@ -209,16 +230,13 @@ namespace AI_Strategy
         {
             IvyyyTowerBlock block = (IvyyyTowerBlock)target;
 
-            if (block.ThreatenedCount >= 16)
-                return 0f;
-
-            return 16f / (16f - (float)block.ThreatenedCount);
+            return ((float)block.ThreatenedCount) / 16f;
         }
 
         private float GetEnemyInBlockCount(object target)
         {
             IvyyyTowerBlock block = (IvyyyTowerBlock)target;
-            return 9f / (9f - block.SoldierCount);
+            return ((float)block.SoldierCount) / 9f;
         }
     }
 }

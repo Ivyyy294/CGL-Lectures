@@ -13,17 +13,24 @@ namespace AI_Strategy
         {
             m_target = "TowerBlocks";
 
+            m_axis.Add (new IvyyyRuleAxis("TowerCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.75f, 1f, 1f, 0f)));
+            m_axis.Add (new IvyyyRuleAxis("GoldCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 1f, 0f, 0f)));
+            m_axis.Add (new IvyyyRuleAxis("EnemyCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 1f, 0f, 0f)));
+
             m_axis.Add (new IvyyyRuleAxis("TargetsInReach", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
-            m_axis.Add (new IvyyyRuleAxis("CanBuyTowers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
-            m_axis.Add (new IvyyyRuleAxis("CanBuyTowers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
             m_axis.Add (new IvyyyRuleAxis("FreeTowerSlots", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
-            m_axis.Add (new IvyyyRuleAxis("ThreatenedCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
-            m_axis.Add (new IvyyyRuleAxis("EnemyInBlockCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
+            m_axis.Add (new IvyyyRuleAxis("ThreatenedCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.75f, 1f, 1f, 0f)));
+            m_axis.Add (new IvyyyRuleAxis("EnemyInBlockCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.75f, 1f, 1f, 0f)));
+
+            //m_axis.Add (new IvyyyRuleAxis ("CanBuyTowers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
+
             m_weight = 5f;
         }
 
         public override void Action(object target)
         {
+            DebugLogger.Log("#Player" + m_worldState.Player.Name + " Build Tower!");
+
             IvyyyTowerBlock towerBlock = (IvyyyTowerBlock) target;
             List<IvyyyPosition> pos = towerBlock.TowerSlots;
 

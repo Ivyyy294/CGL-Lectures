@@ -26,7 +26,7 @@ namespace AI_Strategy
             m_rules.Add(new IvyyyBuildRegimentRule (m_worldState));
             m_rules.Add(new IvyyyDeployRegimentRule (m_worldState));
             m_rules.Add(new IvyyyBuildTowerRule (m_worldState));
-            m_rules.Add(new IvyyyWaitForEnemySpawnRule (m_worldState));
+            //m_rules.Add(new IvyyyWaitForEnemySpawnRule (m_worldState));
         }
         public override List<Soldier> SortedSoldierArray(List<Soldier> unsortedList)
         {
