@@ -11,8 +11,8 @@ namespace IvyyyAI
 
         private List<Tuple<float, Action<object>, object>> m_ratedActions = new();
 
-        private TowerDefenseAgentState m_worldState = new();
-        private TowerDefensePerception m_perception = new();
+        private IvyyyState m_worldState = new();
+        private IvyyyPerception m_perception = new();
         
         public IvyyyStrategy(Player player) : base(player)
         {
@@ -35,19 +35,19 @@ namespace IvyyyAI
 
         public void StartTurn()
         {
-            m_perception.CurrentActionTyp = TowerDefensePerception.ActionTyp.TurnStart;
+            m_perception.CurrentActionTyp = IvyyyPerception.ActionTyp.TurnStart;
             AgentLoop();
         }
 
         public void EndTurn()
         {
-            m_perception.CurrentActionTyp = TowerDefensePerception.ActionTyp.TurnEnd;
+            m_perception.CurrentActionTyp = IvyyyPerception.ActionTyp.TurnEnd;
             AgentLoop();
         }
 
         public override void DeploySoldiers()
         {
-            m_perception.CurrentActionTyp = TowerDefensePerception.ActionTyp.DeploySoldiers;
+            m_perception.CurrentActionTyp = IvyyyPerception.ActionTyp.DeploySoldiers;
 
             AgentLoop();
 
@@ -58,7 +58,7 @@ namespace IvyyyAI
         {
             StartTurn();
 
-            m_perception.CurrentActionTyp = TowerDefensePerception.ActionTyp.DeployTowers;
+            m_perception.CurrentActionTyp = IvyyyPerception.ActionTyp.DeployTowers;
 
             AgentLoop();
         }

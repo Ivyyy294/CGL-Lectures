@@ -2,7 +2,7 @@
 
 namespace IvyyyAI
 {
-    public class TowerDefensePerception
+    public class IvyyyPerception
     {
         public enum ActionTyp
         {

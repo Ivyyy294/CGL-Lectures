@@ -62,8 +62,8 @@
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyRuleAxis.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyTowerBlock.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyyDeploySoldierRule.cs" />
-    <Compile Include="AI_TowerDefense\IvyyyAI\TowerDefenseAgentState.cs" />
-    <Compile Include="AI_TowerDefense\IvyyyAI\TowerDefensePerception.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyState.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyPerception.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\AbstractStrategy.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\ActiveRegimentSettings.cs" />
     <Compile Include="AI_TowerDefense\Agent_System\Agent.cs" />

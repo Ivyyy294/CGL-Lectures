@@ -4,7 +4,7 @@ namespace IvyyyAI
 {
     public class IvyyyBuildSoldierRule : IvyyyRule
     {
-        public IvyyyBuildSoldierRule(TowerDefenseAgentState state) : base(state)
+        public IvyyyBuildSoldierRule(IvyyyState state) : base(state)
         {
             m_target = "AttackLanes";
             m_axis.Add(new IvyyyRuleAxis("GoldCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.75f, 1f, 1f, 0f)));
@@ -12,7 +12,7 @@ namespace IvyyyAI
             m_axis.Add(new IvyyyRuleAxis("DeploySoldiers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.None)));
 
             m_axis.Add(new IvyyyRuleAxis("LaneEnemyTowerHp", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 1f, 1f, 0f)));
-            m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.5f, 1f, 1f, 0f)));
+            //m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.5f, 1f, 1f, 0f)));
             m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 0.5f, 1f, 0.5f, 0f)));
             m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierStandByCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 0.5f, 1f, 0.5f, 0f)));
         }

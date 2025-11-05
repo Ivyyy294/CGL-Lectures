@@ -2,12 +2,13 @@
 using AI_Strategy;
 using AI_TowerDefense;
 using GameFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace IvyyyAI
 {
-    public class TowerDefenseAgentState : AgentState<TowerDefensePerception>
+    public class IvyyyState : AgentState<IvyyyPerception>
     {
         public int Gold { get; private set; }
         public int TowerCount { get; private set; }
@@ -24,11 +25,11 @@ namespace IvyyyAI
         private List<IvyyyTowerBlock> m_towerBlocks;
         private List<IvyyyAttackLane> m_attackLanes;
 
-        public TowerDefensePerception.ActionTyp ActionTyp {get; private set;}
+        public IvyyyPerception.ActionTyp ActionTyp {get; private set;}
 
 
         //Enemy Spawn
-        public TowerDefenseAgentState()
+        public IvyyyState()
         {
             //Init Tower Blocks
             m_towerBlocks = new ();
@@ -51,7 +52,7 @@ namespace IvyyyAI
             //Init Attack Lanes
             m_attackLanes = new ();
 
-            for (int c = 0; c < PlayerLane.WIDTH - 2; c++)
+            for (int c = 0; c + 2 < PlayerLane.WIDTH; c++)
                 m_attackLanes.Add(new IvyyyAttackLane(c, 3));
 
             TowerList = new List<IvyyyPosition>();
@@ -74,6 +75,7 @@ namespace IvyyyAI
             m_actionInputParameters.Add ("StartPhase", GetStartPhase);
             m_actionInputParameters.Add ("DeployTowers", GetDeployTowers);
             m_actionInputParameters.Add ("DeploySoldiers", GetDeploySoldiers);
+            m_actionInputParameters.Add ("EndTurn", GetEndTurn);
 
             //TowerBlock
             m_actionInputParameters.Add ("ThreatenedCount", GetThreatenedCount);
@@ -83,6 +85,7 @@ namespace IvyyyAI
             m_actionInputParameters.Add ("CanBuyTowers", GetCanBuyTowers);
 
             //AttackLanes
+            m_actionInputParameters.Add ("CanBuySoldiers", GetCanBuySoldiers);
             m_actionInputParameters.Add ("LaneEnemyTowerHp", GetLaneEnemyTowerHp);
             m_actionInputParameters.Add ("LaneFriendlySoldierCount", GetLaneFriendlySoldierCount);
             m_actionInputParameters.Add ("LaneFriendlySoldierStandByCount", GetLaneFriendlySoldierStandByCount);
@@ -90,9 +93,12 @@ namespace IvyyyAI
             m_actionInputParameters.Add ("LaneDeploySoldier", GetLaneDeploySoldier);
         }
 
+        private float GetCanBuySoldiers(object target)
+        {
+            return Player.Gold >= 2 ? 1f : 0f;
+        }
 
-
-        public override void Update(TowerDefensePerception perception)
+        public override void Update(IvyyyPerception perception)
         {
             Gold = perception.Player.Gold;
             TowerCount = perception.Player.HomeLane.TowerCount();
@@ -121,7 +127,7 @@ namespace IvyyyAI
             return cost;
         }
 
-        private void ScaneForUnits (TowerDefensePerception perception)
+        private void ScaneForUnits (IvyyyPerception perception)
         {
             m_targetMap["EnemySoldiers"].Clear();
             TowerList.Clear();
@@ -197,7 +203,12 @@ namespace IvyyyAI
 
         private float GetDeployTowers(object target)
         {
-            return ActionTyp == TowerDefensePerception.ActionTyp.DeployTowers ? 1.0f : 0f;
+            return ActionTyp == IvyyyPerception.ActionTyp.DeployTowers ? 1.0f : 0f;
+        }
+
+        private float GetEndTurn(object target)
+        {
+            return ActionTyp == IvyyyPerception.ActionTyp.TurnEnd ? 1.0f : 0f;
         }
 
         private float GetCanBuyTowers(object target)
@@ -216,7 +227,7 @@ namespace IvyyyAI
 
         private float GetDeploySoldiers(object target)
         {
-            return ActionTyp == TowerDefensePerception.ActionTyp.DeploySoldiers ? 1f : 0f;
+            return ActionTyp == IvyyyPerception.ActionTyp.DeploySoldiers ? 1f : 0f;
         }
 
         //Tower

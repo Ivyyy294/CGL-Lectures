@@ -5,7 +5,7 @@ namespace IvyyyAI
 {
     public class IvyyyBuildTowerRule : IvyyyRule
     {
-        public IvyyyBuildTowerRule (TowerDefenseAgentState state) : base (state)
+        public IvyyyBuildTowerRule (IvyyyState state) : base (state)
         {
             m_target = "TowerBlocks";
 
