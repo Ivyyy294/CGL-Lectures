@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using tower_defence.AI_TowerDefense.IvyyyAI;
 
 namespace AI_Strategy
 {
@@ -12,12 +13,12 @@ namespace AI_Strategy
         {
             m_target = "TowerBlocks";
 
-            m_inputParameter.Add ("TargetsInReach");
-            m_inputParameter.Add ("CanBuyTowers");
-            m_inputParameter.Add ("DeployTowers");
-            m_inputParameter.Add ("FreeTowerSlots");
-            m_inputParameter.Add ("ThreatenedCount");
-            m_inputParameter.Add ("EnemyInBlockCount");
+            m_axis.Add (new IvyyyRuleAxis("TargetsInReach", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
+            m_axis.Add (new IvyyyRuleAxis("CanBuyTowers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
+            m_axis.Add (new IvyyyRuleAxis("CanBuyTowers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
+            m_axis.Add (new IvyyyRuleAxis("FreeTowerSlots", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
+            m_axis.Add (new IvyyyRuleAxis("ThreatenedCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
+            m_axis.Add (new IvyyyRuleAxis("EnemyInBlockCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
             m_weight = 5f;
         }
 

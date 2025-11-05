@@ -1,4 +1,5 @@
 ﻿using System;
+using tower_defence.AI_TowerDefense.IvyyyAI;
 
 namespace AI_Strategy
 {
@@ -6,8 +7,8 @@ namespace AI_Strategy
     {
         public IvyyyUpdateRegimentRule (TowerDefenseAgentState state) : base (state)
         {
-            m_inputParameter.Add("ActiveRegimentSettings");
-            m_inputParameter.Add("DeployTowers");
+            m_axis.Add(new IvyyyRuleAxis("ActiveRegimentSettings", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
+            m_axis.Add(new IvyyyRuleAxis("DeployTowers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
             m_weight = 10f;
         }
 

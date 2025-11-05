@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using tower_defence.AI_TowerDefense.IvyyyAI;
 
 namespace AI_Strategy
 {
@@ -10,8 +11,8 @@ namespace AI_Strategy
     {
         public IvyyyDeployRegimentRule(TowerDefenseAgentState state) : base(state)
         {
-            m_inputParameter.Add ("RegimentComplete");
-            m_inputParameter.Add ("DeploySoldiers");
+            m_axis.Add(new IvyyyRuleAxis("RegimentComplete", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
+            m_axis.Add(new IvyyyRuleAxis("DeploySoldiers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
             m_weight = 10f;
         }
 

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using tower_defence.AI_TowerDefense.IvyyyAI;
 
 namespace AI_Strategy
 {
     public abstract class IvyyyRule
     {
-        protected List<string> m_inputParameter = new();
+        protected List<IvyyyRuleAxis> m_axis = new();
         protected float m_weight = 1.0f;
         protected string m_target = null;
 
@@ -27,11 +28,14 @@ namespace AI_Strategy
         {
             float match = 1.0f;
 
-            if (m_inputParameter.Count == 0)
+            if (m_axis.Count == 0)
                 return 0f;
 
-            foreach (string inputParameter in m_inputParameter)
-                match *= m_worldState.GetActionInputParameter(inputParameter, target);
+            foreach (IvyyyRuleAxis axis in m_axis)
+            {
+                float x = m_worldState.GetActionInputParameter(axis.Parameter, target);
+                match *= axis.ResponseCurve.Evaluate (x);
+            }
 
             return match;
         }

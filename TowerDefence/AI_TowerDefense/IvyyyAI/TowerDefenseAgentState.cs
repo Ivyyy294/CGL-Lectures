@@ -145,11 +145,13 @@ namespace AI_Strategy
 
         private float GetActiveRegimentSettings(object target)
         {
-            bool upgrade = Gold > ActiveRegimentSettings.Depth * (ActiveRegimentSettings.Width + 1) * 2;
-            bool downgrade = Gold < (ActiveRegimentSettings.Width - 1) * 2;
+            return ActiveRegimentSettings == null ? 1f : 0f;
 
-            return (upgrade
-                || downgrade) ? 1f : 0f;
+            //bool upgrade = Gold > ActiveRegimentSettings.Depth * (ActiveRegimentSettings.Width + 1) * 2;
+            //bool downgrade = Gold < (ActiveRegimentSettings.Width - 1) * 2;
+
+            //return (upgrade
+            //    || downgrade) ? 1f : 0f;
         }
 
         private float GetRegimentComplete(object target)
