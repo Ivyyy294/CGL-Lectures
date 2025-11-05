@@ -12,7 +12,6 @@ namespace AI_Strategy
         public IvyyyDeployRegimentRule(TowerDefenseAgentState state) : base(state)
         {
             m_axis.Add(new IvyyyRuleAxis("RegimentComplete", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.None)));
-            m_axis.Add(new IvyyyRuleAxis("DeploySoldiers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.None)));
             m_weight = 10f;
         }
 

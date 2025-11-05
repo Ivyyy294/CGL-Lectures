@@ -12,12 +12,8 @@ namespace AI_Strategy
     public class IvyyySoldier : Soldier
     {
         bool m_deployed = false;
-        ActiveRegimentSettings m_activeRegimentSettings;
 
-        public void SetRegimentSettings(ActiveRegimentSettings activeRegimentSettings)
-        {
-            m_activeRegimentSettings = activeRegimentSettings;
-        }
+        public bool Deployed => m_deployed;
 
         public void Deploy()
         {
@@ -32,15 +28,15 @@ namespace AI_Strategy
 
             if (!IsTowerInRange(ref waypoint))
             {
-                if (!m_deployed)
+                if (m_deployed || posY > 2)
                 {
                     waypoint.x = posX;
-                    waypoint.y = posY + (posY < m_activeRegimentSettings.Depth - 1 ? 1 : 0);
+                    waypoint.y = posY+1;
                 }
                 else
                 {
                     waypoint.x = posX;
-                    waypoint.y = posY+1;
+                    waypoint.y = posY + (posY < 2 ? 1 : 0);
                 }
             }
             
@@ -53,7 +49,7 @@ namespace AI_Strategy
 
             for (int x = Math.Max(0, PosX-2); x < Math.Min(7, PosX+3); ++x)
             {
-                for (int y = Math.Max(0, PosY); y < Math.Min(20, PosY + 3); ++y)
+                for (int y = Math.Max(0, PosY + 1); y < Math.Min(20, PosY + 3); ++y)
                 {
                     Unit unit = player.EnemyLane.GetCellAt(x, y).Unit;
 

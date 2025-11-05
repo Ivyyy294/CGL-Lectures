@@ -54,6 +54,8 @@
     <Compile Include="AI_TowerDefense\Agent_System\AgentRule.cs" />
     <Compile Include="AI_TowerDefense\Agent_System\TargetedAgent.cs" />
     <Compile Include="AI_TowerDefense\Agent_Test\BuildSoldierRule.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyAttackLane.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyyBuildSoldierRule.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyyBuildTowerRule.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyyDeployRegimentRule.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyPosition.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyRule.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyRuleAxis.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyTowerBlock.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyyDeploySoldierRule.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyyWaitForEnemySpawnRule.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\TowerDefenseAgentState.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\TowerDefensePerception.cs" />

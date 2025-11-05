@@ -32,7 +32,6 @@ namespace AI_Strategy
                 {
                     Cell cell = m_worldState.Player.EnemyLane.GetCellAt(xPos, 0);
                     IvyyySoldier soldier = (IvyyySoldier)cell.Unit;
-                    soldier.SetRegimentSettings(activeRegimentSettings);
                     activeRegimentSettings.m_soldiers.Add(soldier);
                 }
             }

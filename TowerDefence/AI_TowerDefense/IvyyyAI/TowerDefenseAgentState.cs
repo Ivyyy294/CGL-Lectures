@@ -4,6 +4,7 @@ using GameFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using tower_defence.AI_TowerDefense.IvyyyAI;
 
 namespace AI_Strategy
 {
@@ -18,8 +19,11 @@ namespace AI_Strategy
 
         public List <IvyyyPosition> TowerList { get; private set; }
         public List <IvyyyPosition> EnemyList { get; private set; }
+        public List <IvyyySoldier> FriendlySoldierList { get; private set; }
+        public List <Tower> EnemyTowerList { get; private set; }
 
         private List<IvyyyTowerBlock> m_towerBlocks;
+        private List<IvyyyAttackLane> m_attackLanes;
 
         public TowerDefensePerception.ActionTyp ActionTyp {get; private set;}
 
@@ -29,6 +33,8 @@ namespace AI_Strategy
         public TowerDefenseAgentState()
         {
             ActiveRegimentSettings = new ActiveRegimentSettings();
+            
+            //Init Tower Blocks
             m_towerBlocks = new ();
 
             List<IvyyyPosition> towerRelPos = new();
@@ -46,8 +52,16 @@ namespace AI_Strategy
                 }
             }
 
+            //Init Attack Lanes
+            m_attackLanes = new ();
+
+            for (int c = 0; c < PlayerLane.WIDTH - 2; c += 1)
+                m_attackLanes.Add(new IvyyyAttackLane(c, 3));
+
             TowerList = new List<IvyyyPosition>();
             EnemyList = new List<IvyyyPosition>();
+            EnemyTowerList = new List<Tower>();
+            FriendlySoldierList = new List<IvyyySoldier>();
 
             //Base Stats
             m_actionInputParameters.Add ("EnemyCount", GetEnemyCount);
@@ -56,7 +70,9 @@ namespace AI_Strategy
 
             //ActionInputParameters
             m_targetMap.Add ("TowerBlocks", m_towerBlocks.ToList<object>());
+            m_targetMap.Add ("AttackLanes", m_attackLanes.ToList<object>());
             m_targetMap.Add ("EnemySoldiers", new());
+
             m_actionInputParameters.Add ("NoEnemyActive", GetNoEnemyActive);
             m_actionInputParameters.Add ("NoTowerActive", GetNoTowerActive);
             m_actionInputParameters.Add ("StartPhase", GetStartPhase);
@@ -74,7 +90,16 @@ namespace AI_Strategy
             m_actionInputParameters.Add ("TargetsInReach", GetTargetsInReach);
             m_actionInputParameters.Add ("FreeTowerSlots", GetFreeTowerSlots);
             m_actionInputParameters.Add ("CanBuyTowers", GetCanBuyTowers);
+
+            //AttackLanes
+            m_actionInputParameters.Add ("LaneEnemyTowerHp", GetLaneEnemyTowerHp);
+            m_actionInputParameters.Add ("LaneFriendlySoldierCount", GetLaneFriendlySoldierCount);
+            m_actionInputParameters.Add ("LaneFriendlySoldierStandByCount", GetLaneFriendlySoldierStandByCount);
+            m_actionInputParameters.Add ("LaneFriendlySoldierSpace", GetLaneFriendlySoldierSpace);
+            m_actionInputParameters.Add ("LaneDeploySoldier", GetLaneDeploySoldier);
         }
+
+
 
         public override void Update(TowerDefensePerception perception)
         {
@@ -89,6 +114,9 @@ namespace AI_Strategy
 
             for (int i = 0; i < m_towerBlocks.Count; ++i)
                 m_towerBlocks[i].Update(EnemyList, TowerList);
+
+            for (int i = 0; i < m_attackLanes.Count; ++i)
+                m_attackLanes[i].Update(FriendlySoldierList, EnemyTowerList);
         }
 
         public int GetTowerCost (int amount = 1)
@@ -107,9 +135,12 @@ namespace AI_Strategy
             m_targetMap["EnemySoldiers"].Clear();
             TowerList.Clear();
             EnemyList.Clear();
+            FriendlySoldierList.Clear();
+            EnemyTowerList.Clear();
 
             List<Soldier> enemySoldierList = new();
 
+            //Home Lane
             for (int r = 0; r < PlayerLane.WIDTH; ++r)
             {
                 for (int c = 0; c < PlayerLane.HEIGHT; ++c)
@@ -123,6 +154,20 @@ namespace AI_Strategy
                         EnemyList.Add(new IvyyyPosition{ x = unit.PosX, y = unit.PosY});
                         m_targetMap["EnemySoldiers"].Add (enemySoldierList);
                     }
+                }
+            }
+
+            //Enemy Lane
+            for (int r = 0; r < PlayerLane.WIDTH; ++r)
+            {
+                for (int c = 0; c < PlayerLane.HEIGHT; ++c)
+                {
+                    Unit unit = Player.EnemyLane.GetCellAt(r, c).Unit;
+
+                    if (unit is Tower)
+                        EnemyTowerList.Add(unit as Tower);
+                    else if (unit is IvyyySoldier)
+                        FriendlySoldierList.Add(unit as IvyyySoldier);
                 }
             }
         }
@@ -237,6 +282,41 @@ namespace AI_Strategy
         {
             IvyyyTowerBlock block = (IvyyyTowerBlock)target;
             return ((float)block.SoldierCount) / 9f;
+        }
+
+        private float GetLaneEnemyTowerHp(object target)
+        {
+            IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
+
+            return ((float)attackLane.EnemyTowerHp) / 90;
+        }
+
+        private float GetLaneFriendlySoldierCount(object target)
+        {
+            IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
+
+            return ((float)attackLane.FriendlySoldierCount) / 60;
+        }
+
+        private float GetLaneFriendlySoldierStandByCount(object target)
+        {
+            IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
+
+            return ((float)attackLane.FriendlySoldierStandByCount) / ((float)attackLane.Width * 3f);
+        }
+
+        private float GetLaneFriendlySoldierSpace(object target)
+        {
+            IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
+
+            return ((float)attackLane.FriendlySoldierSpace) / (float)attackLane.Width;
+        }
+
+        private float GetLaneDeploySoldier(object target)
+        {
+            IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
+
+            return attackLane.FriendlySoldierStandByCount >= attackLane.Width * 3 ? 1f : 0f;
         }
     }
 }

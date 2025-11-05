@@ -6,6 +6,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using tower_defence.AI_TowerDefense.IvyyyAI.Rules;
 
 namespace AI_Strategy
 {
@@ -22,9 +23,8 @@ namespace AI_Strategy
         {
             m_perception.Player = player;
 
-            m_rules.Add (new IvyyyUpdateRegimentRule (m_worldState));
-            m_rules.Add(new IvyyyBuildRegimentRule (m_worldState));
-            m_rules.Add(new IvyyyDeployRegimentRule (m_worldState));
+            m_rules.Add (new IvyyyBuildSoldierRule (m_worldState));
+            m_rules.Add(new IvyyyDeploySoldierRule (m_worldState));
             m_rules.Add(new IvyyyBuildTowerRule (m_worldState));
             //m_rules.Add(new IvyyyWaitForEnemySpawnRule (m_worldState));
         }
