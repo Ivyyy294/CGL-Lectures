@@ -1,4 +1,4 @@
-﻿namespace AI_Strategy
+﻿namespace IvyyyAI
 {
     public struct IvyyyPosition
     {

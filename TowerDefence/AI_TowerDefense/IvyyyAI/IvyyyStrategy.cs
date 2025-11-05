@@ -1,16 +1,11 @@
-﻿using Agent_Test;
-using GameFramework;
+﻿using GameFramework;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using tower_defence.AI_TowerDefense.IvyyyAI.Rules;
 
-namespace AI_Strategy
+namespace IvyyyAI
 {
-    public class IvyyyStrategy : AbstractStrategy
+    public class IvyyyStrategy : AI_Strategy.AbstractStrategy
     {
         private List<IvyyyRule> m_rules = new();
 

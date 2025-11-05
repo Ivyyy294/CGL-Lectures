@@ -1,11 +1,6 @@
-﻿using AI_Strategy;
-using GameFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using GameFramework;
 
-namespace tower_defence.AI_TowerDefense.IvyyyAI.Rules
+namespace IvyyyAI
 {
     public class IvyyyDeploySoldierRule : IvyyyRule
     {

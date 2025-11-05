@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AI_Strategy
+namespace IvyyyAI
 {
     /*
      * This class derives from Soldier and provides a new move method. Your assignment should

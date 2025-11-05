@@ -1,12 +1,11 @@
 ﻿using Agent_System;
+using AI_Strategy;
 using AI_TowerDefense;
 using GameFramework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using tower_defence.AI_TowerDefense.IvyyyAI;
 
-namespace AI_Strategy
+namespace IvyyyAI
 {
     public class TowerDefenseAgentState : AgentState<TowerDefensePerception>
     {
@@ -27,13 +26,10 @@ namespace AI_Strategy
 
         public TowerDefensePerception.ActionTyp ActionTyp {get; private set;}
 
-        public ActiveRegimentSettings ActiveRegimentSettings { get; set; }
 
         //Enemy Spawn
         public TowerDefenseAgentState()
         {
-            ActiveRegimentSettings = new ActiveRegimentSettings();
-            
             //Init Tower Blocks
             m_towerBlocks = new ();
 
@@ -55,7 +51,7 @@ namespace AI_Strategy
             //Init Attack Lanes
             m_attackLanes = new ();
 
-            for (int c = 0; c < PlayerLane.WIDTH - 2; c += 1)
+            for (int c = 0; c < PlayerLane.WIDTH - 1; c += 2)
                 m_attackLanes.Add(new IvyyyAttackLane(c, 3));
 
             TowerList = new List<IvyyyPosition>();
@@ -78,11 +74,6 @@ namespace AI_Strategy
             m_actionInputParameters.Add ("StartPhase", GetStartPhase);
             m_actionInputParameters.Add ("DeployTowers", GetDeployTowers);
             m_actionInputParameters.Add ("DeploySoldiers", GetDeploySoldiers);
-            m_actionInputParameters.Add ("CanBuySoldiers", GetCanBuySoldiers);
-
-            //Regiment
-            m_actionInputParameters.Add ("RegimentComplete", GetRegimentComplete);
-            m_actionInputParameters.Add ("ActiveRegimentSettings", GetActiveRegimentSettings);
 
             //TowerBlock
             m_actionInputParameters.Add ("ThreatenedCount", GetThreatenedCount);
@@ -207,33 +198,6 @@ namespace AI_Strategy
         private float GetDeployTowers(object target)
         {
             return ActionTyp == TowerDefensePerception.ActionTyp.DeployTowers ? 1.0f : 0f;
-        }
-
-        private float GetActiveRegimentSettings(object target)
-        {
-            return ActiveRegimentSettings != null ? 1f : 0f;
-
-            //bool upgrade = Gold > ActiveRegimentSettings.Depth * (ActiveRegimentSettings.Width + 1) * 2;
-            //bool downgrade = Gold < (ActiveRegimentSettings.Width - 1) * 2;
-
-            //return (upgrade
-            //    || downgrade) ? 1f : 0f;
-        }
-
-        private float GetRegimentComplete(object target)
-        {
-            if (ActiveRegimentSettings == null)
-                return 0f;
-            return ActiveRegimentSettings.IsRegimentComplete() ? 1f : 0f;
-        }
-
-        private float GetCanBuySoldiers(object target)
-        {
-            if (ActiveRegimentSettings == null
-                || ActiveRegimentSettings.IsRowComplete (0))
-                return 0f;
-
-            return Gold >= ActiveRegimentSettings.Width * 2f ? 1f : 0f;
         }
 
         private float GetCanBuyTowers(object target)

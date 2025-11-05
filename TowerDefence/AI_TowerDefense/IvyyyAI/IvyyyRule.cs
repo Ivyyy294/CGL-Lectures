@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using tower_defence.AI_TowerDefense.IvyyyAI;
+﻿using System.Collections.Generic;
 
-namespace AI_Strategy
+namespace IvyyyAI
 {
     public abstract class IvyyyRule
     {

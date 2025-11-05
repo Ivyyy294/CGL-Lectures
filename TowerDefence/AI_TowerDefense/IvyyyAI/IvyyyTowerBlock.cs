@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace AI_Strategy
+namespace IvyyyAI
 {
     public class IvyyyTowerBlock
     {

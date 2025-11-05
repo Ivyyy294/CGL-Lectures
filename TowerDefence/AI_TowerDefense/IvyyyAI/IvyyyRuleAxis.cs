@@ -1,10 +1,4 @@
-﻿using AI_Strategy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace tower_defence.AI_TowerDefense.IvyyyAI
+﻿namespace IvyyyAI
 {
     public class IvyyyRuleAxis
     {

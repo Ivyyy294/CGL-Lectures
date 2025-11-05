@@ -1,10 +1,6 @@
 ﻿using GameFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace AI_Strategy
+namespace IvyyyAI
 {
     public class TowerDefensePerception
     {

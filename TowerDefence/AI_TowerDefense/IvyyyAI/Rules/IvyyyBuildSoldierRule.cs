@@ -1,8 +1,6 @@
-﻿using AI_Strategy;
-using GameFramework;
-using tower_defence.AI_TowerDefense.IvyyyAI;
+﻿using GameFramework;
 
-namespace AI_Strategy
+namespace IvyyyAI
 {
     public class IvyyyBuildSoldierRule : IvyyyRule
     {
