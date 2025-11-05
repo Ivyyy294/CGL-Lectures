@@ -26,7 +26,7 @@ namespace IvyyyAI
         {
             IvyyyPosition waypoint = new();
 
-            if (!IsTowerInRange(ref waypoint))
+            if (!IsTowerInRange(ref waypoint) || health <= 2)
             {
                 if (m_deployed || posY > 2)
                 {
