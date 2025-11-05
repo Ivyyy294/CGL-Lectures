@@ -51,7 +51,7 @@ namespace IvyyyAI
             //Init Attack Lanes
             m_attackLanes = new ();
 
-            for (int c = 0; c < PlayerLane.WIDTH - 1; c += 2)
+            for (int c = 0; c < PlayerLane.WIDTH - 2; c++)
                 m_attackLanes.Add(new IvyyyAttackLane(c, 3));
 
             TowerList = new List<IvyyyPosition>();

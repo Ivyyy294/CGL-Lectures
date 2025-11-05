@@ -39,12 +39,13 @@ namespace IvyyyAI
                 if (!onLane)
                     continue;
 
-                FriendlySoldierCount++;
+                if (onLane && ! onStandy)
+                    FriendlySoldierCount++;
 
-               if (onLaneZero)
+                if (onLaneZero)
                     FriendlySoldierSpace--;
 
-               if (onStandy && !item.Deployed)
+                if (onStandy && !item.Deployed)
                     FriendlySoldierStandByCount++;
             }
 

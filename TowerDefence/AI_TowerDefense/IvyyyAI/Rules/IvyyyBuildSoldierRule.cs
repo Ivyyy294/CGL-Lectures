@@ -12,8 +12,8 @@ namespace IvyyyAI
             m_axis.Add(new IvyyyRuleAxis("DeploySoldiers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.None)));
 
             m_axis.Add(new IvyyyRuleAxis("LaneEnemyTowerHp", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 1f, 1f, 0f)));
-            //m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 0.5f, 1f, 0.5f, 0f)));
-            m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 1f, 0f, 0f)));
+            m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.5f, 1f, 1f, 0f)));
+            m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 0.5f, 1f, 0.5f, 0f)));
             m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierStandByCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 0.5f, 1f, 0.5f, 0f)));
         }
 
