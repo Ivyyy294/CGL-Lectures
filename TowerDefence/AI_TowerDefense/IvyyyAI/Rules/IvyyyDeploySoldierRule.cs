@@ -4,7 +4,7 @@ namespace IvyyyAI
 {
     public class IvyyyDeploySoldierRule : IvyyyRule
     {
-        public IvyyyDeploySoldierRule(IvyyyState state) : base(state)
+        public IvyyyDeploySoldierRule(IvyyyWorldState state) : base(state)
         {
             m_target = "AttackLanes";
             m_weight = 10f;

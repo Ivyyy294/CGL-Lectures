@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace IvyyyAI
 {
-    public class IvyyyState : AgentState<IvyyyPerception>
+    public class IvyyyWorldState : AgentState<IvyyyPerception>
     {
         public int Gold { get; private set; }
         public int TowerCount { get; private set; }
@@ -29,7 +29,7 @@ namespace IvyyyAI
 
 
         //Enemy Spawn
-        public IvyyyState()
+        public IvyyyWorldState()
         {
             //Init Tower Blocks
             m_towerBlocks = new ();

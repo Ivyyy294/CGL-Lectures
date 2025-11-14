@@ -11,9 +11,9 @@ namespace IvyyyAI
         public float Weight => m_weight;
         public string Target => m_target;
 
-        protected IvyyyState m_worldState;
+        protected IvyyyWorldState m_worldState;
 
-        public IvyyyRule (IvyyyState worldState)
+        public IvyyyRule (IvyyyWorldState worldState)
         {
             m_worldState = worldState;
         }

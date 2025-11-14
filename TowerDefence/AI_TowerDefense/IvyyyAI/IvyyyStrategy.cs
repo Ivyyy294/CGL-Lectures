@@ -11,7 +11,7 @@ namespace IvyyyAI
 
         private List<Tuple<float, Action<object>, object>> m_ratedActions = new();
 
-        private IvyyyState m_worldState = new();
+        private IvyyyWorldState m_worldState = new();
         private IvyyyPerception m_perception = new();
         
         public IvyyyStrategy(Player player) : base(player)

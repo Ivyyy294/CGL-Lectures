@@ -4,7 +4,7 @@ namespace IvyyyAI
 {
     public class IvyyyBuildSoldierRule : IvyyyRule
     {
-        public IvyyyBuildSoldierRule(IvyyyState state) : base(state)
+        public IvyyyBuildSoldierRule(IvyyyWorldState state) : base(state)
         {
             m_target = "AttackLanes";
             m_axis.Add(new IvyyyRuleAxis("GoldCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.75f, 1f, 1f, 0f)));
