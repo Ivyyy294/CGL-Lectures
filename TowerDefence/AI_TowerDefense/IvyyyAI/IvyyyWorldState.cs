@@ -10,6 +10,7 @@ namespace IvyyyAI
 {
     public class IvyyyWorldState : AgentState<IvyyyPerception>
     {
+        private int m_turnCount;
         public int Gold { get; private set; }
         public int TowerCount { get; private set; }
         public int EnemyCount { get; private set; }
@@ -31,6 +32,8 @@ namespace IvyyyAI
         //public methods
         public IvyyyWorldState()
         {
+            m_turnCount = 0;
+
             InitTowerBlocks();
 
             InitAttackLanes();
@@ -44,6 +47,7 @@ namespace IvyyyAI
             m_actionInputParameters.Add ("EnemyCount", GetEnemyCount);
             m_actionInputParameters.Add ("TowerCount", GetTowerCount);
             m_actionInputParameters.Add ("GoldCount", GetGoldCount);
+            m_actionInputParameters.Add ("TurnCount", GetTurnCount);
 
             //ActionInputParameters
             m_targetMap.Add ("TowerBlocks", m_towerBlocks.ToList<object>());
@@ -72,6 +76,11 @@ namespace IvyyyAI
             m_actionInputParameters.Add ("LaneDeploySoldier", GetLaneDeploySoldier);
         }
 
+        private float GetTurnCount(object target)
+        {
+            return (float)m_turnCount / 100f;
+        }
+
         private void InitAttackLanes()
         {
             //Init Attack Lanes
@@ -88,6 +97,7 @@ namespace IvyyyAI
 
         public override void Update(IvyyyPerception perception)
         {
+            m_turnCount++;
             Gold = perception.Player.Gold;
             TowerCount = perception.Player.HomeLane.TowerCount();
             EnemyCount = perception.Player.HomeLane.SoldierCount();
