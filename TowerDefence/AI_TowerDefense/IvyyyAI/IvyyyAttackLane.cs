@@ -44,7 +44,7 @@ namespace IvyyyAI
 
             foreach (var item in enemyTowerList)
             {
-                bool inRange = item.PosX >= m_startX - 2 && item.PosX < m_startX + m_width + 2;
+                bool inRange = item.PosX >= m_startX - 2 && item.PosX < m_startX + m_width + 3;
 
                 if (!inRange)
                     continue;

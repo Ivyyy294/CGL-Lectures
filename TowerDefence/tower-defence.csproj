@@ -86,7 +86,6 @@
     <Compile Include="AI_TowerDefense\GameFramework\Soldier.cs" />
     <Compile Include="AI_TowerDefense\GameFramework\Tower.cs" />
     <Compile Include="AI_TowerDefense\GameFramework\Unit.cs" />
-    <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyyWaitForSoldiers.cs" />
     <Compile Include="AI_TowerDefense\Program.cs" />
     <Compile Include="AI_TowerDefense\TowerDefense.cs" />
   </ItemGroup>

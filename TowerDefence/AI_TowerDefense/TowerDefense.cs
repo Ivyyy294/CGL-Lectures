@@ -54,7 +54,7 @@ namespace AI_TowerDefense
             // here you replace the selected strategy with your strategy class(es).
             // Your strategy should at least be able to beat random!
             
-            _playerAStrategy = new IvyyyStrategy(_playerA);
+            _playerAStrategy = new LaneRunnerStrategy(_playerA);
             _playerBStrategy = new IvyyyStrategy(_playerB);
         }
 

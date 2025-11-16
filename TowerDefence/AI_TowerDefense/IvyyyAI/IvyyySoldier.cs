@@ -19,6 +19,12 @@ namespace IvyyyAI
         {
             m_deployed = true;
         }
+
+        protected override List<Unit> SortTargetsInRange(List<Unit> targets)
+        {
+            return targets.OrderBy(x => x.Health).ToList();
+        }
+
         /*
          * This move method is a mere copy of the base movement method.
          */
