@@ -7,7 +7,7 @@ namespace IvyyyAI
         public IvyyyBuildSoldierRule(IvyyyWorldState state) : base(state)
         {
             m_target = "AttackLanes";
-            m_axis.Add(new IvyyyRuleAxis("TowerCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 2f, 0.0f, 0f)));
+            m_axis.Add(new IvyyyRuleAxis("TowerCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 4f, 0.0f, 0f)));
             m_axis.Add(new IvyyyRuleAxis("CanBuySoldiers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.None)));
 
             m_axis.Add(new IvyyyRuleAxis("LaneEnemyTowerHp", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 0.25f, 2f, 0.75f, 1f)));
