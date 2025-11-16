@@ -179,7 +179,7 @@ namespace IvyyyAI
         private float GetCanBuySoldiers(object target)
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
-            return Player.Gold >= (attackLane.Width) * 3f ? 1f : 0f;
+            return Player.Gold >= (attackLane.Width) * 2f ? 1f : 0f;
         }
 
         private float GetTowerCount(object target)

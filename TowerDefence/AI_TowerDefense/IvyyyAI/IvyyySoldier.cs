@@ -51,10 +51,9 @@ namespace IvyyyAI
 
         private bool IsTowerInRange(ref IvyyyPosition waypoint)
         {
-            return false;
             List<Tower> towers = new List<Tower>();
 
-            for (int x = Math.Max(0, PosX-1); x < Math.Min(7, PosX+1); ++x)
+            for (int x = Math.Max(0, PosX-2); x < Math.Min(7, PosX+2); ++x)
             {
                 for (int y = Math.Max(0, PosY + 1); y < Math.Min(20, PosY + 3); ++y)
                 {

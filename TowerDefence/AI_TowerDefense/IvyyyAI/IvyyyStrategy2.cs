@@ -27,7 +27,7 @@ namespace IvyyyAI
 
         public override void DeploySoldiers()
         {
-            if (counter > 100)
+            if (counter > 5)
             {
                 player.TryBuySoldier<IvyyySoldier>(0);
                 player.TryBuySoldier<IvyyySoldier>(1);
