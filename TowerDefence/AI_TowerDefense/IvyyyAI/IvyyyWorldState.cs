@@ -28,26 +28,10 @@ namespace IvyyyAI
         public IvyyyPerception.ActionTyp ActionTyp {get; private set;}
 
 
-        //Enemy Spawn
+        //public methods
         public IvyyyWorldState()
         {
-            //Init Tower Blocks
-            m_towerBlocks = new ();
-
-            List<IvyyyPosition> towerRelPos = new();
-            towerRelPos.Add(new IvyyyPosition(1, 0));
-            towerRelPos.Add(new IvyyyPosition(1, 2));
-            towerRelPos.Add(new IvyyyPosition(0, 1));
-            towerRelPos.Add(new IvyyyPosition(2, 1));
-
-            for (int r = 3; r < PlayerLane.HEIGHT - 1; r += 2)
-            {
-                for (int c = 0; c < PlayerLane.WIDTH - 1; c += 2)
-                {
-                    m_towerBlocks.Add(new IvyyyTowerBlock(c, r, 3, 3));
-                    m_towerBlocks.Last().SetTowerList(towerRelPos);
-                }
-            }
+            InitTowerBlocks();
 
             //Init Attack Lanes
             m_attackLanes = new ();
@@ -93,11 +77,6 @@ namespace IvyyyAI
             m_actionInputParameters.Add ("LaneDeploySoldier", GetLaneDeploySoldier);
         }
 
-        private float GetCanBuySoldiers(object target)
-        {
-            return Player.Gold >= 2 ? 1f : 0f;
-        }
-
         public override void Update(IvyyyPerception perception)
         {
             Gold = perception.Player.Gold;
@@ -125,6 +104,26 @@ namespace IvyyyAI
                 cost += Tower.COSTS + count;
 
             return cost;
+        }
+
+        //Private Methods
+        private void InitTowerBlocks()
+        {
+            m_towerBlocks = new();
+
+            List<IvyyyPosition> towerRelPos = new();
+            towerRelPos.Add(new IvyyyPosition(1, 0));
+            towerRelPos.Add(new IvyyyPosition(0, 1));
+            towerRelPos.Add(new IvyyyPosition(2, 1));
+
+            for (int r = 3; r < PlayerLane.HEIGHT - 1; r += 2)
+            {
+                for (int c = 0; c < PlayerLane.WIDTH - 1; c += 2)
+                {
+                    m_towerBlocks.Add(new IvyyyTowerBlock(c, r, 3, 2));
+                    m_towerBlocks.Last().SetTowerList(towerRelPos);
+                }
+            }
         }
 
         private void ScaneForUnits (IvyyyPerception perception)
@@ -170,6 +169,10 @@ namespace IvyyyAI
         }
 
         //Get methods
+        private float GetCanBuySoldiers(object target)
+        {
+            return Player.Gold >= 2 ? 1f : 0f;
+        }
 
         private float GetGoldCount(object target)
         {
@@ -214,7 +217,7 @@ namespace IvyyyAI
         private float GetCanBuyTowers(object target)
         {
             IvyyyTowerBlock block = (IvyyyTowerBlock) target;
-            int goldRequired = GetTowerCost(5 - block.TowerCount);
+            int goldRequired = GetTowerCost(block.TowerSlots.Count - block.TowerCount);
 
             return Gold >= goldRequired ? 1f : 0f;
         }
@@ -222,7 +225,8 @@ namespace IvyyyAI
         private float GetTargetsInReach(object target)
         {
             IvyyyTowerBlock block = (IvyyyTowerBlock) target;
-            return block.InReachCount / 24f;
+            int maxTargetCount = block.ReachSize - block.Size;
+            return (float)block.InReachCount / (float)maxTargetCount;
         }
 
         private float GetDeploySoldiers(object target)
@@ -237,13 +241,15 @@ namespace IvyyyAI
 
             int count = 0;
 
-            foreach ( var item in block.TowerSlots )
+            foreach (var item in block.TowerSlots)
             {
-                if (Player.HomeLane.GetCellAt (item.x, item.y).Unit == null)
+                if (Player.HomeLane.GetCellAt(item.x, item.y).Unit != null)
                     ++count;
             }
 
-            return (float)count / 4f;
+            return (block.TowerSlots.Count - count) / block.TowerSlots.Count;
+
+            //return (float)count / block.TowerSlots.Count;
         }
 
         private float GetThreatenedCount(object target)
