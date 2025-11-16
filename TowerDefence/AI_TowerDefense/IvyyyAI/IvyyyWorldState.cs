@@ -33,11 +33,7 @@ namespace IvyyyAI
         {
             InitTowerBlocks();
 
-            //Init Attack Lanes
-            m_attackLanes = new ();
-
-            for (int c = 0; c + 2 < PlayerLane.WIDTH; c++)
-                m_attackLanes.Add(new IvyyyAttackLane(c, 3));
+            InitAttackLanes();
 
             TowerList = new List<IvyyyPosition>();
             EnemyList = new List<IvyyyPosition>();
@@ -71,10 +67,23 @@ namespace IvyyyAI
             //AttackLanes
             m_actionInputParameters.Add ("CanBuySoldiers", GetCanBuySoldiers);
             m_actionInputParameters.Add ("LaneEnemyTowerHp", GetLaneEnemyTowerHp);
-            m_actionInputParameters.Add ("LaneFriendlySoldierCount", GetLaneFriendlySoldierCount);
             m_actionInputParameters.Add ("LaneFriendlySoldierStandByCount", GetLaneFriendlySoldierStandByCount);
             m_actionInputParameters.Add ("LaneFriendlySoldierSpace", GetLaneFriendlySoldierSpace);
             m_actionInputParameters.Add ("LaneDeploySoldier", GetLaneDeploySoldier);
+        }
+
+        private void InitAttackLanes()
+        {
+            //Init Attack Lanes
+            m_attackLanes = new();
+
+            for (int c = 0; c + 2 < PlayerLane.WIDTH; c++)
+                m_attackLanes.Add(new IvyyyAttackLane(c, 3));
+
+            for (int c = 0; c + 4 < PlayerLane.WIDTH; c++)
+                m_attackLanes.Add(new IvyyyAttackLane(c, 5));
+
+            m_attackLanes.Add(new IvyyyAttackLane(0, 7));
         }
 
         public override void Update(IvyyyPerception perception)
@@ -172,7 +181,8 @@ namespace IvyyyAI
         //Get methods
         private float GetCanBuySoldiers(object target)
         {
-            return Player.Gold >= 2 ? 1f : 0f;
+            IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
+            return Player.Gold >= attackLane.Width * 2f ? 1f : 0f;
         }
 
         private float GetGoldCount(object target)
@@ -272,14 +282,6 @@ namespace IvyyyAI
 
             return ((float)attackLane.EnemyTowerHp) / 90;
         }
-
-        private float GetLaneFriendlySoldierCount(object target)
-        {
-            IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
-
-            return ((float)attackLane.FriendlySoldierCount) / 60;
-        }
-
         private float GetLaneFriendlySoldierStandByCount(object target)
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
@@ -291,7 +293,7 @@ namespace IvyyyAI
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
 
-            return ((float)attackLane.FriendlySoldierSpace) / (float)attackLane.Width;
+            return ((float)attackLane.Width) / (float)PlayerLane.WIDTH;
         }
 
         private float GetLaneDeploySoldier(object target)

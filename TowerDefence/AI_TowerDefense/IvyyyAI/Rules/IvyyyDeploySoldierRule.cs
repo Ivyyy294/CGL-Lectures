@@ -9,6 +9,7 @@ namespace IvyyyAI
             m_target = "AttackLanes";
             m_weight = 10f;
             m_axis.Add(new IvyyyRuleAxis("LaneDeploySoldier", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.None)));
+            m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.25f, 2f, 0.75f, 1f)));
         }
 
         public override void Action(object target)
