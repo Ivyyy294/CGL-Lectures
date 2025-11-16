@@ -22,6 +22,7 @@ namespace IvyyyAI
 
         public float Match(object target)
         {
+            float modFactor = 1f - (1f / m_axis.Count);
             float match = 1.0f;
 
             if (m_axis.Count == 0)
@@ -30,7 +31,10 @@ namespace IvyyyAI
             foreach (IvyyyRuleAxis axis in m_axis)
             {
                 float x = m_worldState.GetActionInputParameter(axis.Parameter, target);
-                match *= axis.ResponseCurve.Evaluate (x);
+                float score = axis.ResponseCurve.Evaluate(x);
+                float makeUpValue = (1f - score) * modFactor;
+                score += makeUpValue * score;
+                match *= score;
             }
 
             return match;

@@ -100,6 +100,7 @@ namespace IvyyyAI
         {
             m_ratedActions.Clear();
 
+
             foreach (var rule in m_rules)
             {
                 if (rule.Target == null)

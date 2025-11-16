@@ -113,6 +113,7 @@ namespace IvyyyAI
 
             List<IvyyyPosition> towerRelPos = new();
             towerRelPos.Add(new IvyyyPosition(1, 0));
+            towerRelPos.Add(new IvyyyPosition(1, 2));
             towerRelPos.Add(new IvyyyPosition(0, 1));
             towerRelPos.Add(new IvyyyPosition(2, 1));
 
