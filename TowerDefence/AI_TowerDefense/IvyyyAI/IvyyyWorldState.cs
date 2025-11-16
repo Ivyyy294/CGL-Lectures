@@ -8,9 +8,8 @@ using System.Linq;
 
 namespace IvyyyAI
 {
-    public class IvyyyWorldState : AgentState<IvyyyPerception>
+    public class IvyyyWorldState : IvyyyAgentState<IvyyyPerception>
     {
-        private int m_turnCount;
         public int Gold { get; private set; }
         public int TowerCount { get; private set; }
         public int EnemyCount { get; private set; }
@@ -32,8 +31,6 @@ namespace IvyyyAI
         //public methods
         public IvyyyWorldState()
         {
-            m_turnCount = 0;
-
             InitTowerBlocks();
             InitAttackLanes();
 
@@ -87,7 +84,6 @@ namespace IvyyyAI
 
         public override void Update(IvyyyPerception perception)
         {
-            m_turnCount++;
             Gold = perception.Player.Gold;
             TowerCount = perception.Player.HomeLane.TowerCount();
             EnemyCount = perception.Player.HomeLane.SoldierCount();

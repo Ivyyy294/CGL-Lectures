@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Agent_System
 {
-    public abstract class AgentState <TPerception>
+    public abstract class IvyyyAgentState <TPerception>
     {
         public delegate float ActionInputParameterMethod(object target);
 

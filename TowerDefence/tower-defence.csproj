@@ -46,13 +46,7 @@
     <None Include="AI_TowerDefense\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI_TowerDefense\Agent_System\AgentGoal.cs" />
-    <Compile Include="AI_TowerDefense\Agent_System\AgentState.cs" />
-    <Compile Include="AI_TowerDefense\Agent_System\BenefitOrientedAgent.cs" />
-    <Compile Include="AI_TowerDefense\Agent_System\ObservingAgent.cs" />
-    <Compile Include="AI_TowerDefense\Agent_System\ReflexAgent.cs" />
-    <Compile Include="AI_TowerDefense\Agent_System\AgentRule.cs" />
-    <Compile Include="AI_TowerDefense\Agent_System\TargetedAgent.cs" />
+    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyAgentState.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyAttackLane.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyyBuildSoldierRule.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyyBuildTowerRule.cs" />
@@ -65,19 +59,11 @@
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyWorldState.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyPerception.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\AbstractStrategy.cs" />
-    <Compile Include="AI_TowerDefense\AI_Strategy\ActiveRegimentSettings.cs" />
-    <Compile Include="AI_TowerDefense\Agent_System\Agent.cs" />
-    <Compile Include="AI_TowerDefense\AI_Strategy\DeployRegimentState.cs" />
-    <Compile Include="AI_TowerDefense\AI_Strategy\DeployTowerState.cs" />
-    <Compile Include="AI_TowerDefense\AI_Strategy\LaneRunnerStrategy.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyStrategy.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyySoldier.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\MySoldier.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\RandomStrategy.cs" />
     <Compile Include="AI_TowerDefense\AI_Strategy\RandomStrategyLoggerDemo.cs" />
-    <Compile Include="AI_TowerDefense\AI_Strategy\StrategyState.cs" />
-    <Compile Include="AI_TowerDefense\AI_Strategy\StrategyStateMachine.cs" />
-    <Compile Include="AI_TowerDefense\AI_Strategy\TowerPlacementTestStrategy.cs" />
     <Compile Include="AI_TowerDefense\GameFramework\Cell.cs" />
     <Compile Include="AI_TowerDefense\GameFramework\Logging\DebugLogger.cs" />
     <Compile Include="AI_TowerDefense\GameFramework\Logging\LogCache.cs" />
