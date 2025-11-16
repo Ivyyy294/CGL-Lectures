@@ -120,7 +120,7 @@ namespace IvyyyAI
             {
                 for (int c = 0; c < PlayerLane.WIDTH - 1; c += 2)
                 {
-                    m_towerBlocks.Add(new IvyyyTowerBlock(c, r, 3, 2));
+                    m_towerBlocks.Add(new IvyyyTowerBlock(c, r));
                     m_towerBlocks.Last().SetTowerList(towerRelPos);
                 }
             }
@@ -225,7 +225,7 @@ namespace IvyyyAI
         private float GetTargetsInReach(object target)
         {
             IvyyyTowerBlock block = (IvyyyTowerBlock) target;
-            int maxTargetCount = block.ReachSize - block.Size;
+            int maxTargetCount = block.TowerSlots.Count * 8;
             return (float)block.InReachCount / (float)maxTargetCount;
         }
 

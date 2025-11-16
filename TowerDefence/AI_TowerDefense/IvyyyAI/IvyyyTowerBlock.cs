@@ -6,8 +6,7 @@ namespace IvyyyAI
     {
         int m_startX;
         int m_startY;
-        int m_colums;
-        int m_rows;
+
 
         public int SoldierCount { get; private set; }
         public int TowerCount { get; private set; }
@@ -15,18 +14,13 @@ namespace IvyyyAI
         public int InReachCount { get; private set; }
         public float RatingLevel { get; private set; }
 
-        public int X => m_startX;
-        public int Y => m_startY;
-
         private List<IvyyyPosition> m_towerSlots = new();
         public List<IvyyyPosition> TowerSlots => m_towerSlots;
 
-        public IvyyyTowerBlock(int x, int y, int c, int r)
+        public IvyyyTowerBlock(int x, int y)
         {
             m_startX = x;
             m_startY = y;
-            m_colums = c;
-            m_rows = r;
         }
 
         public void Update(List<IvyyyPosition> enemyList, List<IvyyyPosition> towerList)
@@ -37,30 +31,31 @@ namespace IvyyyAI
             InReachCount = 0;
             RatingLevel = 0;
 
-            foreach (var enemy in enemyList)
+            foreach (var towerPos in m_towerSlots)
             {
-                if (IsPosInside(enemy))
-                    SoldierCount++;
-                else if (IsPosInside(enemy, 1))
+                foreach (var enemy in enemyList)
                 {
-                    InReachCount++;
-                    ThreatenedCount++;
+                    if (IsPosInside(towerPos, enemy, 1))
+                    {
+                        InReachCount++;
+                        ThreatenedCount++;
+                    }
+                    else if (IsPosInside(towerPos, enemy, 2))
+                        InReachCount++;
                 }
-                else if (IsPosInside(enemy, 2))
-                    InReachCount++;
             }
 
             foreach (var tower in towerList)
             {
-                if (IsPosInside(tower))
+                if (m_towerSlots.Contains (tower))
                     TowerCount++;
             }
         }
 
-        private bool IsPosInside(IvyyyPosition pos, int padding = 0)
+        private bool IsPosInside(IvyyyPosition rootPos, IvyyyPosition targetPos, int padding = 0)
         {
-            if (pos.x < m_startX - padding || pos.x > m_startX + m_colums + padding
-                || pos.y < m_startY - padding || pos.y > m_startY + m_rows + padding)
+            if (targetPos.x < rootPos.x - padding || targetPos.x > rootPos.x + padding
+                || targetPos.y < (rootPos.y - padding - 1) || targetPos.y > rootPos.y + padding)
                 return false;
             else
                 return true;
