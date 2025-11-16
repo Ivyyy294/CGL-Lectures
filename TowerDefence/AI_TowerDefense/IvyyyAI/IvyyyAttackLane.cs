@@ -11,6 +11,7 @@ namespace IvyyyAI
 
         //public int EnemyTowerCount {get;private set;}
         public int EnemyTowerHp { get; private set; }
+        public int EnemyTowerInReach { get; private set; }
 
         public int FriendlySoldierStandByCount { get; private set; }
         public int Width => m_width;
@@ -44,13 +45,17 @@ namespace IvyyyAI
 
             foreach (var item in enemyTowerList)
             {
-                bool inRange = item.PosX >= m_startX - 2 && item.PosX < m_startX + m_width + 3;
+                bool isDangerous = item.PosX >= m_startX - 2 && item.PosX < m_startX + m_width + 3;
+                bool inRange = item.PosX >= m_startX - 1 && item.PosX < m_startX + m_width + 1;
 
-                if (!inRange)
+                if (!isDangerous)
                     continue;
 
                 //EnemyTowerCount++;
                 EnemyTowerHp += item.Health;
+                
+                if (inRange)
+                    EnemyTowerInReach++;
             }
         }
     }

@@ -57,9 +57,16 @@ namespace IvyyyAI
             //AttackLanes
             m_actionInputParameters.Add ("CanBuySoldiers", GetCanBuySoldiers);
             m_actionInputParameters.Add ("LaneEnemyTowerHp", GetLaneEnemyTowerHp);
+            m_actionInputParameters.Add ("LaneEnemyTowerInReach", GetEnemyTowerInReach);
             m_actionInputParameters.Add ("LaneFriendlySoldierStandByCount", GetLaneFriendlySoldierStandByCount);
             m_actionInputParameters.Add ("LaneFriendlySoldierSpace", GetLaneFriendlySoldierSpace);
             m_actionInputParameters.Add ("LaneDeploySoldier", GetLaneDeploySoldier);
+        }
+
+        private float GetEnemyTowerInReach(object target)
+        {
+            IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
+            return attackLane.EnemyTowerInReach / 4f;
         }
 
         private void InitAttackLanes()
@@ -67,8 +74,6 @@ namespace IvyyyAI
             //Init Attack Lanes
             m_attackLanes = new();
 
-            InitAttackLane (1);
-            InitAttackLane(2);
             InitAttackLane(3);
             InitAttackLane(4);
             InitAttackLane(5);
@@ -174,12 +179,7 @@ namespace IvyyyAI
         private float GetCanBuySoldiers(object target)
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
-            return Player.Gold >= (attackLane.Width) * 6f ? 1f : 0f;
-        }
-
-        private float GetGoldCount(object target)
-        {
-            return ((float)Gold) / 64f;
+            return Player.Gold >= (attackLane.Width) * 3f ? 1f : 0f;
         }
 
         private float GetTowerCount(object target)
