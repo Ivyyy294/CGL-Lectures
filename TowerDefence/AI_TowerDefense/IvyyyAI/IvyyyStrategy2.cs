@@ -1,4 +1,5 @@
-﻿using GameFramework;
+﻿using AI_Strategy;
+using GameFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace IvyyyAI
                 counter++;
             else
             {
-                player.TryBuySoldier<IvyyySoldier>(0);
+                player.TryBuySoldier<MySoldier>(0);
                 counter = 0;
             }
             //player.TryBuySoldier<IvyyySoldier>(6);
@@ -66,7 +67,7 @@ namespace IvyyyAI
             {
                 player.TryBuyTower<Tower>(1, c + 1);
                 player.TryBuyTower<Tower>(3, c);
-                player.TryBuyTower<Tower>(5, c + 1);
+                player.TryBuyTower<Tower>(6, c + 1);
             }
         }
     }

@@ -10,7 +10,7 @@ namespace IvyyyAI
             m_target = "TowerBlocks";
 
             m_axis.Add (new IvyyyRuleAxis("TargetsInReach", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 3f, 0f, 0f)));
-            m_axis.Add (new IvyyyRuleAxis("FreeTowerSlots", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 4f, 0f, 0f)));
+            m_axis.Add (new IvyyyRuleAxis("FreeTowerSlots", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 8f, 1f, 1f)));
             m_axis.Add (new IvyyyRuleAxis("ThreatenedCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.5f, 2.0f, 1f, 0f)));
             m_axis.Add (new IvyyyRuleAxis ("DeployTower", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
             m_axis.Add (new IvyyyRuleAxis ("CanBuyTowers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
