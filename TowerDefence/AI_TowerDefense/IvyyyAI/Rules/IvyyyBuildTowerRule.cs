@@ -12,7 +12,7 @@ namespace IvyyyAI
             m_axis.Add (new IvyyyRuleAxis("TargetsInReach", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 3f, 0f, 0f)));
             m_axis.Add (new IvyyyRuleAxis("FreeTowerSlots", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 4f, 0f, 0f)));
             m_axis.Add (new IvyyyRuleAxis("ThreatenedCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.5f, 2.0f, 1f, 0f)));
-
+            m_axis.Add (new IvyyyRuleAxis ("DeployTower", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
             m_axis.Add (new IvyyyRuleAxis ("CanBuyTowers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
 
             m_weight = 10f;
@@ -20,6 +20,9 @@ namespace IvyyyAI
 
         public override void Action(object target)
         {
+            if (m_worldState.ActionTyp != IvyyyPerception.ActionTyp.DeployTowers)
+                return;
+
             DebugLogger.Log("#Player" + m_worldState.Player.Name + " Build Tower!");
 
             IvyyyTowerBlock towerBlock = (IvyyyTowerBlock) target;

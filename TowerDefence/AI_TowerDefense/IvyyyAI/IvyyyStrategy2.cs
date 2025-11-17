@@ -27,11 +27,19 @@ namespace IvyyyAI
 
         public override void DeploySoldiers()
         {
-            if (counter > 5)
+            //player.TryBuySoldier<Soldier>(0);
+            //player.TryBuySoldier<Soldier>(1);
+            //player.TryBuySoldier<Soldier>(2);
+            //player.TryBuySoldier<Soldier>(3);
+            //player.TryBuySoldier<Soldier>(4);
+            //player.TryBuySoldier<Soldier>(5);
+            //player.TryBuySoldier<Soldier>(6);
+
+            if (counter > 0)
             {
-                player.TryBuySoldier<IvyyySoldier>(0);
-                player.TryBuySoldier<IvyyySoldier>(1);
-                player.TryBuySoldier<IvyyySoldier>(2);
+                player.TryBuySoldier<Soldier>(0);
+                player.TryBuySoldier<Soldier>(1);
+                player.TryBuySoldier<Soldier>(2);
             }
 
             counter++;

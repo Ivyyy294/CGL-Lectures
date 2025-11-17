@@ -46,7 +46,7 @@ namespace IvyyyAI
             //Base Stats
             m_actionInputParameters.Add ("EnemyCount", GetEnemyCount);
             m_actionInputParameters.Add ("TowerCount", GetTowerCount);
-
+            m_actionInputParameters.Add ("DeployTower", GetDeployTower);
 
             //TowerBlock
             m_actionInputParameters.Add ("ThreatenedCount", GetThreatenedCount);
@@ -61,6 +61,11 @@ namespace IvyyyAI
             m_actionInputParameters.Add ("LaneFriendlySoldierStandByCount", GetLaneFriendlySoldierStandByCount);
             m_actionInputParameters.Add ("LaneFriendlySoldierSpace", GetLaneFriendlySoldierSpace);
             m_actionInputParameters.Add ("LaneDeploySoldier", GetLaneDeploySoldier);
+        }
+
+        private float GetDeployTower(object target)
+        {
+            return ActionTyp == IvyyyPerception.ActionTyp.DeployTowers ? 1f : 0f;
         }
 
         private float GetEnemyTowerInReach(object target)

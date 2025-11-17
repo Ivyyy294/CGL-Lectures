@@ -65,25 +65,16 @@ namespace IvyyyAI
         //Private Methods
         private void AgentLoop()
         {
-            Action<object> lastAction = null;
+            m_worldState.Update(m_perception);
 
-            while (true)
-            {
-                m_worldState.Update(m_perception);
+            RateActions();
 
-                RateActions();
-
-                var action = SelectAction();
+            var action = SelectAction();
             
-                if (action == null
-                    || lastAction == action.Item2)
-                    return;
-                else
-                {
-                    action.Item2(action.Item3);
-                    lastAction = action.Item2;
-                }
-            }
+            if (action == null)
+                return;
+            else
+                action.Item2(action.Item3);
         }
 
         private Tuple<float, Action<object>, object> SelectAction ()
