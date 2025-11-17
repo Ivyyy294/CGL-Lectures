@@ -27,25 +27,25 @@ namespace IvyyyAI
 
         public override void DeploySoldiers()
         {
-            //player.TryBuySoldier<Soldier>(0);
-            //player.TryBuySoldier<Soldier>(1);
-            //player.TryBuySoldier<Soldier>(2);
-            //player.TryBuySoldier<Soldier>(3);
-            //player.TryBuySoldier<Soldier>(4);
-            //player.TryBuySoldier<Soldier>(5);
-            //player.TryBuySoldier<Soldier>(6);
+            //player.TryBuySoldier<IvyyySoldier>(0);
+            //player.TryBuySoldier<IvyyySoldier>(1);
+            //player.TryBuySoldier<IvyyySoldier>(2);
+            //player.TryBuySoldier<IvyyySoldier>(3);
+            //player.TryBuySoldier<IvyyySoldier>(4);
+            //player.TryBuySoldier<IvyyySoldier>(5);
+            //player.TryBuySoldier<IvyyySoldier>(6);
 
-            if (counter > 0)
-            {
-                player.TryBuySoldier<Soldier>(0);
-                player.TryBuySoldier<Soldier>(1);
-                player.TryBuySoldier<Soldier>(2);
-            }
+            //if (counter > 0)
+            //{
+            //    player.TryBuySoldier<IvyyySoldier>(0);
+            //    player.TryBuySoldier<IvyyySoldier>(1);
+            //    player.TryBuySoldier<IvyyySoldier>(2);
+            //}
+
+            if (counter < 4)
+                player.TryBuySoldier<IvyyySoldier>(0);
 
             counter++;
-            //if (bla)
-            //    player.TryBuySoldier<IvyyySoldier>(0);
-
             //bla = !bla;
         }
 
@@ -53,9 +53,9 @@ namespace IvyyyAI
         {
             for (int c = 3; c < PlayerLane.HEIGHT; ++c)
             {
-                player.TryBuyTower<Tower>(2, c);
+                player.TryBuyTower<Tower>(2, c+1);
                 player.TryBuyTower<Tower>(3, c);
-                player.TryBuyTower<Tower>(4, c);
+                player.TryBuyTower<Tower>(4, c+1);
             }
         }
     }

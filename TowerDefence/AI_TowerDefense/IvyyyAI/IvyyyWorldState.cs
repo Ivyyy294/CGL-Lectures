@@ -47,6 +47,7 @@ namespace IvyyyAI
             m_actionInputParameters.Add ("EnemyCount", GetEnemyCount);
             m_actionInputParameters.Add ("TowerCount", GetTowerCount);
             m_actionInputParameters.Add ("DeployTower", GetDeployTower);
+            m_actionInputParameters.Add ("GetGold", GetGold);
 
             //TowerBlock
             m_actionInputParameters.Add ("ThreatenedCount", GetThreatenedCount);
@@ -61,6 +62,24 @@ namespace IvyyyAI
             m_actionInputParameters.Add ("LaneFriendlySoldierStandByCount", GetLaneFriendlySoldierStandByCount);
             m_actionInputParameters.Add ("LaneFriendlySoldierSpace", GetLaneFriendlySoldierSpace);
             m_actionInputParameters.Add ("LaneDeploySoldier", GetLaneDeploySoldier);
+            m_actionInputParameters.Add ("LaneSuccessFactor", GetLaneSuccessFactor);
+        }
+
+        private float GetGold(object target)
+        {
+            return (float)Gold / 42f;
+        }
+
+        private float GetLaneSuccessFactor(object target)
+        {
+            IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
+
+            if (attackLane.EnemyTowerHp == 0)
+                return 1f;
+
+            float val = ((float)attackLane.Width * 3f * 6f) / (float)attackLane.EnemyTowerHp;
+            return val;
+            //return ((float)attackLane.EnemyTowerHp) / 90;
         }
 
         private float GetDeployTower(object target)
@@ -128,7 +147,6 @@ namespace IvyyyAI
 
             List<IvyyyPosition> towerRelPos = new();
             towerRelPos.Add(new IvyyyPosition(1, 0));
-            //towerRelPos.Add(new IvyyyPosition(1, 2));
             towerRelPos.Add(new IvyyyPosition(0, 1));
             towerRelPos.Add(new IvyyyPosition(2, 1));
 
@@ -184,12 +202,12 @@ namespace IvyyyAI
         private float GetCanBuySoldiers(object target)
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
-            return Player.Gold >= (attackLane.Width) * 2f ? 1f : 0f;
+            return Player.Gold >= (attackLane.Width) * 2f * 2f ? 1f : 0f;
         }
 
         private float GetTowerCount(object target)
         {
-            return ((float)TowerCount) / 16f;
+            return ((float)TowerCount) / 20f;
         }
 
         private float GetEnemyCount(object target)
@@ -241,7 +259,12 @@ namespace IvyyyAI
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
 
-            return ((float)attackLane.EnemyTowerHp) / 90;
+            if (attackLane.EnemyTowerHp == 0)
+                return 1f;
+
+            float val = ((float)attackLane.Width * 6f) / (float)attackLane.EnemyTowerHp;
+            return val;
+            //return ((float)attackLane.EnemyTowerHp) / 90;
         }
         private float GetLaneFriendlySoldierStandByCount(object target)
         {

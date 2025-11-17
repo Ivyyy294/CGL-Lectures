@@ -21,6 +21,7 @@ namespace IvyyyAI
             m_rules.Add (new IvyyyBuildSoldierRule (m_worldState));
             m_rules.Add(new IvyyyDeploySoldierRule (m_worldState));
             m_rules.Add(new IvyyyBuildTowerRule (m_worldState));
+            m_rules.Add(new IvyyySaveResourcesRule(m_worldState));
         }
         public override List<Soldier> SortedSoldierArray(List<Soldier> unsortedList)
         {
