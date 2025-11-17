@@ -98,6 +98,7 @@ namespace IvyyyAI
             //Init Attack Lanes
             m_attackLanes = new();
 
+            InitAttackLane(2);
             InitAttackLane(3);
             InitAttackLane(4);
             InitAttackLane(5);
@@ -202,7 +203,7 @@ namespace IvyyyAI
         private float GetCanBuySoldiers(object target)
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
-            return Player.Gold >= (attackLane.Width) * 2f * 2f ? 1f : 0f;
+            return (float)Player.Gold / ((float)attackLane.Width * 3f *2f);
         }
 
         private float GetTowerCount(object target)

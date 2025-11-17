@@ -27,9 +27,16 @@ namespace IvyyyAI
 
         public override void DeploySoldiers()
         {
-            //player.TryBuySoldier<IvyyySoldier>(0);
-            //player.TryBuySoldier<IvyyySoldier>(1);
-            //player.TryBuySoldier<IvyyySoldier>(2);
+            //if (counter > 2)
+            //{
+            //    player.TryBuySoldier<IvyyySoldier>(0);
+            //    counter = 0;
+            //}
+            //else
+            if (counter < 5)
+                player.TryBuySoldier<IvyyySoldier>(0);
+            counter++;
+            //player.TryBuySoldier<IvyyySoldier>(6);
             //player.TryBuySoldier<IvyyySoldier>(3);
             //player.TryBuySoldier<IvyyySoldier>(4);
             //player.TryBuySoldier<IvyyySoldier>(5);
@@ -42,10 +49,10 @@ namespace IvyyyAI
             //    player.TryBuySoldier<IvyyySoldier>(2);
             //}
 
-            if (counter < 4)
-                player.TryBuySoldier<IvyyySoldier>(0);
 
-            counter++;
+            // player.TryBuySoldier<IvyyySoldier>(0);
+
+            //counter++;
             //bla = !bla;
         }
 
@@ -53,9 +60,9 @@ namespace IvyyyAI
         {
             for (int c = 3; c < PlayerLane.HEIGHT; ++c)
             {
-                player.TryBuyTower<Tower>(2, c+1);
-                player.TryBuyTower<Tower>(3, c);
-                player.TryBuyTower<Tower>(4, c+1);
+                player.TryBuyTower<Tower>(4, c + 1);
+                player.TryBuyTower<Tower>(5, c);
+                player.TryBuyTower<Tower>(6, c + 1);
             }
         }
     }
