@@ -33,9 +33,13 @@ namespace IvyyyAI
             //    counter = 0;
             //}
             //else
-            if (counter < 5)
+            if (counter < 10)
+                counter++;
+            else
+            {
                 player.TryBuySoldier<IvyyySoldier>(0);
-            counter++;
+                counter = 0;
+            }
             //player.TryBuySoldier<IvyyySoldier>(6);
             //player.TryBuySoldier<IvyyySoldier>(3);
             //player.TryBuySoldier<IvyyySoldier>(4);
@@ -60,9 +64,9 @@ namespace IvyyyAI
         {
             for (int c = 3; c < PlayerLane.HEIGHT; ++c)
             {
-                player.TryBuyTower<Tower>(4, c + 1);
-                player.TryBuyTower<Tower>(5, c);
-                player.TryBuyTower<Tower>(6, c + 1);
+                player.TryBuyTower<Tower>(1, c + 1);
+                player.TryBuyTower<Tower>(3, c);
+                player.TryBuyTower<Tower>(5, c + 1);
             }
         }
     }

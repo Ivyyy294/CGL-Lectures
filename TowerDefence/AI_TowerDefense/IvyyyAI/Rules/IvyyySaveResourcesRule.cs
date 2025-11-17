@@ -9,7 +9,7 @@ namespace IvyyyAI
     {
         public IvyyySaveResourcesRule(IvyyyWorldState worldState) : base(worldState)
         {
-            m_axis.Add(new IvyyyRuleAxis("GetGold", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.25f, 4f, 0.25f, 0f)));
+            m_axis.Add(new IvyyyRuleAxis("GetGold", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 0.3f, 4f, 0f, 1f)));
         }
 
         public override void Action(object target)

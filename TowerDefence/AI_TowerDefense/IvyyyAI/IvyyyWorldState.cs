@@ -98,6 +98,7 @@ namespace IvyyyAI
             //Init Attack Lanes
             m_attackLanes = new();
 
+            //InitAttackLane(1);
             InitAttackLane(2);
             InitAttackLane(3);
             InitAttackLane(4);
@@ -260,12 +261,7 @@ namespace IvyyyAI
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
 
-            if (attackLane.EnemyTowerHp == 0)
-                return 1f;
-
-            float val = ((float)attackLane.Width * 6f) / (float)attackLane.EnemyTowerHp;
-            return val;
-            //return ((float)attackLane.EnemyTowerHp) / 90;
+            return ((float)attackLane.EnemyTowerHp) / 90;
         }
         private float GetLaneFriendlySoldierStandByCount(object target)
         {
