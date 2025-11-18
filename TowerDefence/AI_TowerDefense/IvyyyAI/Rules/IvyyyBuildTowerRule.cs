@@ -15,7 +15,7 @@ namespace IvyyyAI
             m_axis.Add (new IvyyyRuleAxis ("DeployTower", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
             m_axis.Add (new IvyyyRuleAxis ("CanBuyTowers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
 
-            m_weight = 5f;
+            m_weight = 10f;
         }
 
         public override void Action(object target)

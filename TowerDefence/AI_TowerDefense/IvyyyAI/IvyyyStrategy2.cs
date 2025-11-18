@@ -65,9 +65,9 @@ namespace IvyyyAI
         {
             for (int c = 3; c < PlayerLane.HEIGHT; ++c)
             {
-                player.TryBuyTower<Tower>(1, c + 1);
-                player.TryBuyTower<Tower>(3, c);
-                player.TryBuyTower<Tower>(6, c + 1);
+                player.TryBuyTower<Tower>(0, c + 1);
+                player.TryBuyTower<Tower>(2, c);
+                player.TryBuyTower<Tower>(3, c + 1);
             }
         }
     }

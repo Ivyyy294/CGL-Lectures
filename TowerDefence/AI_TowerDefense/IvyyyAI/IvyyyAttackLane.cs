@@ -42,6 +42,7 @@ namespace IvyyyAI
 
             //EnemyTowerCount = 0;
             EnemyTowerHp = 0;
+            EnemyTowerInReach = 0;
 
             foreach (var item in enemyTowerList)
             {
