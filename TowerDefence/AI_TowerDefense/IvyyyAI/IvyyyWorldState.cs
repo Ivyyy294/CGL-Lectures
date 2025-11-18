@@ -67,7 +67,7 @@ namespace IvyyyAI
 
         private float GetGold(object target)
         {
-            return (float)Gold / 40f;
+            return (float)Gold / 50f;
         }
 
         private float GetLaneSuccessFactor(object target)
@@ -77,11 +77,12 @@ namespace IvyyyAI
             if (attackLane.EnemyTowerHp == 0)
                 return 1f;
 
-            float requierdSoldiers = (float)attackLane.EnemyTowerHp / 6f;
-            float requierdGold = requierdSoldiers * 2f;
+            //float requierdSoldiers = (float)attackLane.EnemyTowerHp / 6f;
+            //float requierdGold = requierdSoldiers * 2f;
 
-            float val = Gold / requierdGold;
-            
+            //float val = Gold / requierdGold;
+            float val =  (attackLane.Width * 3f * 6f) / (float)attackLane.EnemyTowerHp;
+
             return val;
             //return ((float)attackLane.EnemyTowerHp) / 90;
         }
@@ -214,7 +215,7 @@ namespace IvyyyAI
 
         private float GetTowerCount(object target)
         {
-            return ((float)TowerCount) / 8f;
+            return ((float)TowerCount) / 16f;
         }
 
         private float GetEnemyCount(object target)

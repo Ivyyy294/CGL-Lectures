@@ -34,30 +34,30 @@ namespace IvyyyAI
             //    counter = 0;
             //}
             //else
-            if (counter < 10)
-                counter++;
-            else
-            {
-                player.TryBuySoldier<MySoldier>(0);
-                counter = 0;
-            }
+            //if (counter < 20)
+            //    counter++;
+            //else
+            //{
+            //    player.TryBuySoldier<MySoldier>(0);
+            //    counter = 0;
+            //}
             //player.TryBuySoldier<IvyyySoldier>(6);
             //player.TryBuySoldier<IvyyySoldier>(3);
             //player.TryBuySoldier<IvyyySoldier>(4);
             //player.TryBuySoldier<IvyyySoldier>(5);
             //player.TryBuySoldier<IvyyySoldier>(6);
 
-            //if (counter > 0)
-            //{
-            //    player.TryBuySoldier<IvyyySoldier>(0);
-            //    player.TryBuySoldier<IvyyySoldier>(1);
-            //    player.TryBuySoldier<IvyyySoldier>(2);
-            //}
+            if (counter > 500)
+            {
+                player.TryBuySoldier<IvyyySoldier>(0);
+                player.TryBuySoldier<IvyyySoldier>(1);
+                player.TryBuySoldier<IvyyySoldier>(2);
+            }
 
 
             // player.TryBuySoldier<IvyyySoldier>(0);
 
-            //counter++;
+            counter++;
             //bla = !bla;
         }
 
@@ -65,9 +65,13 @@ namespace IvyyyAI
         {
             for (int c = 3; c < PlayerLane.HEIGHT; ++c)
             {
-                player.TryBuyTower<Tower>(0, c + 1);
+                player.TryBuyTower<Tower>(0, c);
+                player.TryBuyTower<Tower>(1, c + 1);
                 player.TryBuyTower<Tower>(2, c);
                 player.TryBuyTower<Tower>(3, c + 1);
+                player.TryBuyTower<Tower>(4, c);
+                //player.TryBuyTower<Tower>(5, c + 1);
+                //player.TryBuyTower<Tower>(6, c);
             }
         }
     }

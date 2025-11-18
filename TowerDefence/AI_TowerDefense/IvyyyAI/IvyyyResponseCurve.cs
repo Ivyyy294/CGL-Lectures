@@ -63,7 +63,7 @@ namespace IvyyyAI
         private float EvaluateLogistic(float x)
         {
             float dividor = 1f + (float)Math.Pow(1000f * Math.E * m_m, -1f * x + m_c);
-            return (m_k * (1f / dividor)) + m_b;
+            return m_k * (1f / dividor) + m_b;
         }
     }
 }
