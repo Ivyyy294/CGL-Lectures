@@ -166,6 +166,21 @@ namespace IvyyyAI
                     m_towerBlocks.Last().SetTowerList(towerRelPos);
                 }
             }
+
+            towerRelPos.Clear();
+            towerRelPos.Add(new IvyyyPosition(0, 0));
+            towerRelPos.Add(new IvyyyPosition(0, 2));
+            towerRelPos.Add(new IvyyyPosition(0, 4));
+            towerRelPos.Add(new IvyyyPosition(0, 6));
+
+            for (int r = 3; r < PlayerLane.HEIGHT - 5; r += 2)
+            {
+                for (int c = 1; c < PlayerLane.WIDTH - 1; c += 2)
+                {
+                    m_towerBlocks.Add(new IvyyyTowerBlock(c, r));
+                    m_towerBlocks.Last().SetTowerList(towerRelPos);
+                }
+            }
         }
 
         private void ScaneForUnits (IvyyyPerception perception)
@@ -215,7 +230,7 @@ namespace IvyyyAI
 
         private float GetTowerCount(object target)
         {
-            return ((float)TowerCount) / 16f;
+            return ((float)TowerCount) / 20f;
         }
 
         private float GetEnemyCount(object target)

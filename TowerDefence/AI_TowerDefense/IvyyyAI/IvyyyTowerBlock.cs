@@ -55,7 +55,7 @@ namespace IvyyyAI
         private bool IsPosInside(IvyyyPosition rootPos, IvyyyPosition targetPos, int padding = 0)
         {
             if (targetPos.x < rootPos.x - padding || targetPos.x > rootPos.x + padding
-                || targetPos.y < (rootPos.y - padding - 1) || targetPos.y > rootPos.y + padding)
+                || targetPos.y < (rootPos.y - padding - 2) || targetPos.y > rootPos.y + padding)
                 return false;
             else
                 return true;
