@@ -164,9 +164,11 @@ namespace IvyyyAI
             towerRelPos.Add(new IvyyyPosition(4, 0));
             towerRelPos.Add(new IvyyyPosition(6, 0));
 
-
-            m_towerBlocks.Add(new IvyyyTowerBlock(0, 8));
-            m_towerBlocks.Last().SetTowerList(towerRelPos);
+            for (int r = 8; r < PlayerLane.HEIGHT; r += 2)
+            {
+                m_towerBlocks.Add(new IvyyyTowerBlock(0, r));
+                m_towerBlocks.Last().SetTowerList(towerRelPos);
+            }
 
             towerRelPos.Clear();
 
@@ -174,18 +176,11 @@ namespace IvyyyAI
             towerRelPos.Add(new IvyyyPosition(3, 0));
             towerRelPos.Add(new IvyyyPosition(5, 0));
 
-            m_towerBlocks.Add(new IvyyyTowerBlock(0, 9));
-            m_towerBlocks.Last().SetTowerList(towerRelPos);
-
-            towerRelPos.Clear();
-
-            towerRelPos.Add(new IvyyyPosition(0, 0));
-            towerRelPos.Add(new IvyyyPosition(2, 0));
-            towerRelPos.Add(new IvyyyPosition(4, 0));
-            towerRelPos.Add(new IvyyyPosition(6, 0));
-
-            m_towerBlocks.Add(new IvyyyTowerBlock(0, 10));
-            m_towerBlocks.Last().SetTowerList(towerRelPos);
+            for (int r = 9; r < PlayerLane.HEIGHT; r += 2)
+            {
+                m_towerBlocks.Add(new IvyyyTowerBlock(0, r));
+                m_towerBlocks.Last().SetTowerList(towerRelPos);
+            }
         }
 
         private void ScaneForUnits (IvyyyPerception perception)
@@ -248,7 +243,7 @@ namespace IvyyyAI
 
         private float GetTowerCount(object target)
         {
-            return ((float)TowerCount) / 20f;
+            return ((float)TowerCount) / 11f;
         }
 
         private float GetEnemyCount(object target)
@@ -267,7 +262,7 @@ namespace IvyyyAI
         private float GetTargetsInReach(object target)
         {
             IvyyyTowerBlock block = (IvyyyTowerBlock) target;
-            int maxTargetCount = block.TowerSlots.Count * 8;
+            int maxTargetCount = block.TowerSlots.Count * 9;
             return (float)block.InReachCount / (float)maxTargetCount;
         }
 

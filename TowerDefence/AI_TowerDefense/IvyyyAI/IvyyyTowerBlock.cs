@@ -35,12 +35,12 @@ namespace IvyyyAI
             {
                 foreach (var enemy in enemyList)
                 {
-                    if (IsPosInside(towerPos, enemy, 1))
+                    if (IsPosInside(towerPos, enemy, 1, 1))
                     {
                         InReachCount++;
                         ThreatenedCount++;
                     }
-                    else if (IsPosInside(towerPos, enemy, 2))
+                    else if (IsPosInside(towerPos, enemy, 1, 8))
                         InReachCount++;
                 }
             }
@@ -52,10 +52,10 @@ namespace IvyyyAI
             }
         }
 
-        private bool IsPosInside(IvyyyPosition rootPos, IvyyyPosition targetPos, int padding = 0)
+        private bool IsPosInside(IvyyyPosition rootPos, IvyyyPosition targetPos, int paddingX = 0, int paddingY = 0)
         {
-            if (targetPos.x < rootPos.x - padding || targetPos.x > rootPos.x + padding
-                || targetPos.y < (rootPos.y - padding - 2) || targetPos.y > rootPos.y + padding)
+            if (targetPos.x < rootPos.x - paddingX || targetPos.x > rootPos.x + paddingX
+                || targetPos.y < (rootPos.y - paddingY) || targetPos.y > rootPos.y)
                 return false;
             else
                 return true;
