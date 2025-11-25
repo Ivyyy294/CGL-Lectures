@@ -20,7 +20,7 @@ namespace AI_TowerDefense
     {
         public static bool DISPLAY_LOG_MESSAGES = true;
         public static int NORMAL_SPEED_MS = 100;
-        public static int FAST_SPEED_MS = 5;
+        public static int FAST_SPEED_MS = 2;
 
         private bool fastSpeedActivated = false;
 
