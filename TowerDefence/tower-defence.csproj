@@ -78,6 +78,9 @@
     <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyySaveResourcesRule.cs" />
     <Compile Include="AI_TowerDefense\Program.cs" />
     <Compile Include="AI_TowerDefense\TowerDefense.cs" />
+    <Compile Include="GongiSoldier.cs" />
+    <Compile Include="GongiStratIsolated.cs" />
+    <Compile Include="GongiTower.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

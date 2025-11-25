@@ -66,10 +66,12 @@ namespace IvyyyAI
         //Private Methods
         private void AgentLoop()
         {
+            IvyyyRuleDebugLog.m_axisLog.Clear();
+
             m_worldState.Update(m_perception);
 
             RateActions();
-
+            
             var action = SelectAction();
             
             if (action == null)
@@ -91,7 +93,6 @@ namespace IvyyyAI
         {
             m_ratedActions.Clear();
 
-
             foreach (var rule in m_rules)
             {
                 if (rule.Target == null)
@@ -104,7 +105,7 @@ namespace IvyyyAI
                     {
                         float score = rule.Match(target) * rule.Weight;
                         m_ratedActions.Add(new Tuple<float, Action<object>, object>(score, rule.Action, target));
-                        rule.m_debugLog.m_score = score;
+                        IvyyyRuleDebugLog.m_axisLog.Add (new Tuple<string, float> (rule.Target, score));
                     }
                 }
             }

@@ -8,7 +8,6 @@ namespace IvyyyAI
         protected float m_weight = 1.0f;
         protected string m_target = null;
         
-        public IvyyyRuleDebugLog m_debugLog = new();
         public float Weight => m_weight;
         public string Target => m_target;
 
@@ -23,8 +22,6 @@ namespace IvyyyAI
 
         public float Match(object target)
         {
-            m_debugLog.m_axisLog.Clear();
-
             float modFactor = 1f - (1f / m_axis.Count);
             float match = 1.0f;
 
@@ -38,7 +35,7 @@ namespace IvyyyAI
                 float makeUpValue = (1f - score) * modFactor;
                 score += makeUpValue * score;
 
-                m_debugLog.m_axisLog.Add (new System.Tuple<string, float> (axis.Parameter, score));
+                IvyyyRuleDebugLog.m_axisLog.Add (new System.Tuple<string, float> (axis.Parameter, score));
 
                 match *= score;
             }

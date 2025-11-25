@@ -12,7 +12,8 @@ namespace IvyyyAI
         {
             m_weight = 3f;
             m_target = "AttackLanes";
-            m_axis.Add(new IvyyyRuleAxis("CanBuySoldiers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 25f, 1f, 0f)));
+            m_axis.Add(new IvyyyRuleAxis("CanBuyRegiment", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 25f, 1f, 0f)));
+            m_axis.Add(new IvyyyRuleAxis("LaneRowCounter", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 100f, 0f, 1f)));
         }
 
         public override void Action(object target)

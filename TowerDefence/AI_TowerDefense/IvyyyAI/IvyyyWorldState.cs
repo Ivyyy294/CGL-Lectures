@@ -58,6 +58,7 @@ namespace IvyyyAI
             //AttackLanes
             m_actionInputParameters.Add ("CanBuySoldiers", GetCanBuySoldiers);
             m_actionInputParameters.Add ("CanBuyRegiment", GetCanBuyRegiment);
+            m_actionInputParameters.Add ("LaneRowCounter", GetLaneRowCounter);
             m_actionInputParameters.Add ("LaneEnemyTowerHp", GetLaneEnemyTowerHp);
             m_actionInputParameters.Add ("LaneEnemyTowerInReach", GetEnemyTowerInReach);
             m_actionInputParameters.Add ("LaneFriendlySoldierStandByCount", GetLaneFriendlySoldierStandByCount);
@@ -154,33 +155,16 @@ namespace IvyyyAI
             m_towerBlocks = new();
 
             List<IvyyyPosition> towerRelPos = new();
-            towerRelPos.Add(new IvyyyPosition(1, 0));
-            towerRelPos.Add(new IvyyyPosition(1, 2));
-            towerRelPos.Add(new IvyyyPosition(0, 1));
-            towerRelPos.Add(new IvyyyPosition(2, 1));
-
-            for (int r = 3; r < PlayerLane.HEIGHT - 1; r += 2)
-            {
-                for (int c = 0; c < PlayerLane.WIDTH - 1; c += 2)
-                {
-                    m_towerBlocks.Add(new IvyyyTowerBlock(c, r));
-                    m_towerBlocks.Last().SetTowerList(towerRelPos);
-                }
-            }
-
-            towerRelPos.Clear();
             towerRelPos.Add(new IvyyyPosition(0, 0));
+            towerRelPos.Add(new IvyyyPosition(2, 0));
+            towerRelPos.Add(new IvyyyPosition(1, 1));
             towerRelPos.Add(new IvyyyPosition(0, 2));
-            towerRelPos.Add(new IvyyyPosition(0, 4));
-            towerRelPos.Add(new IvyyyPosition(0, 6));
+            towerRelPos.Add(new IvyyyPosition(2, 2));
 
-            for (int r = 3; r < PlayerLane.HEIGHT - 5; r += 2)
+            for (int c = 0; c < PlayerLane.WIDTH - 2; c += 2)
             {
-                for (int c = 1; c < PlayerLane.WIDTH - 1; c += 2)
-                {
-                    m_towerBlocks.Add(new IvyyyTowerBlock(c, r));
-                    m_towerBlocks.Last().SetTowerList(towerRelPos);
-                }
+                m_towerBlocks.Add(new IvyyyTowerBlock(c, 8));
+                m_towerBlocks.Last().SetTowerList(towerRelPos);
             }
         }
 
@@ -233,6 +217,13 @@ namespace IvyyyAI
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
             return (float)Player.Gold / attackLane.RequierdGold;
+        }
+
+        private float GetLaneRowCounter(object target)
+        {
+            IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
+            
+            return (float)attackLane.RowCounter / (float)attackLane.Depth;
         }
 
         private float GetTowerCount(object target)

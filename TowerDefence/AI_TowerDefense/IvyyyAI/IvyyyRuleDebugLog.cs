@@ -5,9 +5,8 @@ using System.Text;
 
 namespace IvyyyAI
 {
-    public class IvyyyRuleDebugLog
+    public static class IvyyyRuleDebugLog
     {
-        public List<Tuple<string, float>> m_axisLog = new();
-        public float m_score;
+        public static List<Tuple<string, float>> m_axisLog = new();
     }
 }

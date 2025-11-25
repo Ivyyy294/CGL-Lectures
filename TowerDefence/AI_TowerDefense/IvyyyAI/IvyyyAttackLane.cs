@@ -19,6 +19,7 @@ namespace IvyyyAI
         public int Depth => m_depth;
         public int StartIndex => m_startX;
         public int RequierdGold => m_width * m_depth * 2;
+        public int RowCounter { get; set; }
 
         public IvyyyAttackLane (int x, int w)
         {

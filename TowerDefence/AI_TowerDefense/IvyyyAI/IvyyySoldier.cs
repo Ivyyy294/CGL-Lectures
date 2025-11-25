@@ -23,7 +23,7 @@ namespace IvyyyAI
 
         protected override List<Unit> SortTargetsInRange(List<Unit> targets)
         {
-            return targets.OrderBy(x => x.Health).ToList();
+            return targets.OrderByDescending(x => x.Health).ToList();
         }
 
         /*
@@ -31,23 +31,20 @@ namespace IvyyyAI
          */
         public override void Move()
         {
-            IvyyyPosition waypoint = new();
 
-            if (!IsTowerInRange(ref waypoint) || health <= 2)
+            if (m_deployed || posY >= Depth)
             {
-                if (m_deployed || posY >= Depth)
-                {
-                    waypoint.x = posX;
-                    waypoint.y = posY+1;
-                }
-                else
-                {
-                    waypoint.x = posX;
-                    waypoint.y = posY + (posY < Depth-1 ? 1 : 0);
-                }
+                base.Move();
+                //waypoint.x = posX;
+                //waypoint.y = posY+1;
             }
-            
-            ApproachWaypoint (ref waypoint);
+            else
+            {
+                IvyyyPosition waypoint = new();
+                waypoint.x = posX;
+                waypoint.y = posY + (posY < Depth-1 ? 1 : 0);
+                ApproachWaypoint (ref waypoint);
+            }
         }
 
         private bool IsTowerInRange(ref IvyyyPosition waypoint)
