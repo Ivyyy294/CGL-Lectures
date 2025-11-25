@@ -13,6 +13,7 @@ namespace IvyyyAI
     {
         bool m_deployed = false;
 
+        public int Depth { get;set;}
         public bool Deployed => m_deployed;
 
         public void Deploy()
@@ -34,7 +35,7 @@ namespace IvyyyAI
 
             if (!IsTowerInRange(ref waypoint) || health <= 2)
             {
-                if (m_deployed || posY > 2)
+                if (m_deployed || posY >= Depth)
                 {
                     waypoint.x = posX;
                     waypoint.y = posY+1;
@@ -42,7 +43,7 @@ namespace IvyyyAI
                 else
                 {
                     waypoint.x = posX;
-                    waypoint.y = posY + (posY < 2 ? 1 : 0);
+                    waypoint.y = posY + (posY < Depth-1 ? 1 : 0);
                 }
             }
             

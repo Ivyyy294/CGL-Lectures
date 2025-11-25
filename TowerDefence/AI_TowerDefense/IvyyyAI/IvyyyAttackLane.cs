@@ -8,6 +8,7 @@ namespace IvyyyAI
     {
         private int m_startX;
         private int m_width;
+        private int m_depth;
 
         //public int EnemyTowerCount {get;private set;}
         public int EnemyTowerHp { get; private set; }
@@ -15,12 +16,15 @@ namespace IvyyyAI
 
         public int FriendlySoldierStandByCount { get; private set; }
         public int Width => m_width;
+        public int Depth => m_depth;
         public int StartIndex => m_startX;
+        public int RequierdGold => m_width * m_depth * 2;
 
         public IvyyyAttackLane (int x, int w)
         {
             m_startX = x;
             m_width = w;
+            m_depth = 7;
         }
 
         public void Update(List<IvyyySoldier> friendlySoldierList, List<Tower> enemyTowerList)
@@ -30,7 +34,7 @@ namespace IvyyyAI
             foreach (var item in friendlySoldierList)
             {
                 bool onLaneZero = item.PosY == 0;
-                bool onStandy = item.PosY >= 0 && item.PosY < 3;
+                bool onStandy = item.PosY >= 0 && item.PosY < Depth;
                 bool onLane = item.PosX >= m_startX && item.PosX < m_startX + m_width;
 
                 if (!onLane)

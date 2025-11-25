@@ -23,7 +23,7 @@ namespace IvyyyAI
             for (int x = 0; x < attackLane.Width; ++x)
             {
                 int xPos = attackLane.StartIndex + x;
-                for (int y = 0; y < 3; ++y)
+                for (int y = 0; y < attackLane.Depth; ++y)
                 {
                     Unit unit = m_worldState.Player.EnemyLane.GetCellAt(xPos, y).Unit;
 

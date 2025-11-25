@@ -101,7 +101,11 @@ namespace IvyyyAI
                     List<object> targetList = m_worldState.GetTargetList (rule.Target);
 
                     foreach (var target in targetList)
-                        m_ratedActions.Add(new Tuple<float, Action<object>, object>(rule.Match(target) * rule.Weight, rule.Action, target));
+                    {
+                        float score = rule.Match(target) * rule.Weight;
+                        m_ratedActions.Add(new Tuple<float, Action<object>, object>(score, rule.Action, target));
+                        rule.m_debugLog.m_score = score;
+                    }
                 }
             }
 
