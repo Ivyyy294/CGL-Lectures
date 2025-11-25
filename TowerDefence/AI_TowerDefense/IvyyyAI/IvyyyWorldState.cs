@@ -15,6 +15,8 @@ namespace IvyyyAI
         public int EnemyCount { get; private set; }
         public int SoldierCount { get; private set; }
         public int RegimentCounter { get; set;}
+        public int RowCounter { get; set; }
+
         public Player Player { get; private set; }
 
         public List <IvyyyPosition> TowerList { get; private set; }
@@ -105,13 +107,15 @@ namespace IvyyyAI
             //Init Attack Lanes
             m_attackLanes = new();
 
+            m_attackLanes.Add(new IvyyyAttackLane(0, 7));
+            //m_attackLanes.Add(new IvyyyAttackLane(0, 5));
             //InitAttackLane(1);
             //InitAttackLane(2);
             //InitAttackLane(3);
             //InitAttackLane(4);
             //InitAttackLane(5);
             //InitAttackLane(6);
-            InitAttackLane(7);
+            //InitAttackLane(7);
         }
 
         private void InitAttackLane (int width)
@@ -157,15 +161,31 @@ namespace IvyyyAI
             List<IvyyyPosition> towerRelPos = new();
             towerRelPos.Add(new IvyyyPosition(0, 0));
             towerRelPos.Add(new IvyyyPosition(2, 0));
-            towerRelPos.Add(new IvyyyPosition(1, 1));
-            towerRelPos.Add(new IvyyyPosition(0, 2));
-            towerRelPos.Add(new IvyyyPosition(2, 2));
+            towerRelPos.Add(new IvyyyPosition(4, 0));
+            towerRelPos.Add(new IvyyyPosition(6, 0));
 
-            for (int c = 0; c < PlayerLane.WIDTH - 2; c += 2)
-            {
-                m_towerBlocks.Add(new IvyyyTowerBlock(c, 8));
-                m_towerBlocks.Last().SetTowerList(towerRelPos);
-            }
+
+            m_towerBlocks.Add(new IvyyyTowerBlock(0, 8));
+            m_towerBlocks.Last().SetTowerList(towerRelPos);
+
+            towerRelPos.Clear();
+
+            towerRelPos.Add(new IvyyyPosition(1, 0));
+            towerRelPos.Add(new IvyyyPosition(3, 0));
+            towerRelPos.Add(new IvyyyPosition(5, 0));
+
+            m_towerBlocks.Add(new IvyyyTowerBlock(0, 9));
+            m_towerBlocks.Last().SetTowerList(towerRelPos);
+
+            towerRelPos.Clear();
+
+            towerRelPos.Add(new IvyyyPosition(0, 0));
+            towerRelPos.Add(new IvyyyPosition(2, 0));
+            towerRelPos.Add(new IvyyyPosition(4, 0));
+            towerRelPos.Add(new IvyyyPosition(6, 0));
+
+            m_towerBlocks.Add(new IvyyyTowerBlock(0, 10));
+            m_towerBlocks.Last().SetTowerList(towerRelPos);
         }
 
         private void ScaneForUnits (IvyyyPerception perception)
@@ -223,7 +243,7 @@ namespace IvyyyAI
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
             
-            return (float)attackLane.RowCounter / (float)attackLane.Depth;
+            return (float)RowCounter / (float)attackLane.Depth;
         }
 
         private float GetTowerCount(object target)

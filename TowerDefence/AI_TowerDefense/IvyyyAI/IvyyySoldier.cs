@@ -31,27 +31,31 @@ namespace IvyyyAI
          */
         public override void Move()
         {
+            IvyyyPosition waypoint = new();
 
-            if (m_deployed || posY >= Depth)
+            if (!IsTowerInRange(ref waypoint))
             {
-                base.Move();
-                //waypoint.x = posX;
-                //waypoint.y = posY+1;
+                if (m_deployed || posY >= Depth)
+                {
+                    base.Move();
+                    waypoint.x = posX;
+                    waypoint.y = posY + 1;
+                }
+                else
+                {
+                    waypoint.x = posX;
+                    waypoint.y = posY + (posY < Depth-1 ? 1 : 0);
+                }
             }
-            else
-            {
-                IvyyyPosition waypoint = new();
-                waypoint.x = posX;
-                waypoint.y = posY + (posY < Depth-1 ? 1 : 0);
-                ApproachWaypoint (ref waypoint);
-            }
+
+            ApproachWaypoint (ref waypoint);
         }
 
         private bool IsTowerInRange(ref IvyyyPosition waypoint)
         {
             List<Tower> towers = new List<Tower>();
 
-            for (int x = Math.Max(0, PosX-2); x < Math.Min(7, PosX+2); ++x)
+            for (int x = Math.Max(0, PosX-1); x < Math.Min(7, PosX+1); ++x)
             {
                 for (int y = Math.Max(0, PosY + 1); y < Math.Min(20, PosY + 3); ++y)
                 {
@@ -62,7 +66,7 @@ namespace IvyyyAI
                 }
             }
 
-            towers = towers.OrderBy(x=>x.Health).ToList();
+            towers = towers.OrderByDescending(x=>x.Health).ToList();
 
             if (towers.Count > 0)
             {

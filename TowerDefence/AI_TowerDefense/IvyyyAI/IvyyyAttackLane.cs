@@ -19,13 +19,12 @@ namespace IvyyyAI
         public int Depth => m_depth;
         public int StartIndex => m_startX;
         public int RequierdGold => m_width * m_depth * 2;
-        public int RowCounter { get; set; }
 
         public IvyyyAttackLane (int x, int w)
         {
             m_startX = x;
             m_width = w;
-            m_depth = 7;
+            m_depth = 9;
         }
 
         public void Update(List<IvyyySoldier> friendlySoldierList, List<Tower> enemyTowerList)

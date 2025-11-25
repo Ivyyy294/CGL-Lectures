@@ -32,14 +32,14 @@ namespace IvyyyAI
             for (int i = 0; i < attackLane.Width; ++i)
             {
                 int xPos = attackLane.StartIndex + i;
-                if (m_worldState.Player.TryBuySoldier<IvyyySoldier>(xPos) == Player.SoldierPlacementResult.Success)
+                if (m_worldState.Player.TryBuySoldier<GongiSoldier>(xPos) == Player.SoldierPlacementResult.Success)
                 {
-                    IvyyySoldier soldier = (IvyyySoldier)m_worldState.Player.EnemyLane.GetCellAt (xPos, 0).Unit;
-                    soldier.Depth = attackLane.Depth;
+                    //IvyyySoldier soldier = (IvyyySoldier)m_worldState.Player.EnemyLane.GetCellAt (xPos, 0).Unit;
+                    //soldier.Depth = attackLane.Depth;
                 }
             }
 
-            attackLane.RowCounter++;
+            m_worldState.RowCounter++;
         }
     }
 }
