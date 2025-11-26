@@ -8,10 +8,15 @@ namespace IvyyyAI
         {
             m_target = "AttackLanes";
             m_weight = 10f;
+
+            //Reduces score if row counter is below AttackLane depth
             m_axis.Add(new IvyyyRuleAxis("LaneRowCounter", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 100f, 0f, 0f)));
+
+            //Favors AttackLanes with more soldiers per row
             m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.25f, 2f, 0.75f, 1f)));
         }
 
+        //Deploys all soldiers on standy, resets row counter
         public override void Action(object target)
         {
             DebugLogger.Log("#Player" + m_worldState.Player.Name + " Deploy Soldier!");

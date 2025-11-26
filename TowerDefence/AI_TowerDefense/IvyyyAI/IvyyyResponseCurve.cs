@@ -18,9 +18,9 @@ namespace IvyyyAI
         {
             None,
             Linear,
-            Exponential,
+            //Exponential,
             Logistic,
-            Logit
+            //Logit
         }
 
         private CurveType m_type;
@@ -38,6 +38,7 @@ namespace IvyyyAI
             m_c = c;
         }
 
+        //returns the normalized axis score
         public float Evaluate (float x)
         {
             float val = x;
@@ -65,6 +66,7 @@ namespace IvyyyAI
             float dividor = 1f + (float)Math.Pow(1000f * Math.E * m_m, -1f * x + m_c);
             float val = m_k * (1f / dividor) + m_b;
 
+            //Logistic curces tend to approach zero but do not reach it within the scale
             if (val < 0.001f)
                 val = 0f;
 

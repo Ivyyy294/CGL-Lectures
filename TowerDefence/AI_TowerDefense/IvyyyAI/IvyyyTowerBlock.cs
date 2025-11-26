@@ -7,9 +7,13 @@ namespace IvyyyAI
         int m_startX;
         int m_startY;
 
+        //Amount of active towers in this block
         public int TowerCount { get; private set; }
+
+        //Amount of soldiers in reach
         public int InReachCount { get; private set; }
 
+        //Tower placement for this block
         private List<IvyyyPosition> m_towerSlots = new();
         public List<IvyyyPosition> TowerSlots => m_towerSlots;
 

@@ -4,8 +4,12 @@ namespace IvyyyAI
 {
     public abstract class IvyyyRule
     {
+        //List of concideration axis
         protected List<IvyyyRuleAxis> m_axis = new();
+
         protected float m_weight = 1.0f;
+        
+        //name of target list
         protected string m_target = null;
         
         public float Weight => m_weight;
@@ -32,11 +36,10 @@ namespace IvyyyAI
             {
                 float x = m_worldState.GetActionInputParameter(axis.Parameter, target);
                 float score = axis.ResponseCurve.Evaluate(x);
+
+                //Apply compensation factor to not punish high axis count
                 float makeUpValue = (1f - score) * modFactor;
                 score += makeUpValue * score;
-
-                IvyyyRuleDebugLog.m_axisLog.Add (new System.Tuple<string, float> (axis.Parameter, score));
-
                 match *= score;
             }
 

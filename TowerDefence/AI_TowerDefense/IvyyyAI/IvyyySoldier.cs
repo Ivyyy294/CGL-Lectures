@@ -27,6 +27,7 @@ namespace IvyyyAI
         public override void Move()
         {
             //Auto deploy if tower in range
+            //Prevents soldiers from being sniped in standby zone
             if (!Deployed && IsTowerInRange())
                 m_deployed = true;
 
@@ -34,6 +35,7 @@ namespace IvyyyAI
             {
                 for (int i = speed; i > 0; i--)
                 {
+                    //Try to reach bottom row
                     if (Deployed)
                     {
                         IvyyyPosition waypoint = new();
@@ -41,7 +43,8 @@ namespace IvyyyAI
                         waypoint.y = posY + 1;
                         ApproachWaypoint(ref waypoint);
                     }
-                    else
+                    //Move until border of standby zone
+                    else if (posY < Depth)
                         MoveTo(posX, PosY+1);
                 }
             }

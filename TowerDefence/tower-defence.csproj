@@ -48,9 +48,6 @@
   <ItemGroup>
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyAgentState.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyAttackLane.cs" />
-    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyRuleDebugLog.cs" />
-    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyStrategy3.cs" />
-    <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyStrategy2.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\IvyyyTower.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyyBuildSoldierRule.cs" />
     <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyyBuildTowerRule.cs" />

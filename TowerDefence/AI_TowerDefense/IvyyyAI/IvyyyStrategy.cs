@@ -25,11 +25,13 @@ namespace IvyyyAI
         }
         public override List<Soldier> SortedSoldierArray(List<Soldier> unsortedList)
         {
+            //Soldiers act from bottom up
             return unsortedList.OrderByDescending(s => s.PosY).ToList();
         }
 
         public override List<Tower> SortedTowerArray(List<Tower> unsortedList)
         {
+            //Towers act from bottom up
             return unsortedList.OrderByDescending(s => s.PosY).ToList();
         }
 
@@ -48,7 +50,6 @@ namespace IvyyyAI
         public override void DeploySoldiers()
         {
             m_perception.CurrentActionTyp = IvyyyPerception.ActionTyp.DeploySoldiers;
-
             AgentLoop();
 
             EndTurn();
@@ -59,15 +60,12 @@ namespace IvyyyAI
             StartTurn();
 
             m_perception.CurrentActionTyp = IvyyyPerception.ActionTyp.DeployTowers;
-
             AgentLoop();
         }
 
         //Private Methods
         private void AgentLoop()
         {
-            IvyyyRuleDebugLog.m_axisLog.Clear();
-
             m_worldState.Update(m_perception);
 
             RateActions();
@@ -95,21 +93,25 @@ namespace IvyyyAI
 
             foreach (var rule in m_rules)
             {
+                //We score rules per target
                 if (rule.Target == null)
                     m_ratedActions.Add (new Tuple<float, Action<object>, object> (rule.Match (null) * rule.Weight, rule.Action, null));
                 else
                 {
                     List<object> targetList = m_worldState.GetTargetList (rule.Target);
 
+                    if (targetList == null)
+                        continue;
+
                     foreach (var target in targetList)
                     {
                         float score = rule.Match(target) * rule.Weight;
                         m_ratedActions.Add(new Tuple<float, Action<object>, object>(score, rule.Action, target));
-                        IvyyyRuleDebugLog.m_axisLog.Add (new Tuple<string, float> (rule.Target, score));
                     }
                 }
             }
 
+            //Rule with best score will be first
             m_ratedActions = m_ratedActions.OrderByDescending (x=>x.Item1).ToList<Tuple<float, Action<object>, object>>();
         }
     }

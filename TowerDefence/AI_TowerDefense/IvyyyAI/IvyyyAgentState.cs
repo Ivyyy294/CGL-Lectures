@@ -8,8 +8,10 @@ namespace Agent_System
     {
         public delegate float ActionInputParameterMethod(object target);
 
+        //Dictionary of available input paramters with their get method
         protected Dictionary<string, ActionInputParameterMethod> m_actionInputParameters = new();
 
+        //Dictionary of available target lists
         protected Dictionary<string, List<object>> m_targetMap = new();
 
         public List<object> GetTargetList(string target)
@@ -23,6 +25,7 @@ namespace Agent_System
             }
         }
 
+        //Returns the normalized InputParameter for a target
         public float GetActionInputParameter(string parameterName, object target)
         {
             float val = 0f;
