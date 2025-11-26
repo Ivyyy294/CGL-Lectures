@@ -44,7 +44,7 @@ namespace IvyyyAI
                         ApproachWaypoint(ref waypoint);
                     }
                     //Move until border of standby zone
-                    else if (posY < Depth)
+                    else if (posY < Depth-1)
                         MoveTo(posX, PosY+1);
                 }
             }

@@ -67,6 +67,7 @@ namespace IvyyyAI
             //Init Attack Lanes
             m_attackLanes = new();
 
+            InitAttackLane(3);
             InitAttackLane(4);
             InitAttackLane(5);
             InitAttackLane(6);
@@ -106,7 +107,7 @@ namespace IvyyyAI
             towerRelPos.Add(new IvyyyPosition(4, 0));
             towerRelPos.Add(new IvyyyPosition(6, 0));
 
-            for (int r = 3; r < PlayerLane.HEIGHT; r += 2)
+            for (int r = 3; r < PlayerLane.HEIGHT-2; r += 2)
             {
                 m_towerBlocks.Add(new IvyyyTowerBlock(0, r));
                 m_towerBlocks.Last().SetTowerList(towerRelPos);
@@ -118,7 +119,7 @@ namespace IvyyyAI
             towerRelPos.Add(new IvyyyPosition(3, 0));
             towerRelPos.Add(new IvyyyPosition(5, 0));
 
-            for (int r = 4; r < PlayerLane.HEIGHT; r += 2)
+            for (int r = 4; r < PlayerLane.HEIGHT-2; r += 2)
             {
                 m_towerBlocks.Add(new IvyyyTowerBlock(0, r));
                 m_towerBlocks.Last().SetTowerList(towerRelPos);
@@ -132,7 +133,7 @@ namespace IvyyyAI
 
             for (int c = 0; c < PlayerLane.WIDTH; c += 2)
             {
-                for (int r = 4; r < PlayerLane.HEIGHT - 2; r += 2)
+                for (int r = 4; r < PlayerLane.HEIGHT - 4; r += 2)
                 {
                     m_towerBlocks.Add(new IvyyyTowerBlock(c, r));
                     m_towerBlocks.Last().SetTowerList(towerRelPos);
