@@ -65,7 +65,7 @@ namespace IvyyyAI
             for (int i = 0; i < positions.Count; ++i)
             {
                 IvyyyPosition pos = positions[i];
-                m_worldState.Player.TryBuyTower<GongiTower>(pos.x, pos.y);
+                m_worldState.Player.TryBuyTower<IvyyyTower>(pos.x, pos.y);
             }
         }
     }
