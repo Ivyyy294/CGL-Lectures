@@ -26,18 +26,23 @@ namespace IvyyyAI
 
         public override void Move()
         {
+            //Auto deploy if tower in range
+            if (!Deployed && IsTowerInRange())
+                m_deployed = true;
+
             if (speed > 0 && posY < PlayerLane.HEIGHT)
             {
                 for (int i = speed; i > 0; i--)
                 {
-                    IvyyyPosition waypoint = new();
-                    waypoint.x = posX;
-                    waypoint.y = posY;
-
-                    if (Deployed || posY < Depth)
+                    if (Deployed)
+                    {
+                        IvyyyPosition waypoint = new();
+                        waypoint.x = posX;
                         waypoint.y = posY + 1;
-                    
-                    ApproachWaypoint(ref waypoint);
+                        ApproachWaypoint(ref waypoint);
+                    }
+                    else
+                        MoveTo(posX, PosY+1);
                 }
             }
         }
@@ -52,6 +57,24 @@ namespace IvyyyAI
             if (MoveTo(waypoint.x, PosY - 1)) return;
             if (MoveTo(waypoint.x - 1, PosY - 1)) return;
             if (MoveTo(waypoint.x + 1, PosY - 1)) return;
+        }
+
+        private bool IsTowerInRange()
+        {
+            List<Tower> towers = new List<Tower>();
+
+            for (int x = Math.Max(0, PosX - 2); x < Math.Min(7, PosX + 3); ++x)
+            {
+                for (int y = Math.Max(0, PosY); y < Math.Min(20, PosY + 3); ++y)
+                {
+                    Unit unit = player.EnemyLane.GetCellAt(x, y).Unit;
+
+                    if (unit is Tower)
+                        return true;
+                }
+            }
+
+            return false;
         }
     }
 }

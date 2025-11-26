@@ -56,6 +56,7 @@ namespace AI_TowerDefense
             
             _playerAStrategy = new IvyyyStrategy(_playerA);
             _playerBStrategy = new GongiStratIsolated(_playerB);
+            //_playerBStrategy = new RandomStrategy(_playerB);
         }
 
         public static TowerDefense Instance => instance ??= new TowerDefense();

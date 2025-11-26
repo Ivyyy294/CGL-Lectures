@@ -85,7 +85,7 @@ namespace IvyyyAI
             //float requierdGold = requierdSoldiers * 2f;
 
             //float val = Gold / requierdGold;
-            float val =  (attackLane.Width * 3f * 6f) / (float)attackLane.EnemyTowerHp;
+            float val =  (attackLane.Width * attackLane.Depth * 6f) / ((float)attackLane.EnemyTowerHp * 5f);
 
             return val;
             //return ((float)attackLane.EnemyTowerHp) / 90;
@@ -106,22 +106,8 @@ namespace IvyyyAI
         {
             //Init Attack Lanes
             m_attackLanes = new();
-
+            //m_attackLanes.Add(new IvyyyAttackLane(0, 6));
             m_attackLanes.Add(new IvyyyAttackLane(0, 7));
-            //m_attackLanes.Add(new IvyyyAttackLane(0, 5));
-            //InitAttackLane(1);
-            //InitAttackLane(2);
-            //InitAttackLane(3);
-            //InitAttackLane(4);
-            //InitAttackLane(5);
-            //InitAttackLane(6);
-            //InitAttackLane(7);
-        }
-
-        private void InitAttackLane (int width)
-        {
-            for (int c = 0; c + width - 1 < PlayerLane.WIDTH; c++)
-                m_attackLanes.Add(new IvyyyAttackLane(c, width));
         }
 
         public override void Update(IvyyyPerception perception)
