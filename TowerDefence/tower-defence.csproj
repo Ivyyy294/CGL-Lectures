@@ -81,6 +81,12 @@
     <Compile Include="GongiSoldier.cs" />
     <Compile Include="GongiStratIsolated.cs" />
     <Compile Include="GongiTower.cs" />
+    <Compile Include="Graph.cs" />
+    <Compile Include="LeTudorStrategy.cs" />
+    <Compile Include="Node.cs" />
+    <Compile Include="PriorityQ.cs" />
+    <Compile Include="Soldat.cs" />
+    <Compile Include="Turn.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

@@ -251,7 +251,7 @@ namespace IvyyyAI
         private float GetTargetsInReach(object target)
         {
             IvyyyTowerBlock block = (IvyyyTowerBlock) target;
-            int maxTargetCount = block.TowerSlots.Count * 9;
+            int maxTargetCount = block.TowerSlots.Count * 2;
             return (float)block.InReachCount / (float)maxTargetCount;
         }
 
