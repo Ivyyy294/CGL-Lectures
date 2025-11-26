@@ -153,7 +153,7 @@ namespace IvyyyAI
             towerRelPos.Add(new IvyyyPosition(4, 0));
             towerRelPos.Add(new IvyyyPosition(6, 0));
 
-            for (int r = 8; r < PlayerLane.HEIGHT; r += 2)
+            for (int r = 4; r < PlayerLane.HEIGHT; r += 2)
             {
                 m_towerBlocks.Add(new IvyyyTowerBlock(0, r));
                 m_towerBlocks.Last().SetTowerList(towerRelPos);
@@ -165,7 +165,7 @@ namespace IvyyyAI
             towerRelPos.Add(new IvyyyPosition(3, 0));
             towerRelPos.Add(new IvyyyPosition(5, 0));
 
-            for (int r = 9; r < PlayerLane.HEIGHT; r += 2)
+            for (int r = 5; r < PlayerLane.HEIGHT; r += 2)
             {
                 m_towerBlocks.Add(new IvyyyTowerBlock(0, r));
                 m_towerBlocks.Last().SetTowerList(towerRelPos);
@@ -251,7 +251,7 @@ namespace IvyyyAI
         private float GetTargetsInReach(object target)
         {
             IvyyyTowerBlock block = (IvyyyTowerBlock) target;
-            int maxTargetCount = block.TowerSlots.Count * 2;
+            int maxTargetCount = block.TowerSlots.Count;
             return (float)block.InReachCount / (float)maxTargetCount;
         }
 
