@@ -67,6 +67,7 @@ namespace IvyyyAI
             //Init Attack Lanes
             m_attackLanes = new();
 
+            InitAttackLane(2);
             InitAttackLane(3);
             InitAttackLane(4);
             InitAttackLane(5);
@@ -280,7 +281,7 @@ namespace IvyyyAI
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
 
-            return ((float)attackLane.EnemyTowerHp) / 90;
+            return ((float)attackLane.EnemyTowerHp) / 9;
         }
 
         private float GetLaneFriendlySoldierSpace(object target)
