@@ -9,11 +9,23 @@ namespace IvyyyAI
         {
             m_weight = 1f;
             m_target = "AttackLanes";
+
+            //Not having enough gold to build a complete row reduces score significant
             m_axis.Add(new IvyyyRuleAxis("CanBuySoldiers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 100f, 0f, 0f)));
+            
+            //Prevents soldiers from being spawn during place tower phase
             m_axis.Add(new IvyyyRuleAxis("DeployTower", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 1f, 1f, 0f)));
+
+            //Caps the amount of soldier rows to AttackLane depth
             m_axis.Add(new IvyyyRuleAxis("LaneRowCounter", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 100f, 1f, 0f)));
+            
+            //Reduces the score for an AttackLane according to the tower density
             m_axis.Add(new IvyyyRuleAxis("LaneEnemyTowerHp", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Logistic, 200f, -0.15f, 1f, 0.5f)));
+
+            //Reduces the score for AttackLanes with fewer soldiers per row
             m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.4f, 2f, 1f, 1f)));
+
+            //Reduces the score if the ratio of enemy towers to soldiers per regiment is unfavorable
             m_axis.Add(new IvyyyRuleAxis("LaneSuccessFactor", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Logistic, 500f, 1f, 0f, 0.6f)));
         }
 
