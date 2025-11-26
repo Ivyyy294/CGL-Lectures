@@ -91,9 +91,9 @@ namespace IvyyyAI
             //Init Attack Lanes
             m_attackLanes = new();
 
-            //InitAttackLane (4);
-            //InitAttackLane (5);
-            //InitAttackLane (6);
+            InitAttackLane(4);
+            InitAttackLane(5);
+            InitAttackLane(6);
             InitAttackLane (7);
         }
 
@@ -160,6 +160,20 @@ namespace IvyyyAI
             {
                 m_towerBlocks.Add(new IvyyyTowerBlock(0, r));
                 m_towerBlocks.Last().SetTowerList(towerRelPos);
+            }
+
+            towerRelPos.Clear();
+
+            towerRelPos.Add(new IvyyyPosition(0, 0));
+            towerRelPos.Add(new IvyyyPosition(0, 2));
+
+            for(int c = 0; c < PlayerLane.WIDTH; c += 2)
+            {
+                for (int r = 4; r < PlayerLane.HEIGHT-2; r += 2)
+                {
+                    m_towerBlocks.Add(new IvyyyTowerBlock(c, r));
+                    m_towerBlocks.Last().SetTowerList(towerRelPos);
+                }
             }
         }
 

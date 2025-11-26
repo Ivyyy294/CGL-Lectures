@@ -4,7 +4,6 @@ using IvyyyAI;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Threading;
 
 namespace AI_TowerDefense
 {
@@ -20,7 +19,7 @@ namespace AI_TowerDefense
     {
         public static bool DISPLAY_LOG_MESSAGES = true;
         public static int NORMAL_SPEED_MS = 100;
-        public static int FAST_SPEED_MS = 2;
+        public static int FAST_SPEED_MS = 0;
 
         private bool fastSpeedActivated = false;
 
@@ -55,7 +54,9 @@ namespace AI_TowerDefense
             // Your strategy should at least be able to beat random!
             
             _playerAStrategy = new IvyyyStrategy(_playerA);
+            //_playerBStrategy = new IvyyyStrategy(_playerB);
             _playerBStrategy = new GongiStratIsolated(_playerB);
+            //_playerBStrategy = new IvyyyStrategy2(_playerB);
             //_playerBStrategy = new LeTudorStrategy(_playerB);
             //_playerBStrategy = new IvyyyStrategy2(_playerB);
             //_playerBStrategy = new RandomStrategy(_playerB);
