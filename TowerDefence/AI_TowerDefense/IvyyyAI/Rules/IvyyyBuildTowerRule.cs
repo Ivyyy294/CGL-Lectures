@@ -14,6 +14,7 @@ namespace IvyyyAI
             m_axis.Add (new IvyyyRuleAxis("FreeTowerSlots", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 8f, 1f, 1f)));
             m_axis.Add (new IvyyyRuleAxis ("DeployTower", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear)));
             m_axis.Add (new IvyyyRuleAxis ("CanBuyTowers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Logistic, 500.0f, 1.0f, 0f, 0.5f)));
+            m_axis.Add (new IvyyyRuleAxis ("TowerSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 2f, 1f, 1f)));
 
             m_weight = 10f;
         }

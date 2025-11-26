@@ -12,9 +12,7 @@ namespace IvyyyAI
 
         //public int EnemyTowerCount {get;private set;}
         public int EnemyTowerHp { get; private set; }
-        public int EnemyTowerInReach { get; private set; }
 
-        public int FriendlySoldierStandByCount { get; private set; }
         public int Width => m_width;
         public int Depth => m_depth;
         public int StartIndex => m_startX;
@@ -29,24 +27,7 @@ namespace IvyyyAI
 
         public void Update(List<IvyyySoldier> friendlySoldierList, List<Tower> enemyTowerList)
         {
-            FriendlySoldierStandByCount = 0;
-
-            foreach (var item in friendlySoldierList)
-            {
-                bool onLaneZero = item.PosY == 0;
-                bool onStandy = item.PosY >= 0 && item.PosY < Depth;
-                bool onLane = item.PosX >= m_startX && item.PosX < m_startX + m_width;
-
-                if (!onLane)
-                    continue;
-
-                if (onStandy)
-                    FriendlySoldierStandByCount++;
-            }
-
-            //EnemyTowerCount = 0;
             EnemyTowerHp = 0;
-            EnemyTowerInReach = 0;
 
             foreach (var item in enemyTowerList)
             {
@@ -58,9 +39,6 @@ namespace IvyyyAI
 
                 //EnemyTowerCount++;
                 EnemyTowerHp += item.Health;
-                
-                if (inRange)
-                    EnemyTowerInReach++;
             }
         }
     }

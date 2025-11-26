@@ -7,12 +7,8 @@ namespace IvyyyAI
         int m_startX;
         int m_startY;
 
-
-        public int SoldierCount { get; private set; }
         public int TowerCount { get; private set; }
-        public int ThreatenedCount { get; private set; }
         public int InReachCount { get; private set; }
-        public float RatingLevel { get; private set; }
 
         private List<IvyyyPosition> m_towerSlots = new();
         public List<IvyyyPosition> TowerSlots => m_towerSlots;
@@ -25,22 +21,14 @@ namespace IvyyyAI
 
         public void Update(List<IvyyyPosition> enemyList, List<IvyyyPosition> towerList)
         {
-            SoldierCount = 0;
             TowerCount = 0;
-            ThreatenedCount = 0;
             InReachCount = 0;
-            RatingLevel = 0;
 
             foreach (var towerPos in m_towerSlots)
             {
                 foreach (var enemy in enemyList)
                 {
-                    if (IsPosInside(towerPos, enemy, 1, 1))
-                    {
-                        InReachCount++;
-                        ThreatenedCount++;
-                    }
-                    else if (IsPosInside(towerPos, enemy, 1, 8))
+                    if (IsPosInside(towerPos, enemy, 1, 8))
                         InReachCount++;
                 }
             }
