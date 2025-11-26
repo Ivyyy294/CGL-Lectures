@@ -76,15 +76,6 @@
     <Compile Include="AI_TowerDefense\IvyyyAI\Rules\IvyyySaveResourcesRule.cs" />
     <Compile Include="AI_TowerDefense\Program.cs" />
     <Compile Include="AI_TowerDefense\TowerDefense.cs" />
-    <Compile Include="Gongi\GongiSoldier.cs" />
-    <Compile Include="Gongi\GongiStratIsolated.cs" />
-    <Compile Include="Gongi\GongiTower.cs" />
-    <Compile Include="Tudor\Graph.cs" />
-    <Compile Include="Tudor\LeTudorStrategy.cs" />
-    <Compile Include="Tudor\Node.cs" />
-    <Compile Include="Tudor\PriorityQ.cs" />
-    <Compile Include="Tudor\Soldat.cs" />
-    <Compile Include="Tudor\Turn.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

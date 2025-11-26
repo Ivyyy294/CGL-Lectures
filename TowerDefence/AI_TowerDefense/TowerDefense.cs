@@ -59,7 +59,7 @@ namespace AI_TowerDefense
             //_playerBStrategy = new IvyyyStrategy2(_playerB);
             //_playerBStrategy = new LeTudorStrategy(_playerB);
             //_playerBStrategy = new IvyyyStrategy2(_playerB);
-            _playerBStrategy = new RandomStrategy(_playerB);
+            _playerBStrategy = new IvyyyStrategy(_playerB);
         }
 
         public static TowerDefense Instance => instance ??= new TowerDefense();
