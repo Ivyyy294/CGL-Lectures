@@ -67,8 +67,6 @@ namespace IvyyyAI
             //Init Attack Lanes
             m_attackLanes = new();
 
-            InitAttackLane(2);
-            InitAttackLane(3);
             InitAttackLane(4);
             InitAttackLane(5);
             InitAttackLane(6);
@@ -200,7 +198,7 @@ namespace IvyyyAI
             if (attackLane.EnemyTowerHp == 0)
                 return 1f;
 
-            float val =  (attackLane.Width * attackLane.Depth * 6f) / ((float)attackLane.EnemyTowerHp * 5f);
+            float val =  (attackLane.Width * attackLane.Depth * 6f) / ((float)attackLane.EnemyTowerHp * 10f);
 
             return val;
         }

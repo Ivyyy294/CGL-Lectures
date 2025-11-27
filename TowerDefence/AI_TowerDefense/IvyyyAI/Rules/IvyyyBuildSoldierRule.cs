@@ -19,14 +19,10 @@ namespace IvyyyAI
             //Caps the amount of soldier rows to AttackLane depth
             m_axis.Add(new IvyyyRuleAxis("LaneRowCounter", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 100f, 1f, 0f)));
             
-            //Reduces the score for an AttackLane according to the tower density
-            m_axis.Add(new IvyyyRuleAxis("LaneEnemyTowerHp", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Logistic, 200f, -0.15f, 1f, 0.5f)));
-
-            //Reduces the score for AttackLanes with fewer soldiers per row
-            m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.4f, 2f, 1f, 1f)));
-
-            //Reduces the score if the ratio of enemy towers to soldiers per regiment is unfavorable
-            m_axis.Add(new IvyyyRuleAxis("LaneSuccessFactor", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Logistic, 500f, 1f, 0f, 0.6f)));
+            //Favors lanes with higher soldier count
+            m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.1f, 2f, 1f, 1f)));
+            
+            m_axis.Add(new IvyyyRuleAxis("LaneSuccessFactor", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -6f, 4f, 1f, 0.6f)));
         }
 
         //Build row of soldiers with given with and start index

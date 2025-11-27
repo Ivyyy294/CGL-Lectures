@@ -44,9 +44,9 @@ namespace IvyyyAI
             float val = x;
 
             if (m_type == CurveType.Linear)
-                return EvaluateLinear (x);
+                val = EvaluateLinear (x);
             else if (m_type == CurveType.Logistic)
-                return EvaluateLogistic (x);
+                val = EvaluateLogistic (x);
             
             if (val > 1f)
                 val = 1f;
