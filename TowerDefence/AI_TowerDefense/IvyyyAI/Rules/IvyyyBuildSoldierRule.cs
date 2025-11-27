@@ -11,14 +11,11 @@ namespace IvyyyAI
             m_target = "AttackLanes";
 
             //Not having enough gold to build a complete row reduces score significant
-            m_axis.Add(new IvyyyRuleAxis("CanBuySoldiers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1f, 100f, 0f, 0f)));
+            m_axis.Add(new IvyyyRuleAxis("CanBuySoldiers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.None)));
             
             //Prevents soldiers from being spawn during place tower phase
             m_axis.Add(new IvyyyRuleAxis("DeploySoldiers", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.None)));
 
-            //Caps the amount of soldier rows to AttackLane depth
-            m_axis.Add(new IvyyyRuleAxis("LaneRowCounter", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 100f, 1f, 0f)));
-            
             //Favors lanes with higher soldier count
             m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.1f, 2f, 1f, 1f)));
             

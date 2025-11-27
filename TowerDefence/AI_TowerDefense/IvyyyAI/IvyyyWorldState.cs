@@ -221,7 +221,10 @@ namespace IvyyyAI
         private float GetCanBuySoldiers(object target)
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
-            return (float)Player.Gold / ((float)attackLane.Width * 2f);
+            if (Player.Gold >= attackLane.Width * 2)
+                return 1f;
+            else
+                return 0f;
         }
 
         private float GetCanBuyRegiment(object target)
