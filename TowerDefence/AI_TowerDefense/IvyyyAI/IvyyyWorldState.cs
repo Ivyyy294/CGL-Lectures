@@ -10,21 +10,21 @@ namespace IvyyyAI
 {
     public class IvyyyWorldState : IvyyyAgentState<IvyyyPerception>
     {
-        public int Gold { get; private set; }
-        public int TowerCount { get; private set; }
-        public int RowCounter { get; set; }
-
         public Player Player { get; private set; }
 
-        public List <IvyyyPosition> TowerList { get; private set; }
-        public List <IvyyyPosition> EnemyList { get; private set; }
-        public List <IvyyySoldier> FriendlySoldierList { get; private set; }
-        public List <Tower> EnemyTowerList { get; private set; }
+        private int m_gold;
+        private int m_towerCount;
+        public int RowCounter { get;set;}
+
+        private List <IvyyyPosition> m_towerList;
+        private List <IvyyyPosition> m_enemyList;
+        private List <IvyyySoldier> m_friendlySoldierList;
+        private List<Tower> m_enemyTowerList;
 
         private List<IvyyyTowerBlock> m_towerBlocks;
         private List<IvyyyAttackLane> m_attackLanes;
 
-        public IvyyyPerception.ActionTyp ActionTyp {get; private set;}
+        private IvyyyPerception.ActionTyp m_actionTyp;
 
         //public methods
         public IvyyyWorldState()
@@ -32,10 +32,10 @@ namespace IvyyyAI
             InitTowerBlocks();
             InitAttackLanes();
 
-            TowerList = new List<IvyyyPosition>();
-            EnemyList = new List<IvyyyPosition>();
-            EnemyTowerList = new List<Tower>();
-            FriendlySoldierList = new List<IvyyySoldier>();
+            m_towerList = new List<IvyyyPosition>();
+            m_enemyList = new List<IvyyyPosition>();
+            m_enemyTowerList = new List<Tower>();
+            m_friendlySoldierList = new List<IvyyySoldier>();
 
             //Targets
             m_targetMap.Add ("TowerBlocks", m_towerBlocks.ToList<object>());
@@ -80,18 +80,18 @@ namespace IvyyyAI
 
         public override void Update(IvyyyPerception perception)
         {
-            Gold = perception.Player.Gold;
-            TowerCount = perception.Player.HomeLane.TowerCount();
-            ActionTyp = perception.CurrentActionTyp;
+            m_gold = perception.Player.Gold;
+            m_towerCount = perception.Player.HomeLane.TowerCount();
+            m_actionTyp = perception.CurrentActionTyp;
             Player = perception.Player;
 
             ScaneForUnits(perception);
 
             for (int i = 0; i < m_towerBlocks.Count; ++i)
-                m_towerBlocks[i].Update(EnemyList, TowerList);
+                m_towerBlocks[i].Update(m_enemyList, m_towerList);
 
             for (int i = 0; i < m_attackLanes.Count; ++i)
-                m_attackLanes[i].Update(FriendlySoldierList, EnemyTowerList);
+                m_attackLanes[i].Update(m_friendlySoldierList, m_enemyTowerList);
         }
 
         private void InitTowerBlocks()
@@ -141,10 +141,10 @@ namespace IvyyyAI
 
         private void ScaneForUnits(IvyyyPerception perception)
         {
-            TowerList.Clear();
-            EnemyList.Clear();
-            FriendlySoldierList.Clear();
-            EnemyTowerList.Clear();
+            m_towerList.Clear();
+            m_enemyList.Clear();
+            m_friendlySoldierList.Clear();
+            m_enemyTowerList.Clear();
 
             List<Soldier> enemySoldierList = new();
 
@@ -156,9 +156,9 @@ namespace IvyyyAI
                     Unit unit = Player.HomeLane.GetCellAt(r, c).Unit;
 
                     if (unit is Tower)
-                        TowerList.Add(new IvyyyPosition { x = unit.PosX, y = unit.PosY });
+                        m_towerList.Add(new IvyyyPosition { x = unit.PosX, y = unit.PosY });
                     else if (unit is not null)
-                        EnemyList.Add(new IvyyyPosition { x = unit.PosX, y = unit.PosY });
+                        m_enemyList.Add(new IvyyyPosition { x = unit.PosX, y = unit.PosY });
                 }
             }
 
@@ -170,9 +170,9 @@ namespace IvyyyAI
                     Unit unit = Player.EnemyLane.GetCellAt(r, c).Unit;
 
                     if (unit is Tower)
-                        EnemyTowerList.Add(unit as Tower);
+                        m_enemyTowerList.Add(unit as Tower);
                     else if (unit is IvyyySoldier)
-                        FriendlySoldierList.Add(unit as IvyyySoldier);
+                        m_friendlySoldierList.Add(unit as IvyyySoldier);
                 }
             }
         }
@@ -181,7 +181,7 @@ namespace IvyyyAI
 
         private float GetDeploySoldiers(object target)
         {
-            return ActionTyp == IvyyyPerception.ActionTyp.DeploySoldiers ? 1f : 0f;
+            return m_actionTyp == IvyyyPerception.ActionTyp.DeploySoldiers ? 1f : 0f;
         }
 
         private float GetTowerSpace(object target)
@@ -204,7 +204,7 @@ namespace IvyyyAI
 
         private float GetDeployTower(object target)
         {
-            return ActionTyp == IvyyyPerception.ActionTyp.DeployTowers ? 1f : 0f;
+            return m_actionTyp == IvyyyPerception.ActionTyp.DeployTowers ? 1f : 0f;
         }
 
         public int GetTowerCost (int amount = 1)
@@ -239,7 +239,7 @@ namespace IvyyyAI
 
         private float GetTowerCount(object target)
         {
-            return ((float)TowerCount) / 11f;
+            return ((float)m_towerCount) / 11f;
         }
 
         private float GetCanBuyTowers(object target)
@@ -247,7 +247,7 @@ namespace IvyyyAI
             IvyyyTowerBlock block = (IvyyyTowerBlock) target;
             int goldRequired = GetTowerCost(block.TowerSlots.Count - block.TowerCount);
 
-            return Gold >= goldRequired ? 1f : 0f;
+            return m_gold >= goldRequired ? 1f : 0f;
         }
 
         private float GetTargetsInReach(object target)
