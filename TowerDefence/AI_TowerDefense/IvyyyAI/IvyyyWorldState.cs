@@ -55,7 +55,6 @@ namespace IvyyyAI
             //AttackLanes
             m_actionInputParameters.Add ("CanBuySoldiers", GetCanBuySoldiers);
             m_actionInputParameters.Add ("LaneRowCounter", GetLaneRowCounter);
-            m_actionInputParameters.Add ("LaneEnemyTowerHp", GetLaneEnemyTowerHp);
             m_actionInputParameters.Add ("LaneFriendlySoldierSpace", GetLaneFriendlySoldierSpace);
             m_actionInputParameters.Add ("LaneSuccessFactor", GetLaneSuccessFactor);
             m_actionInputParameters.Add ("CanBuyRegiment", GetCanBuyRegiment);
@@ -195,10 +194,10 @@ namespace IvyyyAI
         {
             IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
 
-            if (attackLane.EnemyTowerHp == 0)
+            if (attackLane.EnemyTowerCount == 0)
                 return 1f;
 
-            float val =  (attackLane.Width * attackLane.Depth * 6f) / ((float)attackLane.EnemyTowerHp * 10f);
+            float val =  (attackLane.Width * attackLane.Depth) / ((float)attackLane.EnemyTowerCount * 10f);
 
             return val;
         }
@@ -273,13 +272,6 @@ namespace IvyyyAI
             }
 
             return (block.TowerSlots.Count - count) / block.TowerSlots.Count;
-        }
-
-        private float GetLaneEnemyTowerHp(object target)
-        {
-            IvyyyAttackLane attackLane = (IvyyyAttackLane)target;
-
-            return ((float)attackLane.EnemyTowerHp) / 9;
         }
 
         private float GetLaneFriendlySoldierSpace(object target)

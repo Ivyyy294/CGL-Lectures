@@ -16,7 +16,7 @@ namespace IvyyyAI
         private int m_depth;
 
         //Combined hp of all encountered towers on this lane
-        public int EnemyTowerHp { get; private set; }
+        public int EnemyTowerCount { get; private set; }
 
         public int Width => m_width;
         public int Depth => m_depth;
@@ -34,7 +34,7 @@ namespace IvyyyAI
 
         public void Update(List<IvyyySoldier> friendlySoldierList, List<Tower> enemyTowerList)
         {
-            EnemyTowerHp = 0;
+            EnemyTowerCount = 0;
 
             foreach (var item in enemyTowerList)
             {
@@ -43,7 +43,7 @@ namespace IvyyyAI
                 if (!isDangerous)
                     continue;
 
-                EnemyTowerHp += item.Health;
+                EnemyTowerCount++;
             }
         }
     }
