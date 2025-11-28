@@ -18,6 +18,10 @@ namespace IvyyyAI
 
             //Reduces score to zero if row counter is greater as 0
             m_axis.Add(new IvyyyRuleAxis("LaneRowCounter", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, 1000f, 10f, 0f, 0.5f)));
+
+            m_axis.Add(new IvyyyRuleAxis("LaneFriendlySoldierSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -0.1f, 2f, 1f, 1f)));
+
+            m_axis.Add(new IvyyyRuleAxis("LaneSuccessFactor", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -6f, 4f, 1f, 0.6f)));
         }
 
         //Do nothing
