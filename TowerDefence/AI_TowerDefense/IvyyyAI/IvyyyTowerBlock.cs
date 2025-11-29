@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using GameFramework;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IvyyyAI
 {
@@ -30,6 +32,9 @@ namespace IvyyyAI
 
             foreach (var towerPos in m_towerSlots)
             {
+                if (enemyList.Any (i=>i.x == towerPos.x && i.y == towerPos.y))
+                    continue;
+
                 foreach (var enemy in enemyList)
                 {
                     if (IsPosInside(towerPos, enemy, 1, 8))
@@ -47,7 +52,7 @@ namespace IvyyyAI
         private bool IsPosInside(IvyyyPosition rootPos, IvyyyPosition targetPos, int paddingX = 0, int paddingY = 0)
         {
             if (targetPos.x < rootPos.x - paddingX || targetPos.x > rootPos.x + paddingX
-                || targetPos.y < (rootPos.y - paddingY) || targetPos.y > rootPos.y)
+                || targetPos.y > rootPos.y)
                 return false;
             else
                 return true;

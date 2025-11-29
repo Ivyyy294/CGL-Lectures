@@ -94,15 +94,15 @@ namespace IvyyyAI
         private void InitTowerBlocks()
         {
             m_towerBlocks = new();
+            List<IvyyyPosition> towerRelPos = new();
 
             //Horizontal blocks
-            List<IvyyyPosition> towerRelPos = new();
             towerRelPos.Add(new IvyyyPosition(0, 0));
             towerRelPos.Add(new IvyyyPosition(2, 0));
             towerRelPos.Add(new IvyyyPosition(4, 0));
             towerRelPos.Add(new IvyyyPosition(6, 0));
 
-            for (int r = 3; r < PlayerLane.HEIGHT-2; r += 2)
+            for (int r = 3; r < PlayerLane.HEIGHT - 2; r += 2)
             {
                 m_towerBlocks.Add(new IvyyyTowerBlock(0, r));
                 m_towerBlocks.Last().SetTowerList(towerRelPos);
@@ -114,21 +114,52 @@ namespace IvyyyAI
             towerRelPos.Add(new IvyyyPosition(3, 0));
             towerRelPos.Add(new IvyyyPosition(5, 0));
 
-            for (int r = 4; r < PlayerLane.HEIGHT-2; r += 2)
+            for (int r = 4; r < PlayerLane.HEIGHT - 2; r += 2)
             {
                 m_towerBlocks.Add(new IvyyyTowerBlock(0, r));
                 m_towerBlocks.Last().SetTowerList(towerRelPos);
             }
 
-            //Vertical blocks
+            //Star blocks
             towerRelPos.Clear();
 
             towerRelPos.Add(new IvyyyPosition(0, 0));
+            towerRelPos.Add(new IvyyyPosition(1, 1));
+            towerRelPos.Add(new IvyyyPosition(2, 0));
+
+            for (int c = 0; c < PlayerLane.WIDTH - 1; c += 2)
+            {
+                for (int r = 3; r < PlayerLane.HEIGHT - 2; r += 2)
+                {
+                    m_towerBlocks.Add(new IvyyyTowerBlock(c, r));
+                    m_towerBlocks.Last().SetTowerList(towerRelPos);
+                }
+            }
+
+            towerRelPos.Clear();
+
+            towerRelPos.Add(new IvyyyPosition(0, 0));
+            towerRelPos.Add(new IvyyyPosition(1, 1));
             towerRelPos.Add(new IvyyyPosition(0, 2));
 
-            for (int c = 0; c < PlayerLane.WIDTH; c += 2)
+            for (int c = 0; c < PlayerLane.WIDTH - 1; c += 2)
             {
-                for (int r = 4; r < PlayerLane.HEIGHT - 4; r += 2)
+                for (int r = 3; r < PlayerLane.HEIGHT - 3; r += 2)
+                {
+                    m_towerBlocks.Add(new IvyyyTowerBlock(c, r));
+                    m_towerBlocks.Last().SetTowerList(towerRelPos);
+                }
+            }
+
+            towerRelPos.Clear();
+
+            towerRelPos.Add(new IvyyyPosition(1, 0));
+            towerRelPos.Add(new IvyyyPosition(0, 1));
+            towerRelPos.Add(new IvyyyPosition(1, 2));
+
+            for (int c = 1; c < PlayerLane.WIDTH - 1; c += 2)
+            {
+                for (int r = 3; r < PlayerLane.HEIGHT - 3; r += 2)
                 {
                     m_towerBlocks.Add(new IvyyyTowerBlock(c, r));
                     m_towerBlocks.Last().SetTowerList(towerRelPos);
@@ -239,7 +270,7 @@ namespace IvyyyAI
 
         private float GetTowerCount(object target)
         {
-            return ((float)m_towerCount) / 11f;
+            return ((float)m_towerCount) / 8f;
         }
 
         private float GetCanBuyTowers(object target)
@@ -255,7 +286,7 @@ namespace IvyyyAI
         {
             IvyyyTowerBlock block = (IvyyyTowerBlock) target;
             int maxTargetCount = block.TowerSlots.Count;
-            return (float)block.InReachCount / 3f;
+            return (float)block.InReachCount / 35f;
         }
 
         //Tower

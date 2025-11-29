@@ -27,7 +27,7 @@ namespace IvyyyAI
             //Reduces the score for blocks with lower possible tower count
             m_axis.Add (new IvyyyRuleAxis ("TowerSpace", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Linear, -1f, 2f, 1f, 1f)));
 
-            m_weight = 10f;
+            m_weight = 5f;
         }
 
 
