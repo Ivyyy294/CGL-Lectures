@@ -1,8 +1,5 @@
 ﻿using Agent_System;
-using AI_Strategy;
-using AI_TowerDefense;
 using GameFramework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

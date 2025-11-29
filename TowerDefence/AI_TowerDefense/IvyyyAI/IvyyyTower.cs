@@ -1,8 +1,6 @@
 ﻿using GameFramework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace IvyyyAI
 {
@@ -20,7 +18,7 @@ namespace IvyyyAI
 
                 int distanceCompare = distA.CompareTo(distB);
 
-                //Focus most further target first
+                //Focus most distant target first
                 if (distanceCompare != 0)
                     return distanceCompare;
 

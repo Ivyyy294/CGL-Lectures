@@ -2,31 +2,24 @@
 
 namespace IvyyyAI
 {
-    //slope intercept formular
-    // y = mx+b
-    // y = m (x-c)^k+b
-    // m = slope
-    // k = exponent
-    // b = y-intercept vertical shift
-    // c = x-intercept horizontal shift
-
-    //logistic
-    // y = (k (1/(1+(1000))))
     public class IvyyyResponseCurve
     {
         public enum CurveType
         {
             None,
             Linear,
-            //Exponential,
             Logistic,
-            //Logit
         }
 
         private CurveType m_type;
+        
+        //Slope
         private float m_m;
+        //Exponent
         private float m_k;
+        //Vertical shit
         private float m_b;
+        //Horizontal shift
         private float m_c;
 
         public IvyyyResponseCurve (CurveType type, float m = 1f, float k = 1f, float b = 0f, float c = 0f)

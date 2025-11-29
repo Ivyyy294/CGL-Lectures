@@ -1,5 +1,4 @@
-﻿using AI_Strategy;
-using GameFramework;
+﻿using GameFramework;
 
 namespace IvyyyAI
 {
