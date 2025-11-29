@@ -54,7 +54,7 @@ namespace AI_TowerDefense
             // Your strategy should at least be able to beat random!
             
             _playerAStrategy = new IvyyyStrategy(_playerA);
-            _playerBStrategy = new GongiStratIsolated(_playerB);
+            _playerBStrategy = new RandomStrategy(_playerB);
             //_playerBStrategy = new DummyStrategy(_playerB);
             //_playerBStrategy = new RandomStrategy(_playerB);
             //_playerBStrategy = new LeTudorStrategy(_playerB);
