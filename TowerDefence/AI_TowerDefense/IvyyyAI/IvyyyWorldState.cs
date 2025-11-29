@@ -270,7 +270,7 @@ namespace IvyyyAI
 
         private float GetTowerCount(object target)
         {
-            return ((float)m_towerCount) / 8f;
+            return ((float)m_towerCount) / 11f;
         }
 
         private float GetCanBuyTowers(object target)

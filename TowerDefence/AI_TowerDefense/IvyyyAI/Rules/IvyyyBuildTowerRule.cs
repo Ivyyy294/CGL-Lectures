@@ -10,7 +10,7 @@ namespace IvyyyAI
             m_target = "TowerBlocks";
 
             //Reduces the score with growing tower numbers
-            m_axis.Add(new IvyyyRuleAxis("TowerCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Logistic, 100f, -1f, 1f, 0.5f)));
+            m_axis.Add(new IvyyyRuleAxis("TowerCount", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Logistic, 100f, -1f, 0.99f, 0.5f)));
 
             //Reduces the score if fewer targets are in reach
             m_axis.Add (new IvyyyRuleAxis("TargetsInReach", new IvyyyResponseCurve(IvyyyResponseCurve.CurveType.Logistic, 500f, 1f, 0f, 0.5f)));
