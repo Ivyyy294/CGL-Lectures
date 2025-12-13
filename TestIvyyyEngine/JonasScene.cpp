@@ -18,6 +18,7 @@ void JonasScene::Init ()
 
 	//auto music = AudioObject::LoadAudioObject("sound01.wav");
 	//auto audioPlayer = player->AddComponent <AudioPlayer>();
+	//audioPlayer->SetVolume (0.5f);
 	//audioPlayer->SetAudioObject(music);
 	//audioPlayer->Play();
 	//audioPlayer->SetLoop(true);
@@ -31,7 +32,7 @@ void JonasScene::Init ()
 	auto scoreObj = AddGameObject <PrefabScore> ();
 	auto score = scoreObj->GetComponent<Score> ();
 
-	for (size_t i = 0; i < posVec.size() * 100; ++i)
+	for (size_t i = 0; i < posVec.size() * 1; ++i)
 	{
 		int index = i % posVec.size ();
 		const auto& pos = posVec[index];

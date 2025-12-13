@@ -1,5 +1,6 @@
 #include "DebugInfo.h"
 #include <IvyyyTime.h>
+#include "IvyyyDebug.h"
 
 void DebugInfo::Start ()
 {
@@ -12,6 +13,8 @@ void DebugInfo::Update ()
 
 	if (fontmesh != nullptr)
 		fontmesh->text = L"FPS: " + std::to_wstring (fps) + L"\nDeltaTIme: " + std::to_wstring (deltatime);
+	else
+		Debug::Log("FPS: " + std::to_string(fps) + ", DeltaTIme: " + std::to_string(deltatime));
 }
 
 void DebugInfo::UpdateFps()

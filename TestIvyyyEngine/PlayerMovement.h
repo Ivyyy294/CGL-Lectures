@@ -1,7 +1,6 @@
 #pragma once
+#include "IvyyyRenderer.h"
 #include "IvyyyComponent.h"
-
-#define IVYYY_D3D
 
 class PlayerMovement
 	: public Ivyyy::Component
@@ -10,7 +9,6 @@ public:
 	void Update () override;
 
 private:
-	//float speed{ 1.f };
-	float speed{ 256.f };
+	float speed{ Ivyyy::Renderer::GetMode() == Ivyyy::Renderer::Mode::DX11 ?  2.f : 256.f};
 };
 

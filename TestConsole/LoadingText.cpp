@@ -29,7 +29,7 @@ void LoadingText::Update ()
 		{
 			content += L"<<<< Loading " + std::to_wstring (percent) + L"% >>>>";
 			timer += Time::DeltaTime ();
-			percent = std::abs((timer * 1000.f) / 16.f);
+			percent = (int)std::abs((timer * 1000.f) / 16.f);
 		}
 		else
 		{

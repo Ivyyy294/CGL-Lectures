@@ -11,7 +11,6 @@ public:
 
 	void OnMouseDown () override;
 	void OnMouseEnter () override;
-	void OnMouseOver () override;
 	void OnMouseExit () override;
 
 	inline void SetEvent (const std::string& _event) { event = _event;}

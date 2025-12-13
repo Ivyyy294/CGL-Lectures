@@ -13,8 +13,8 @@ public:
 	void AddButton (PrefabButton* button);
 	void Update () override;
 
-	void ActivateButton (const int index, const std::wstring& label);
-	void DisableButton (const int index);
+	void ActivateButton (const size_t index, const std::wstring& label);
+	void DisableButton (const size_t index);
 
 	size_t ButtonCount () const { return buttonVec.size (); }
 private:

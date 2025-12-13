@@ -35,7 +35,7 @@ void ButtonController::Update ()
 	}
 }
 
-void ButtonController::ActivateButton (const int index, const std::wstring& label)
+void ButtonController::ActivateButton (const size_t index, const std::wstring& label)
 {
 	if (index < buttonVec.size ())
 	{
@@ -44,7 +44,7 @@ void ButtonController::ActivateButton (const int index, const std::wstring& labe
 	}
 }
 
-void ButtonController::DisableButton (const int index)
+void ButtonController::DisableButton (const size_t index)
 {
 	buttonVec[index]->SetActive (false);
 }

@@ -17,11 +17,11 @@ int WINAPI WinMain (HINSTANCE hInstance,
 {
 	Ivyyy::Window::SetFullscreen(true);
 	Ivyyy::Screen::SetResolution(Ivyyy::Resolution{1920, 1080});
-	//Ivyyy::Renderer::SetMode(Renderer::Mode::DX11);
-	//Ivyyy::SceneHandler::AddScene <D3DTestScene> ();
+	//Ivyyy::SceneHandler::AddScene <JonasScene> ();
 
-	//Ivyyy::SceneHandler::AddScene <TreeScene> ();
-	Ivyyy::SceneHandler::AddScene <JonasScene> ();
+	Ivyyy::Renderer::SetMode(Renderer::Mode::DX11);
+	Ivyyy::SceneHandler::AddScene <D3DTestScene> ();
+	Ivyyy::SceneHandler::AddScene <TreeScene> ();
 
 	return Ivyyy::IvyyyEngine::Start (hInstance, nCmdShow);
 }

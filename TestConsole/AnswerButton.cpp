@@ -24,12 +24,6 @@ void AnswerButton::OnMouseEnter ()
 	fontMesh->font.color = colorHover;
 }
 
-void AnswerButton::OnMouseOver ()
-{
-	if (fontMesh->font.color != colorHover)
-		fontMesh->font.color = colorHover;
-}
-
 void AnswerButton::OnMouseExit ()
 {
 	fontMesh->font.color = colorDefault;
