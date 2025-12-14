@@ -1,11 +1,11 @@
 #include "PrefabCoin.h"
-#include <IvyyyFontMesh.h>
+#include <IvyyyD2D1FontMesh.h>
 #include <IvyyyRectCollider.h>
 #include "Coin.h"
 
 PrefabCoin::PrefabCoin ()
 {
-	FontMesh* fontMesh = AddComponent<FontMesh> ().get ();
+	D2D1FontMesh* fontMesh = AddComponent<D2D1FontMesh> ().get ();
 	fontMesh->SetSize (100.f, 24.f);
 	fontMesh->text = L"Coin";
 	fontMesh->font.family = L"Consolas";

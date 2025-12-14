@@ -1,6 +1,6 @@
 #pragma once
 #include <IvyyyComponent.h>
-#include <IvyyyFontMesh.h>
+#include <IvyyyD2D1FontMesh.h>
 
 using namespace Ivyyy;
 
@@ -20,7 +20,7 @@ private:
 	int m_colliderCount{ 0 };
 	int m_meshCount{ 0 };
 
-	FontMesh* fontmesh {nullptr };
+	D2D1FontMesh* fontmesh {nullptr };
 
 	void UpdateFps();
 	//void UpdateColliderCount();

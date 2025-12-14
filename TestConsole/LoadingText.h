@@ -1,6 +1,6 @@
 #pragma once
 #include "IvyyyComponent.h"
-#include "IvyyyFontMesh.h"
+#include "IvyyyD2D1FontMesh.h"
 #include "AnimatedText.h"
 
 using namespace Ivyyy;
@@ -12,7 +12,7 @@ public:
 	void Start () override;
 	void Update () override;
 private:
-	FontMesh* fontMesh;
+	D2D1FontMesh* fontMesh;
 	AnimatedText pressEnter;
 	AnimatedText welcome;
 

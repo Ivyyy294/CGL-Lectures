@@ -1,6 +1,6 @@
 #pragma once
 #include <IvyyyGameObject.h>
-#include <IvyyyFontMesh.h>
+#include <IvyyyD2D1FontMesh.h>
 
 using namespace Ivyyy;
 
@@ -12,6 +12,6 @@ public:
 	void SetDrawing (const std::wstring& drawing);
 
 protected:
-	FontMesh* fontMesh;
+	D2D1FontMesh* fontMesh;
 };
 

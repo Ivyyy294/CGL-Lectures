@@ -1,6 +1,6 @@
 #pragma once
 #include <IvyyyGameObject.h>
-#include <IvyyyFontMesh.h>
+#include <IvyyyD2D1FontMesh.h>
 #include "AnswerButton.h"
 
 using namespace Ivyyy;
@@ -15,5 +15,5 @@ public:
 	inline float GetWidth () const { return fontMesh->GetWidth (); };
 private:
 	AnswerButton* script;
-	FontMesh* fontMesh;
+	D2D1FontMesh* fontMesh;
 };

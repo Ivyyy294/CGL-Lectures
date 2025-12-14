@@ -1,6 +1,6 @@
 #pragma once
 #include <IvyyyComponent.h>
-#include <IvyyyFontMesh.h>
+#include <IvyyyD2D1FontMesh.h>
 #include <memory>
 
 using namespace Ivyyy;
@@ -17,6 +17,6 @@ public:
 private:
 	int score{ 0 };
 
-	std::weak_ptr <FontMesh> fontMesh;
+	std::weak_ptr <D2D1FontMesh> fontMesh;
 };
 

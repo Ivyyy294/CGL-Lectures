@@ -11,5 +11,6 @@ protected:
 private:
 	void InitColorCubes();
 	void InitTextureCubes();
+	void InitSpriteCubes();
 };
 

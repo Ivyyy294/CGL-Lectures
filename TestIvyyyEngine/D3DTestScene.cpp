@@ -6,11 +6,15 @@
 #include "IvyyyCamera.h"
 #include "TextureShaderClass.h"
 #include "IvyyyDirectionalLight.h"
+#include "IvyyySpriteRenderer.h"
+#include "IvyyyRectCollider.h"
 #include"DebugInfo.h"
 
 void D3DTestScene::Init()
 {
-	InitColorCubes();
+	//InitColorCubes();
+	//InitTextureCubes();
+	InitSpriteCubes();
 
 	//Add Debug Object
 	auto debug = AddGameObject <GameObject>(Vector2(0, 64));
@@ -78,18 +82,40 @@ void D3DTestScene::InitTextureCubes()
 
 	Mesh cube;
 	cube.LoadModel("cube.txt");
+	//meshRenderer->GetTransform()->SetSpace(Transform::Space::SCREEN);
 	meshRenderer->SetMesh(cube);
 	meshRenderer->SetShader <TextureShaderClass>();
+	((TextureShaderClass*)meshRenderer->GetShader())->SetTexture(Texture::LoadTexture(L"texture_test.png"));
 	parentCube->AddComponent<PlayerMovement>();
 
 	//Child cube
 	auto childCube = AddGameObject<GameObject>(&parentCube->transform, Vector3(-10.f, 0.f, 0.f));
 	meshRenderer = childCube->AddComponent<MeshRenderer>();
+	//meshRenderer->GetTransform()->SetSpace(Transform::Space::SCREEN);
 	meshRenderer->SetMesh(cube);
 	meshRenderer->SetShader <TextureShaderClass>();
 
 	auto childCube2 = AddGameObject<GameObject>(&childCube->transform, Vector3(0.f, -5.f, 0.f));
 	meshRenderer = childCube2->AddComponent<MeshRenderer>();
+	//meshRenderer->GetTransform()->SetSpace(Transform::Space::SCREEN);
 	meshRenderer->SetMesh(cube);
 	meshRenderer->SetShader <TextureShaderClass>();
+}
+
+void D3DTestScene::InitSpriteCubes()
+{
+	//Parent cube
+	auto parentCube = AddGameObject<GameObject>();
+	auto meshRenderer = parentCube->AddComponent<SpriteRenderer>();
+
+	Mesh cube;
+	cube.LoadModel("cube.txt");
+	meshRenderer->GetTransform()->SetSpace(Transform::Space::SCREEN);
+	meshRenderer->GetTransform()->SetPivot(Transform::Pivot::TOPLEFT);
+	meshRenderer->SetShader <TextureShaderClass>();
+	((TextureShaderClass*)meshRenderer->GetShader())->SetTexture(Texture::LoadTexture(L"texture_test.png"));
+	parentCube->AddComponent<PlayerMovement>();
+
+	auto rectCollider = parentCube->AddComponent<RectCollider>();
+	rectCollider->SetSize (512.f, 512.f);
 }

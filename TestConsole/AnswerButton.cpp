@@ -9,7 +9,7 @@ void AnswerButton::Start ()
 	colorHover = Color (0, 255, 0);
 	colorDefault = Color (255, 255, 255);
 
-	fontMesh = gameObject->GetComponent<FontMesh> ().get();
+	fontMesh = gameObject->GetComponent<D2D1FontMesh> ().get();
 	fontMesh->font.color = colorDefault;
 }
 

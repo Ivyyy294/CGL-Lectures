@@ -1,6 +1,6 @@
 #pragma once
 
-#include <IvyyyFontMesh.h>
+#include <IvyyyD2D1FontMesh.h>
 #include <IvyyyComponent.h>
 #include <stack>
 #include "ButtonController.h"
@@ -16,7 +16,7 @@ public:
 	void Start () override;
 	void Update () override;
 
-	FontMesh* textMesh { nullptr };
+	D2D1FontMesh* textMesh { nullptr };
 	PrefabDrawing* prefabDrawing {nullptr};
 	ButtonController* buttonController{ nullptr };
 

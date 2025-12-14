@@ -1,6 +1,7 @@
 #include "PlayerMovement.h"
 #include "IvyyyInput.h"
 #include "IvyyyTime.h"
+#include "IvyyyDebug.h"
 
 using namespace Ivyyy;
 
@@ -62,7 +63,19 @@ void PlayerMovement::Update ()
 		transform->SetRotation(newRot);
 	}
 
+	if (Input::KeyPressed(Key::KEY_Z))
+	{
+		Quaternion euler = Quaternion::Euler(Vector3(0.f, 0.f, 45.f * Time::DeltaTime()));
+		Quaternion newRot = euler * transform->GetRotation();
+		transform->SetRotation(newRot);
+	}
+
 
 	Vector3 newPos = transform->GetLocalPosition() + moveVec.Normalized() * speed * Time::DeltaTime();
 	transform->SetLocalPosition(newPos);
+}
+
+void PlayerMovement::OnMouseDown()
+{
+	Debug::Log ("Mouse Down!");
 }

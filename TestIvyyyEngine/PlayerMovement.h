@@ -8,6 +8,7 @@ class PlayerMovement
 public:
 	void Update () override;
 
+	void OnMouseDown() override;
 private:
 	float speed{ Ivyyy::Renderer::GetMode() == Ivyyy::Renderer::Mode::DX11 ?  2.f : 256.f};
 };

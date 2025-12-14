@@ -43,7 +43,7 @@ void JonasScene::Init ()
 	auto debug = AddGameObject <GameObject> (Vector2(0, 64));
 	debug->transform.SetSpace (Transform::Space::SCREEN);
 	debug->transform.SetPivot (Transform::Pivot::TOPLEFT);
-	auto fontMesh = debug->AddComponent<FontMesh> ();
+	auto fontMesh = debug->AddComponent<D2D1FontMesh> ();
 	fontMesh->font.color = Color (255, 0, 0);
 	fontMesh->font.height = 12;
 	fontMesh->SetSize (200.f, 32.f);

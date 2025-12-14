@@ -26,12 +26,12 @@ void GameScene::Init ()
 	float width = 800.f;
 	pageTextObj->transform.SetLocalPosition (Vector3 (xCenter -width * 0.5f, 315.f, 0.f));
 
-	auto textMesh = pageTextObj->AddComponent <FontMesh> ();
+	auto textMesh = pageTextObj->AddComponent <D2D1FontMesh> ();
 	textMesh->GetTransform ()->SetPivot (Transform::Pivot::TOPLEFT);
 	textMesh->SetSize (800.f, 200.f);
 	textMesh->font.family = L"Consolas";
 	textMesh->font.height = 16;
-	textMesh->font.alignment = Font::VERTICAL_CENTER | Font::HORIZONTAL_TOP;
+	textMesh->font.alignment = D2D1Font::VERTICAL_CENTER | D2D1Font::HORIZONTAL_TOP;
 	pageController->textMesh = textMesh.get();
 
 	//Add PrefabButtonController

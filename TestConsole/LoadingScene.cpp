@@ -15,7 +15,7 @@ void LoadingScene::Init ()
 	img->transform.SetLocalPosition (newPos);
 
 	auto text = AddGameObject <GameObject> ();
-	text->AddComponent <FontMesh> ();
+	text->AddComponent <D2D1FontMesh> ();
 	text->AddComponent <LoadingText> ();
 	text->transform.SetLocalPosition (Vector3(xCenter, 500.f, 0.f));
 }

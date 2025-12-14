@@ -3,7 +3,7 @@
 
 void Score::Start ()
 {
-	fontMesh = gameObject->GetComponent <FontMesh> ();
+	fontMesh = gameObject->GetComponent <D2D1FontMesh> ();
 	EventSystem::Me ()->Event ("coin").Bind <Score, &Score::OnCoinCollected> (this);
 }
 

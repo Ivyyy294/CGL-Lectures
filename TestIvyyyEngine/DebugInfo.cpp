@@ -4,7 +4,7 @@
 
 void DebugInfo::Start ()
 {
-	fontmesh = gameObject->GetComponent<FontMesh> ().get ();
+	fontmesh = gameObject->GetComponent<D2D1FontMesh> ().get ();
 }
 
 void DebugInfo::Update ()
@@ -13,8 +13,8 @@ void DebugInfo::Update ()
 
 	if (fontmesh != nullptr)
 		fontmesh->text = L"FPS: " + std::to_wstring (fps) + L"\nDeltaTIme: " + std::to_wstring (deltatime);
-	else
-		Debug::Log("FPS: " + std::to_string(fps) + ", DeltaTIme: " + std::to_string(deltatime));
+	//else
+	//	Debug::Log("FPS: " + std::to_string(fps) + ", DeltaTIme: " + std::to_string(deltatime));
 }
 
 void DebugInfo::UpdateFps()

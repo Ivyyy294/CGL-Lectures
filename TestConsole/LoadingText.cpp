@@ -5,14 +5,14 @@
 
 void LoadingText::Start ()
 {
-	fontMesh = gameObject->GetComponent <FontMesh> ().get();
+	fontMesh = gameObject->GetComponent <D2D1FontMesh> ().get();
 
 	welcome.SetText (L"•••• <<<< Welcome to Medina station>>>> ••••", 30);
 	pressEnter.SetText (L"[Press enter to continue...]", 30);
 	fontMesh->SetSize (400.f, 100.f);
 	fontMesh->font.family = L"Consolas";
 	fontMesh->font.height = 16;
-	fontMesh->font.alignment = Font::VERTICAL_CENTER | Font::HORIZONTAL_TOP;
+	fontMesh->font.alignment = D2D1Font::VERTICAL_CENTER | D2D1Font::HORIZONTAL_TOP;
 	transform->SetSpace (Transform::Space::SCREEN);
 }
 
