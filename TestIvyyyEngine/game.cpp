@@ -8,6 +8,7 @@
 #include "math.h"
 #include "IvyyyWindow.h"
 #include "D3DTestScene.h"
+#include"SpaceCoonScene.h"
 
 // the entry point for any Windows program
 int WINAPI WinMain (HINSTANCE hInstance,
@@ -20,8 +21,9 @@ int WINAPI WinMain (HINSTANCE hInstance,
 	//Ivyyy::SceneHandler::AddScene <JonasScene> ();
 
 	Ivyyy::Renderer::SetMode(Renderer::Mode::DX11);
-	Ivyyy::SceneHandler::AddScene <D3DTestScene> ();
-	Ivyyy::SceneHandler::AddScene <TreeScene> ();
+	Ivyyy::SceneHandler::AddScene <SpaceCoonScene> ();
+	//Ivyyy::SceneHandler::AddScene <D3DTestScene> ();
+	//Ivyyy::SceneHandler::AddScene <TreeScene> ();
 
 	return Ivyyy::IvyyyEngine::Start (hInstance, nCmdShow);
 }

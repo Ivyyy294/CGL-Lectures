@@ -10,7 +10,7 @@ PrefabCoin::PrefabCoin ()
 	fontMesh->text = L"Coin";
 	fontMesh->font.family = L"Consolas";
 	fontMesh->font.height = 16;
-	fontMesh->font.alignment = Font::HORIZONTAL_CENTER | Font::VERTICAL_CENTER;
+	fontMesh->font.alignment = D2D1Font::HORIZONTAL_CENTER | D2D1Font::VERTICAL_CENTER;
 	fontMesh->drawGizmo = true;
 
 	if (auto collider = AddComponent <RectCollider> ())

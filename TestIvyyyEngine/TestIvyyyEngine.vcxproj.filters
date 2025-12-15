@@ -60,6 +60,9 @@
     <ClCompile Include="TextureShaderClass.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="SpaceCoonScene.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JonasScene.h">
@@ -96,6 +99,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="TextureShaderClass.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceCoonScene.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

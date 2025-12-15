@@ -87,10 +87,15 @@ bool ColorShader::InitializeVertexBuffer(ID3D11Device* device, Mesh* mesh)
 	result = CreateBuffer(device, &m_vertexBuffer, sizeof(VertexType) * vertexCount, &vertexData
 		, D3D11_USAGE_DEFAULT, D3D11_BIND_VERTEX_BUFFER, 0);
 
+	//free shader data
+	delete [] shaderData;
+
 	if (FAILED(result))
 	{
 		return false;
 	}
+
+
 
 	return true;
 }

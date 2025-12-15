@@ -7,6 +7,11 @@
 #include "DebugInfo.h"
 #include "IvyyyAudioObject.h"
 #include "IvyyyAudioPlayer.h"
+#include "IvyyySpriteMesh.h"
+#include "IvyyyCircleCollider.h"
+#include "IvyyyPhysicObject.h"
+#include "IvyyyRectCollider.h"
+#include <random>
 
 void JonasScene::Init ()
 {
@@ -15,6 +20,10 @@ void JonasScene::Init ()
 	auto player = AddGameObject <Player> ();
 	auto test1 = AddGameObject <PrefabCoin> (&player->transform, Vector2(128.f, 0.f));
 	auto test2 = AddGameObject <PrefabCoin> (&test1->transform, Vector2(128.f, 0.f));
+
+
+	
+
 
 	//auto music = AudioObject::LoadAudioObject("sound01.wav");
 	//auto audioPlayer = player->AddComponent <AudioPlayer>();
@@ -48,4 +57,21 @@ void JonasScene::Init ()
 	fontMesh->font.height = 12;
 	fontMesh->SetSize (200.f, 32.f);
 	debug->AddComponent<DebugInfo> ();
+
+	//add colliders
+	auto colliderTop = AddGameObject<GameObject>(Vector3 (0.0f, -540.0f - 25.f, 0.f));
+	//colliderTop->transform.SetSpace(Transform::Space::SCREEN);
+	colliderTop->AddComponent<RectCollider>()->SetSize(1920, 50);
+
+	colliderTop = AddGameObject<GameObject>(Vector3(0.0f, 540.0f + 25.f, 0.f));
+	//colliderTop->transform.SetSpace(Transform::Space::SCREEN);
+	colliderTop->AddComponent<RectCollider>()->SetSize(1920, 50);
+
+	colliderTop = AddGameObject<GameObject>(Vector3(-960.f - 25.f, 0.f, 0.f));
+	//colliderTop->transform.SetSpace(Transform::Space::SCREEN);
+	colliderTop->AddComponent<RectCollider>()->SetSize(50, 1080);
+
+	colliderTop = AddGameObject<GameObject>(Vector3(960.f + 25.f, 0.f, 0.f));
+	//colliderTop->transform.SetSpace(Transform::Space::SCREEN);
+	colliderTop->AddComponent<RectCollider>()->SetSize(50, 1080);
 }

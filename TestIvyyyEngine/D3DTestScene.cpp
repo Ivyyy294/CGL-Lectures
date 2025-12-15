@@ -8,13 +8,14 @@
 #include "IvyyyDirectionalLight.h"
 #include "IvyyySpriteRenderer.h"
 #include "IvyyyRectCollider.h"
+#include "IvyyyPhysicObject.h"
 #include"DebugInfo.h"
 
 void D3DTestScene::Init()
 {
-	//InitColorCubes();
+	InitColorCubes();
 	//InitTextureCubes();
-	InitSpriteCubes();
+	//InitSpriteCubes();
 
 	//Add Debug Object
 	auto debug = AddGameObject <GameObject>(Vector2(0, 64));
@@ -61,6 +62,7 @@ void D3DTestScene::InitColorCubes()
 	meshRenderer->SetMesh(cube);
 	meshRenderer->SetShader <ColorShader>();
 	parentCube->AddComponent<PlayerMovement>();
+	parentCube->AddComponent<PhysicObject>();
 
 	//Child cube
 	auto childCube = AddGameObject<GameObject>(&parentCube->transform, Vector3(-10.f, 0.f, 0.f));
@@ -87,6 +89,7 @@ void D3DTestScene::InitTextureCubes()
 	meshRenderer->SetShader <TextureShaderClass>();
 	((TextureShaderClass*)meshRenderer->GetShader())->SetTexture(Texture::LoadTexture(L"texture_test.png"));
 	parentCube->AddComponent<PlayerMovement>();
+	parentCube->AddComponent<PhysicObject>();
 
 	//Child cube
 	auto childCube = AddGameObject<GameObject>(&parentCube->transform, Vector3(-10.f, 0.f, 0.f));
@@ -115,6 +118,7 @@ void D3DTestScene::InitSpriteCubes()
 	meshRenderer->SetShader <TextureShaderClass>();
 	((TextureShaderClass*)meshRenderer->GetShader())->SetTexture(Texture::LoadTexture(L"texture_test.png"));
 	parentCube->AddComponent<PlayerMovement>();
+	parentCube->AddComponent<PhysicObject>();
 
 	auto rectCollider = parentCube->AddComponent<RectCollider>();
 	rectCollider->SetSize (512.f, 512.f);

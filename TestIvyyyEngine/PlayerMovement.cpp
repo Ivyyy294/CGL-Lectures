@@ -2,18 +2,25 @@
 #include "IvyyyInput.h"
 #include "IvyyyTime.h"
 #include "IvyyyDebug.h"
+#include "IvyyyPhysicObject.h"
 
 using namespace Ivyyy;
 
+void PlayerMovement::Start()
+{
+	if (Ivyyy::Renderer::GetMode() == Ivyyy::Renderer::Mode::D2D
+	|| gameObject->transform.GetSpace() == Transform::Space::SCREEN)
+		speed = 1024.0f;
+}
+
 void PlayerMovement::Update ()
 {
-	Vector2 moveVec;
-
 	//Horizontal movement
 	if (Input::KeyPressed (Key::KEY_D))
-		moveVec += Vector2::Right;
+		moveVec += Vector3::Right;
+
 	if (Input::KeyPressed (Key::KEY_A))
-		moveVec -= Vector2::Right;
+		moveVec -= Vector3::Right;
 	
 	//Vertical movement
 	if (Input::KeyPressed (Key::KEY_W))
@@ -70,9 +77,13 @@ void PlayerMovement::Update ()
 		transform->SetRotation(newRot);
 	}
 
+	Vector3 newPos = moveVec.Normalized() * speed * Time::DeltaTime();
+	auto obj = gameObject->GetComponent<PhysicObject>();
 
-	Vector3 newPos = transform->GetLocalPosition() + moveVec.Normalized() * speed * Time::DeltaTime();
-	transform->SetLocalPosition(newPos);
+	if (obj != nullptr)
+		obj->ApplyImpulse(newPos);
+
+	moveVec = Vector3::Zero;
 }
 
 void PlayerMovement::OnMouseDown()

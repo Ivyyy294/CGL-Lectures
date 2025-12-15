@@ -30,6 +30,7 @@
     <ClCompile Include="PrefabCoin.cpp" />
     <ClCompile Include="PrefabScore.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="SpaceCoonScene.cpp" />
     <ClCompile Include="TextureShaderClass.cpp" />
     <ClCompile Include="TreeScene.cpp" />
   </ItemGroup>
@@ -44,6 +45,7 @@
     <ClInclude Include="PrefabCoin.h" />
     <ClInclude Include="PrefabScore.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="SpaceCoonScene.h" />
     <ClInclude Include="TextureShaderClass.h" />
     <ClInclude Include="TreeScene.h" />
   </ItemGroup>

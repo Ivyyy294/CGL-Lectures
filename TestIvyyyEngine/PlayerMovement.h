@@ -1,15 +1,21 @@
 #pragma once
 #include "IvyyyRenderer.h"
 #include "IvyyyComponent.h"
+#include "IvyyyTransform.h"
+
+using namespace Ivyyy;
 
 class PlayerMovement
 	: public Ivyyy::Component
 {
 public:
+	void Start() override;
 	void Update () override;
+	//void FixedUpdate () override;
 
 	void OnMouseDown() override;
 private:
-	float speed{ Ivyyy::Renderer::GetMode() == Ivyyy::Renderer::Mode::DX11 ?  2.f : 256.f};
+	Vector3 moveVec;
+	float speed{2.f};
 };
 
