@@ -10,7 +10,7 @@ void PlayerMovement::Start()
 {
 	if (Ivyyy::Renderer::GetMode() == Ivyyy::Renderer::Mode::D2D
 	|| gameObject->transform.GetSpace() == Transform::Space::SCREEN)
-		speed = 1024.0f;
+		speed = 512.0f;
 }
 
 void PlayerMovement::Update ()
@@ -81,7 +81,7 @@ void PlayerMovement::Update ()
 	auto obj = gameObject->GetComponent<PhysicObject>();
 
 	if (obj != nullptr)
-		obj->ApplyImpulse(newPos);
+		obj->ApplyImpulse(newPos * obj->GetMass());
 
 	moveVec = Vector3::Zero;
 }

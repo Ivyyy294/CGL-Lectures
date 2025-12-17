@@ -49,5 +49,7 @@ float4 ColorPixelShader(PixelInputType input) : SV_TARGET
     // Multiply the texture pixel and the final diffuse color to get the final pixel color result.
     color = color * textureColor;
     
+    clip(color.a - 0.01f);
+    
     return color;
 }
