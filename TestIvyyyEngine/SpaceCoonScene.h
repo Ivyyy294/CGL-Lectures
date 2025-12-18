@@ -11,5 +11,6 @@ class SpaceCoonScene : public Ivyyy::Scene
 	void SpawnAsteroid();
 	void SpawnAsteroid(float size, float mass);
 	void SpawnColliders();
+	void SpawnUi();
 };
 

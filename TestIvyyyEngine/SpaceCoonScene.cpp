@@ -4,11 +4,13 @@
 #include "IvyyyRectCollider.h"
 #include <random>
 #include "IvyyyMeshRenderer.h"
-#include "TextureShaderClass.h"
+#include "IvyyyTextureShaderClass.h"
 #include "IvyyyCircleCollider.h"
 #include "ColorShader.h"
 #include "PlayerMovement.h"
 #include "IvyyySpriteRenderer.h"
+#include "IvyyyFontRenderer.h"
+#include "DebugInfo.h"
 
 void SpaceCoonScene::Init()
 {
@@ -21,6 +23,7 @@ void SpaceCoonScene::Init()
 	SpawnPlayer();
 	SpawnAsteroid();
 	SpawnColliders();
+	SpawnUi();
 }
 
 void SpaceCoonScene::SpawnPlayer()
@@ -52,15 +55,13 @@ void SpaceCoonScene::SpawnAsteroid()
 {
 	//Spawn Asteroids
 
-	
-
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < 16; ++i)
 		SpawnAsteroid(128.f, 5.f);
 
-	for (int i = 0; i < 24; ++i)
+	for (int i = 0; i < 96; ++i)
 		SpawnAsteroid(80.f, 3.f);
 
-	for (int i = 0; i < 12; ++i)
+	for (int i = 0; i < 48; ++i)
 		SpawnAsteroid(48.f, 1.f);
 }
 
@@ -120,4 +121,18 @@ void SpaceCoonScene::SpawnColliders()
 	auto colliderRight = AddGameObject<GameObject>(Vector3(1920.f + 25.f, -540.f, 0.f));
 	colliderRight->transform.SetSpace(Transform::Space::SCREEN);
 	colliderRight->AddComponent<RectCollider>()->SetSize(100, 1080.f);
+}
+
+void SpaceCoonScene::SpawnUi()
+{
+	auto ui = AddGameObject();
+	ui->transform.SetPosition(Vector3(0.f, 0.f,0.0f));
+	ui->transform.SetPivot(Transform::Pivot::TOPLEFT);
+	ui->transform.SetSpace(Transform::Space::SCREEN);
+
+	auto fontRenderer = ui->AddComponent<FontRenderer>();
+	fontRenderer->SetText(L"Hello World!");
+	fontRenderer->SetSize (Vector2(512.f, 100.f));
+
+	ui->AddComponent <DebugInfo>();
 }
