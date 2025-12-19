@@ -4,7 +4,7 @@
 #include "IvyyyRectCollider.h"
 #include <random>
 #include "IvyyyMeshRenderer.h"
-#include "IvyyyTextureShaderClass.h"
+#include "TextureShaderClass.h"
 #include "IvyyyCircleCollider.h"
 #include "ColorShader.h"
 #include "PlayerMovement.h"

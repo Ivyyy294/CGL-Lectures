@@ -2,7 +2,7 @@
 #include "IvyyyEventSystem.h"
 #include "IvyyyDebug.h"
 
-void Coin::OnTriggerEnter (const GameObject* trigger)
+void Coin::OnTriggerEnter (GameObject* trigger)
 {
 	//Debug::Log("Coin collected!");
 	gameObject->SetActive (false);

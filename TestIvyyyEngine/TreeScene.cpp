@@ -96,14 +96,14 @@ TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 	ChildInfo childInfo;
 	childInfo.left.angle = nodeInfo.angle;
 	childInfo.left.color = nodeInfo.color;
-	childInfo.left.parent = gameObject.get();
+	childInfo.left.parent = gameObject;
 	childInfo.left.width = widhtLeft;
 	childInfo.left.pos = vertices[2];
 	childInfo.left.rotation = -nodeInfo.angle;
 
 	childInfo.right.angle = nodeInfo.angle;
 	childInfo.right.color = nodeInfo.color;
-	childInfo.right.parent = gameObject.get ();
+	childInfo.right.parent = gameObject;
 	childInfo.right.width = widhtRight;
 	childInfo.right.pos = vertices[4];
 	childInfo.right.rotation = 90.f - nodeInfo.angle;

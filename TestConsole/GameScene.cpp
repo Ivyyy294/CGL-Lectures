@@ -18,7 +18,7 @@ void GameScene::Init ()
 	Vector3 newPos = drawing->transform.GetLocalPosition();
 	newPos.y = 100.f;
 	drawing->transform.SetLocalPosition (newPos);
-	pageController->prefabDrawing = drawing.get ();
+	pageController->prefabDrawing = drawing;
 
 	//Add Page Text
 	auto pageTextObj = AddGameObject<GameObject> ();
@@ -42,13 +42,13 @@ void GameScene::Init ()
 	auto backButton = AddGameObject <PrefabButton> ();
 	backButton->SetText (L"[ back ]");
 	backButton->SetEvent ("Back");
-	buttonController->AddButton (backButton.get ());
+	buttonController->AddButton (backButton);
 
 	for (int i = 0; i <= 6; ++i)
 	{
 		auto button = AddGameObject <PrefabButton> ();
 		button->SetText (L"[ Button ]");
 		button->SetEvent ("Answer" + std::to_string(i+1));
-		buttonController->AddButton (button.get());
+		buttonController->AddButton (button);
 	}
 }
