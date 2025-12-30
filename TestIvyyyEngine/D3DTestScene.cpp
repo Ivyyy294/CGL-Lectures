@@ -4,7 +4,7 @@
 #include "ColorShader.h"
 #include "PlayerMovement.h"
 #include "IvyyyCamera.h"
-#include "TextureShaderClass.h"
+#include "IvyyyTextureShaderClass.h"
 #include "IvyyyDirectionalLight.h"
 #include "IvyyySpriteRenderer.h"
 #include "IvyyyRectCollider.h"
@@ -27,7 +27,7 @@ void D3DTestScene::Init()
 	//TextureShaderClass* textureShader = new TextureShaderClass;
 	//textureShader->SetTexture(texture);
 
-	//meshRenderer->SetShader (textureShader);
+	//meshRenderer->SetMaterial (textureShader);
 
 	////Child cube
 	//Texture::Ptr texture2 = Texture::LoadTexture(L"stone01.tga");
@@ -37,14 +37,14 @@ void D3DTestScene::Init()
 
 	//textureShader = new TextureShaderClass;
 	//textureShader->SetTexture(texture2);
-	//meshRenderer->SetShader(textureShader);
+	//meshRenderer->SetMaterial(textureShader);
 
 	//auto childCube2 = AddGameObject<GameObject>(&childCube->transform, Vector3(0.f, -5.f, 0.f));
 	//meshRenderer = childCube2->AddComponent<MeshRenderer>();
 	//meshRenderer->SetMesh(cube);
 	//textureShader = new TextureShaderClass;
 	//textureShader->SetTexture(texture2);
-	//meshRenderer->SetShader(textureShader);
+	//meshRenderer->SetMaterial(textureShader);
 
 	//Add Light
 	auto light = AddGameObject<GameObject>()->AddComponent<DirectionalLight>();
@@ -57,10 +57,12 @@ void D3DTestScene::InitColorCubes()
 	auto parentCube = AddGameObject<GameObject>();
 	auto meshRenderer = parentCube->AddComponent<MeshRenderer>();
 
+	std::shared_ptr<ColorShader> colorMaterial = std::make_shared<ColorShader>();
+
 	Mesh cube;
 	cube.LoadModel("cube.txt");
 	meshRenderer->SetMesh(cube);
-	meshRenderer->SetShader <ColorShader>();
+	meshRenderer->SetMaterial (colorMaterial);
 	parentCube->AddComponent<PlayerMovement>();
 	parentCube->AddComponent<PhysicObject>();
 
@@ -68,12 +70,12 @@ void D3DTestScene::InitColorCubes()
 	auto childCube = AddGameObject<GameObject>(&parentCube->transform, Vector3(-10.f, 0.f, 0.f));
 	meshRenderer = childCube->AddComponent<MeshRenderer>();
 	meshRenderer->SetMesh(cube);
-	meshRenderer->SetShader <ColorShader>();
+	meshRenderer->SetMaterial (colorMaterial);
 
 	auto childCube2 = AddGameObject<GameObject>(&childCube->transform, Vector3(0.f, -5.f, 0.f));
 	meshRenderer = childCube2->AddComponent<MeshRenderer>();
 	meshRenderer->SetMesh(cube);
-	meshRenderer->SetShader <ColorShader>();
+	meshRenderer->SetMaterial(colorMaterial);
 }
 
 void D3DTestScene::InitTextureCubes()
@@ -82,12 +84,14 @@ void D3DTestScene::InitTextureCubes()
 	auto parentCube = AddGameObject<GameObject>();
 	auto meshRenderer = parentCube->AddComponent<MeshRenderer>();
 
+	std::shared_ptr<TextureShaderClass> testTextureMat = std::make_shared<TextureShaderClass>();
+	testTextureMat->SetTexture (Texture::LoadTexture(L"texture_test.png"));
+
 	Mesh cube;
 	cube.LoadModel("cube.txt");
 	//meshRenderer->GetTransform()->SetSpace(Transform::Space::SCREEN);
 	meshRenderer->SetMesh(cube);
-	meshRenderer->SetShader <TextureShaderClass>();
-	((TextureShaderClass*)meshRenderer->GetShader())->SetTexture(Texture::LoadTexture(L"texture_test.png"));
+	meshRenderer->SetMaterial(testTextureMat);
 	parentCube->AddComponent<PlayerMovement>();
 	parentCube->AddComponent<PhysicObject>();
 
@@ -96,13 +100,13 @@ void D3DTestScene::InitTextureCubes()
 	meshRenderer = childCube->AddComponent<MeshRenderer>();
 	//meshRenderer->GetTransform()->SetSpace(Transform::Space::SCREEN);
 	meshRenderer->SetMesh(cube);
-	meshRenderer->SetShader <TextureShaderClass>();
+	meshRenderer->SetMaterial(testTextureMat);
 
 	auto childCube2 = AddGameObject<GameObject>(&childCube->transform, Vector3(0.f, -5.f, 0.f));
 	meshRenderer = childCube2->AddComponent<MeshRenderer>();
 	//meshRenderer->GetTransform()->SetSpace(Transform::Space::SCREEN);
 	meshRenderer->SetMesh(cube);
-	meshRenderer->SetShader <TextureShaderClass>();
+	meshRenderer->SetMaterial(testTextureMat);
 }
 
 void D3DTestScene::InitSpriteCubes()
@@ -111,12 +115,14 @@ void D3DTestScene::InitSpriteCubes()
 	auto parentCube = AddGameObject<GameObject>();
 	auto meshRenderer = parentCube->AddComponent<SpriteRenderer>();
 
+	std::shared_ptr<TextureShaderClass> testTextureMat = std::make_shared<TextureShaderClass>();
+	testTextureMat->SetTexture(Texture::LoadTexture(L"texture_test.png"));
+
 	Mesh cube;
 	cube.LoadModel("cube.txt");
 	meshRenderer->GetTransform()->SetSpace(Transform::Space::SCREEN);
 	meshRenderer->GetTransform()->SetPivot(Transform::Pivot::TOPLEFT);
-	meshRenderer->SetShader <TextureShaderClass>();
-	((TextureShaderClass*)meshRenderer->GetShader())->SetTexture(Texture::LoadTexture(L"texture_test.png"));
+	meshRenderer->SetMaterial(testTextureMat);
 	parentCube->AddComponent<PlayerMovement>();
 	parentCube->AddComponent<PhysicObject>();
 

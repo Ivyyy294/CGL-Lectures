@@ -1,16 +1,21 @@
 //Typedefs
+cbuffer ColorBuffer
+{
+    float4 diffuseColor;
+};
+
 struct PixelInputType
 {
-    float4 position : SV_POSITION;
-    float4 color : COLOR;
+	float4 position : SV_POSITION;
+	float3 normal : NORMAL;
 };
 
 //Pixel Shader
-float4 ColorPixelShader(PixelInputType input) : SV_TARGET
+float4 main(PixelInputType input) : SV_TARGET
 {
-	input.color.r *= 0.5f;
-	input.color.g *= 0.5f;
-	input.color.b *= 0.5f;
+	diffuseColor.r *= 0.5f;
+	diffuseColor *= 0.5f;
+	diffuseColor *= 0.5f;
 
-    return input.color;
+	return diffuseColor;
 }

@@ -1,19 +1,18 @@
 #pragma once
 
-#include "IvyyyShader.h"
+#include "IvyyyMeshMaterial.h"
 
 using namespace Ivyyy;
 
-class ColorShader : public Shader
+class ColorShader : public MeshMaterial
 {
 public:
 	ColorShader();
+	bool CopyShaderParameters(ID3D11DeviceContext* deviceContext, const MeshMaterial::GlobalShaderParameters& shaderData) const override;
+	bool InitShaderRessources(ID3D11Device* device) override;
 
 protected:
-	bool InitializeShader(const D3DShaderRenderData& shaderData, ID3D10Blob* vertexShaderBuffer, ID3D10Blob* pixelShaderBuffer) override;
-	bool InitializeVertexBuffer(ID3D11Device* device, Mesh* mesh) override;
-	unsigned int GetVertexBufferStride() override;
-	bool SetShaderParameters (const D3DShaderRenderData& shaderData) override;
+	void ShutdownShaderRessources() override;
 
 private:
 	struct VertexType

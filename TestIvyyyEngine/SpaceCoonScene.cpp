@@ -4,26 +4,25 @@
 #include "IvyyyRectCollider.h"
 #include <random>
 #include "IvyyyMeshRenderer.h"
-#include "TextureShaderClass.h"
+#include "IvyyyTextureShaderClass.h"
 #include "IvyyyCircleCollider.h"
-#include "ColorShader.h"
 #include "PlayerMovement.h"
 #include "IvyyySpriteRenderer.h"
 #include "IvyyyFontRenderer.h"
 #include "DebugInfo.h"
+#include "IvyyyConstantGravity.h"
+#include "IvyyyPhysicObjectGravityGenerator.h"
+#include "IvyyyGizmo.h"
 
 void SpaceCoonScene::Init()
 {
-	//auto circle = AddGameObject();
-	//auto meshrender = circle->AddComponent<MeshRenderer>();
-	//meshrender->SetMesh(Mesh::Circle(64));
-	////meshrender->SetMesh(Mesh::Quad());
-	//meshrender->SetShader <SpriteRenderer>();
-
+	//Gizmo::Draw = true;
 	SpawnPlayer();
 	SpawnAsteroid();
 	SpawnColliders();
 	SpawnUi();
+
+	//AddGameObject()->AddComponent<ConstantGravity>();
 }
 
 void SpaceCoonScene::SpawnPlayer()
@@ -37,35 +36,43 @@ void SpaceCoonScene::SpawnPlayer()
 	auto meshRenderer = player->AddComponent<SpriteRenderer>();
 	meshRenderer->SetSize({96.f, 96.f});
 
-	meshRenderer->SetShader <TextureShaderClass>();
+	auto playerMat = std::make_shared<TextureShaderClass>();
+	playerMat->SetTexture(Texture::LoadTexture(L"player.png"));
+
+	meshRenderer->SetMaterial(playerMat);
 	meshRenderer->SetMesh (Mesh::Quad());
 
-	//meshRenderer->SetShader <ColorShader>();
+	//meshRenderer->SetMaterial <ColorShader>();
 	//meshRenderer->SetMesh(Mesh::Circle(64));
 
-	((TextureShaderClass*)meshRenderer->GetShader())->SetTexture(Texture::LoadTexture(L"player.png"));
 	player->AddComponent<CircleCollider>()->SetRadius(96.f * 0.5f);
 	player->AddComponent<PlayerMovement>();
 	auto pPhy = player->AddComponent<PhysicObject>();
 	pPhy->SetLinearDamping(0.0f);
-	pPhy->SetMass(5.f);
+	pPhy->SetMass(128.f);
 }
 
 void SpaceCoonScene::SpawnAsteroid()
 {
+	auto mat = std::make_shared<TextureShaderClass>();
+	mat->SetTexture(Texture::LoadTexture(L"Asteroid_128.png"));
+
+	int mod = 6;
 	//Spawn Asteroids
+	//for (int i = 0; i < 16; ++i)
+	//	SpawnAsteroid(128.f, 32.f, mat);
 
-	for (int i = 0; i < 16; ++i)
-		SpawnAsteroid(128.f, 5.f);
+	//for (int i = 0; i < 48 * mod; ++i)
+	//	SpawnAsteroid(64.f, 4.f, mat);
 
-	for (int i = 0; i < 96; ++i)
-		SpawnAsteroid(80.f, 3.f);
+	for (int i = 0; i < 144 * mod; ++i)
+		SpawnAsteroid(32.f, 2.f, mat);
 
-	for (int i = 0; i < 48; ++i)
-		SpawnAsteroid(48.f, 1.f);
+	for (int i = 0; i < 432 * mod; ++i)
+		SpawnAsteroid(16.f, 1.f, mat);
 }
 
-void SpaceCoonScene::SpawnAsteroid(float size, float mass)
+void SpaceCoonScene::SpawnAsteroid(float size, float mass, MeshMaterial::Ptr material)
 {
 	std::random_device rd; // obtain a random number from hardware
 	std::mt19937 gen(rd()); // seed the generator
@@ -86,10 +93,9 @@ void SpaceCoonScene::SpawnAsteroid(float size, float mass)
 	auto meshRenderer = asteroid->AddComponent<SpriteRenderer>();
 
 	meshRenderer->SetMesh(Mesh::Quad());
-	meshRenderer->SetShader <TextureShaderClass>();
-	((TextureShaderClass*)meshRenderer->GetShader())->SetTexture(Texture::LoadTexture(L"Asteroid_128.png"));
+	meshRenderer->SetMaterial (material);
 
-	//meshRenderer->SetShader <ColorShader>();
+	//meshRenderer->SetMaterial <ColorShader>();
 	//meshRenderer->SetMesh(Mesh::Circle(64));
 
 	meshRenderer->SetSize({ size, size });
@@ -97,6 +103,7 @@ void SpaceCoonScene::SpawnAsteroid(float size, float mass)
 	auto physic = asteroid->AddComponent<PhysicObject>();
 	physic->SetMass(mass * 2.f);
 	physic->SetVelocity(Vector3(vel, vel, 0.f));
+	physic->SetLinearDamping(0.2f);
 }
 
 void SpaceCoonScene::SpawnColliders()
@@ -106,19 +113,19 @@ void SpaceCoonScene::SpawnColliders()
 	light->SetColor(Color(1.f, 1.f, 1.f, 0.5f));
 
 	//add colliders
-	auto colliderTop = AddGameObject<GameObject>(Vector3(960.0f, 0.f, 0.f));
+	auto colliderTop = AddGameObject<GameObject>(Vector3(960.0f, 49.f, 0.f));
 	colliderTop->transform.SetSpace(Transform::Space::SCREEN);
 	colliderTop->AddComponent<RectCollider>()->SetSize(1920, 100);
 
-	auto colliderBottom = AddGameObject<GameObject>(Vector3(960.0f, -1080.0f, 0.f));
+	auto colliderBottom = AddGameObject<GameObject>(Vector3(960.0f, -1080.0f - 50.f, 0.f));
 	colliderBottom->transform.SetSpace(Transform::Space::SCREEN);
 	colliderBottom->AddComponent<RectCollider>()->SetSize(1920, 100);
 
-	auto colliderLeft = AddGameObject<GameObject>(Vector3(-25.f, -540.f, 0.f));
+	auto colliderLeft = AddGameObject<GameObject>(Vector3(-49.f, -540.f, 0.f));
 	colliderLeft->transform.SetSpace(Transform::Space::SCREEN);
 	colliderLeft->AddComponent<RectCollider>()->SetSize(100, 1080.f);
 
-	auto colliderRight = AddGameObject<GameObject>(Vector3(1920.f + 25.f, -540.f, 0.f));
+	auto colliderRight = AddGameObject<GameObject>(Vector3(1920.f + 50.f, -540.f, 0.f));
 	colliderRight->transform.SetSpace(Transform::Space::SCREEN);
 	colliderRight->AddComponent<RectCollider>()->SetSize(100, 1080.f);
 }

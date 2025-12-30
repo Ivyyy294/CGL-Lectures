@@ -43,5 +43,5 @@ void LoadingText::Update ()
 	fontMesh->text = content;
 
 	if (pressEnter.Done () && Input::KeyPressed (Key::KEY_RETURN))
-		SceneHandler::LoadScene (1);
+		SceneHandler::QueueScene (1);
 }

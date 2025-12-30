@@ -31,7 +31,6 @@
     <ClCompile Include="PrefabScore.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="SpaceCoonScene.cpp" />
-    <ClCompile Include="TextureShaderClass.cpp" />
     <ClCompile Include="TreeScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -46,7 +45,6 @@
     <ClInclude Include="PrefabScore.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="SpaceCoonScene.h" />
-    <ClInclude Include="TextureShaderClass.h" />
     <ClInclude Include="TreeScene.h" />
   </ItemGroup>
   <ItemGroup>
@@ -57,14 +55,6 @@
       <FileType>Document</FileType>
     </None>
     <None Include="ShaderGlobals.hlsli" />
-    <None Include="TextureVS.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TexturePS.hlsl">
-      <FileType>Document</FileType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="cube.txt" />

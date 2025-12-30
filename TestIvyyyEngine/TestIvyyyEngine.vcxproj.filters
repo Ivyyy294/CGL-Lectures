@@ -54,13 +54,10 @@
     <ClCompile Include="D3DTestScene.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="ColorShader.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureShaderClass.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="SpaceCoonScene.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorShader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,13 +92,10 @@
     <ClInclude Include="D3DTestScene.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="ColorShader.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureShaderClass.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="SpaceCoonScene.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorShader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -112,13 +106,7 @@
     <None Include="ShaderGlobals.hlsli">
       <Filter>Shader</Filter>
     </None>
-    <None Include="TextureVS.hlsl">
-      <Filter>Shader</Filter>
-    </None>
     <None Include="color.hlsl">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="TexturePS.hlsl">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include "IvyyyTime.h"
 #include "IvyyyDebug.h"
 #include "IvyyyPhysicObject.h"
+#include "IvyyyGizmo.h"
 
 using namespace Ivyyy;
 
