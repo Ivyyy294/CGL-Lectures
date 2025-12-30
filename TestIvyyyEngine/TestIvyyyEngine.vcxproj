@@ -25,6 +25,7 @@
     <ClCompile Include="DebugInfo.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="JonasScene.cpp" />
+    <ClCompile Include="KeplerOrbitScene.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMovement.cpp" />
     <ClCompile Include="PrefabCoin.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="D3DTestScene.h" />
     <ClInclude Include="DebugInfo.h" />
     <ClInclude Include="JonasScene.h" />
+    <ClInclude Include="KeplerOrbitScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMovement.h" />
     <ClInclude Include="PrefabCoin.h" />

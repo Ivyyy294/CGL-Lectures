@@ -60,6 +60,9 @@
     <ClCompile Include="ColorShader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="KeplerOrbitScene.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JonasScene.h">
@@ -96,6 +99,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ColorShader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="KeplerOrbitScene.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
