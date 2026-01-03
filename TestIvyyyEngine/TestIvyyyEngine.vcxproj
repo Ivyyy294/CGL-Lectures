@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraMovement.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="ColorMaterial.cpp" />
     <ClCompile Include="D3DTestScene.cpp" />
@@ -37,6 +38,7 @@
     <ClCompile Include="TreeScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraMovement.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="ColorMaterial.h" />
     <ClInclude Include="D3DTestScene.h" />

@@ -82,10 +82,11 @@ void PlayerMovement::Update ()
 	}
 
 	Vector3 newPos = moveVec.Normalized() * speed * Time::DeltaTime();
-	auto obj = gameObject->GetComponent<PhysicObject>();
+	transform->SetPosition(transform->GetPosition() + newPos);
+	//auto obj = gameObject->GetComponent<PhysicObject>();
 
-	if (obj != nullptr)
-		obj->ApplyImpulse(newPos * obj->GetMass());
+	//if (obj != nullptr)
+	//	obj->ApplyImpulse(newPos * obj->GetMass());
 
 	moveVec = Vector3::Zero;
 }
