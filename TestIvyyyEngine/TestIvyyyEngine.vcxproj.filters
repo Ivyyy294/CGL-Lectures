@@ -57,10 +57,16 @@
     <ClCompile Include="SpaceCoonScene.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="ColorShader.cpp">
+    <ClCompile Include="ColorMaterial.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="KeplerOrbitScene.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="GridMaterial.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackMovement.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,10 +104,16 @@
     <ClInclude Include="SpaceCoonScene.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="ColorShader.h">
+    <ClInclude Include="ColorMaterial.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="KeplerOrbitScene.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GridMaterial.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackMovement.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -113,6 +125,12 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="color.hlsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="GridPS.hlsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="GridVS.hlsl">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

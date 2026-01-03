@@ -42,7 +42,7 @@ void SpaceCoonScene::SpawnPlayer()
 	meshRenderer->SetMaterial(playerMat);
 	meshRenderer->SetMesh (Mesh::Quad());
 
-	//meshRenderer->SetMaterial <ColorShader>();
+	//meshRenderer->SetMaterial <ColorMaterial>();
 	//meshRenderer->SetMesh(Mesh::Circle(64));
 
 	player->AddComponent<CircleCollider>()->SetRadius(96.f * 0.5f);
@@ -57,7 +57,7 @@ void SpaceCoonScene::SpawnAsteroid()
 	auto mat = std::make_shared<TextureShaderClass>();
 	mat->SetTexture(Texture::LoadTexture(L"Asteroid_128.png"));
 
-	int mod = 6;
+	int mod = 1;
 	//Spawn Asteroids
 	//for (int i = 0; i < 16; ++i)
 	//	SpawnAsteroid(128.f, 32.f, mat);
@@ -95,7 +95,7 @@ void SpaceCoonScene::SpawnAsteroid(float size, float mass, MeshMaterial::Ptr mat
 	meshRenderer->SetMesh(Mesh::Quad());
 	meshRenderer->SetMaterial (material);
 
-	//meshRenderer->SetMaterial <ColorShader>();
+	//meshRenderer->SetMaterial <ColorMaterial>();
 	//meshRenderer->SetMesh(Mesh::Circle(64));
 
 	meshRenderer->SetSize({ size, size });

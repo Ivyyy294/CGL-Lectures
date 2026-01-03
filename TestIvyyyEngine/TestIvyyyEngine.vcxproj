@@ -20,10 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Coin.cpp" />
-    <ClCompile Include="ColorShader.cpp" />
+    <ClCompile Include="ColorMaterial.cpp" />
     <ClCompile Include="D3DTestScene.cpp" />
     <ClCompile Include="DebugInfo.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="GridMaterial.cpp" />
     <ClCompile Include="JonasScene.cpp" />
     <ClCompile Include="KeplerOrbitScene.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -32,13 +33,15 @@
     <ClCompile Include="PrefabScore.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="SpaceCoonScene.cpp" />
+    <ClCompile Include="TrackMovement.cpp" />
     <ClCompile Include="TreeScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coin.h" />
-    <ClInclude Include="ColorShader.h" />
+    <ClInclude Include="ColorMaterial.h" />
     <ClInclude Include="D3DTestScene.h" />
     <ClInclude Include="DebugInfo.h" />
+    <ClInclude Include="GridMaterial.h" />
     <ClInclude Include="JonasScene.h" />
     <ClInclude Include="KeplerOrbitScene.h" />
     <ClInclude Include="Player.h" />
@@ -47,6 +50,7 @@
     <ClInclude Include="PrefabScore.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="SpaceCoonScene.h" />
+    <ClInclude Include="TrackMovement.h" />
     <ClInclude Include="TreeScene.h" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +64,22 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="cube.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GridPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <FileType>Document</FileType>
+    </None>
+    <None Include="GridVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

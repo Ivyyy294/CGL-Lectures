@@ -4,8 +4,11 @@
 #include "IvyyyDebug.h"
 #include "IvyyyPhysicObject.h"
 #include "IvyyyGizmo.h"
+#include "IvyyyDraw.h"
 
 using namespace Ivyyy;
+
+std::vector<Vector3> pos;
 
 void PlayerMovement::Start()
 {

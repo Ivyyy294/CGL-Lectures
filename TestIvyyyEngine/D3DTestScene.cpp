@@ -1,7 +1,7 @@
 #include "D3DTestScene.h"
 #include "IvyyyMeshRenderer.h"
 #include "IvyyyMesh.h"
-#include "ColorShader.h"
+#include "ColorMaterial.h"
 #include "PlayerMovement.h"
 #include "IvyyyCamera.h"
 #include "IvyyyTextureShaderClass.h"
@@ -57,7 +57,7 @@ void D3DTestScene::InitColorCubes()
 	auto parentCube = AddGameObject<GameObject>();
 	auto meshRenderer = parentCube->AddComponent<MeshRenderer>();
 
-	std::shared_ptr<ColorShader> colorMaterial = std::make_shared<ColorShader>();
+	std::shared_ptr<ColorMaterial> colorMaterial = std::make_shared<ColorMaterial>();
 
 	Mesh cube;
 	cube.LoadModel("cube.txt");

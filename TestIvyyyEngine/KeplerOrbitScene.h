@@ -8,5 +8,6 @@ class KeplerOrbitScene :
 {
 	// Inherited via Scene
 	void Init() override;
+	void GridTest();
 };
 
