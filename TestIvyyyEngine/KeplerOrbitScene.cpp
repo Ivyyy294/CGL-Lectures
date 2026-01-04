@@ -12,6 +12,7 @@
 #include <random>
 #include <IvyyyCircleCollider.h>
 #include <IvyyyCamera.h>
+#include "PlanetRings.h"
 
 void KeplerOrbitScene::Init()
 {
@@ -32,100 +33,32 @@ void KeplerOrbitScene::Init()
 	fontRenderer->SetSize(Vector2(512.f, 100.f));
 	ui->AddComponent <DebugInfo>();
 
-	auto parent = AddGameObject();
-
 	//Sun
 	{
-		auto sun = AddGameObject();
-		sun->SetParent (parent);
-		auto renderer = sun->AddComponent<MeshRenderer>();
-		renderer->SetMesh(Mesh::Sphere(16, 16));
-		auto mat = std::make_shared<ColorMaterial>();
-		mat->SetColor (Color::Yellow);
-		renderer->SetMaterial (mat);
-
-		auto rb = sun->AddComponent<PhysicObject>();
-		rb->SetStatic (true);
-		rb->SetMass (10.f);
-
+		auto sun = AddPlanet(10.f, true, 1.f, Vector3::Zero, Vector3::Zero, Color::Yellow, 0);
 		sun->AddComponent< PhysicObjectGravityGenerator>();
 	}
 
 	//Mercury
-	{
-		auto mercury = AddGameObject();
-		mercury->SetParent(parent);
-		auto renderer = mercury->AddComponent<MeshRenderer>();
-		mercury->AddComponent<TrackMovement>()->SetColor({ 1.f, 0.5f, 0.f, 1.0f });
-		renderer->SetMesh(Mesh::Sphere(16, 16));
-		auto mat = std::make_shared<ColorMaterial>();
-		mat->SetColor({1.f, 0.5f, 0.f, 1.0f});
-		renderer->SetMaterial(mat);
+	AddPlanet(1.f, false, 0.15f, Vector3::Left * 1.5f, Vector3::Down * 2.6f, { 1.f, 0.5f, 0.f, 1.0f }, 100);
 
-		mercury->transform.SetPosition(Vector3::Left * 1.5f);
-		mercury->transform.SetLocalScale({ 0.25, 0.25f, 0.25f });
-
-		auto rb = mercury->AddComponent<PhysicObject>();
-		rb->SetVelocity(Vector3::Down * 2.6f);
-		rb->SetMass(1.f);
-	}
-
-	//Mars
-	{
-		auto mars = AddGameObject();
-		mars->SetParent(parent);
-		mars->AddComponent<TrackMovement>()->SetColor(Color::Red);
-		auto renderer = mars->AddComponent<MeshRenderer>();
-		renderer->SetMesh(Mesh::Sphere(16, 16));
-		auto mat = std::make_shared<ColorMaterial>();
-		mat->SetColor(Color::Red);
-		renderer->SetMaterial(mat);
-
-		mars->transform.SetPosition(Vector3::Left * 2.f);
-		mars->transform.SetLocalScale({ 0.25, 0.25f, 0.25f });
-
-		auto rb = mars->AddComponent<PhysicObject>();
-		rb->SetVelocity(Vector3::Down * 2.25f);
-		rb->SetMass(1.f);
-	}
+	//Venus
+	AddPlanet(1.f, false, 0.15f, Vector3::Left * 2.f, Vector3::Down * 2.25f, { 1.f, 0.83f, 0.57f, 1.0f }, 100);
 
 	//Earth
-	{
-		auto earth = AddGameObject();
-		earth->SetParent(parent);
-		earth->AddComponent<TrackMovement>()->SetColor(Color::Blue);
-		auto renderer = earth->AddComponent<MeshRenderer>();
-		renderer->SetMesh(Mesh::Sphere(16, 16));
-		auto mat = std::make_shared<ColorMaterial>();
-		mat->SetColor(Color::Blue);
-		renderer->SetMaterial(mat);
+	AddPlanet (1.f, false, 0.15f, Vector3::Left * 2.5f, Vector3::Down * 2.f, Color::Blue, 150);
 
-		earth->transform.SetPosition (Vector3::Left * 2.5f);
-		earth->transform.SetLocalScale ({0.25, 0.25f, 0.25f});
-
-		auto rb = earth->AddComponent<PhysicObject>();
-		rb->SetVelocity (Vector3::Down * 2.f);
-		rb->SetMass(1.f);
-	}
+	//Mars
+	AddPlanet(1.f, false, 0.15f, Vector3::Left * 3.f, Vector3::Down * 1.825f, Color::Red, 125);
 
 	//Jupiter
-	{
-		auto jupiter = AddGameObject();
-		jupiter->SetParent(parent);
-		jupiter->AddComponent<TrackMovement>()->SetColor({1.f, 1.f, 0.6f, 1.0f});
-		auto renderer = jupiter->AddComponent<MeshRenderer>();
-		renderer->SetMesh(Mesh::Sphere(16, 16));
-		auto mat = std::make_shared<ColorMaterial>();
-		mat->SetColor({ 1.f, 1.f, 0.6f, 1.0f });
-		renderer->SetMaterial(mat);
+	AddPlanet (1.f, false, 0.5f, Vector3::Left * 5.f, Vector3::Down * 1.425f, { 1.f, 0.8f, 0.6f, 1.0f }, 300);
 
-		jupiter->transform.SetPosition(Vector3::Left * 5.5f);
-		jupiter->transform.SetLocalScale({ 0.5, 0.5f, 0.5f });
-
-		auto rb = jupiter->AddComponent<PhysicObject>();
-		rb->SetVelocity(Vector3::Down * 1.35f);
-		rb->SetMass(1.f);
-	}
+	//Saturn
+	auto saturn = AddPlanet(1.f, false, 0.3f, Vector3::Left * 5.5f, Vector3::Down * 1.375f, { 1.f, 1.f, 0.6f, 1.0f }, 300);
+	auto saturnRings = saturn->AddComponent<PlanetRings>();
+	saturnRings->SetColor({ 1.f, 1.f, 0.6f, 1.0f });
+	saturnRings->SetRings ({0.2f, 0.22f, 0.24f, 0.28f, 0.3f});
 
 	//Kupier Belt
 	{
@@ -137,7 +70,12 @@ void KeplerOrbitScene::Init()
 		for (int i = 0; i < 600; ++i)
 		{
 			auto asteroid = AddGameObject();
-			//asteroid->AddComponent<TrackMovement>()->SetColor({ 0.3, 0.3, 0.3, 1.0f });
+
+			auto tracker = asteroid->AddComponent<TrackMovement>();
+			tracker->SetColor({ 0.3, 0.3, 0.3, 1.0f });
+			tracker->SetMaxLength(10);
+			tracker->SetLineSpacing(0.1f);
+
 			//asteroid->AddComponent<CircleCollider>()->SetRadius (0.5f);
 			auto renderer = asteroid->AddComponent<MeshRenderer>();
 			renderer->SetMesh(Mesh::Sphere(16, 16));
@@ -200,4 +138,30 @@ void KeplerOrbitScene::GridTest()
 
 	//Rotate Grid
 	parent->transform.SetRotation(Quaternion::Euler(-5.f, 0.f, 0.f) * Quaternion::Euler(0.f, 45.f, 0.f));
+}
+
+GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, Vector3 position, Vector3 velocity, Color color, int trackLength)
+{
+	auto planet = AddGameObject();
+
+	auto tracker = planet->AddComponent<TrackMovement>();
+	tracker->SetColor(color);
+	tracker->SetMaxLength (trackLength);
+	tracker->SetLineSpacing (0.25f);
+
+	auto renderer = planet->AddComponent<MeshRenderer>();
+	renderer->SetMesh(Mesh::Sphere(16, 16));
+	auto mat = std::make_shared<ColorMaterial>();
+	mat->SetColor(color);
+	renderer->SetMaterial(mat);
+
+	planet->transform.SetPosition(position);
+	planet->transform.SetLocalScale({ size, size, size });
+
+	auto rb = planet->AddComponent<PhysicObject>();
+	rb->SetStatic(isStatic);
+	rb->SetVelocity(velocity);
+	rb->SetMass(mass);
+
+	return planet;
 }

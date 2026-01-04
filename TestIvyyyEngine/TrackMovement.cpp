@@ -8,11 +8,11 @@ void TrackMovement::Update()
 {
 	float dist = transform->GetPosition().Distance(m_pos.back());
 
-	if (dist > 0.1f)
+	if (dist > m_spacing)
 	{
 		m_pos.push_back (transform->GetPosition());
 		
-		if (m_pos.size() > 150)
+		if (m_pos.size() > m_maxLength)
 			m_pos.erase (m_pos.begin());
 	}
 

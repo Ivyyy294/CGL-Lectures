@@ -28,6 +28,7 @@
     <ClCompile Include="GridMaterial.cpp" />
     <ClCompile Include="JonasScene.cpp" />
     <ClCompile Include="KeplerOrbitScene.cpp" />
+    <ClCompile Include="PlanetRings.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMovement.cpp" />
     <ClCompile Include="PrefabCoin.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="GridMaterial.h" />
     <ClInclude Include="JonasScene.h" />
     <ClInclude Include="KeplerOrbitScene.h" />
+    <ClInclude Include="PlanetRings.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMovement.h" />
     <ClInclude Include="PrefabCoin.h" />
