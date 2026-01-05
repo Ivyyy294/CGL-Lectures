@@ -75,6 +75,12 @@
     <ClCompile Include="PlanetRings.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="OrbitalElement.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="PlanetData.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JonasScene.h">
@@ -126,6 +132,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="PlanetRings.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="OrbitalElement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanetData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
