@@ -25,4 +25,20 @@ void CameraMovement::Update()
 
 	newRot = -newRot * transform->GetRotation();
 	transform->SetRotation(newRot);
+
+	Vector3 direction = transform->GetPosition().Normalized();
+	float maxSpeed = 50.f;
+	float distCap = 100.f;
+
+	float t = transform->GetPosition().Magnitude() / distCap;
+
+	if (t > 1.f)
+		t = 1.f;
+
+	float speed = maxSpeed * t;
+
+	if (Input::KeyPressed(Key::KEY_W))
+		transform->SetPosition(transform->GetPosition() - direction * speed * Time::DeltaTime());
+	if (Input::KeyPressed(Key::KEY_S))
+		transform->SetPosition(transform->GetPosition() + direction * speed * Time::DeltaTime());
 }
