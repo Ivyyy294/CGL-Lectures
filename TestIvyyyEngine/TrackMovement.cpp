@@ -3,6 +3,7 @@
 #include "IvyyyInput.h"
 #include "IvyyyTime.h"
 #include "IvyyyPhysicObject.h"
+#include "IvyyyCamera.h"
 
 void TrackMovement::Update()
 {

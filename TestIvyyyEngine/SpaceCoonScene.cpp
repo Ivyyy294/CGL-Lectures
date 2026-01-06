@@ -16,7 +16,7 @@
 
 void SpaceCoonScene::Init()
 {
-	//Gizmo::Draw = true;
+	Gizmo::Draw = true;
 	SpawnPlayer();
 	SpawnAsteroid();
 	SpawnColliders();

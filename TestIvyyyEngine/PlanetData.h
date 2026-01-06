@@ -13,5 +13,6 @@ struct PlanetData
 	bool isStatic;
 	OrbitalElement orbit;
 	int trackLength;
+	float lineSpacing;
 };
 

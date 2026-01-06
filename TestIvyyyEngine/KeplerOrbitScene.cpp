@@ -12,9 +12,12 @@
 #include <IvyyyCircleCollider.h>
 #include <IvyyyCamera.h>
 #include "PlanetRings.h"
+#include "IvyyyTime.h"
+#include "IvyyyMathF.h"
 
 void KeplerOrbitScene::Init()
 {
+	Time::SetTimeScale(0.5f);
 	Camera::MainCamera()->GetGameObject()->AddComponent<CameraMovement>();
 
 	//Add Light
@@ -34,95 +37,99 @@ void KeplerOrbitScene::Init()
 	PhysicObject* soi = nullptr;
 	//Sun
 	{
-		auto sun = AddPlanet(10.f, true, 0.3f, Vector3::Zero, Vector3::Zero, Color::Yellow, 0);
+		auto sun = AddPlanet(10.f, true, 0.3f, Vector3::Zero, Vector3::Zero, Color::Yellow, 0, 0.f);
 		sun->AddComponent< PhysicObjectGravityGenerator>();
 		soi = sun->GetComponent<PhysicObject>().get();
 	}
 
+	//TestPlanet
+	//PlanetData testPlanet{ 1.f, 0.1f, { 1.f, 1.f, 1.f, 1.0f }, false, {1.0, 0.2f, 45.0f, 90.0f, 45.0f}, 100, 0.05f };
+	//AddPlanet(testPlanet, soi);
+
 	//Mercury
-	PlanetData mercury{ 1.f, 0.1f, { 1.f, 0.5f, 0.f, 1.0f }, false, {0.387098f, 0.205630f, 6.35f, 48.331f, 29.124f}, 10 };
+	PlanetData mercury{ 1.f, 0.1f, { 1.f, 0.5f, 0.f, 1.0f }, false, {0.387098f, 0.205630f, 6.35f, 48.331f, 29.124f}, 34, 0.05f };
 	AddPlanet(mercury, soi);
 
 	//Venus
-	PlanetData venus {1.f, 0.15f, { 1.f, 0.83f, 0.57f, 1.0f }, false, {0.723332f, 0.006772f, 2.15f, 76.680f, 54.884f}, 100};
+	PlanetData venus {1.f, 0.15f, { 1.f, 0.83f, 0.57f, 1.0f }, false, {0.723332f, 0.006772f, 2.15f, 76.680f, 54.884f}, 59, 0.05f};
 	AddPlanet(venus, soi);
 
 	//Earth
-	PlanetData earth {1.f, 0.15f, Color::Blue, false, {1.000003f, 0.0167086f, 0.00005f, -11.26064f, 114.20783f}, 150};
+	PlanetData earth {1.f, 0.15f, Color::Blue, false, {1.000003f, 0.0167086f, 0.00005f, -11.26064f, 114.20783f}, 97, 0.05f};
 	AddPlanet (earth, soi);
 
 	//Mars
-	PlanetData mars{ 1.f, 0.1f, Color::Red, false, {1.52371f, 0.0934f, 1.63f, 49.57854f, 286.5f}, 150 };
+	PlanetData mars{ 1.f, 0.1f, Color::Red, false, {1.52371f, 0.0934f, 1.63f, 49.57854f, 286.5f}, 156, 0.05f };
 	AddPlanet(mars, soi);
 
 	//Jupiter
-	PlanetData jupiter{ 1.f, 0.89f, { 1.f, 0.8f, 0.6f, 1.0f }, false, {5.2029f, 0.0489f, 0.32f, 100.464f, 273.867f}, 300 };
+	PlanetData jupiter{ 1.f, 0.89f, { 1.f, 0.8f, 0.6f, 1.0f }, false, {5.2029f, 0.0489f, 0.32f, 100.464f, 273.867f}, 300, 0.2f };
 	AddPlanet(jupiter, soi);
 
 	//Saturn
-	PlanetData saturn{ 1.f, 0.74f, { 1.f, 1.f, 0.6f, 1.0f }, false, {9.537f, 0.0565f, 0.93f, 113.665f, 339.392f}, 300 };
+	PlanetData saturn{ 1.f, 0.74f, { 1.f, 1.f, 0.6f, 1.0f }, false, {9.537f, 0.0565f, 0.93f, 113.665f, 339.392f}, 300, 0.1f };
 	auto saturnRings = AddPlanet(saturn, soi)->AddComponent<PlanetRings>();
 	saturnRings->SetColor({ 1.f, 1.f, 0.6f, 1.0f });
 	saturnRings->SetRings ({0.4f, 0.42f, 0.43f, 0.46f, 0.48f, 0.51f, 0.53f, 0.55f});
 
 	//Uranus
-	PlanetData uranus{ 1.f, 0.32f, { 0.47f, 0.78f, 0.8f, 1.0f }, false, {19.189f, 0.04717f, 0.99f, 74.006f, 96.998857f}, 300 };
+	PlanetData uranus{ 1.f, 0.32f, { 0.47f, 0.78f, 0.8f, 1.0f }, false, {19.189f, 0.04717f, 0.99f, 74.006f, 96.998857f}, 300, 0.1f };
 	AddPlanet(uranus, soi);
 
 	//Neptun
-	PlanetData neptun{ 1.f, 0.31f, { 0.57f, 0.8f, 0.94f, 1.0f }, false, {30.0699f, 0.008678, 0.74f, 131.783f, 273.187f}, 300 };
+	PlanetData neptun{ 1.f, 0.31f, { 0.57f, 0.8f, 0.94f, 1.0f }, false, {30.0699f, 0.008678, 0.74f, 131.783f, 273.187f}, 300, 0.1f };
 	AddPlanet(neptun, soi);
 
 	//Pluto
-	PlanetData pluto{ 1.f, 0.05f, { 0.4f, 0.34f, 0.30f, 1.0f }, false, {39.482f, 0.2488f, 17.16f, 110.299f, 113.834f}, 300 };
+	PlanetData pluto{ 1.f, 0.05f, { 0.4f, 0.34f, 0.30f, 1.0f }, false, {39.482f, 0.2488f, 17.16f, 110.299f, 113.834f}, 300, 0.1f };
 	AddPlanet(pluto, soi);
 
 
-	//Kupier Belt
-	{
-		std::random_device rd; // obtain a random number from hardware
-		std::mt19937 gen(rd()); // seed the generator
-		std::uniform_int_distribution<> offset(-10.f, 10.f); // define the range
-		std::uniform_int_distribution<> angleRnd(-M_PI * 20.f, M_PI * 20.f); // define the range
+	////Kupier Belt
+	//{
+	//	std::random_device rd; // obtain a random number from hardware
+	//	std::mt19937 gen(rd()); // seed the generator
+	//	std::uniform_int_distribution<> offset(-10.f, 10.f); // define the range
+	//	std::uniform_int_distribution<> angleRnd(-M_PI * 20.f, M_PI * 20.f); // define the range
 
-		for (int i = 0; i < 600; ++i)
-		{
-			auto asteroid = AddGameObject();
+	//	for (int i = 0; i < 600; ++i)
+	//	{
+	//		auto asteroid = AddGameObject();
 
-			auto tracker = asteroid->AddComponent<TrackMovement>();
-			tracker->SetColor({ 0.3, 0.3, 0.3, 1.0f });
-			tracker->SetMaxLength(5);
-			tracker->SetLineSpacing(0.1f);
+	//		auto tracker = asteroid->AddComponent<TrackMovement>();
+	//		tracker->SetColor({ 0.3, 0.3, 0.3, 1.0f });
+	//		tracker->SetMaxLength(5);
+	//		tracker->SetLineSpacing(0.05f);
 
-			//asteroid->AddComponent<CircleCollider>()->SetRadius (0.5f);
-			auto renderer = asteroid->AddComponent<MeshRenderer>();
-			renderer->SetMesh(Mesh::Sphere(16, 16));
-			auto mat = std::make_shared<ColorMaterial>();
-			mat->SetColor({0.3, 0.3, 0.3, 1.0f});
-			renderer->SetMaterial(mat);
+	//		//asteroid->AddComponent<CircleCollider>()->SetRadius (0.5f);
+	//		auto renderer = asteroid->AddComponent<MeshRenderer>();
+	//		renderer->SetMesh(Mesh::Sphere(16, 16));
+	//		auto mat = std::make_shared<ColorMaterial>();
+	//		mat->SetColor({0.3, 0.3, 0.3, 1.0f});
+	//		renderer->SetMaterial(mat);
 
-			float posOffset = offset(gen) / 40.f;
-			float posOffsetZ = offset(gen) / 25.f;
-			float angle = angleRnd (gen) / 10.f;
+	//		float posOffset = offset(gen) / 40.f;
+	//		float posOffsetZ = offset(gen) / 25.f;
+	//		float angle = angleRnd (gen) / 10.f;
 
-			float radius = 4.f;
-			float x = std::cos(angle) * radius;
-			float y = std::sin(angle) * radius;
+	//		float radius = 4.f;
+	//		float x = std::cos(angle) * radius;
+	//		float y = std::sin(angle) * radius;
 
-			Vector3 pos { x, y, 0.f };
-			asteroid->transform.SetPosition(pos + (Vector3::Left * posOffset) + (Vector3::Forward * posOffsetZ));
-			asteroid->transform.SetLocalScale({ 0.05, 0.05f, 0.05f });
+	//		Vector3 pos { x, y, 0.f };
+	//		asteroid->transform.SetPosition(pos + (Vector3::Left * posOffset) + (Vector3::Forward * posOffsetZ));
+	//		asteroid->transform.SetLocalScale({ 0.025, 0.025f, 0.025f });
 
-			auto rb = asteroid->AddComponent<PhysicObject>();
-			rb->SetMass(0.1f);
-			Vector3 velocity = { -pos.y, pos.x , 0.f };
-			velocity = velocity.Normalized() * 1.55f;
-			rb->SetVelocity(velocity);
-		}
-	}
+	//		auto rb = asteroid->AddComponent<PhysicObject>();
+	//		rb->SetMass(0.1f);
+	//		Vector3 velocity = { -pos.y, pos.x , 0.f };
+	//		velocity = velocity.Normalized() * 1.55f;
+	//		rb->SetVelocity(velocity);
+	//	}
+	//}
 }
 
-GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, Vector3 position, Vector3 velocity, Color color, int trackLength)
+GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, Vector3 position, Vector3 velocity, Color color, int trackLength, float lineSpacing)
 {
 	auto planet = AddGameObject();
 
@@ -130,6 +137,7 @@ GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, V
 	tracker->SetColor(color);
 	tracker->SetMaxLength (trackLength);
 	tracker->SetLineSpacing (0.25f);
+	tracker->SetLineSpacing (lineSpacing);
 
 	auto renderer = planet->AddComponent<MeshRenderer>();
 	renderer->SetMesh(Mesh::Sphere(16, 16));
@@ -150,28 +158,45 @@ GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, V
 
 GameObject* KeplerOrbitScene::AddPlanet(const PlanetData& data, const PhysicObject* soi)
 {
-	float c = data.orbit.e * data.orbit.a;
-	
+	//Apply Longitude of ascending node
+	Vector3 ascendingNodeDir = Vector3::Down;
+	Vector3 orbitalPlaneNormal = Vector3::Back;
+
+	Quaternion o = Quaternion::AroundAxis(Vector3::Forward, data.orbit.o * MathF::Deg2Rad);
+
+	ascendingNodeDir = o * ascendingNodeDir;
+	orbitalPlaneNormal = o * orbitalPlaneNormal;
+
 	//Apply inclination
-	Quaternion rotation = Quaternion::Euler(0.f, 0.f, data.orbit.o);
-	rotation = rotation * Quaternion::Euler(data.orbit.i, 0.f, 0.f);
+	Quaternion i = Quaternion::AroundAxis(ascendingNodeDir, -data.orbit.i * MathF::Deg2Rad);
 
-	//Apply longinute of ascending node
+	orbitalPlaneNormal = i * orbitalPlaneNormal;
 
-	Vector3 f1ToCenter = rotation * Vector3::Right;
+	Vector3 periabsisDir = orbitalPlaneNormal.Cross(ascendingNodeDir);
+	
+	//Apply Argument of periapsis
+	Quaternion w = Quaternion::AroundAxis(orbitalPlaneNormal, -data.orbit.w * MathF::Deg2Rad);
+
+	periabsisDir = w * periabsisDir;
+
+	//Callculate velocity
+
+	float c = data.orbit.e * data.orbit.a;
 
 	Vector3 f1 = soi->GetTransform()->GetPosition();
 
-	Vector3 center = f1 + f1ToCenter * c;
+	Vector3 center = f1 - periabsisDir * c;
 
-
-	Vector3 v1 = center - (f1ToCenter * data.orbit.a);
+	Vector3 v1 = center + (periabsisDir * data.orbit.a);
 
 	float r = (v1-f1).Magnitude();
 
 	float v = sqrtf(soi->GetMass() * (2.f / r - 1.f / data.orbit.a ));
 
-	Vector3 velocity = rotation * Vector3::Down * v;
+	Vector3 velDir = periabsisDir.Cross(orbitalPlaneNormal);
+	Vector3 velocity = velDir * v;
 
-	return AddPlanet (data.mass, data.isStatic, data.radius, v1, velocity, data.color, data.trackLength);
+	Vector3 orbitPlaneNormal = ascendingNodeDir.Cross (periabsisDir);
+	
+	return AddPlanet(data.mass, data.isStatic, data.radius, v1, velocity, data.color, data.trackLength, data.lineSpacing);
 }

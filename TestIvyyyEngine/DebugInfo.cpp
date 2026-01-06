@@ -19,7 +19,7 @@ void DebugInfo::Update ()
 
 void DebugInfo::UpdateFps()
 {
-	deltatime = Time::DeltaTime ();
+	deltatime = Time::UnscaledDeltaTime ();
 
 	if (timer <= 1.f)
 	{
