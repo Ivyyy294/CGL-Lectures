@@ -5,14 +5,14 @@
 #include "IvyyyPhysicObject.h"
 #include "IvyyyCamera.h"
 
-void TrackMovement::Update()
+void TrackMovement::LateUpdate()
 {
 	if (m_maxLength <= 0)
 		return;
 
-	float dist = transform->GetPosition().Distance(m_pos.back());
+	float dist = m_pos.size() == 0 ? m_spacing : transform->GetPosition().Distance(m_pos.back());
 
-	if (dist > m_spacing)
+	if (dist >= m_spacing)
 	{
 		m_pos.push_back (transform->GetPosition());
 		
@@ -20,14 +20,13 @@ void TrackMovement::Update()
 			m_pos.erase (m_pos.begin());
 	}
 
+	if (m_pos.size() < 2)
+		return;
+
 	for (int i = 1; i < m_pos.size(); i++)
 		Draw::AddLine(m_pos[i-1], m_pos[i], m_color);
 
 	Draw::AddLine(m_pos[m_pos.size() -1], transform->GetPosition(), m_color);
 }
 
-void TrackMovement::Start()
-{
-	m_pos.push_back (transform->GetLocalPosition());
-}
 

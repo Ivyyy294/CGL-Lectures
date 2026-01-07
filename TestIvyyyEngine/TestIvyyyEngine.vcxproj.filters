@@ -75,10 +75,13 @@
     <ClCompile Include="PlanetRings.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="OrbitalElement.cpp">
+    <ClCompile Include="OrbitalElementData.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="PlanetData.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="OrbitalElement.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,10 +137,13 @@
     <ClInclude Include="PlanetRings.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="OrbitalElement.h">
+    <ClInclude Include="OrbitalElementData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="PlanetData.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="OrbitalElement.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

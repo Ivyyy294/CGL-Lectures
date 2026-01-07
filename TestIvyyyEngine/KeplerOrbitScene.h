@@ -13,7 +13,7 @@ class KeplerOrbitScene :
 		void Init() override;
 
 		GameObject* AddPlanet (float mass, bool isStatic, float size, Vector3 position
-			, Vector3 velocity, Color color, int trackLength, float lineSpacing);
+			, Color color);
 
 		GameObject* AddPlanet(const PlanetData& data, const PhysicObject* soi);
 	};

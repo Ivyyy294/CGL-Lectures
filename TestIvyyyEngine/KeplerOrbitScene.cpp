@@ -1,23 +1,27 @@
-#include "KeplerOrbitScene.h"
 #include "IvyyyDirectionalLight.h"
-#include "DebugInfo.h"
 #include "IvyyyMeshRenderer.h"
+#include <random>
+#include "IvyyyPhysicObject.h"
+#include "IvyyyPhysicObjectGravityGenerator.h"
+#include <IvyyyCircleCollider.h>
+#include <IvyyyCamera.h>
+#include "IvyyyTime.h"
+#include "IvyyyMathF.h"
+
+#include "DebugInfo.h"
 #include "CameraMovement.h"
 #include "GridMaterial.h"
 #include "TrackMovement.h"
 #include "ColorMaterial.h"
-#include "IvyyyPhysicObject.h"
-#include "IvyyyPhysicObjectGravityGenerator.h"
-#include <random>
-#include <IvyyyCircleCollider.h>
-#include <IvyyyCamera.h>
 #include "PlanetRings.h"
-#include "IvyyyTime.h"
-#include "IvyyyMathF.h"
+#include "OrbitalElement.h"
+
+#include "KeplerOrbitScene.h"
 
 void KeplerOrbitScene::Init()
 {
-	Time::SetTimeScale(0.5f);
+	const bool drawAsteroids = true;
+	Time::SetTimeScale(0.1f);
 	Camera::MainCamera()->GetGameObject()->AddComponent<CameraMovement>();
 
 	//Add Light
@@ -37,7 +41,7 @@ void KeplerOrbitScene::Init()
 	PhysicObject* soi = nullptr;
 	//Sun
 	{
-		auto sun = AddPlanet(10.f, true, 0.3f, Vector3::Zero, Vector3::Zero, Color::Yellow, 0, 0.f);
+		auto sun = AddPlanet(1.f, true, 0.3f, Vector3::Zero, Color::Yellow);
 		sun->AddComponent< PhysicObjectGravityGenerator>();
 		soi = sun->GetComponent<PhysicObject>().get();
 	}
@@ -47,7 +51,7 @@ void KeplerOrbitScene::Init()
 	//AddPlanet(testPlanet, soi);
 
 	//Mercury
-	PlanetData mercury{ 1.f, 0.1f, { 1.f, 0.5f, 0.f, 1.0f }, false, {0.387098f, 0.205630f, 6.35f, 48.331f, 29.124f}, 34, 0.05f };
+	PlanetData mercury{ 1.f, 0.1f, { 1.f, 0.5f, 0.f, 1.0f }, false, {0.387098f, 0.205630f, 6.35f, 48.331f, 29.124f}, 34, 0.1f };
 	AddPlanet(mercury, soi);
 
 	//Venus
@@ -86,6 +90,7 @@ void KeplerOrbitScene::Init()
 
 
 	//Kupier Belt
+	if (drawAsteroids)
 	{
 		std::random_device rd; // obtain a random number from hardware
 		std::mt19937 gen(rd()); // seed the generator
@@ -103,18 +108,19 @@ void KeplerOrbitScene::Init()
 			float o = oRnd(gen);
 			float w = wRnd(gen);
 
-			PlanetData asteroid{ 0.1f, 0.025f, { 0.3, 0.3, 0.3, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
+			PlanetData asteroid{ 1.f, 0.025f, { 0.3, 0.3, 0.3, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
 			AddPlanet (asteroid, soi);
 		}
 	}
 
 	//Outer belt
+	if (drawAsteroids)
 	{
 		std::random_device rd; // obtain a random number from hardware
 		std::mt19937 gen(rd()); // seed the generator
 		std::uniform_int_distribution<> smaRnd(350.f, 400.f); // define the range
 		std::uniform_int_distribution<> eRnd(0.f, 0.5f); // define the range
-		std::uniform_int_distribution<> iRnd(-90.f, 90.f); // define the range
+		std::uniform_int_distribution<> iRnd(-10.f, 10.f); // define the range
 		std::uniform_int_distribution<> oRnd(0.f, 360.f); // define the range
 		std::uniform_int_distribution<> wRnd(0.f, 360.f); // define the range
 		std::uniform_int_distribution<> sizeRnd(25, 200); // define the range
@@ -128,21 +134,15 @@ void KeplerOrbitScene::Init()
 			float w = wRnd(gen);
 			float size = sizeRnd (gen) * 0.001f;
 
-			PlanetData star{ 0.1f, size, { 0.3, 0.3, 0.3, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
+			PlanetData star{ 1.f, size, { 0.3, 0.3, 0.3, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
 			AddPlanet(star, soi);
 		}
 	}
 }
 
-GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, Vector3 position, Vector3 velocity, Color color, int trackLength, float lineSpacing)
+GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, Vector3 position, Color color)
 {
 	auto planet = AddGameObject();
-
-	auto tracker = planet->AddComponent<TrackMovement>();
-	tracker->SetColor(color);
-	tracker->SetMaxLength (trackLength);
-	tracker->SetLineSpacing (0.25f);
-	tracker->SetLineSpacing (lineSpacing);
 
 	auto renderer = planet->AddComponent<MeshRenderer>();
 	renderer->SetMesh(Mesh::Sphere(16, 16));
@@ -155,7 +155,6 @@ GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, V
 
 	auto rb = planet->AddComponent<PhysicObject>();
 	rb->SetStatic(isStatic);
-	rb->SetVelocity(velocity);
 	rb->SetMass(mass);
 
 	return planet;
@@ -163,45 +162,29 @@ GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, V
 
 GameObject* KeplerOrbitScene::AddPlanet(const PlanetData& data, const PhysicObject* soi)
 {
-	//Apply Longitude of ascending node
-	Vector3 ascendingNodeDir = Vector3::Down;
-	Vector3 orbitalPlaneNormal = Vector3::Back;
+	auto planet = AddGameObject();
 
-	Quaternion o = Quaternion::AroundAxis(Vector3::Forward, data.orbit.o * MathF::Deg2Rad);
+	auto tracker = planet->AddComponent<TrackMovement>();
+	tracker->SetColor(data.color);
+	tracker->SetMaxLength(data.trackLength);
+	tracker->SetLineSpacing(0.25f);
+	tracker->SetLineSpacing(data.lineSpacing);
 
-	ascendingNodeDir = o * ascendingNodeDir;
-	orbitalPlaneNormal = o * orbitalPlaneNormal;
+	auto renderer = planet->AddComponent<MeshRenderer>();
+	renderer->SetMesh(Mesh::Sphere(16, 16));
+	auto mat = std::make_shared<ColorMaterial>();
+	mat->SetColor(data.color);
+	renderer->SetMaterial(mat);
 
-	//Apply inclination
-	Quaternion i = Quaternion::AroundAxis(ascendingNodeDir, -data.orbit.i * MathF::Deg2Rad);
+	float scale = data.radius;
+	planet->transform.SetLocalScale({ scale, scale, scale });
 
-	orbitalPlaneNormal = i * orbitalPlaneNormal;
+	auto rb = planet->AddComponent<PhysicObject>();
+	rb->SetStatic(data.isStatic);
+	rb->SetMass(data.mass);
 
-	Vector3 periabsisDir = orbitalPlaneNormal.Cross(ascendingNodeDir);
-	
-	//Apply Argument of periapsis
-	Quaternion w = Quaternion::AroundAxis(orbitalPlaneNormal, -data.orbit.w * MathF::Deg2Rad);
+	auto oe = planet->AddComponent<OrbitalElement>();
+	oe->SetOrbitalData (data.orbit, soi);
 
-	periabsisDir = w * periabsisDir;
-
-	//Callculate velocity
-
-	float c = data.orbit.e * data.orbit.a;
-
-	Vector3 f1 = soi->GetTransform()->GetPosition();
-
-	Vector3 center = f1 - periabsisDir * c;
-
-	Vector3 v1 = center + (periabsisDir * data.orbit.a);
-
-	float r = (v1-f1).Magnitude();
-
-	float v = sqrtf(soi->GetMass() * (2.f / r - 1.f / data.orbit.a ));
-
-	Vector3 velDir = periabsisDir.Cross(orbitalPlaneNormal);
-	Vector3 velocity = velDir * v;
-
-	Vector3 orbitPlaneNormal = ascendingNodeDir.Cross (periabsisDir);
-	
-	return AddPlanet(data.mass, data.isStatic, data.radius, v1, velocity, data.color, data.trackLength, data.lineSpacing);
+	return planet;
 }

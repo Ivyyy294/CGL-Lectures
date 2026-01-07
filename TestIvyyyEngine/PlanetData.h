@@ -11,7 +11,7 @@ struct PlanetData
 	float radius;
 	Color color;
 	bool isStatic;
-	OrbitalElement orbit;
+	OrbitalElementData orbit;
 	int trackLength;
 	float lineSpacing;
 };

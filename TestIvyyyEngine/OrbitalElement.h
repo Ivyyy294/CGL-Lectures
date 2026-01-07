@@ -1,22 +1,36 @@
 #pragma once
-struct OrbitalElement
+#include "IvyyyComponent.h"
+#include "OrbitalElementData.h"
+#include "IvyyyPhysicObject.h"
+
+using namespace Ivyyy;
+
+class OrbitalElement :
+    public Component
 {
-	//Semi major axis
-	float a = 1.f;
+	//Variables
+	private:
+		OrbitalElementData m_orbitData;
+		const PhysicObject* m_soi {nullptr};
+		PhysicObject* m_rb {nullptr};
 
-	//Eccentricity
-	float e = 1.f;
+		Vector3 m_center;
+		Vector3 m_orbitalPlaneNormal;
+		Vector3 m_periapsisDir;
+		float m_c;
+		float m_b;
+		float m_t;
 
-	//Inclination
-	float i = 0.f;
+		Vector3 m_orbitPath [16];
+		float m_timer = 0.f;
 
-	//Longitude of ascending node
-	float o = 0.f;
+	//Methods
+	public:
+		void Update() override;
+		void SetOrbitalData(const OrbitalElementData& orbitData, const PhysicObject* soi);
 
-	//Argument of periapsis
-	float w = 0.f;
-
-	//Mean anomaly at epoch
-	float m0 = 0.f;
+	private:
+		void CalculateOrbit();
+		void CalculateOrbitPath();
 };
 

@@ -29,6 +29,7 @@
     <ClCompile Include="JonasScene.cpp" />
     <ClCompile Include="KeplerOrbitScene.cpp" />
     <ClCompile Include="OrbitalElement.cpp" />
+    <ClCompile Include="OrbitalElementData.cpp" />
     <ClCompile Include="PlanetData.cpp" />
     <ClCompile Include="PlanetRings.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="JonasScene.h" />
     <ClInclude Include="KeplerOrbitScene.h" />
     <ClInclude Include="OrbitalElement.h" />
+    <ClInclude Include="OrbitalElementData.h" />
     <ClInclude Include="PlanetData.h" />
     <ClInclude Include="PlanetRings.h" />
     <ClInclude Include="Player.h" />
