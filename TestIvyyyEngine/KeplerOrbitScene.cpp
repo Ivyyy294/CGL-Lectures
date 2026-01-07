@@ -56,7 +56,7 @@ void KeplerOrbitScene::Init()
 
 	//Earth
 	PlanetData earth {1.f, 0.15f, Color::Blue, false, {1.000003f, 0.0167086f, 0.00005f, -11.26064f, 114.20783f}, 97, 0.05f};
-	AddPlanet (earth, soi);
+	AddPlanet (earth, soi)->GetComponent<PhysicObject>();
 
 	//Mars
 	PlanetData mars{ 1.f, 0.1f, Color::Red, false, {1.52371f, 0.0934f, 1.63f, 49.57854f, 286.5f}, 156, 0.05f };
@@ -67,7 +67,7 @@ void KeplerOrbitScene::Init()
 	AddPlanet(jupiter, soi);
 
 	//Saturn
-	PlanetData saturn{ 1.f, 0.74f, { 1.f, 1.f, 0.6f, 1.0f }, false, {9.537f, 0.0565f, 0.93f, 113.665f, 339.392f}, 300, 0.1f };
+	PlanetData saturn{ 1.f, 0.74f, { 1.f, 1.f, 0.6f, 1.0f }, false, {9.537f, 0.0565f, 0.93f, 113.665f, 339.392f}, 500, 0.1f };
 	auto saturnRings = AddPlanet(saturn, soi)->AddComponent<PlanetRings>();
 	saturnRings->SetColor({ 1.f, 1.f, 0.6f, 1.0f });
 	saturnRings->SetRings ({0.4f, 0.42f, 0.43f, 0.46f, 0.48f, 0.51f, 0.53f, 0.55f});
@@ -85,48 +85,53 @@ void KeplerOrbitScene::Init()
 	AddPlanet(pluto, soi);
 
 
-	////Kupier Belt
-	//{
-	//	std::random_device rd; // obtain a random number from hardware
-	//	std::mt19937 gen(rd()); // seed the generator
-	//	std::uniform_int_distribution<> offset(-10.f, 10.f); // define the range
-	//	std::uniform_int_distribution<> angleRnd(-M_PI * 20.f, M_PI * 20.f); // define the range
+	//Kupier Belt
+	{
+		std::random_device rd; // obtain a random number from hardware
+		std::mt19937 gen(rd()); // seed the generator
+		std::uniform_int_distribution<> smaRnd(25.f, 35.f); // define the range
+		std::uniform_int_distribution<> eRnd(0.f, 0.5f); // define the range
+		std::uniform_int_distribution<> iRnd(-10.f, 10.f); // define the range
+		std::uniform_int_distribution<> oRnd(0.f, 360.f); // define the range
+		std::uniform_int_distribution<> wRnd(0.f, 360.f); // define the range
 
-	//	for (int i = 0; i < 600; ++i)
-	//	{
-	//		auto asteroid = AddGameObject();
+		for (int j = 0; j < 300; ++j)
+		{
+			float sma = smaRnd(gen) * 0.1f;
+			float e = eRnd(gen);
+			float i = iRnd(gen);
+			float o = oRnd(gen);
+			float w = wRnd(gen);
 
-	//		auto tracker = asteroid->AddComponent<TrackMovement>();
-	//		tracker->SetColor({ 0.3, 0.3, 0.3, 1.0f });
-	//		tracker->SetMaxLength(5);
-	//		tracker->SetLineSpacing(0.05f);
+			PlanetData asteroid{ 0.1f, 0.025f, { 0.3, 0.3, 0.3, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
+			AddPlanet (asteroid, soi);
+		}
+	}
 
-	//		//asteroid->AddComponent<CircleCollider>()->SetRadius (0.5f);
-	//		auto renderer = asteroid->AddComponent<MeshRenderer>();
-	//		renderer->SetMesh(Mesh::Sphere(16, 16));
-	//		auto mat = std::make_shared<ColorMaterial>();
-	//		mat->SetColor({0.3, 0.3, 0.3, 1.0f});
-	//		renderer->SetMaterial(mat);
+	//Outer belt
+	{
+		std::random_device rd; // obtain a random number from hardware
+		std::mt19937 gen(rd()); // seed the generator
+		std::uniform_int_distribution<> smaRnd(350.f, 400.f); // define the range
+		std::uniform_int_distribution<> eRnd(0.f, 0.5f); // define the range
+		std::uniform_int_distribution<> iRnd(-90.f, 90.f); // define the range
+		std::uniform_int_distribution<> oRnd(0.f, 360.f); // define the range
+		std::uniform_int_distribution<> wRnd(0.f, 360.f); // define the range
+		std::uniform_int_distribution<> sizeRnd(25, 200); // define the range
 
-	//		float posOffset = offset(gen) / 40.f;
-	//		float posOffsetZ = offset(gen) / 25.f;
-	//		float angle = angleRnd (gen) / 10.f;
+		for (int j = 0; j < 1000; ++j)
+		{
+			float sma = smaRnd(gen) * 0.1f;
+			float e = eRnd(gen);
+			float i = iRnd(gen);
+			float o = oRnd(gen);
+			float w = wRnd(gen);
+			float size = sizeRnd (gen) * 0.001f;
 
-	//		float radius = 4.f;
-	//		float x = std::cos(angle) * radius;
-	//		float y = std::sin(angle) * radius;
-
-	//		Vector3 pos { x, y, 0.f };
-	//		asteroid->transform.SetPosition(pos + (Vector3::Left * posOffset) + (Vector3::Forward * posOffsetZ));
-	//		asteroid->transform.SetLocalScale({ 0.025, 0.025f, 0.025f });
-
-	//		auto rb = asteroid->AddComponent<PhysicObject>();
-	//		rb->SetMass(0.1f);
-	//		Vector3 velocity = { -pos.y, pos.x , 0.f };
-	//		velocity = velocity.Normalized() * 1.55f;
-	//		rb->SetVelocity(velocity);
-	//	}
-	//}
+			PlanetData star{ 0.1f, size, { 0.3, 0.3, 0.3, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
+			AddPlanet(star, soi);
+		}
+	}
 }
 
 GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, Vector3 position, Vector3 velocity, Color color, int trackLength, float lineSpacing)

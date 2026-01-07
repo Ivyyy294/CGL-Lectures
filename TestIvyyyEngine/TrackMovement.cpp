@@ -7,6 +7,9 @@
 
 void TrackMovement::Update()
 {
+	if (m_maxLength <= 0)
+		return;
+
 	float dist = transform->GetPosition().Distance(m_pos.back());
 
 	if (dist > m_spacing)
