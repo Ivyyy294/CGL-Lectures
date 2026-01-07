@@ -89,7 +89,7 @@ void OrbitalElement::CalculateOrbit()
 
 	m_rb->SetVelocity(velocity);
 
-	m_t = 2.f * M_PI * sqrtf(pow (m_orbitData.a, 3.f) / m_soi->GetMass());
+	m_t = 2.f * float(M_PI) * sqrtf(pow (m_orbitData.a, 3.f) / m_soi->GetMass());
 }
 
 void OrbitalElement::CalculateOrbitPath()
@@ -97,16 +97,16 @@ void OrbitalElement::CalculateOrbitPath()
 	Vector3 u = (m_center - transform->GetPosition()).Normalized();
 	Vector3 v = u.Cross(m_orbitalPlaneNormal);
 
-	const double TWO_PI = 2.0 * M_PI;
+	const float TWO_PI = 2.0 * float(M_PI);
 
 	for (int i = 0; i < 16; ++i)
 	{
-		double theta = TWO_PI * i / 16;
+		float theta = TWO_PI * i / 16;
 
 		Vector3 point =
 			m_center +
-			v * (m_orbitData.a * std::cos(theta)) +
-			u * (m_b * std::sin(theta));
+			v * (m_orbitData.a * std::cosf(theta)) +
+			u * (m_b * std::sinf(theta));
 
 		m_orbitPath[i] = point;
 	}

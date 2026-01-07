@@ -80,9 +80,9 @@ void SpaceCoonScene::SpawnAsteroid(float size, float mass, MeshMaterial::Ptr mat
 	std::uniform_int_distribution<> distrPosY(100, 980); // define the range
 	std::uniform_int_distribution<> distrVel(-20, 20); // define the range
 
-	float x = distrPosX(gen);
+	float x = float(distrPosX(gen));
 	float y = distrPosY(gen) * -1.f;
-	float vel = distrVel(gen);
+	float vel = float(distrVel(gen));
 
 	auto asteroid = AddGameObject<GameObject>(Vector3(x, y, 0.f));
 	//asteroid->transform.SetLocalScale(Vector3(size, size, size));

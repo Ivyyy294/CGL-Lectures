@@ -23,7 +23,7 @@ void TrackMovement::LateUpdate()
 	if (m_pos.size() < 2)
 		return;
 
-	for (int i = 1; i < m_pos.size(); i++)
+	for (size_t i = 1; i < m_pos.size(); i++)
 		Draw::AddLine(m_pos[i-1], m_pos[i], m_color);
 
 	Draw::AddLine(m_pos[m_pos.size() -1], transform->GetPosition(), m_color);

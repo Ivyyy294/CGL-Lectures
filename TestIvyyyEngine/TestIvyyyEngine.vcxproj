@@ -36,6 +36,7 @@
     <ClCompile Include="PlayerMovement.cpp" />
     <ClCompile Include="PrefabCoin.cpp" />
     <ClCompile Include="PrefabScore.cpp" />
+    <ClCompile Include="ReferenceFrame.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="SpaceCoonScene.cpp" />
     <ClCompile Include="TrackMovement.cpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="PlayerMovement.h" />
     <ClInclude Include="PrefabCoin.h" />
     <ClInclude Include="PrefabScore.h" />
+    <ClInclude Include="ReferenceFrame.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="SpaceCoonScene.h" />
     <ClInclude Include="TrackMovement.h" />

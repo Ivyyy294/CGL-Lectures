@@ -20,7 +20,7 @@
 
 void KeplerOrbitScene::Init()
 {
-	const bool drawAsteroids = true;
+	const bool drawAsteroids = false;
 	Time::SetTimeScale(0.1f);
 	Camera::MainCamera()->GetGameObject()->AddComponent<CameraMovement>();
 
@@ -81,7 +81,7 @@ void KeplerOrbitScene::Init()
 	AddPlanet(uranus, soi);
 
 	//Neptun
-	PlanetData neptun{ 1.f, 0.31f, { 0.57f, 0.8f, 0.94f, 1.0f }, false, {30.0699f, 0.008678, 0.74f, 131.783f, 273.187f}, 300, 0.1f };
+	PlanetData neptun{ 1.f, 0.31f, { 0.57f, 0.8f, 0.94f, 1.0f }, false, {30.0699f, 0.008678f, 0.74f, 131.783f, 273.187f}, 300, 0.1f };
 	AddPlanet(neptun, soi);
 
 	//Pluto
@@ -94,21 +94,21 @@ void KeplerOrbitScene::Init()
 	{
 		std::random_device rd; // obtain a random number from hardware
 		std::mt19937 gen(rd()); // seed the generator
-		std::uniform_int_distribution<> smaRnd(25.f, 35.f); // define the range
-		std::uniform_int_distribution<> eRnd(0.f, 0.5f); // define the range
-		std::uniform_int_distribution<> iRnd(-10.f, 10.f); // define the range
-		std::uniform_int_distribution<> oRnd(0.f, 360.f); // define the range
-		std::uniform_int_distribution<> wRnd(0.f, 360.f); // define the range
+		std::uniform_int_distribution<> smaRnd(25, 35); // define the range
+		std::uniform_int_distribution<> eRnd(0, 5); // define the range
+		std::uniform_int_distribution<> iRnd(-10, 10); // define the range
+		std::uniform_int_distribution<> oRnd(0, 360); // define the range
+		std::uniform_int_distribution<> wRnd(0, 360); // define the range
 
 		for (int j = 0; j < 300; ++j)
 		{
 			float sma = smaRnd(gen) * 0.1f;
-			float e = eRnd(gen);
-			float i = iRnd(gen);
-			float o = oRnd(gen);
-			float w = wRnd(gen);
+			float e = eRnd(gen) * 0.1f;
+			float i = float (iRnd(gen));
+			float o = float (oRnd(gen));
+			float w = float (wRnd(gen));
 
-			PlanetData asteroid{ 1.f, 0.025f, { 0.3, 0.3, 0.3, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
+			PlanetData asteroid{ 1.f, 0.025f, { 0.3f, 0.3f, 0.3f, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
 			AddPlanet (asteroid, soi);
 		}
 	}
@@ -118,23 +118,23 @@ void KeplerOrbitScene::Init()
 	{
 		std::random_device rd; // obtain a random number from hardware
 		std::mt19937 gen(rd()); // seed the generator
-		std::uniform_int_distribution<> smaRnd(350.f, 400.f); // define the range
-		std::uniform_int_distribution<> eRnd(0.f, 0.5f); // define the range
-		std::uniform_int_distribution<> iRnd(-10.f, 10.f); // define the range
-		std::uniform_int_distribution<> oRnd(0.f, 360.f); // define the range
-		std::uniform_int_distribution<> wRnd(0.f, 360.f); // define the range
+		std::uniform_int_distribution<> smaRnd(350, 400); // define the range
+		std::uniform_int_distribution<> eRnd(0, 5); // define the range
+		std::uniform_int_distribution<> iRnd(-10, 10); // define the range
+		std::uniform_int_distribution<> oRnd(0, 360); // define the range
+		std::uniform_int_distribution<> wRnd(0, 360); // define the range
 		std::uniform_int_distribution<> sizeRnd(25, 200); // define the range
 
 		for (int j = 0; j < 1000; ++j)
 		{
 			float sma = smaRnd(gen) * 0.1f;
-			float e = eRnd(gen);
-			float i = iRnd(gen);
-			float o = oRnd(gen);
-			float w = wRnd(gen);
+			float e = eRnd(gen) * 0.1f;
+			float i = float (iRnd(gen));
+			float o = float (oRnd(gen));
+			float w = float (wRnd(gen));
 			float size = sizeRnd (gen) * 0.001f;
 
-			PlanetData star{ 1.f, size, { 0.3, 0.3, 0.3, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
+			PlanetData star{ 1.f, size, { 0.3f, 0.3f, 0.3f, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
 			AddPlanet(star, soi);
 		}
 	}

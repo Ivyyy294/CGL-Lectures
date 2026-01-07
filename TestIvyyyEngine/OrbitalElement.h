@@ -17,9 +17,9 @@ class OrbitalElement :
 		Vector3 m_center;
 		Vector3 m_orbitalPlaneNormal;
 		Vector3 m_periapsisDir;
-		float m_c;
-		float m_b;
-		float m_t;
+		float m_c = 0.f;
+		float m_b = 0.f;
+		float m_t = 0.f;
 
 		Vector3 m_orbitPath [16];
 		float m_timer = 0.f;
