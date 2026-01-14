@@ -21,7 +21,7 @@
 void KeplerOrbitScene::Init()
 {
 	const bool drawAsteroids = false;
-	Time::SetTimeScale(0.1f);
+	Time::SetTimeScale(1.f);
 	Camera::MainCamera()->GetGameObject()->AddComponent<CameraMovement>();
 
 	//Add Light
@@ -42,7 +42,6 @@ void KeplerOrbitScene::Init()
 	//Sun
 	{
 		auto sun = AddPlanet(1.f, true, 0.3f, Vector3::Zero, Color::Yellow);
-		sun->AddComponent< PhysicObjectGravityGenerator>();
 		soi = sun->GetComponent<PhysicObject>().get();
 	}
 
@@ -51,41 +50,41 @@ void KeplerOrbitScene::Init()
 	//AddPlanet(testPlanet, soi);
 
 	//Mercury
-	PlanetData mercury{ 1.f, 0.1f, { 1.f, 0.5f, 0.f, 1.0f }, false, {0.387098f, 0.205630f, 6.35f, 48.331f, 29.124f}, 34, 0.1f };
+	PlanetData mercury{ 1.f, 0.1f, { 1.f, 0.5f, 0.f, 1.0f }, false, {0.387098f, 0.205630f, 6.35f, 48.331f, 29.124f, 174.796f}, 34, 0.1f };
 	AddPlanet(mercury, soi);
 
 	//Venus
-	PlanetData venus {1.f, 0.15f, { 1.f, 0.83f, 0.57f, 1.0f }, false, {0.723332f, 0.006772f, 2.15f, 76.680f, 54.884f}, 59, 0.05f};
+	PlanetData venus {1.f, 0.15f, { 1.f, 0.83f, 0.57f, 1.0f }, false, {0.723332f, 0.006772f, 2.15f, 76.680f, 54.884f, 50.115f}, 59, 0.05f};
 	AddPlanet(venus, soi);
 
 	//Earth
-	PlanetData earth {1.f, 0.15f, Color::Blue, false, {1.000003f, 0.0167086f, 0.00005f, -11.26064f, 114.20783f}, 97, 0.05f};
+	PlanetData earth {1.f, 0.15f, Color::Blue, false, {1.000003f, 0.0167086f, 0.00005f, -11.26064f, 114.20783f, 358.617f}, 97, 0.05f};
 	AddPlanet (earth, soi)->GetComponent<PhysicObject>();
 
 	//Mars
-	PlanetData mars{ 1.f, 0.1f, Color::Red, false, {1.52371f, 0.0934f, 1.63f, 49.57854f, 286.5f}, 156, 0.05f };
+	PlanetData mars{ 1.f, 0.1f, Color::Red, false, {1.52371f, 0.0934f, 1.63f, 49.57854f, 286.5f, 19.412f}, 156, 0.05f };
 	AddPlanet(mars, soi);
 
 	//Jupiter
-	PlanetData jupiter{ 1.f, 0.89f, { 1.f, 0.8f, 0.6f, 1.0f }, false, {5.2029f, 0.0489f, 0.32f, 100.464f, 273.867f}, 300, 0.2f };
+	PlanetData jupiter{ 1.f, 0.89f, { 1.f, 0.8f, 0.6f, 1.0f }, false, {5.2029f, 0.0489f, 0.32f, 100.464f, 273.867f, 20.020f}, 300, 0.2f };
 	AddPlanet(jupiter, soi);
 
 	//Saturn
-	PlanetData saturn{ 1.f, 0.74f, { 1.f, 1.f, 0.6f, 1.0f }, false, {9.537f, 0.0565f, 0.93f, 113.665f, 339.392f}, 500, 0.1f };
+	PlanetData saturn{ 1.f, 0.74f, { 1.f, 1.f, 0.6f, 1.0f }, false, {9.537f, 0.0565f, 0.93f, 113.665f, 339.392f, 317.020f}, 500, 0.1f };
 	auto saturnRings = AddPlanet(saturn, soi)->AddComponent<PlanetRings>();
 	saturnRings->SetColor({ 1.f, 1.f, 0.6f, 1.0f });
 	saturnRings->SetRings ({0.4f, 0.42f, 0.43f, 0.46f, 0.48f, 0.51f, 0.53f, 0.55f});
 
 	//Uranus
-	PlanetData uranus{ 1.f, 0.32f, { 0.47f, 0.78f, 0.8f, 1.0f }, false, {19.189f, 0.04717f, 0.99f, 74.006f, 96.998857f}, 300, 0.1f };
+	PlanetData uranus{ 1.f, 0.32f, { 0.47f, 0.78f, 0.8f, 1.0f }, false, {19.189f, 0.04717f, 0.99f, 74.006f, 96.998857f, 142.238600f}, 300, 0.1f };
 	AddPlanet(uranus, soi);
 
 	//Neptun
-	PlanetData neptun{ 1.f, 0.31f, { 0.57f, 0.8f, 0.94f, 1.0f }, false, {30.0699f, 0.008678f, 0.74f, 131.783f, 273.187f}, 300, 0.1f };
+	PlanetData neptun{ 1.f, 0.31f, { 0.57f, 0.8f, 0.94f, 1.0f }, false, {30.0699f, 0.008678f, 0.74f, 131.783f, 273.187f, 259.883f}, 300, 0.1f };
 	AddPlanet(neptun, soi);
 
 	//Pluto
-	PlanetData pluto{ 1.f, 0.05f, { 0.4f, 0.34f, 0.30f, 1.0f }, false, {39.482f, 0.2488f, 17.16f, 110.299f, 113.834f}, 300, 0.1f };
+	PlanetData pluto{ 1.f, 0.05f, { 0.4f, 0.34f, 0.30f, 1.0f }, false, {39.482f, 0.2488f, 17.16f, 110.299f, 113.834f, 14.53f}, 300, 0.1f };
 	AddPlanet(pluto, soi);
 
 

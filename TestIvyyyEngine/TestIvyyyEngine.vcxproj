@@ -28,6 +28,7 @@
     <ClCompile Include="GridMaterial.cpp" />
     <ClCompile Include="JonasScene.cpp" />
     <ClCompile Include="KeplerOrbitScene.cpp" />
+    <ClCompile Include="OrbitalData.cpp" />
     <ClCompile Include="OrbitalElement.cpp" />
     <ClCompile Include="OrbitalElementData.cpp" />
     <ClCompile Include="PlanetData.cpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="GridMaterial.h" />
     <ClInclude Include="JonasScene.h" />
     <ClInclude Include="KeplerOrbitScene.h" />
+    <ClInclude Include="OrbitalData.h" />
     <ClInclude Include="OrbitalElement.h" />
     <ClInclude Include="OrbitalElementData.h" />
     <ClInclude Include="PlanetData.h" />

@@ -3,111 +3,85 @@
 #include <cmath>
 #include "IvyyyDraw.h"
 #include "IvyyyTime.h"
+#include <IvyyyPhysic.h>
 
 void OrbitalElement::Update()
 {
-	if (m_rb == nullptr)
-	{
-		m_rb = gameObject->GetComponent<PhysicObject>().get();
-
-		if (m_rb == nullptr)
-			return;
-
-		CalculateOrbit();
-		//CalculateOrbitPath();
-	}
-
-	//if (m_timer >= m_t)
-	//{
-	//	CalculateOrbitPath();
-	//	m_timer = 0.f;
-	//}
-	//else
-	//	m_timer += Time::DeltaTime();
-
-	//for (int i = 1; i < 16; ++i)
-	//	Draw::AddLine(m_orbitPath[i - 1], m_orbitPath[i], Color::White);
-
-	//Draw::AddLine(m_orbitPath[0], m_orbitPath[16 - 1], Color::White);
+	CalculateOrbit();
 }
 
 void OrbitalElement::SetOrbitalData(const OrbitalElementData& orbitData, const PhysicObject* soi)
 {
-	m_orbitData = orbitData;
+	m_orbitalElementData = orbitData;
+	m_orbitData = OrbitalData (orbitData);
 	m_soi = soi;
+
+	if (m_soi != nullptr)
+	{
+		float gm = IvyyyPhysic::GravitationalConstant() * soi->GetMass();
+		m_orbitData.n = std::sqrtf (gm / (m_orbitalElementData.a * m_orbitalElementData.a * m_orbitalElementData.a));
+	}
 }
 
 void OrbitalElement::CalculateOrbit()
 {
-	//Apply Longitude of ascending node
-	Vector3 ascendingNodeDir = Vector3::Down;
-	m_orbitalPlaneNormal = Vector3::Back;
+	if (m_soi == nullptr)
+		return;
 
-	Quaternion o = Quaternion::AroundAxis(Vector3::Forward, m_orbitData.o * MathF::Deg2Rad);
+	// --- 1. Advance mean anomaly ---
+	float meanAnomaly = m_orbitalElementData.m0 + m_orbitData.n * m_timer;
 
-	ascendingNodeDir = (o * ascendingNodeDir).Normalized();
+	// Elliptical only
+	if (m_orbitalElementData.e >= 1.0f)
+		return;
 
-	m_orbitalPlaneNormal = o * m_orbitalPlaneNormal;
+	// --- 2. Solve Kepler equation ---
+	float eccentricAnomaly = meanAnomaly;
+	for (int iter = 0; iter < 10; ++iter)
+	{
+		float f = eccentricAnomaly
+			- m_orbitalElementData.e * std::sin(eccentricAnomaly)
+			- meanAnomaly;
+		float fp = 1.0f - m_orbitalElementData.e * std::cos(eccentricAnomaly);
+		eccentricAnomaly -= f / fp;
+	}
 
-	//Apply inclination
-	Quaternion i = Quaternion::AroundAxis(ascendingNodeDir, -m_orbitData.i * MathF::Deg2Rad);
+	// --- 3. Position in ORBITAL PLANE (XY, Z = 0) ---
+	float a = m_orbitalElementData.a;
+	float e = m_orbitalElementData.e;
 
-	m_orbitalPlaneNormal = (i * m_orbitalPlaneNormal).Normalized();
+	Vector3 orbitalPosition(
+		a * (std::cos(eccentricAnomaly) - e),
+		a * std::sqrt(1.0f - e * e) * std::sin(eccentricAnomaly),
+		0.0f
+	);
 
-	m_periapsisDir = m_orbitalPlaneNormal.Cross(ascendingNodeDir);
+	// --- 5. Rotate into world space ---
+	Vector3 center = m_soi->GetTransform()->GetPosition() + m_orbitData.center;
+	Vector3 pos = center + m_orbitData.orientation * orbitalPosition;
 
-	//Apply Argument of periapsis
-	Quaternion w = Quaternion::AroundAxis(m_orbitalPlaneNormal, -m_orbitData.w * MathF::Deg2Rad);
+	transform->SetPosition(pos);
 
-	m_periapsisDir = (w * m_periapsisDir).Normalized();
-
-	//Callculate velocity
-
-	m_c = m_orbitData.e * m_orbitData.a;
-
-	if (m_c > 0.f)
-		m_b = sqrt (m_orbitData.a * m_orbitData.a - m_c * m_c);
-	else
-		m_b = m_orbitData.a;
-
-	Vector3 f1 = m_soi->GetTransform()->GetPosition();
-
-	m_center = f1 - m_periapsisDir * m_c;
-
-	Vector3 v1 = m_center + (m_periapsisDir * m_orbitData.a);
-
-	float r = (v1 - f1).Magnitude();
-
-	float v = sqrtf((m_soi->GetMass()) * (2.f / r - 1.f / m_orbitData.a));
-
-	Vector3 velDir = m_periapsisDir.Cross(m_orbitalPlaneNormal);
-	Vector3 velocity = velDir * v;
-
-	Vector3 orbitPlaneNormal = ascendingNodeDir.Cross(m_periapsisDir);
-
-	transform->SetPosition(v1);
-
-	m_rb->SetVelocity(velocity);
-
-	m_t = 2.f * float(M_PI) * sqrtf(pow (m_orbitData.a, 3.f) / m_soi->GetMass());
+	// --- 6. Advance time ---
+	m_timer += Time::DeltaTime();
 }
 
 void OrbitalElement::CalculateOrbitPath()
 {
-	Vector3 u = (m_center - transform->GetPosition()).Normalized();
-	Vector3 v = u.Cross(m_orbitalPlaneNormal);
+	//Vector3 u = (m_center - transform->GetPosition()).Normalized();
+	//Vector3 v = u.Cross(m_orbitalPlaneNormal);
 
-	const float TWO_PI = 2.0 * float(M_PI);
+	//const float TWO_PI = 2.0 * float(M_PI);
 
-	for (int i = 0; i < 16; ++i)
-	{
-		float theta = TWO_PI * i / 16;
+	//for (int i = 0; i < 16; ++i)
+	//{
+	//	float theta = TWO_PI * i / 16;
 
-		Vector3 point =
-			m_center +
-			v * (m_orbitData.a * std::cosf(theta)) +
-			u * (m_b * std::sinf(theta));
+	//	Vector3 point =
+	//		m_center +
+	//		v * (m_orbitData.a * std::cosf(theta)) +
+	//		u * (m_b * std::sinf(theta));
 
-		m_orbitPath[i] = point;
-	}
+	//	m_orbitPath[i] = point;
+	//}
 }

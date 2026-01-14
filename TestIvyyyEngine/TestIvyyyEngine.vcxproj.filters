@@ -87,6 +87,9 @@
     <ClCompile Include="ReferenceFrame.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="OrbitalData.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JonasScene.h">
@@ -150,6 +153,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ReferenceFrame.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="OrbitalData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

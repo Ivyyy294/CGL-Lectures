@@ -2,6 +2,7 @@
 #include "IvyyyComponent.h"
 #include "OrbitalElementData.h"
 #include "IvyyyPhysicObject.h"
+#include "OrbitalData.h"
 
 using namespace Ivyyy;
 
@@ -10,16 +11,9 @@ class OrbitalElement :
 {
 	//Variables
 	private:
-		OrbitalElementData m_orbitData;
+		OrbitalElementData m_orbitalElementData;
+		OrbitalData m_orbitData;
 		const PhysicObject* m_soi {nullptr};
-		PhysicObject* m_rb {nullptr};
-
-		Vector3 m_center;
-		Vector3 m_orbitalPlaneNormal;
-		Vector3 m_periapsisDir;
-		float m_c = 0.f;
-		float m_b = 0.f;
-		float m_t = 0.f;
 
 		Vector3 m_orbitPath [16];
 		float m_timer = 0.f;

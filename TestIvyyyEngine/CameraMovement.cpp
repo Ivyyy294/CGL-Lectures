@@ -49,18 +49,10 @@ void CameraMovement::Update()
 		transform->SetPosition(transform->GetPosition() + direction * speed * Time::UnscaledDeltaTime());
 
 	//Time
-	float scale = Time::TimeScale();
-	float maxTimeWarp = 10.f;
-
 	if (Input::KeyPressed(Key::KEY_D))
-		scale += Time::UnscaledDeltaTime() * 2.f;
+		m_timeScale += Time::UnscaledDeltaTime();
 	if (Input::KeyPressed(Key::KEY_A))
-		scale -= Time::UnscaledDeltaTime() * 2.f;
+		m_timeScale -= Time::UnscaledDeltaTime();
 
-	if (scale > maxTimeWarp)
-		scale = maxTimeWarp;
-	if (scale < -maxTimeWarp)
-		scale = -maxTimeWarp;
-
-	Time::SetTimeScale(scale);
+	Time::SetTimeScale(m_timeScale * std::abs(m_timeScale));
 }
