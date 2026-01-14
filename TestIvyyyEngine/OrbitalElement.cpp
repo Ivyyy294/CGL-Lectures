@@ -8,6 +8,16 @@
 void OrbitalElement::Update()
 {
 	CalculateOrbit();
+
+	if (m_soi != nullptr)
+	{
+		Vector3 posOffset = m_soi->GetTransform()->GetPosition();
+
+		for (int i = 1; i < 64; ++i)
+			Draw::AddLine (posOffset + m_orbitPath[i-1], posOffset + m_orbitPath[i], Color::White);
+
+		Draw::AddLine(posOffset + m_orbitPath[0], posOffset + m_orbitPath[63], Color::White);
+	}
 }
 
 void OrbitalElement::SetOrbitalData(const OrbitalElementData& orbitData, const PhysicObject* soi)
@@ -18,33 +28,70 @@ void OrbitalElement::SetOrbitalData(const OrbitalElementData& orbitData, const P
 
 	if (m_soi != nullptr)
 	{
-		float gm = IvyyyPhysic::GravitationalConstant() * soi->GetMass();
+		float mass = soi->GetMass();
+		float gm = IvyyyPhysic::GravitationalConstant() * mass;
 		m_orbitData.n = std::sqrtf (gm / (m_orbitalElementData.a * m_orbitalElementData.a * m_orbitalElementData.a));
+		m_orbitData.t = 2.f * float(M_PI) / m_orbitData.n;
 	}
+
+	CalculateOrbitPath();
 }
 
 void OrbitalElement::CalculateOrbit()
 {
-	if (m_soi == nullptr)
+	if (m_soi == nullptr || m_orbitalElementData.e >= 1.0f)
 		return;
 
-	// --- 1. Advance mean anomaly ---
-	float meanAnomaly = m_orbitalElementData.m0 + m_orbitData.n * m_timer;
+	Vector3 pos = m_soi->GetTransform()->GetPosition() + CalculateOrbitalPositionAtTime (m_timer);
 
-	// Elliptical only
-	if (m_orbitalElementData.e >= 1.0f)
-		return;
+	transform->SetPosition(pos);
 
-	// --- 2. Solve Kepler equation ---
-	float eccentricAnomaly = meanAnomaly;
+	// --- 6. Advance time ---
+	m_timer += Time::DeltaTime();
+}
+
+void OrbitalElement::CalculateOrbitPath()
+{
+	float timeStep = m_orbitData.t / 64;
+	float time = 0.f;
+	for (int i = 0; i < 64; ++i)
+	{
+		m_orbitPath[i] = CalculateOrbitalPositionAtTime (time);
+		time += timeStep;
+	}
+}
+
+float OrbitalElement::CalculateEccentricAnomaly (float time)
+{
+	float M = (m_orbitalElementData.m0 * MathF::Deg2Rad) + m_orbitData.n * time;
+
+	// Wrap into [0, 2?]
+	M = std::fmod(M, 2.0f * float(M_PI));
+	if (M < 0.0f)
+		M += 2.0f * float(M_PI);
+
+	// --- 2. Solve Kepler's equation E - e*sin(E) = M ---
+	float E = M; // initial guess
+	const float e = m_orbitalElementData.e;
+
 	for (int iter = 0; iter < 10; ++iter)
 	{
-		float f = eccentricAnomaly
-			- m_orbitalElementData.e * std::sin(eccentricAnomaly)
-			- meanAnomaly;
-		float fp = 1.0f - m_orbitalElementData.e * std::cos(eccentricAnomaly);
-		eccentricAnomaly -= f / fp;
+		float f = E - e * std::sin(E) - M;
+		float fp = 1.0f - e * std::cos(E);
+		E -= f / fp;
 	}
+
+	// Wrap E into [0, 2?]
+	E = std::fmod(E, 2.0f * float(M_PI));
+	if (E < 0.0f)
+		E += 2.0f * float(M_PI);
+
+	return E;
+}
+
+Vector3 OrbitalElement::CalculateOrbitalPositionAtTime(float time)
+{
+	float eccentricAnomaly = CalculateEccentricAnomaly(time);
 
 	// --- 3. Position in ORBITAL PLANE (XY, Z = 0) ---
 	float a = m_orbitalElementData.a;
@@ -57,31 +104,7 @@ void OrbitalElement::CalculateOrbit()
 	);
 
 	// --- 5. Rotate into world space ---
-	Vector3 center = m_soi->GetTransform()->GetPosition() + m_orbitData.center;
-	Vector3 pos = center + m_orbitData.orientation * orbitalPosition;
+	Vector3 pos = m_orbitData.orientation * orbitalPosition;
 
-	transform->SetPosition(pos);
-
-	// --- 6. Advance time ---
-	m_timer += Time::DeltaTime();
-}
-
-void OrbitalElement::CalculateOrbitPath()
-{
-	//Vector3 u = (m_center - transform->GetPosition()).Normalized();
-	//Vector3 v = u.Cross(m_orbitalPlaneNormal);
-
-	//const float TWO_PI = 2.0 * float(M_PI);
-
-	//for (int i = 0; i < 16; ++i)
-	//{
-	//	float theta = TWO_PI * i / 16;
-
-	//	Vector3 point =
-	//		m_center +
-	//		v * (m_orbitData.a * std::cosf(theta)) +
-	//		u * (m_b * std::sinf(theta));
-
-	//	m_orbitPath[i] = point;
-	//}
+	return pos;
 }

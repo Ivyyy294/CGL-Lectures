@@ -59,7 +59,11 @@ void KeplerOrbitScene::Init()
 
 	//Earth
 	PlanetData earth {1.f, 0.15f, Color::Blue, false, {1.000003f, 0.0167086f, 0.00005f, -11.26064f, 114.20783f, 358.617f}, 97, 0.05f};
-	AddPlanet (earth, soi)->GetComponent<PhysicObject>();
+	auto earthSoi = AddPlanet (earth, soi)->GetComponent<PhysicObject>().get();
+
+	//Moon
+	PlanetData moon {1.f, 0.01f, Color::White, false, {0.1f, 0.0167086f, 0.00005f, -11.26064f, 114.20783f, 358.617f}, 97, 0.05f };
+	AddPlanet (moon, earthSoi);
 
 	//Mars
 	PlanetData mars{ 1.f, 0.1f, Color::Red, false, {1.52371f, 0.0934f, 1.63f, 49.57854f, 286.5f, 19.412f}, 156, 0.05f };
@@ -162,12 +166,6 @@ GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, V
 GameObject* KeplerOrbitScene::AddPlanet(const PlanetData& data, const PhysicObject* soi)
 {
 	auto planet = AddGameObject();
-
-	auto tracker = planet->AddComponent<TrackMovement>();
-	tracker->SetColor(data.color);
-	tracker->SetMaxLength(data.trackLength);
-	tracker->SetLineSpacing(0.25f);
-	tracker->SetLineSpacing(data.lineSpacing);
 
 	auto renderer = planet->AddComponent<MeshRenderer>();
 	renderer->SetMesh(Mesh::Sphere(16, 16));

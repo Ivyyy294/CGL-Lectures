@@ -15,7 +15,7 @@ class OrbitalElement :
 		OrbitalData m_orbitData;
 		const PhysicObject* m_soi {nullptr};
 
-		Vector3 m_orbitPath [16];
+		Vector3 m_orbitPath [64];
 		float m_timer = 0.f;
 
 	//Methods
@@ -26,5 +26,8 @@ class OrbitalElement :
 	private:
 		void CalculateOrbit();
 		void CalculateOrbitPath();
+
+		float CalculateEccentricAnomaly (float time);
+		Vector3 CalculateOrbitalPositionAtTime (float time);
 };
 

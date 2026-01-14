@@ -39,5 +39,5 @@ OrbitalData::OrbitalData(const OrbitalElementData& data)
 	Quaternion q_i = Quaternion::AroundAxis(Vector3::Up, data.i * MathF::Deg2Rad);
 	Quaternion q_w = Quaternion::AroundAxis(Vector3::Forward, data.w * MathF::Deg2Rad);
 
-	orientation = q_o * q_i * q_w;
+	orientation = (q_o * q_i * q_w);
 }

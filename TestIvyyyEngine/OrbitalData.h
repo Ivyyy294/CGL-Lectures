@@ -10,6 +10,7 @@ struct OrbitalData
 {
 	Vector3 center;
 	Quaternion orientation;
+	Vector3 periapsis;
 
 	float c = 0.f;
 	float b = 0.f;
