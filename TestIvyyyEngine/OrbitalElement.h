@@ -7,7 +7,7 @@
 using namespace Ivyyy;
 
 class OrbitalElement :
-    public Component
+	public Component
 {
 	//Variables
 	private:
@@ -26,8 +26,5 @@ class OrbitalElement :
 	private:
 		void CalculateOrbit();
 		void CalculateOrbitPath();
-
-		float CalculateEccentricAnomaly (float time);
-		Vector3 CalculateOrbitalPositionAtTime (float time);
 };
 

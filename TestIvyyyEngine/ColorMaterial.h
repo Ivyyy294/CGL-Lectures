@@ -38,7 +38,7 @@ private:
 //Methods
 public:
 	ColorMaterial();
-	bool CopyShaderParameters(ID3D11DeviceContext* deviceContext, const GlobalShaderParameters& shaderData) const override;
+	bool CopyShaderParameters(ID3D11DeviceContext* deviceContext, const GlobalRenderData& globalRenderData, const MeshRenderData& meshRenderData) const override;
 	bool InitShaderRessources(ID3D11Device* device) override;
 
 	void SetColor (Color color) {m_color = color;}

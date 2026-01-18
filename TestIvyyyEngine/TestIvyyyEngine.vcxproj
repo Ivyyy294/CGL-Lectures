@@ -27,6 +27,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="GridMaterial.cpp" />
     <ClCompile Include="JonasScene.cpp" />
+    <ClCompile Include="KeplerOrbit.cpp" />
     <ClCompile Include="KeplerOrbitScene.cpp" />
     <ClCompile Include="OrbitalData.cpp" />
     <ClCompile Include="OrbitalElement.cpp" />
@@ -39,6 +40,8 @@
     <ClCompile Include="PrefabScore.cpp" />
     <ClCompile Include="ReferenceFrame.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="SolarObject.cpp" />
+    <ClCompile Include="SolarObjectManager.cpp" />
     <ClCompile Include="SpaceCoonScene.cpp" />
     <ClCompile Include="TrackMovement.cpp" />
     <ClCompile Include="TreeScene.cpp" />
@@ -51,6 +54,7 @@
     <ClInclude Include="DebugInfo.h" />
     <ClInclude Include="GridMaterial.h" />
     <ClInclude Include="JonasScene.h" />
+    <ClInclude Include="KeplerOrbit.h" />
     <ClInclude Include="KeplerOrbitScene.h" />
     <ClInclude Include="OrbitalData.h" />
     <ClInclude Include="OrbitalElement.h" />
@@ -63,6 +67,8 @@
     <ClInclude Include="PrefabScore.h" />
     <ClInclude Include="ReferenceFrame.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="SolarObject.h" />
+    <ClInclude Include="SolarObjectManager.h" />
     <ClInclude Include="SpaceCoonScene.h" />
     <ClInclude Include="TrackMovement.h" />
     <ClInclude Include="TreeScene.h" />

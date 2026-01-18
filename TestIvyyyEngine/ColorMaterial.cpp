@@ -94,7 +94,7 @@ void ColorMaterial::ShutdownShaderRessources()
 	}
 }
 
-bool ColorMaterial::CopyShaderParameters(ID3D11DeviceContext* deviceContext, const GlobalShaderParameters& shaderData) const
+bool ColorMaterial::CopyShaderParameters(ID3D11DeviceContext* deviceContext, const GlobalRenderData& globalRenderData, const MeshRenderData& meshRenderData) const
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -103,9 +103,9 @@ bool ColorMaterial::CopyShaderParameters(ID3D11DeviceContext* deviceContext, con
 	unsigned int bufferNumber;
 
 	// Transpose the matrices to prepare them for the shader.
-	XMMATRIX worldMatrix = XMMatrixTranspose(shaderData.m_worldMatrix);
-	XMMATRIX viewMatrix = XMMatrixTranspose(shaderData.m_viewMatrix);
-	XMMATRIX projectionMatrix = XMMatrixTranspose(shaderData.m_projectionMatrix);
+	XMMATRIX worldMatrix = XMMatrixTranspose(meshRenderData.worldMatrix);
+	XMMATRIX viewMatrix = XMMatrixTranspose(globalRenderData.viewMatrix);
+	XMMATRIX projectionMatrix = meshRenderData.perspective ? XMMatrixTranspose(globalRenderData.projectionMatrix) : XMMatrixTranspose(globalRenderData.orthographicMatrix);
 
 	// Lock the constant buffer so it can be written to.
 	result = deviceContext->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
@@ -143,8 +143,8 @@ bool ColorMaterial::CopyShaderParameters(ID3D11DeviceContext* deviceContext, con
 	dataPtr2 = (LightBufferType*)mappedResource.pData;
 
 	// Copy the lighting variables into the constant buffer.
-	Color diffuseColor = shaderData.m_light != nullptr ? shaderData.m_light->GetColor() : Color{ 0.f, 0.f , 0.f , 0.f };
-	Vector3 lightDirection = shaderData.m_light != nullptr ? shaderData.m_light->GetDirection() : Vector3::Up;
+	Color diffuseColor = globalRenderData.directionalLight.color;
+	Vector3 lightDirection = globalRenderData.directionalLight.direction;
 
 	dataPtr2->diffuseColor = XMFLOAT4(diffuseColor.r, diffuseColor.g, diffuseColor.b, diffuseColor.a);
 	dataPtr2->lightDirection = XMFLOAT3(lightDirection.x, lightDirection.y, lightDirection.z);

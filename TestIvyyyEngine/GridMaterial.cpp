@@ -32,9 +32,9 @@ bool GridMaterial::InitShaderRessources(ID3D11Device* device)
 	return true;
 }
 
-bool GridMaterial::CopyShaderParameters(ID3D11DeviceContext* deviceContext, const GlobalShaderParameters& shaderData) const
+bool GridMaterial::CopyShaderParameters(ID3D11DeviceContext* deviceContext, const GlobalRenderData& globalRenderData, const MeshRenderData& meshRenderData) const
 {
-	HRESULT result = CopyMatrixBuffer (deviceContext, shaderData);
+	HRESULT result = CopyMatrixBuffer (deviceContext, globalRenderData, meshRenderData);
 
 	if (FAILED(result))
 		return false;
@@ -109,14 +109,14 @@ HRESULT GridMaterial::CreateMatrixBuffer(ID3D11Device* device)
 	return device->CreateBuffer(&bufferDesc, NULL, &m_matrixBuffer);
 }
 
-HRESULT GridMaterial::CopyMatrixBuffer(ID3D11DeviceContext* deviceContext, const GlobalShaderParameters& shaderData) const
+HRESULT GridMaterial::CopyMatrixBuffer(ID3D11DeviceContext* deviceContext, const GlobalRenderData& globalRenderData, const MeshRenderData& meshRenderData) const
 {
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 
 	// Transpose the matrices to prepare them for the shader.
-	XMMATRIX worldMatrix = XMMatrixTranspose(shaderData.m_worldMatrix);
-	XMMATRIX viewMatrix = XMMatrixTranspose(shaderData.m_viewMatrix);
-	XMMATRIX projectionMatrix = XMMatrixTranspose(shaderData.m_projectionMatrix);
+	XMMATRIX worldMatrix = XMMatrixTranspose(meshRenderData.worldMatrix);
+	XMMATRIX viewMatrix = XMMatrixTranspose(globalRenderData.viewMatrix);
+	XMMATRIX projectionMatrix = XMMatrixTranspose(globalRenderData.projectionMatrix);
 
 	// Lock the constant buffer so it can be written to.
 	HRESULT result = deviceContext->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);

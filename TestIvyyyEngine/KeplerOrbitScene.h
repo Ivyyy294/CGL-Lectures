@@ -3,6 +3,7 @@
 #include "IvyyyColor.h"
 #include "PlanetData.h"
 #include "IvyyyPhysicObject.h"
+#include "SolarObject.h"
 
 using namespace Ivyyy;
 
@@ -11,10 +12,6 @@ class KeplerOrbitScene :
 {
 	private:
 		void Init() override;
-
-		GameObject* AddPlanet (float mass, bool isStatic, float size, Vector3 position
-			, Color color);
-
-		GameObject* AddPlanet(const PlanetData& data, const PhysicObject* soi);
+		void SpawnSolarObjects (SolarObject& root);
 	};
 

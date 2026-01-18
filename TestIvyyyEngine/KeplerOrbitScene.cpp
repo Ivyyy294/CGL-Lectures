@@ -17,6 +17,8 @@
 #include "OrbitalElement.h"
 
 #include "KeplerOrbitScene.h"
+#include "SolarObject.h"
+#include "SolarObjectManager.h"
 
 void KeplerOrbitScene::Init()
 {
@@ -38,150 +40,139 @@ void KeplerOrbitScene::Init()
 	fontRenderer->SetSize(Vector2(512.f, 100.f));
 	ui->AddComponent <DebugInfo>();
 
-	PhysicObject* soi = nullptr;
-	//Sun
-	{
-		auto sun = AddPlanet(1.f, true, 0.3f, Vector3::Zero, Color::Yellow);
-		soi = sun->GetComponent<PhysicObject>().get();
-	}
+	SolarObject sun;
+	sun.planetData = {1.f, 0.3f, Color::Yellow};
+	sun.orbitalElement = {};
 
-	//TestPlanet
-	//PlanetData testPlanet{ 1.f, 0.1f, { 1.f, 1.f, 1.f, 1.0f }, false, {1.0, 0.2f, 45.0f, 90.0f, 45.0f}, 100, 0.05f };
-	//AddPlanet(testPlanet, soi);
+	SolarObject mercury;
+	mercury.planetData = { 1.f, 0.1f, { 1.f, 0.5f, 0.f, 1.0f }};
+	mercury.orbitalElement = { 0.387098f, 0.205630f, 6.35f, 48.331f, 29.124f, 174.796f };
+	sun.children.push_back(mercury);
 
-	//Mercury
-	PlanetData mercury{ 1.f, 0.1f, { 1.f, 0.5f, 0.f, 1.0f }, false, {0.387098f, 0.205630f, 6.35f, 48.331f, 29.124f, 174.796f}, 34, 0.1f };
-	AddPlanet(mercury, soi);
+	SolarObject venus;
+	venus.planetData = { 1.f, 0.15f, { 1.f, 0.83f, 0.57f, 1.0f } };
+	venus.orbitalElement = { 0.723332f, 0.006772f, 2.15f, 76.680f, 54.884f, 50.115f };
+	sun.children.push_back(venus);
 
-	//Venus
-	PlanetData venus {1.f, 0.15f, { 1.f, 0.83f, 0.57f, 1.0f }, false, {0.723332f, 0.006772f, 2.15f, 76.680f, 54.884f, 50.115f}, 59, 0.05f};
-	AddPlanet(venus, soi);
+	SolarObject earth;
+	earth.planetData = { 1.f, 0.15f, Color::Blue };
+	earth.orbitalElement = { 1.000003f, 0.0167086f, 0.00005f, -11.26064f, 114.20783f, 358.617f };
+	sun.children.push_back(earth);
 
-	//Earth
-	PlanetData earth {1.f, 0.15f, Color::Blue, false, {1.000003f, 0.0167086f, 0.00005f, -11.26064f, 114.20783f, 358.617f}, 97, 0.05f};
-	auto earthSoi = AddPlanet (earth, soi)->GetComponent<PhysicObject>().get();
+	SolarObject moon;
+	moon.planetData = { 1.f, 0.01f, Color::White};
+	moon.orbitalElement = { 0.1f, 0.0167086f, 0.00005f, -11.26064f, 114.20783f, 358.617f };
+	earth.children.push_back (moon);
 
-	//Moon
-	PlanetData moon {1.f, 0.01f, Color::White, false, {0.1f, 0.0167086f, 0.00005f, -11.26064f, 114.20783f, 358.617f}, 97, 0.05f };
-	AddPlanet (moon, earthSoi);
+	SolarObject mars;
+	mars.planetData = { 1.f, 0.1f, Color::Red };
+	mars.orbitalElement = { 1.52371f, 0.0934f, 1.63f, 49.57854f, 286.5f, 19.412f };
+	sun.children.push_back(mars);
 
-	//Mars
-	PlanetData mars{ 1.f, 0.1f, Color::Red, false, {1.52371f, 0.0934f, 1.63f, 49.57854f, 286.5f, 19.412f}, 156, 0.05f };
-	AddPlanet(mars, soi);
+	SolarObject jupiter;
+	jupiter.planetData = { 1.f, 0.89f, { 1.f, 0.8f, 0.6f, 1.0f } };
+	jupiter.orbitalElement = { 5.2029f, 0.0489f, 0.32f, 100.464f, 273.867f, 20.020f };
+	sun.children.push_back(jupiter);
 
-	//Jupiter
-	PlanetData jupiter{ 1.f, 0.89f, { 1.f, 0.8f, 0.6f, 1.0f }, false, {5.2029f, 0.0489f, 0.32f, 100.464f, 273.867f, 20.020f}, 300, 0.2f };
-	AddPlanet(jupiter, soi);
+	SolarObject saturn;
+	saturn.planetData = { 1.f, 0.74f, { 1.f, 1.f, 0.6f, 1.0f } };
+	saturn.planetData.rings = { 0.4f, 0.42f, 0.43f, 0.46f, 0.48f, 0.51f, 0.53f, 0.55f };
+	saturn.orbitalElement = { 9.537f, 0.0565f, 0.93f, 113.665f, 339.392f, 317.020f };
+	sun.children.push_back(saturn);
 
-	//Saturn
-	PlanetData saturn{ 1.f, 0.74f, { 1.f, 1.f, 0.6f, 1.0f }, false, {9.537f, 0.0565f, 0.93f, 113.665f, 339.392f, 317.020f}, 500, 0.1f };
-	auto saturnRings = AddPlanet(saturn, soi)->AddComponent<PlanetRings>();
-	saturnRings->SetColor({ 1.f, 1.f, 0.6f, 1.0f });
-	saturnRings->SetRings ({0.4f, 0.42f, 0.43f, 0.46f, 0.48f, 0.51f, 0.53f, 0.55f});
+	SolarObject uranus;
+	uranus.planetData = { 1.f, 0.32f, { 0.47f, 0.78f, 0.8f, 1.0f } };
+	uranus.orbitalElement = { 19.189f, 0.04717f, 0.99f, 74.006f, 96.998857f, 142.238600f };
+	sun.children.push_back(uranus);
 
-	//Uranus
-	PlanetData uranus{ 1.f, 0.32f, { 0.47f, 0.78f, 0.8f, 1.0f }, false, {19.189f, 0.04717f, 0.99f, 74.006f, 96.998857f, 142.238600f}, 300, 0.1f };
-	AddPlanet(uranus, soi);
+	SolarObject neptun;
+	neptun.planetData = { 1.f, 0.31f, { 0.57f, 0.8f, 0.94f, 1.0f } };
+	neptun.orbitalElement = { 30.0699f, 0.008678f, 0.74f, 131.783f, 273.187f, 259.883f };
+	sun.children.push_back(neptun);
 
-	//Neptun
-	PlanetData neptun{ 1.f, 0.31f, { 0.57f, 0.8f, 0.94f, 1.0f }, false, {30.0699f, 0.008678f, 0.74f, 131.783f, 273.187f, 259.883f}, 300, 0.1f };
-	AddPlanet(neptun, soi);
+	SolarObject pluto;
+	neptun.planetData = { 1.f, 0.05f, { 0.4f, 0.34f, 0.30f, 1.0f } };
+	neptun.orbitalElement = { 39.482f, 0.2488f, 17.16f, 110.299f, 113.834f, 14.53f };
+	sun.children.push_back(neptun);
 
-	//Pluto
-	PlanetData pluto{ 1.f, 0.05f, { 0.4f, 0.34f, 0.30f, 1.0f }, false, {39.482f, 0.2488f, 17.16f, 110.299f, 113.834f, 14.53f}, 300, 0.1f };
-	AddPlanet(pluto, soi);
+	SpawnSolarObjects(sun);
 
+	auto som = AddGameObject()->AddComponent<SolarObjectManager>();
+	som->SetSolarObject(sun);
 
-	//Kupier Belt
-	if (drawAsteroids)
-	{
-		std::random_device rd; // obtain a random number from hardware
-		std::mt19937 gen(rd()); // seed the generator
-		std::uniform_int_distribution<> smaRnd(25, 35); // define the range
-		std::uniform_int_distribution<> eRnd(0, 5); // define the range
-		std::uniform_int_distribution<> iRnd(-10, 10); // define the range
-		std::uniform_int_distribution<> oRnd(0, 360); // define the range
-		std::uniform_int_distribution<> wRnd(0, 360); // define the range
+	////Kupier Belt
+	//if (drawAsteroids)
+	//{
+	//	std::random_device rd; // obtain a random number from hardware
+	//	std::mt19937 gen(rd()); // seed the generator
+	//	std::uniform_int_distribution<> smaRnd(25, 35); // define the range
+	//	std::uniform_int_distribution<> eRnd(0, 5); // define the range
+	//	std::uniform_int_distribution<> iRnd(-10, 10); // define the range
+	//	std::uniform_int_distribution<> oRnd(0, 360); // define the range
+	//	std::uniform_int_distribution<> wRnd(0, 360); // define the range
 
-		for (int j = 0; j < 300; ++j)
-		{
-			float sma = smaRnd(gen) * 0.1f;
-			float e = eRnd(gen) * 0.1f;
-			float i = float (iRnd(gen));
-			float o = float (oRnd(gen));
-			float w = float (wRnd(gen));
+	//	for (int j = 0; j < 300; ++j)
+	//	{
+	//		float sma = smaRnd(gen) * 0.1f;
+	//		float e = eRnd(gen) * 0.1f;
+	//		float i = float (iRnd(gen));
+	//		float o = float (oRnd(gen));
+	//		float w = float (wRnd(gen));
 
-			PlanetData asteroid{ 1.f, 0.025f, { 0.3f, 0.3f, 0.3f, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
-			AddPlanet (asteroid, soi);
-		}
-	}
+	//		PlanetData asteroid{ 1.f, 0.025f, { 0.3f, 0.3f, 0.3f, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
+	//		AddPlanet (asteroid, soi);
+	//	}
+	//}
 
-	//Outer belt
-	if (drawAsteroids)
-	{
-		std::random_device rd; // obtain a random number from hardware
-		std::mt19937 gen(rd()); // seed the generator
-		std::uniform_int_distribution<> smaRnd(350, 400); // define the range
-		std::uniform_int_distribution<> eRnd(0, 5); // define the range
-		std::uniform_int_distribution<> iRnd(-10, 10); // define the range
-		std::uniform_int_distribution<> oRnd(0, 360); // define the range
-		std::uniform_int_distribution<> wRnd(0, 360); // define the range
-		std::uniform_int_distribution<> sizeRnd(25, 200); // define the range
+	////Outer belt
+	//if (drawAsteroids)
+	//{
+	//	std::random_device rd; // obtain a random number from hardware
+	//	std::mt19937 gen(rd()); // seed the generator
+	//	std::uniform_int_distribution<> smaRnd(350, 400); // define the range
+	//	std::uniform_int_distribution<> eRnd(0, 5); // define the range
+	//	std::uniform_int_distribution<> iRnd(-10, 10); // define the range
+	//	std::uniform_int_distribution<> oRnd(0, 360); // define the range
+	//	std::uniform_int_distribution<> wRnd(0, 360); // define the range
+	//	std::uniform_int_distribution<> sizeRnd(25, 200); // define the range
 
-		for (int j = 0; j < 1000; ++j)
-		{
-			float sma = smaRnd(gen) * 0.1f;
-			float e = eRnd(gen) * 0.1f;
-			float i = float (iRnd(gen));
-			float o = float (oRnd(gen));
-			float w = float (wRnd(gen));
-			float size = sizeRnd (gen) * 0.001f;
+	//	for (int j = 0; j < 1000; ++j)
+	//	{
+	//		float sma = smaRnd(gen) * 0.1f;
+	//		float e = eRnd(gen) * 0.1f;
+	//		float i = float (iRnd(gen));
+	//		float o = float (oRnd(gen));
+	//		float w = float (wRnd(gen));
+	//		float size = sizeRnd (gen) * 0.001f;
 
-			PlanetData star{ 1.f, size, { 0.3f, 0.3f, 0.3f, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
-			AddPlanet(star, soi);
-		}
-	}
+	//		PlanetData star{ 1.f, size, { 0.3f, 0.3f, 0.3f, 1.0f }, false, {sma, e, i, o, w}, 0, 0.05f };
+	//		AddPlanet(star, soi);
+	//	}
+	//}
 }
 
-GameObject* KeplerOrbitScene::AddPlanet(float mass, bool isStatic, float size, Vector3 position, Color color)
+void KeplerOrbitScene::SpawnSolarObjects(SolarObject& root)
 {
 	auto planet = AddGameObject();
 
 	auto renderer = planet->AddComponent<MeshRenderer>();
 	renderer->SetMesh(Mesh::Sphere(16, 16));
 	auto mat = std::make_shared<ColorMaterial>();
-	mat->SetColor(color);
+	mat->SetColor(root.planetData.color);
 	renderer->SetMaterial(mat);
 
-	planet->transform.SetPosition(position);
-	planet->transform.SetLocalScale({ size, size, size });
-
-	auto rb = planet->AddComponent<PhysicObject>();
-	rb->SetStatic(isStatic);
-	rb->SetMass(mass);
-
-	return planet;
-}
-
-GameObject* KeplerOrbitScene::AddPlanet(const PlanetData& data, const PhysicObject* soi)
-{
-	auto planet = AddGameObject();
-
-	auto renderer = planet->AddComponent<MeshRenderer>();
-	renderer->SetMesh(Mesh::Sphere(16, 16));
-	auto mat = std::make_shared<ColorMaterial>();
-	mat->SetColor(data.color);
-	renderer->SetMaterial(mat);
-
-	float scale = data.radius;
+	float scale = root.planetData.radius;
 	planet->transform.SetLocalScale({ scale, scale, scale });
 
-	auto rb = planet->AddComponent<PhysicObject>();
-	rb->SetStatic(data.isStatic);
-	rb->SetMass(data.mass);
+	if (root.planetData.rings.size() > 0)
+	{
+		auto rings = planet->AddComponent<PlanetRings>();
+		rings->SetColor (root.planetData.color);
+		rings->SetRings (root.planetData.rings);
+	}
 
-	auto oe = planet->AddComponent<OrbitalElement>();
-	oe->SetOrbitalData (data.orbit, soi);
+	root.gameObject = planet;
 
-	return planet;
+	for (size_t i = 0; i < root.children.size(); ++i)
+		SpawnSolarObjects (root.children[i]);
 }

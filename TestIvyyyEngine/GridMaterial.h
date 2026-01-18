@@ -14,7 +14,7 @@ private:
 public:
 	GridMaterial();
 	bool InitShaderRessources(ID3D11Device* device) override;
-	bool CopyShaderParameters(ID3D11DeviceContext* deviceContext, const GlobalShaderParameters& shaderData) const override;
+	bool CopyShaderParameters(ID3D11DeviceContext* deviceContext, const GlobalRenderData& globalRenderData, const MeshRenderData& meshRenderData) const override;
 
 protected:
 	void ShutdownShaderRessources() override;
@@ -22,6 +22,6 @@ protected:
 private:
 	HRESULT CreateInputLayout (ID3D11Device* device);
 	HRESULT CreateMatrixBuffer (ID3D11Device* device);
-	HRESULT CopyMatrixBuffer (ID3D11DeviceContext* deviceContext, const GlobalShaderParameters& shaderData) const;
+	HRESULT CopyMatrixBuffer (ID3D11DeviceContext* deviceContext, const GlobalRenderData& globalRenderData, const MeshRenderData& meshRenderData) const;
 };
 
